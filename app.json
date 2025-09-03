@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "parcel-client-app",
+    "name": "Parcel Express",
     "slug": "parcel-client-app",
+    "owner": "parcel-express",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -9,14 +10,16 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "ge.parcelexpress.clientapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#672D91"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "ge.parcelexpress.clientapp"
     },
     "web": {
       "bundler": "metro",
@@ -31,13 +34,19 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#672D91"
         }
       ],
       "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "19a5a658-cc31-49f3-a430-ed51a3464cff"
+      }
     }
   }
 }

@@ -17,6 +17,9 @@
     "support": "Support",
     "profile": "Profile"
   },
+  "home": {
+    "welcome": "Welcome to Parcel Express! Your reliable courier service."
+  },
   "profile": {
     "title": "Profile",
     "menu": {
@@ -33,5 +36,13 @@
     "contact": {
       "online": "Online"
     }
+  },
+  "common": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "back": "Back"
   }
 }

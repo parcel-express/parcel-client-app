@@ -1,5 +1,5 @@
 {
-  "name": "parcel-client-app",
+  "name": "parcel-express-client-app",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {

@@ -17,6 +17,9 @@
     "support": "ჩათი",
     "profile": "პროფილი"
   },
+  "home": {
+    "welcome": "მოგესალმებით Parcel Express-ში! თქვენი სანდო კურიერული სერვისი."
+  },
   "profile": {
     "title": "პროფილი",
     "menu": {
@@ -33,5 +36,13 @@
     "contact": {
       "online": "Online"
     }
+  },
+  "common": {
+    "cancel": "გაუქმება",
+    "save": "შენახვა",
+    "delete": "წაშლა",
+    "edit": "რედაქტირება",
+    "add": "დამატება",
+    "back": "უკან"
   }
 }
