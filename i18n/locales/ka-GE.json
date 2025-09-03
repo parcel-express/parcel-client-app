@@ -1,3 +1,37 @@
 {
-  "language": "ენა"
+  "language": "ენა",
+  "splash": {
+    "welcome": "კეთილი იყოს თქვენი მობრძანება",
+    "loading": "ჩატვირთვა..."
+  },
+  "auth": {
+    "login": "შესვლა",
+    "register": "რეგისტრაცია",
+    "forgotPassword": "პაროლი დამავიწყდა",
+    "guestOrder": "სტუმრის რეჟიმი"
+  },
+  "tabs": {
+    "home": "მთავარი",
+    "orders": "შეკვეთები",
+    "newOrder": "ახალი შეკვეთა",
+    "support": "ჩათი",
+    "profile": "პროფილი"
+  },
+  "profile": {
+    "title": "პროფილი",
+    "menu": {
+      "conditions": "პირობები",
+      "invoices": "ინვოისები",
+      "analytics": "ანალიტიკა",
+      "tariffs": "ტარიფები",
+      "myAddresses": "ჩემი მისამართები",
+      "settings": "პარამეტრები",
+      "easyAuth": "მარტივი ავტორიზაცია",
+      "contact": "კონტაქტი",
+      "logout": "გასვლა"
+    },
+    "contact": {
+      "online": "Online"
+    }
+  }
 }

@@ -4,13 +4,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 
-export default function HomeScreen() {
+export default function SettingsScreen() {
   const { t } = useTranslation();
 
   return (
     <ThemedView style={styles.container}>
       <ThemedText style={styles.title}>
-        {t('tabs.home')}
+        {t('profile.menu.settings')}
       </ThemedText>
     </ThemedView>
   );
