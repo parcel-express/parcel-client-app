@@ -9,9 +9,7 @@ export default function AnalyticsScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText style={styles.title}>
-        {t('profile.menu.analytics')}
-      </ThemedText>
+      <ThemedText style={styles.title}>{t('profile.menu.analytics')}</ThemedText>
     </ThemedView>
   );
 }

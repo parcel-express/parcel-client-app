@@ -9,9 +9,7 @@ export default function NewOrderScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText style={styles.title}>
-        {t('tabs.newOrder')}
-      </ThemedText>
+      <ThemedText style={styles.title}>{t('tabs.newOrder')}</ThemedText>
     </ThemedView>
   );
 }

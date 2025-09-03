@@ -9,9 +9,7 @@ export default function AddressesScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText style={styles.title}>
-        {t('profile.menu.myAddresses')}
-      </ThemedText>
+      <ThemedText style={styles.title}>{t('profile.menu.myAddresses')}</ThemedText>
     </ThemedView>
   );
 }

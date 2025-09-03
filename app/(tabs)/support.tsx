@@ -9,9 +9,7 @@ export default function SupportScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText style={styles.title}>
-        {t('tabs.support')}
-      </ThemedText>
+      <ThemedText style={styles.title}>{t('tabs.support')}</ThemedText>
     </ThemedView>
   );
 }

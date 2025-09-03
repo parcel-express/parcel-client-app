@@ -9,9 +9,7 @@ export default function EasyAuthScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText style={styles.title}>
-        {t('profile.menu.easyAuth')}
-      </ThemedText>
+      <ThemedText style={styles.title}>{t('profile.menu.easyAuth')}</ThemedText>
     </ThemedView>
   );
 }

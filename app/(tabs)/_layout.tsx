@@ -1,7 +1,7 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { Platform } from 'react-native';
 
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
@@ -27,41 +27,43 @@ export default function TabLayout() {
           },
           default: {},
         }),
-      }}>
+      }}
+    >
       <Tabs.Screen
-        name="index"
+        name='index'
         options={{
           title: t('tabs.home'),
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name='house.fill' color={color} />,
         }}
       />
       <Tabs.Screen
-        name="orders"
+        name='orders'
         options={{
           title: t('tabs.orders'),
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="list.clipboard.fill" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name='list.clipboard.fill' color={color} />
+          ),
         }}
       />
       <Tabs.Screen
-        name="new-order"
+        name='new-order'
         options={{
           title: t('tabs.newOrder'),
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="plus.circle.fill" color={color} />,
-          presentation: 'modal',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name='plus.circle.fill' color={color} />,
         }}
       />
       <Tabs.Screen
-        name="support"
+        name='support'
         options={{
           title: t('tabs.support'),
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="bubble.left.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name='bubble.left.fill' color={color} />,
         }}
       />
       <Tabs.Screen
-        name="(profile)"
+        name='(profile)'
         options={{
           title: t('tabs.profile'),
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name='person.fill' color={color} />,
         }}
       />
     </Tabs>

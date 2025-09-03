@@ -13,15 +13,11 @@ export default function HomeScreen() {
       <View style={styles.languageContainer}>
         <Language />
       </View>
-      
+
       <View style={styles.content}>
-        <ThemedText style={styles.title}>
-          {t('tabs.home')}
-        </ThemedText>
-        
-        <ThemedText style={styles.subtitle}>
-          {t('home.welcome')}
-        </ThemedText>
+        <ThemedText style={styles.title}>{t('tabs.home')}</ThemedText>
+
+        <ThemedText style={styles.subtitle}>{t('home.welcome')}</ThemedText>
       </View>
     </ThemedView>
   );

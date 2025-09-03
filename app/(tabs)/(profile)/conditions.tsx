@@ -9,9 +9,7 @@ export default function ConditionsScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText style={styles.title}>
-        {t('profile.menu.conditions')}
-      </ThemedText>
+      <ThemedText style={styles.title}>{t('profile.menu.conditions')}</ThemedText>
     </ThemedView>
   );
 }

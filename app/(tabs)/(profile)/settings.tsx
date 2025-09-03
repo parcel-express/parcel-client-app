@@ -9,9 +9,7 @@ export default function SettingsScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText style={styles.title}>
-        {t('profile.menu.settings')}
-      </ThemedText>
+      <ThemedText style={styles.title}>{t('profile.menu.settings')}</ThemedText>
     </ThemedView>
   );
 }

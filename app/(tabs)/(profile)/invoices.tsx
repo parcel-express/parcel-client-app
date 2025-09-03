@@ -9,9 +9,7 @@ export default function InvoicesScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText style={styles.title}>
-        {t('profile.menu.invoices')}
-      </ThemedText>
+      <ThemedText style={styles.title}>{t('profile.menu.invoices')}</ThemedText>
     </ThemedView>
   );
 }

@@ -1,13 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Modal,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 import { ThemedText } from './ThemedText';
 import { ThemedView } from './ThemedView';
 
@@ -39,55 +33,41 @@ export function Language() {
 
   return (
     <View style={styles.container}>
-      <Pressable
-        style={styles.languageButton}
-        onPress={() => setModalVisible(true)}
-      >
+      <Pressable style={styles.languageButton} onPress={() => setModalVisible(true)}>
         <Text style={styles.flag}>{currentLanguage.flag}</Text>
-        <ThemedText style={styles.languageText}>
-          {currentLanguage.name}
-        </ThemedText>
+        <ThemedText style={styles.languageText}>{currentLanguage.name}</ThemedText>
         <ThemedText style={styles.arrow}>▼</ThemedText>
       </Pressable>
 
       <Modal
-        animationType="slide"
+        animationType='slide'
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalOverlay}>
           <ThemedView style={styles.modalContent}>
-            <ThemedText style={styles.modalTitle}>
-              {t('language')}
-            </ThemedText>
-            
-            {languages.map((language) => (
+            <ThemedText style={styles.modalTitle}>{t('language')}</ThemedText>
+
+            {languages.map(language => (
               <Pressable
                 key={language.code}
                 style={[
                   styles.languageOption,
-                  language.code === i18n.language && styles.selectedLanguage
+                  language.code === i18n.language && styles.selectedLanguage,
                 ]}
                 onPress={() => changeLanguage(language.code)}
               >
                 <Text style={styles.optionFlag}>{language.flag}</Text>
-                <ThemedText style={styles.optionText}>
-                  {language.name}
-                </ThemedText>
+                <ThemedText style={styles.optionText}>{language.name}</ThemedText>
                 {language.code === i18n.language && (
                   <ThemedText style={styles.checkmark}>✓</ThemedText>
                 )}
               </Pressable>
             ))}
 
-            <Pressable
-              style={styles.closeButton}
-              onPress={() => setModalVisible(false)}
-            >
-              <ThemedText style={styles.closeButtonText}>
-                {t('common.cancel')}
-              </ThemedText>
+            <Pressable style={styles.closeButton} onPress={() => setModalVisible(false)}>
+              <ThemedText style={styles.closeButtonText}>{t('common.cancel')}</ThemedText>
             </Pressable>
           </ThemedView>
         </View>

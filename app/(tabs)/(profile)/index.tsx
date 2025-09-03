@@ -3,13 +3,7 @@ import { ThemedView } from '@/components/ThemedView';
 import { router } from 'expo-router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  ScrollView,
-  StyleSheet,
-  Pressable,
-  View,
-  Alert,
-} from 'react-native';
+import { ScrollView, StyleSheet, Pressable, View, Alert } from 'react-native';
 
 const getProfileMenuItems = (t: any) => [
   {
@@ -68,39 +62,31 @@ export default function ProfileScreen() {
   const profileMenuItems = getProfileMenuItems(t);
 
   const handleLogout = () => {
-    Alert.alert(
-      t('profile.menu.logout'),
-      'Are you sure you want to logout?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
+    Alert.alert(t('profile.menu.logout'), 'Are you sure you want to logout?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: t('profile.menu.logout'),
+        style: 'destructive',
+        onPress: () => {
+          // TODO: Implement logout logic
+          router.replace('/(auth)/login');
         },
-        {
-          text: t('profile.menu.logout'),
-          style: 'destructive',
-          onPress: () => {
-            // TODO: Implement logout logic
-            router.replace('/(auth)/login');
-          },
-        },
-      ]
-    );
+      },
+    ]);
   };
 
   const renderMenuItem = (item: any, index: number) => (
     <Pressable key={index} style={styles.menuItem} onPress={item.action}>
       <View style={styles.menuItemContent}>
-        <ThemedText style={styles.menuItemTitle}>
-          {t(item.titleKey)}
-        </ThemedText>
+        <ThemedText style={styles.menuItemTitle}>{t(item.titleKey)}</ThemedText>
         {item.showBadge && (
           <View style={styles.badgeContainer}>
             <View style={styles.badge}>
               <View style={styles.onlineDot} />
-              <ThemedText style={styles.badgeText}>
-                {t('profile.contact.online')}
-              </ThemedText>
+              <ThemedText style={styles.badgeText}>{t('profile.contact.online')}</ThemedText>
             </View>
           </View>
         )}
@@ -113,9 +99,7 @@ export default function ProfileScreen() {
     <ThemedView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.header}>
-          <ThemedText style={styles.title}>
-            {t('profile.title')}
-          </ThemedText>
+          <ThemedText style={styles.title}>{t('profile.title')}</ThemedText>
         </View>
 
         <View style={styles.userSection}>
@@ -131,12 +115,10 @@ export default function ProfileScreen() {
 
         <View style={styles.menuSection}>
           {profileMenuItems.map(renderMenuItem)}
-          
+
           <Pressable style={styles.menuItem} onPress={handleLogout}>
             <View style={styles.menuItemContent}>
-              <ThemedText style={styles.menuItemTitle}>
-                {t('profile.menu.logout')}
-              </ThemedText>
+              <ThemedText style={styles.menuItemTitle}>{t('profile.menu.logout')}</ThemedText>
             </View>
             <ThemedText style={styles.menuItemArrow}>›</ThemedText>
           </Pressable>

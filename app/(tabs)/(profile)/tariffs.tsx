@@ -9,9 +9,7 @@ export default function TariffsScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText style={styles.title}>
-        {t('profile.menu.tariffs')}
-      </ThemedText>
+      <ThemedText style={styles.title}>{t('profile.menu.tariffs')}</ThemedText>
     </ThemedView>
   );
 }
