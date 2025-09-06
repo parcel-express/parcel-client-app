@@ -1,9 +1,10 @@
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
 import { router } from 'expo-router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, StyleSheet, Pressable, View, Alert } from 'react-native';
+import { Alert, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
 
 const getProfileMenuItems = (t: any) => [
   {

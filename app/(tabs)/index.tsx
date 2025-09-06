@@ -1,9 +1,10 @@
-import { Language } from '@/components/Language';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
+
+import { Language } from '@/components/Language';
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
 
 export default function HomeScreen() {
   const { t } = useTranslation();
