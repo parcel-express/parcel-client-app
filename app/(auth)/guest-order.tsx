@@ -21,7 +21,7 @@ export default function GuestOrderScreen() {
         <ThemedText style={styles.title}>{t('auth.guestOrder')}</ThemedText>
 
         <ThemedText style={styles.description}>
-          Place an order as a guest. You won't be able to track your order history.
+          Place an order as a guest. You won&apos;t be able to track your order history.
         </ThemedText>
 
         <TextInput style={styles.input} placeholder='Full Name' autoCapitalize='words' />

@@ -11,7 +11,6 @@ export default function ForgotPasswordScreen() {
 
   const handleResetPassword = () => {
     // TODO: Implement password reset logic
-    console.log('Password reset requested');
   };
 
   return (
@@ -20,7 +19,7 @@ export default function ForgotPasswordScreen() {
         <ThemedText style={styles.title}>{t('auth.forgotPassword')}</ThemedText>
 
         <ThemedText style={styles.description}>
-          Enter your email address and we'll send you a link to reset your password.
+          Enter your email address and we&apos;ll send you a link to reset your password.
         </ThemedText>
 
         <TextInput
