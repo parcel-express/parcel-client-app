@@ -6,7 +6,7 @@ import { Alert, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
-const getProfileMenuItems = (t: any) => [
+const getProfileMenuItems = () => [
   {
     titleKey: 'profile.menu.conditions',
     action: () => {
@@ -60,7 +60,7 @@ const getProfileMenuItems = (t: any) => [
 
 export default function ProfileScreen() {
   const { t } = useTranslation();
-  const profileMenuItems = getProfileMenuItems(t);
+  const profileMenuItems = getProfileMenuItems();
 
   const handleLogout = () => {
     Alert.alert(t('profile.menu.logout'), 'Are you sure you want to logout?', [

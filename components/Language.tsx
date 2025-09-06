@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
+
 import { ThemedText } from './ThemedText';
 import { ThemedView } from './ThemedView';
 
@@ -16,7 +17,7 @@ export function Language() {
 
   const getCurrentLanguage = () => {
     const currentLang = languages.find(lang => lang.code === i18n.language);
-    return currentLang || languages[0];
+    return currentLang ?? languages[0];
   };
 
   const changeLanguage = async (languageCode: string) => {
@@ -29,7 +30,7 @@ export function Language() {
     }
   };
 
-  const currentLanguage = getCurrentLanguage();
+  const currentLanguage = getCurrentLanguage()!;
 
   return (
     <View style={styles.container}>

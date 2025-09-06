@@ -19,12 +19,12 @@ const initI18n = async () => {
 
   if (!savedLanguage) {
     const locales = Localization.getLocales();
-    savedLanguage = locales.length > 0 ? locales[0].languageTag : 'ka-GE';
+    savedLanguage = locales.length > 0 ? (locales[0]?.languageTag ?? 'ka-GE') : 'ka-GE';
   }
 
   i18n.use(initReactI18next).init({
     resources,
-    lng: savedLanguage,
+    lng: savedLanguage ?? 'ka-GE',
     fallbackLng: 'ka-GE',
     interpolation: {
       escapeValue: false,
