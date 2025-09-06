@@ -14,8 +14,10 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "validate": "npm run type-check && npm run lint && npm run format:check",
+    "validate:fix": "npm run type-check && npm run lint:fix && npm run format",
     "dev": "expo start --clear",
-    "prepare": "husky"
+    "prepare": "husky",
+    "pre-commit": "npm run format && npm run type-check && npm run lint:fix"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
@@ -41,7 +43,7 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-i18next": "^15.7.3",
-    "react-native": "0.79.6",
+    "react-native": "0.79.5",
     "react-native-gesture-handler": "~2.24.0",
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "5.4.0",
@@ -66,15 +68,15 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
+      "eslint --fix --max-warnings 0",
+      "git add"
     ],
     "*.{js,jsx,mjs}": [
-      "eslint --fix",
-      "prettier --write"
+      "eslint --fix --max-warnings 0",
+      "git add"
     ],
-    "*.{json,md,yml,yaml}": [
-      "prettier --write"
+    "*.{json,md,yml,yaml,css}": [
+      "git add"
     ]
   },
   "private": true

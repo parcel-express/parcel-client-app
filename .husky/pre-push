@@ -1,0 +1,22 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🚀 Running pre-push checks..."
+
+# Run all validation checks before pushing
+echo "🧪 Running full validation suite..."
+npm run validate
+if [ $? -ne 0 ]; then
+  echo "❌ Validation failed. Please fix all issues before pushing."
+  exit 1
+fi
+
+# Optional: Run tests if you have them
+# echo "🧪 Running tests..."
+# npm test
+# if [ $? -ne 0 ]; then
+#   echo "❌ Tests failed. Please fix failing tests before pushing."
+#   exit 1
+# fi
+
+echo "✅ All pre-push checks passed! Safe to push."
