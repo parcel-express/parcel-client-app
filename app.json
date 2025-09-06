@@ -40,7 +40,7 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 164,
           "resizeMode": "contain",
-          "backgroundColor": "#FFF"
+          "backgroundColor": "#FFFFFF"
         }
       ],
       "expo-localization"
