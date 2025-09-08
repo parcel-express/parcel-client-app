@@ -23,4 +23,26 @@ export const Colors = {
     tabIconDefault: '#9BA1A6',
     tabIconSelected: tintColorDark,
   },
+  text: {
+    brand: {
+      tertiary: '#7F56D9',
+    },
+    error: {
+      primary: '#D92D20',
+    },
+    tertiary: '#535862',
+    secondary: '#414651',
+    placeholder: '#717680',
+    primary: '#181D27',
+  },
+  border: {
+    primary: '#E6E8EB',
+    focused: '#302E9C',
+    subtle_error: '#FDA29B',
+    active_error: '#F04438',
+  },
+  background: {
+    disabled: '#FAFAFA',
+    transparent: 'transparent',
+  },
 };
