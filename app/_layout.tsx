@@ -3,6 +3,7 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import '@/i18n'; // This line imports the i18n configuration
@@ -19,7 +20,7 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaView edges={['top']} style={{ flex: 1 }}>
+    <SafeAreaView edges={['top']} style={styles.container}>
       <ThemeProvider value={DefaultTheme}>
         <Stack>
           <Stack.Screen name='index' options={{ headerShown: false }} />
@@ -32,3 +33,9 @@ export default function RootLayout() {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

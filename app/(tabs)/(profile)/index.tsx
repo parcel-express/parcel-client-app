@@ -6,61 +6,60 @@ import { Alert, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
-const getProfileMenuItems = () => [
-  {
-    titleKey: 'profile.menu.conditions',
-    action: () => {
-      router.push('/(tabs)/(profile)/conditions');
-    },
-  },
-  {
-    titleKey: 'profile.menu.invoices',
-    action: () => {
-      router.push('/(tabs)/(profile)/invoices');
-    },
-  },
-  {
-    titleKey: 'profile.menu.analytics',
-    action: () => {
-      router.push('/(tabs)/(profile)/analytics');
-    },
-  },
-  {
-    titleKey: 'profile.menu.tariffs',
-    action: () => {
-      router.push('/(tabs)/(profile)/tariffs');
-    },
-  },
-  {
-    titleKey: 'profile.menu.myAddresses',
-    action: () => {
-      router.push('/(tabs)/(profile)/addresses');
-    },
-  },
-  {
-    titleKey: 'profile.menu.settings',
-    action: () => {
-      router.push('/(tabs)/(profile)/settings');
-    },
-  },
-  {
-    titleKey: 'profile.menu.easyAuth',
-    action: () => {
-      router.push('/(tabs)/(profile)/easy-auth');
-    },
-  },
-  {
-    titleKey: 'profile.menu.contact',
-    action: () => {
-      router.push('/(tabs)/support');
-    },
-    showBadge: true,
-  },
-];
+// const getProfileMenuItems = () => [
+//   {
+//     titleKey: 'profile.menu.conditions',
+//     action: () => {
+//       router.push('/(tabs)/(profile)/conditions');
+//     },
+//   },
+//   {
+//     titleKey: 'profile.menu.invoices',
+//     action: () => {
+//       router.push('/(tabs)/(profile)/invoices');
+//     },
+//   },
+//   {
+//     titleKey: 'profile.menu.analytics',
+//     action: () => {
+//       router.push('/(tabs)/(profile)/analytics');
+//     },
+//   },
+//   {
+//     titleKey: 'profile.menu.tariffs',
+//     action: () => {
+//       router.push('/(tabs)/(profile)/tariffs');
+//     },
+//   },
+//   {
+//     titleKey: 'profile.menu.myAddresses',
+//     action: () => {
+//       router.push('/(tabs)/(profile)/addresses');
+//     },
+//   },
+//   {
+//     titleKey: 'profile.menu.settings',
+//     action: () => {
+//       router.push('/(tabs)/(profile)/settings');
+//     },
+//   },
+//   {
+//     titleKey: 'profile.menu.easyAuth',
+//     action: () => {
+//       router.push('/(tabs)/(profile)/easy-auth');
+//     },
+//   },
+//   {
+//     titleKey: 'profile.menu.contact',
+//     action: () => {
+//       router.push('/(tabs)/support');
+//     },
+//     showBadge: true,
+//   },
+// ];
 
 export default function ProfileScreen() {
   const { t } = useTranslation();
-  const profileMenuItems = getProfileMenuItems();
 
   const handleLogout = () => {
     Alert.alert(t('profile.menu.logout'), 'Are you sure you want to logout?', [
@@ -79,22 +78,22 @@ export default function ProfileScreen() {
     ]);
   };
 
-  const renderMenuItem = (item: any, index: number) => (
-    <Pressable key={index} style={styles.menuItem} onPress={item.action}>
-      <View style={styles.menuItemContent}>
-        <ThemedText style={styles.menuItemTitle}>{t(item.titleKey)}</ThemedText>
-        {item.showBadge && (
-          <View style={styles.badgeContainer}>
-            <View style={styles.badge}>
-              <View style={styles.onlineDot} />
-              <ThemedText style={styles.badgeText}>{t('profile.contact.online')}</ThemedText>
-            </View>
-          </View>
-        )}
-      </View>
-      <ThemedText style={styles.menuItemArrow}>›</ThemedText>
-    </Pressable>
-  );
+  // const renderMenuItem = (item: any, index: number) => (
+  //   <Pressable key={index} style={styles.menuItem} onPress={item.action}>
+  //     <View style={styles.menuItemContent}>
+  //       <ThemedText style={styles.menuItemTitle}>{t(item.titleKey)}</ThemedText>
+  //       {item.showBadge && (
+  //         <View style={styles.badgeContainer}>
+  //           <View style={styles.badge}>
+  //             <View style={styles.onlineDot} />
+  //             <ThemedText style={styles.badgeText}>{t('profile.contact.online')}</ThemedText>
+  //           </View>
+  //         </View>
+  //       )}
+  //     </View>
+  //     <ThemedText style={styles.menuItemArrow}>›</ThemedText>
+  //   </Pressable>
+  // );
 
   return (
     <ThemedView style={styles.container}>
@@ -115,7 +114,7 @@ export default function ProfileScreen() {
         </View>
 
         <View style={styles.menuSection}>
-          {profileMenuItems.map(renderMenuItem)}
+          {/* {profileMenuItems.map(renderMenuItem)} */}
 
           <Pressable style={styles.menuItem} onPress={handleLogout}>
             <View style={styles.menuItemContent}>
@@ -146,7 +145,6 @@ const styles = StyleSheet.create({
   userSection: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f8f9fa',
     padding: 20,
     borderRadius: 12,
     marginBottom: 20,
@@ -155,13 +153,11 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: '#007AFF',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 15,
   },
   avatarText: {
-    color: '#fff',
     fontSize: 20,
     fontWeight: 'bold',
   },
@@ -171,10 +167,8 @@ const styles = StyleSheet.create({
     right: 0,
     width: 12,
     height: 12,
-    backgroundColor: '#17b26a',
     borderRadius: 6,
     borderWidth: 2,
-    borderColor: '#fff',
   },
   userInfo: {
     flex: 1,
@@ -194,7 +188,6 @@ const styles = StyleSheet.create({
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f8f9fa',
     padding: 20,
     borderRadius: 12,
     marginBottom: 8,
@@ -209,39 +202,5 @@ const styles = StyleSheet.create({
   },
   menuItemArrow: {
     fontSize: 20,
-    color: '#007AFF',
-  },
-  badgeContainer: {
-    marginTop: 4,
-  },
-  badge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: '#d5d7da',
-    shadowColor: '#0a0d12',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 1,
-  },
-  onlineDot: {
-    width: 6,
-    height: 6,
-    backgroundColor: '#17b26a',
-    borderRadius: 3,
-    marginRight: 4,
-  },
-  badgeText: {
-    fontSize: 12,
-    fontWeight: '500',
-    color: '#414651',
   },
 });

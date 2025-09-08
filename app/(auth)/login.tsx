@@ -72,26 +72,20 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 50,
     borderWidth: 1,
-    borderColor: '#ddd',
     borderRadius: 8,
     paddingHorizontal: 15,
     marginBottom: 15,
-    backgroundColor: '#fff',
   },
   button: {
     width: '100%',
     height: 50,
-    backgroundColor: '#007AFF',
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 15,
   },
-  guestButton: {
-    backgroundColor: '#34C759',
-  },
+  guestButton: {},
   buttonText: {
-    color: '#fff',
     fontSize: 16,
     fontWeight: '600',
   },
@@ -99,7 +93,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   linkText: {
-    color: '#007AFF',
     fontSize: 16,
   },
 });
