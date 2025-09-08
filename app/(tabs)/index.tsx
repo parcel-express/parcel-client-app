@@ -2,7 +2,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
-import { Language } from '@/components/Language';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
@@ -11,9 +10,7 @@ export default function HomeScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <View style={styles.languageContainer}>
-        <Language />
-      </View>
+      <View style={styles.languageContainer}></View>
 
       <View style={styles.content}>
         <ThemedText style={styles.title}>{t('tabs.home')}</ThemedText>

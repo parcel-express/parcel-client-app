@@ -59,4 +59,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
+  link: {
+    fontSize: 16,
+  },
 });
