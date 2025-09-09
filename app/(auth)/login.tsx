@@ -5,6 +5,7 @@ import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import Button from '@/components/ui/Button';
 
 export default function LoginScreen() {
   const { t } = useTranslation();
@@ -23,24 +24,23 @@ export default function LoginScreen() {
     <ThemedView style={styles.container}>
       <View style={styles.formContainer}>
         <ThemedText style={styles.title}>{t('auth.login')}</ThemedText>
-
         <TextInput
           style={styles.input}
           placeholder='Email'
           keyboardType='email-address'
           autoCapitalize='none'
         />
-
         <TextInput style={styles.input} placeholder='Password' secureTextEntry />
+
+        <Button size='md' variant='primary' />
+        <Button size='md' variant='secondary' />
 
         <Pressable style={styles.button} onPress={handleLogin}>
           <ThemedText style={styles.buttonText}>{t('auth.login')}</ThemedText>
         </Pressable>
-
         <Link href='/(auth)/forgot-password' style={styles.link}>
           <ThemedText style={styles.linkText}>{t('auth.forgotPassword')}</ThemedText>
         </Link>
-
         <Link href='/(auth)/register' style={styles.link}>
           <ThemedText style={styles.linkText}>{t('auth.register')}</ThemedText>
         </Link>

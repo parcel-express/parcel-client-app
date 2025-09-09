@@ -45,4 +45,18 @@ export const Colors = {
     disabled: '#FAFAFA',
     transparent: 'transparent',
   },
+  button: {
+    primary_border: '#FFFFFF',
+    secondary_background: '#FFFFFF',
+    secondary_border: '#D5D7DA',
+    secondary_text: '#414651',
+    secondary_hover_text: '#252B37',
+    secondary_hover_background: '#FAFAFA',
+    primary_text: '#FFFFFF',
+    primary_hover_text: '#FFFFFF',
+    disabled_background: '#F5F5F5',
+    disabled_border: '#E9EAEB',
+    disabled_text: '#A4A7AE',
+    outline: '#9E77ED',
+  },
 };

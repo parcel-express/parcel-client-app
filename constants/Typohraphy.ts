@@ -1,5 +1,23 @@
 import { StyleSheet } from 'react-native';
 
+const text_sm = {
+  fontFamily: 'Inter',
+  fontSize: 14,
+  lineHeight: 20,
+  letterSpacing: 0,
+};
+const text_md = {
+  fontFamily: 'Inter',
+  fontSize: 16,
+  lineHeight: 24,
+  letterSpacing: 0,
+};
+const text_lg = {
+  fontFamily: 'Inter',
+  fontSize: 18,
+  lineHeight: 28,
+  letterSpacing: 0,
+};
 export const Typography = StyleSheet.create({
   text_xs_medium: {
     fontFamily: 'Inter',
@@ -9,18 +27,28 @@ export const Typography = StyleSheet.create({
     letterSpacing: 0,
   },
   text_md_regular: {
-    fontFamily: 'Inter',
+    ...text_md,
     fontWeight: '400',
-    fontSize: 16,
     fontStyle: 'normal',
-    lineHeight: 24,
-    letterSpacing: 0,
+  },
+  text_lg_regular: {
+    ...text_lg,
+    fontWeight: '400',
   },
   text_sm_regular: {
-    fontFamily: 'Inter',
+    ...text_sm,
     fontWeight: '400',
-    fontSize: 14,
-    lineHeight: 20,
-    letterSpacing: 0,
+  },
+  text_sm_semiBold: {
+    ...text_sm,
+    fontWeight: '600',
+  },
+  text_md_semiBold: {
+    ...text_md,
+    fontWeight: '600',
+  },
+  text_lg_semiBold: {
+    ...text_lg,
+    fontWeight: '600',
   },
 });
