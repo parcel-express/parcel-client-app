@@ -25,6 +25,7 @@ export default function ForgotPasswordScreen() {
     },
   });
   const { t } = useTranslation();
+
   return (
     <ThemedView style={styles.container}>
       <View style={styles.formContainer}>
@@ -42,7 +43,12 @@ export default function ForgotPasswordScreen() {
         />
 
         <View style={styles.action_container}>
-          <Button variant='primary' size='md' onPress={formik.handleSubmit}>
+          <Button
+            variant='primary'
+            size='md'
+            onPress={formik.handleSubmit}
+            disabled={formik.errors.email !== undefined}
+          >
             {t('auth.send_link')}
           </Button>
 
