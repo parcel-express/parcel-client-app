@@ -45,6 +45,7 @@ export const Colors = {
     disabled: '#FAFAFA',
     transparent: 'transparent',
     body: '#F5F5F5',
+    body_dark: '#151718',
   },
   button: {
     primary_border: '#FFFFFF',
