@@ -10,6 +10,7 @@ import { ThemedView } from '@/components/ThemedView';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { Colors } from '@/constants/Colors';
+import { Typography } from '@/constants/Typography';
 type Form = {
   email: string;
   password: string;
@@ -42,15 +43,15 @@ export default function LoginScreen() {
           <Image source={require('../../assets/images/logo.png')} />
         </View>
         <View style={styles.inputsContainer}>
-          <ThemedText style={styles.title}>{t('auth.login')}</ThemedText>
+          <ThemedText style={Typography.title}>{t('auth.login')}</ThemedText>
           <Input<Form>
-            formik_key={'email'}
+            name={'email'}
             label={t('auth.email_label')}
             formik={formik}
             placeholder={t('auth.email_placeholder')}
           />
           <Input<Form>
-            formik_key={'password'}
+            name={'password'}
             label={t('auth.password_label')}
             formik={formik}
             placeholder={t('auth.password_placeholder')}
@@ -87,12 +88,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background.body,
     flexDirection: 'column',
     justifyContent: 'space-between',
-  },
-  title: {
-    fontFamily: 'Inter',
-    fontWeight: '700',
-    fontSize: 24,
-    color: Colors.login.title,
   },
   logoContainer: {
     alignItems: 'center',

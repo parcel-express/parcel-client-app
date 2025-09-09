@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 
+import { Colors } from './Colors';
+
 const text_sm = {
   fontFamily: 'Inter',
   fontSize: 14,
@@ -18,7 +20,16 @@ const text_lg = {
   lineHeight: 28,
   letterSpacing: 0,
 };
+
 export const Typography = StyleSheet.create({
+  title: {
+    fontFamily: 'Inter',
+    fontWeight: '700',
+    fontSize: 24,
+    lineHeight: 24,
+    letterSpacing: 0,
+    color: Colors.login.title,
+  },
   text_xs_medium: {
     fontFamily: 'Inter',
     fontWeight: '500',

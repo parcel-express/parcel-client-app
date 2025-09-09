@@ -1,41 +1,61 @@
 import { Link } from 'expo-router';
+import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, TextInput, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import * as yup from 'yup';
 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-
+import Button from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
+import { Colors } from '@/constants/Colors';
+import { Typography } from '@/constants/Typography';
+type Form = {
+  email: string;
+};
 export default function ForgotPasswordScreen() {
+  const formik = useFormik({
+    initialValues: { email: '' },
+    validationSchema: yup.object().shape({
+      email: yup.string().email().required(),
+    }),
+    onSubmit: () => {
+      // TODO: Implement password reset logic
+    },
+  });
   const { t } = useTranslation();
-
-  const handleResetPassword = () => {
-    // TODO: Implement password reset logic
-  };
 
   return (
     <ThemedView style={styles.container}>
       <View style={styles.formContainer}>
-        <ThemedText style={styles.title}>{t('auth.forgotPassword')}</ThemedText>
+        <View style={styles.titleContainer}>
+          <ThemedText style={Typography.title}>{t('auth.forgotPassword')}</ThemedText>
 
-        <ThemedText style={styles.description}>
-          Enter your email address and we&apos;ll send you a link to reset your password.
-        </ThemedText>
+          <ThemedText style={styles.description}>{t('auth.enter_email')}</ThemedText>
+        </View>
 
-        <TextInput
-          style={styles.input}
-          placeholder='Email'
-          keyboardType='email-address'
-          autoCapitalize='none'
+        <Input<Form>
+          placeholder={t('auth.email_placeholder')}
+          name={'email'}
+          label={t('auth.email_label')}
+          formik={formik}
         />
 
-        <Pressable style={styles.button} onPress={handleResetPassword}>
-          <ThemedText style={styles.buttonText}>Send Reset Link</ThemedText>
-        </Pressable>
+        <View style={styles.action_container}>
+          <Button
+            variant='primary'
+            size='md'
+            onPress={formik.handleSubmit}
+            disabled={formik.errors.email !== undefined}
+          >
+            {t('auth.send_link')}
+          </Button>
 
-        <Link href='/(auth)/login' style={styles.link}>
-          <ThemedText style={styles.linkText}>Back to {t('auth.login')}</ThemedText>
-        </Link>
+          <Link href='/(auth)/login' style={styles.link}>
+            <ThemedText style={styles.linkText}>{t('auth.back_to_login')}</ThemedText>
+          </Link>
+        </View>
       </View>
     </ThemedView>
   );
@@ -45,16 +65,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: Colors.background.body,
   },
   formContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 20,
+  titleContainer: {
+    alignItems: 'center',
+    gap: 12,
   },
   description: {
     fontSize: 16,
@@ -62,30 +82,17 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     lineHeight: 24,
   },
-  input: {
+  action_container: {
     width: '100%',
-    height: 50,
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 15,
-    marginBottom: 15,
-  },
-  button: {
-    width: '100%',
-    height: 50,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 15,
-  },
-  buttonText: {
-    fontSize: 16,
-    fontWeight: '600',
+    gap: 12,
+    marginTop: 20,
   },
   link: {
     marginBottom: 15,
+    textAlign: 'center',
   },
   linkText: {
+    color: Colors.text.secondary,
     fontSize: 16,
   },
 });

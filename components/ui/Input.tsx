@@ -5,10 +5,10 @@ import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
-import { Typography } from '@/constants/Typohraphy';
+import { Typography } from '@/constants/Typography';
 
 type InputProps<T = string> = {
-  formik_key: string & keyof T;
+  name: string & keyof T;
   label: string;
   placeholder?: string;
   hint_message?: string;
@@ -20,7 +20,6 @@ type InputProps<T = string> = {
 };
 
 const Input = <T extends Record<string, string>>({
-  formik_key,
   label,
   placeholder,
   hint_message,
@@ -29,14 +28,13 @@ const Input = <T extends Record<string, string>>({
   formik,
   hint_message_on_press,
   secure_text_entry,
+  name,
 }: InputProps<T>) => {
   const [isFocused, setIsFocused] = React.useState(false);
 
   // Check if this field has an error
   const fieldError =
-    formik.touched[formik_key] && formik.errors[formik_key]
-      ? String(formik.errors[formik_key])
-      : null;
+    formik.touched[name] && formik.errors[name] ? String(formik.errors[name]) : null;
 
   const getBorderColor = () => {
     if (disabled) {
@@ -70,13 +68,13 @@ const Input = <T extends Record<string, string>>({
           onFocus={() => setIsFocused(true)}
           onBlur={() => {
             setIsFocused(false);
-            formik.setFieldTouched(formik_key, true);
+            formik.setFieldTouched(name, true);
           }}
           editable={!disabled}
           onChangeText={text => {
-            formik.setFieldValue(formik_key, text);
+            formik.setFieldValue(name, text);
           }}
-          value={formik.values[formik_key]}
+          value={formik.values[name]}
           secureTextEntry={secure_text_entry}
         />
 
