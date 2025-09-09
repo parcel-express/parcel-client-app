@@ -1,7 +1,7 @@
 import { Link, router } from 'expo-router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, TextInput, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
@@ -24,23 +24,12 @@ export default function LoginScreen() {
       <View style={styles.formContainer}>
         <ThemedText style={styles.title}>{t('auth.login')}</ThemedText>
 
-        <TextInput
-          style={styles.input}
-          placeholder='Email'
-          keyboardType='email-address'
-          autoCapitalize='none'
-        />
-
-        <TextInput style={styles.input} placeholder='Password' secureTextEntry />
-
         <Pressable style={styles.button} onPress={handleLogin}>
           <ThemedText style={styles.buttonText}>{t('auth.login')}</ThemedText>
         </Pressable>
-
         <Link href='/(auth)/forgot-password' style={styles.link}>
           <ThemedText style={styles.linkText}>{t('auth.forgotPassword')}</ThemedText>
         </Link>
-
         <Link href='/(auth)/register' style={styles.link}>
           <ThemedText style={styles.linkText}>{t('auth.register')}</ThemedText>
         </Link>
@@ -67,14 +56,6 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 40,
-  },
-  input: {
-    width: '100%',
-    height: 50,
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 15,
-    marginBottom: 15,
   },
   button: {
     width: '100%',
