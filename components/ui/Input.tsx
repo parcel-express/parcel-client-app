@@ -5,7 +5,7 @@ import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
-import { Typography } from '@/constants/Typohraphy';
+import { Typography } from '@/constants/Typography';
 
 type InputProps<T = string> = {
   name: string & keyof T;

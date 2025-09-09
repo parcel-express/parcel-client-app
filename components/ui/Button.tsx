@@ -4,7 +4,7 @@ import React from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
-import { Typography } from '@/constants/Typohraphy';
+import { Typography } from '@/constants/Typography';
 type Props = {
   size: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   variant: 'primary' | 'secondary';

@@ -10,7 +10,7 @@ import { ThemedView } from '@/components/ThemedView';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { Colors } from '@/constants/Colors';
-import { Typography } from '@/constants/Typohraphy';
+import { Typography } from '@/constants/Typography';
 type Form = {
   email: string;
   password: string;
