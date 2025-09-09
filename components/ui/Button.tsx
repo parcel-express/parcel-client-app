@@ -49,10 +49,10 @@ const Button = ({
       onBlur={() => setIsFocused(false)}
       style={[isFocused && styles.button_outline]}
     >
-      {({ hovered, pressed }) => (
+      {({ pressed }) => (
         <LinearGradient
           colors={
-            hovered || (pressed && variant === 'secondary')
+            pressed && variant === 'secondary'
               ? [Colors.button.secondary_hover_background, Colors.button.secondary_hover_background]
               : disabled
                 ? [Colors.button.disabled_background, Colors.button.disabled_background]
@@ -72,7 +72,7 @@ const Button = ({
             },
           ]}
         >
-          {(hovered || pressed) && variant === 'primary' && (
+          {pressed && variant === 'primary' && (
             <LinearGradient
               colors={['rgba(0,0,0,0.2)', 'rgba(0,0,0,0.2)']}
               start={{ x: 0, y: 0 }}
@@ -87,7 +87,7 @@ const Button = ({
               {
                 color: disabled
                   ? Colors.button.disabled_text
-                  : hovered || pressed
+                  : pressed
                     ? Colors.button[`${variant}_hover_text`]
                     : Colors.button[`${variant}_text`],
               },
