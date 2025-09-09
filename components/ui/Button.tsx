@@ -122,6 +122,7 @@ const Button = ({
               {
                 color: getTextColor(pressed),
               },
+              styles.label,
             ]}
           >
             {children || 'Button Text'}
@@ -149,5 +150,9 @@ const styles = StyleSheet.create({
     outlineOffset: 4,
     outlineWidth: 2,
     outlineColor: Colors.button.outline,
+  },
+  label: {
+    flex: 1,
+    textAlign: 'center',
   },
 });

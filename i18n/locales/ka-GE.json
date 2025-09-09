@@ -5,10 +5,16 @@
     "loading": "ჩატვირთვა..."
   },
   "auth": {
-    "login": "შესვლა",
+    "login": "ავტორიზაცია",
     "register": "რეგისტრაცია",
-    "forgotPassword": "პაროლი დამავიწყდა",
-    "guestOrder": "სტუმრის რეჟიმი"
+    "forgotPassword": "დაგავიწყდა პაროლი?",
+    "guestOrder": "სტუმრის რეჟიმი",
+    "noAccount": "არ გაქვს ანგარიში?",
+    "register_action": "დარეგისტრირდი",
+    "email_label": "ელ. ფოსტა",
+    "password_label": "პაროლი",
+    "email_placeholder": "შეიყვანეთ თქვენი ელ. ფოსტა",
+    "password_placeholder": "შეიყვანეთ თქვენი პაროლი"
   },
   "tabs": {
     "home": "მთავარი",

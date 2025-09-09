@@ -6,6 +6,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { Colors } from '@/constants/Colors';
 import '@/i18n'; // This line imports the i18n configuration
 import 'react-native-reanimated';
 
@@ -20,17 +21,19 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaView edges={['top']} style={styles.container}>
-      <ThemeProvider value={DefaultTheme}>
-        <Stack>
-          <Stack.Screen name='index' options={{ headerShown: false }} />
-          <Stack.Screen name='(auth)' options={{ headerShown: false }} />
-          <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-          <Stack.Screen name='+not-found' />
-        </Stack>
-        <StatusBar style='auto' />
-      </ThemeProvider>
-    </SafeAreaView>
+    <>
+      <SafeAreaView edges={['top']} style={styles.container}>
+        <ThemeProvider value={DefaultTheme}>
+          <Stack>
+            <Stack.Screen name='index' options={{ headerShown: false }} />
+            <Stack.Screen name='(auth)' options={{ headerShown: false }} />
+            <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+            <Stack.Screen name='+not-found' />
+          </Stack>
+        </ThemeProvider>
+        <StatusBar style='auto' backgroundColor={Colors.background.body} />
+      </SafeAreaView>
+    </>
   );
 }
 
