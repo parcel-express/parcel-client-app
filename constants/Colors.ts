@@ -47,6 +47,9 @@ export const Colors = {
   },
   button: {
     primary_border: '#FFFFFF',
+    primary_background_start: '#662D91',
+    primary_background_end: '#302E9C',
+    primary_pressed_overlay: 'rgba(0,0,0,0.2)',
     secondary_background: '#FFFFFF',
     secondary_border: '#D5D7DA',
     secondary_text: '#414651',

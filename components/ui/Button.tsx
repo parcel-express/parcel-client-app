@@ -40,6 +40,38 @@ const Button = ({
     xl: Typography.text_md_semiBold,
     '2xl': Typography.text_lg_semiBold,
   };
+  const getIconColor = (pressed: boolean) => {
+    if (disabled) {
+      return Colors.button.disabled_text;
+    }
+
+    if (pressed) {
+      return variant === 'secondary'
+        ? Colors.button.secondary_hover_text
+        : Colors.button.primary_hover_text;
+    }
+
+    return variant === 'secondary' ? Colors.button.secondary_text : Colors.button.primary_text;
+  };
+
+  const getBorderColor = () => {
+    if (disabled) {
+      return Colors.button.disabled_border;
+    }
+    return variant === 'secondary' ? Colors.button.secondary_border : Colors.button.primary_border;
+  };
+
+  const getTextColor = (pressed: boolean) => {
+    if (disabled) {
+      return Colors.button.disabled_text;
+    }
+    if (pressed) {
+      return variant === 'secondary'
+        ? Colors.button.secondary_hover_text
+        : Colors.button.primary_hover_text;
+    }
+    return variant === 'secondary' ? Colors.button.secondary_text : Colors.button.primary_text;
+  };
 
   return (
     <Pressable
@@ -58,7 +90,7 @@ const Button = ({
                 ? [Colors.button.disabled_background, Colors.button.disabled_background]
                 : variant === 'secondary'
                   ? [Colors.button.secondary_background, Colors.button.secondary_background]
-                  : ['#662D91', '#302E9C']
+                  : [Colors.button.primary_background_start, Colors.button.primary_background_end]
           }
           start={{ x: 0, y: 0.5 }}
           end={{ x: 1, y: 0.5 }}
@@ -66,36 +98,37 @@ const Button = ({
             styles.button,
             {
               ...sizes[size],
-              borderColor: disabled
-                ? Colors.button.disabled_border
-                : Colors.button[`${variant}_border`],
+              borderColor: getBorderColor(),
             },
           ]}
         >
           {pressed && variant === 'primary' && (
             <LinearGradient
-              colors={['rgba(0,0,0,0.2)', 'rgba(0,0,0,0.2)']}
+              colors={[
+                Colors.button.primary_pressed_overlay,
+                Colors.button.primary_pressed_overlay,
+              ]}
               start={{ x: 0, y: 0 }}
               end={{ x: 0, y: 1 }}
               style={StyleSheet.absoluteFillObject}
             />
           )}
-          {left_icon_name && <MaterialIcons name={left_icon_name} size={20} color='#FFF' />}
+          {left_icon_name && (
+            <MaterialIcons name={left_icon_name} size={20} color={getIconColor(pressed)} />
+          )}
           <Text
             style={[
               typography[size],
               {
-                color: disabled
-                  ? Colors.button.disabled_text
-                  : pressed
-                    ? Colors.button[`${variant}_hover_text`]
-                    : Colors.button[`${variant}_text`],
+                color: getTextColor(pressed),
               },
             ]}
           >
             {children || 'Button Text'}
           </Text>
-          {right_icon_name && <MaterialIcons name={right_icon_name} size={20} color='#FFF' />}
+          {right_icon_name && (
+            <MaterialIcons name={right_icon_name} size={20} color={getIconColor(pressed)} />
+          )}
         </LinearGradient>
       )}
     </Pressable>

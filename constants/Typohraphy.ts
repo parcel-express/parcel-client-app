@@ -29,7 +29,6 @@ export const Typography = StyleSheet.create({
   text_md_regular: {
     ...text_md,
     fontWeight: '400',
-    fontStyle: 'normal',
   },
   text_lg_regular: {
     ...text_lg,
