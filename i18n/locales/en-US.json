@@ -14,7 +14,10 @@
     "email_label": "Email",
     "password_label": "Password",
     "email_placeholder": "Enter your email",
-    "password_placeholder": "Enter your password"
+    "password_placeholder": "Enter your password",
+    "enter_email": "Enter your email address and we'll send you a link to reset your password.",
+    "send_link": "Send Reset Link",
+    "back_to_login": "Back to Login"
   },
   "tabs": {
     "home": "Home",
