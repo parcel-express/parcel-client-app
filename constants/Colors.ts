@@ -44,6 +44,8 @@ export const Colors = {
   background: {
     disabled: '#FAFAFA',
     transparent: 'transparent',
+    body: '#F5F5F5',
+    body_dark: '#151718',
   },
   button: {
     primary_border: '#FFFFFF',
@@ -61,5 +63,8 @@ export const Colors = {
     disabled_border: '#E9EAEB',
     disabled_text: '#A4A7AE',
     outline: '#9E77ED',
+  },
+  login: {
+    title: '#000000',
   },
 };

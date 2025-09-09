@@ -1,34 +1,42 @@
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { FormikProps } from 'formik';
 import React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typohraphy';
 
 type InputProps<T = string> = {
+  formik_key: string & keyof T;
   label: string;
   placeholder?: string;
   hint_message?: string;
   disabled?: boolean;
   icon_name?: keyof typeof MaterialIcons.glyphMap;
   formik: FormikProps<T>;
+  hint_message_on_press?: () => void;
+  secure_text_entry?: boolean;
 };
 
 const Input = <T extends Record<string, string>>({
+  formik_key,
   label,
   placeholder,
   hint_message,
   disabled,
   icon_name,
   formik,
+  hint_message_on_press,
+  secure_text_entry,
 }: InputProps<T>) => {
   const [isFocused, setIsFocused] = React.useState(false);
 
   // Check if this field has an error
   const fieldError =
-    formik.touched[label] && formik.errors[label] ? String(formik.errors[label]) : null;
+    formik.touched[formik_key] && formik.errors[formik_key]
+      ? String(formik.errors[formik_key])
+      : null;
 
   const getBorderColor = () => {
     if (disabled) {
@@ -44,8 +52,7 @@ const Input = <T extends Record<string, string>>({
     <View style={styles.container}>
       <View style={styles.flex_row}>
         <Text style={{ ...Typography.text_xs_medium, color: Colors.text.secondary }}>
-          {label.charAt(0).toUpperCase() + label.slice(1)}{' '}
-          <Text style={{ color: Colors.text.brand.tertiary }}>*</Text>
+          {label} <Text style={{ color: Colors.text.brand.tertiary }}>*</Text>
         </Text>
       </View>
       <View
@@ -63,13 +70,14 @@ const Input = <T extends Record<string, string>>({
           onFocus={() => setIsFocused(true)}
           onBlur={() => {
             setIsFocused(false);
-            formik.setFieldTouched(label, true);
+            formik.setFieldTouched(formik_key, true);
           }}
           editable={!disabled}
           onChangeText={text => {
-            formik.setFieldValue(label, text);
+            formik.setFieldValue(formik_key, text);
           }}
-          value={formik.values[label]}
+          value={formik.values[formik_key]}
+          secureTextEntry={secure_text_entry}
         />
 
         {icon_name && (
@@ -82,9 +90,11 @@ const Input = <T extends Record<string, string>>({
         )}
       </View>
       {hint_message && !fieldError && !disabled && (
-        <Text style={{ ...Typography.text_sm_regular, color: Colors.text.tertiary }}>
-          {hint_message}
-        </Text>
+        <Pressable onPress={hint_message_on_press}>
+          <Text style={{ ...Typography.text_sm_regular, color: Colors.text.tertiary }}>
+            {hint_message}
+          </Text>
+        </Pressable>
       )}
       {fieldError && !disabled && (
         <Text style={{ ...Typography.text_sm_regular, color: Colors.text.error.primary }}>
