@@ -45,13 +45,13 @@ export default function LoginScreen() {
         <View style={styles.inputsContainer}>
           <ThemedText style={Typography.title}>{t('auth.login')}</ThemedText>
           <Input<Form>
-            formik_key={'email'}
+            name={'email'}
             label={t('auth.email_label')}
             formik={formik}
             placeholder={t('auth.email_placeholder')}
           />
           <Input<Form>
-            formik_key={'password'}
+            name={'password'}
             label={t('auth.password_label')}
             formik={formik}
             placeholder={t('auth.password_placeholder')}

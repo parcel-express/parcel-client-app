@@ -36,7 +36,7 @@ export default function ForgotPasswordScreen() {
 
         <Input<Form>
           placeholder={t('auth.email_placeholder')}
-          formik_key={'email'}
+          name={'email'}
           label={t('auth.email_label')}
           formik={formik}
         />
