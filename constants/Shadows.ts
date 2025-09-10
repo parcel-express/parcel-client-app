@@ -7,6 +7,6 @@ export const Shadows = {
     },
     shadowOpacity: 0.1,
     shadowRadius: 1,
-    elevation: 2, // For Android
+    elevation: 0, // For Android
   },
 };

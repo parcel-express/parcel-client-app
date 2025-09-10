@@ -9,6 +9,7 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
+import Select from '@/components/ui/Select';
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
 type Form = {
@@ -16,17 +17,27 @@ type Form = {
   password: string;
 };
 export default function LoginScreen() {
+  const languageOptions = [
+    { label: 'En', value: 'en-US' },
+    { label: 'ქარ', value: 'ka-GE' },
+    { label: 'Рус', value: 'ru-RU' },
+  ];
+  const { i18n, t } = useTranslation();
+
   const formik = useFormik({
     initialValues: { email: '', password: '' },
     validationSchema: yup.object().shape({
-      email: yup.string().email().required(),
-      password: yup.string().min(6).required(),
+      email: yup.string().trim().email(t('auth.email_invalid')).required(t('auth.email_required')),
+      password: yup
+        .string()
+        .min(6, t('auth.password_min'))
+        .max(20, t('auth.password_max'))
+        .required(t('auth.password_required')),
     }),
     onSubmit: () => {
       router.replace('/(tabs)');
     },
   });
-  const { t } = useTranslation();
 
   const handleGuestOrder = () => {
     router.push('/(auth)/guest-order');
@@ -39,6 +50,13 @@ export default function LoginScreen() {
   return (
     <ThemedView style={styles.container}>
       <View style={styles.formContainer}>
+        <View style={styles.languageContainer}>
+          <Select
+            value={i18n.resolvedLanguage ?? i18n.language}
+            options={languageOptions}
+            setValue={val => i18n.changeLanguage(val)}
+          />
+        </View>
         <View style={styles.logoContainer}>
           <Image source={require('../../assets/images/logo.png')} />
         </View>
@@ -49,6 +67,7 @@ export default function LoginScreen() {
             label={t('auth.email_label')}
             formik={formik}
             placeholder={t('auth.email_placeholder')}
+            keyboard_type='email-address'
           />
           <Input<Form>
             name={'password'}
@@ -97,7 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     flexDirection: 'column',
-    gap: 34,
+    gap: 24,
     alignItems: 'center',
   },
   formContainer: {
@@ -105,9 +124,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  languageContainer: { position: 'absolute', top: 0, right: 0, alignSelf: 'flex-end' },
   actionContainer: {
     flexDirection: 'column',
     gap: 26,
+    paddingBottom: 24,
   },
   buttonContainer: {
     flexDirection: 'column',

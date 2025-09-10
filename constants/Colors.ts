@@ -40,8 +40,10 @@ export const Colors = {
     focused: '#302E9C',
     subtle_error: '#FDA29B',
     active_error: '#F04438',
+    disabled_border: '#E9EAEB',
   },
   background: {
+    white: '#FFFFFF',
     disabled: '#FAFAFA',
     transparent: 'transparent',
     body: '#F5F5F5',
@@ -63,6 +65,13 @@ export const Colors = {
     disabled_border: '#E9EAEB',
     disabled_text: '#A4A7AE',
     outline: '#9E77ED',
+  },
+  checkbox: {
+    border: '#6670804D',
+    background: '#FFFFFF',
+    checkmark: '#000000',
+    disabled_background: '#FAFAFA',
+    disabled_border: '#D5D7DA',
   },
   login: {
     title: '#000000',

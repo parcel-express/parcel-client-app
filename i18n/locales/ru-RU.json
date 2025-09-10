@@ -1,3 +1,79 @@
 {
-  "language": "Язык"
+  "language": "Язык",
+  "splash": {
+    "welcome": "Добро пожаловать в ваше приложение",
+    "loading": "Загрузка..."
+  },
+  "auth": {
+    "login": "Войти",
+    "register": "Зарегистрироваться",
+    "forgotPassword": "Забыли пароль?",
+    "guestOrder": "Гостевой заказ",
+    "noAccount": "Нет аккаунта?",
+    "register_action": "Зарегистрироваться",
+    "haveAnAccount": "Уже есть аккаунт?",
+    "login_action": "Войти",
+    "email_label": "Email",
+    "password_label": "Пароль",
+    "email_placeholder": "Введите ваш email",
+    "password_placeholder": "Введите ваш пароль",
+    "enter_email": "Введите адрес электронной почты, и мы отправим вам ссылку для сброса пароля.",
+    "send_link": "Отправить ссылку для сброса пароля",
+    "back_to_login": "Назад к входу",
+    "name_label": "Имя",
+    "name_placeholder": "Введите ваше имя",
+    "surname_label": "Фамилия",
+    "surname_placeholder": "Введите вашу фамилию",
+    "number_label": "Номер телефона",
+    "number_placeholder": "Введите ваш номер телефона",
+    "accept_terms": "Я принимаю Условия и Положения",
+    "accept_terms_error": "Вы должны принять Условия и Положения",
+    "team_member_required": "Пожалуйста, выберите участника команды",
+    "name_required": "Имя обязательно",
+    "surname_required": "Фамилия обязательна",
+    "number_required": "Номер телефона обязателен",
+    "number_invalid": "Номер телефона недействителен",
+    "email_required": "Email обязателен",
+    "email_invalid": "Email недействителен",
+    "password_required": "Пароль обязателен",
+    "password_min": "Пароль должен содержать не менее 6 символов",
+    "password_max": "Пароль должен содержать не более 20 символов",
+    "team_member_label": "Участник команды",
+    "team_member_placeholder": "Выберите участника команды"
+  },
+  "tabs": {
+    "home": "Главная",
+    "orders": "Заказы",
+    "newOrder": "Новый заказ",
+    "support": "Поддержка",
+    "profile": "Профиль"
+  },
+  "home": {
+    "welcome": "Добро пожаловать в Parcel Express! Ваш надежный курьерский сервис."
+  },
+  "profile": {
+    "title": "Профиль",
+    "menu": {
+      "conditions": "Условия и Положения",
+      "invoices": "Счета",
+      "analytics": "Аналитика",
+      "tariffs": "Тарифы",
+      "myAddresses": "Мои адреса",
+      "settings": "Настройки",
+      "easyAuth": "Упрощенная авторизация",
+      "contact": "Контакт",
+      "logout": "Выход"
+    },
+    "contact": {
+      "online": "Онлайн"
+    }
+  },
+  "common": {
+    "cancel": "Отмена",
+    "save": "Сохранить",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "add": "Добавить",
+    "back": "Назад"
+  }
 }
