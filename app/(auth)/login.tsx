@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     flexDirection: 'column',
-    gap: 34,
+    gap: 24,
     alignItems: 'center',
   },
   formContainer: {
