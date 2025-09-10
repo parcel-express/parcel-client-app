@@ -7,7 +7,7 @@ import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';
 
 type Props = {
-  label: string;
+  label?: string;
   setValue: (value: string) => void;
   value?: string;
   placeholder?: string;
@@ -30,7 +30,8 @@ const Select = ({ label, setValue, value, placeholder, options, disabled }: Prop
       <View style={styles.container}>
         <View style={styles.flex_row}>
           <Text style={{ ...Typography.text_xs_medium, color: Colors.text.secondary }}>
-            {label} <Text style={{ color: Colors.text.brand.tertiary }}>*</Text>
+            {label}
+            {label && <Text style={{ color: Colors.text.brand.tertiary }}>*</Text>}
           </Text>
         </View>
         <Pressable
@@ -114,6 +115,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: 8,
     backgroundColor: Colors.background.white,
+    height: 44,
   },
 
   icon: {
@@ -123,7 +125,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background.white,
     borderRadius: 8,
     paddingVertical: 4,
-    height: 256,
+    maxHeight: 256,
     borderWidth: 1,
     borderColor: Colors.border.disabled_border,
     position: 'absolute',
