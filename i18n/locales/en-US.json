@@ -37,7 +37,9 @@
     "email_invalid": "Email is invalid",
     "password_required": "Password is required",
     "password_min": "Password must be at least 6 characters",
-    "password_max": "Password must be at most 20 characters"
+    "password_max": "Password must be at most 20 characters",
+    "team_member_label": "Team Member",
+    "team_member_placeholder": "Select a team member"
   },
   "tabs": {
     "home": "Home",

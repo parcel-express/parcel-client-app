@@ -26,9 +26,11 @@ const Checkbox = ({ label, toggleCheckbox, checked, size, indeterminate, disable
   return (
     <TouchableOpacity
       style={styles.checkbox_container}
-      onPress={toggleCheckbox}
+      onPress={() => !disabled && toggleCheckbox()}
+      disabled={disabled}
+      accessibilityLabel={label}
       accessibilityRole='checkbox'
-      accessibilityState={{ checked, disabled, busy: indeterminate }}
+      accessibilityState={{ checked: indeterminate ? 'mixed' : checked, disabled }}
       hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
     >
       <View

@@ -38,9 +38,16 @@ export default function RegisterScreen() {
       team_member: yup.string().required(t('auth.team_member_required')),
       name: yup.string().required(t('auth.name_required')),
       surname: yup.string().required(t('auth.surname_required')),
-      email: yup.string().email().required(t('auth.email_required')),
-      number: yup.string().min(9).required(t('auth.number_required')),
-      password: yup.string().min(6).required(t('auth.password_required')),
+      email: yup.string().email(t('auth.email_invalid')).required(t('auth.email_required')),
+      number: yup
+        .string()
+        .matches(/^\+?[0-9]{9,14}$/, t('auth.number_invalid'))
+        .required(t('auth.number_required')),
+      password: yup
+        .string()
+        .min(6, t('auth.password_min'))
+        .max(20, t('auth.password_max'))
+        .required(t('auth.password_required')),
       accept_terms: yup.boolean().oneOf([true], t('auth.accept_terms_error')),
     }),
     onSubmit: () => {
@@ -86,10 +93,13 @@ export default function RegisterScreen() {
             <ThemedText style={Typography.title}>{t('auth.register')}</ThemedText>
             <View style={styles.flex_1}>
               <Select
-                label={'Team Member'}
-                setValue={(value: string) => formik.setFieldValue('team_member', value)}
+                label={t('auth.team_member_label')}
+                setValue={(value: string) => {
+                  formik.setFieldTouched('team_member', true, true);
+                  formik.setFieldValue('team_member', value);
+                }}
                 value={formik.values.team_member}
-                placeholder='Select Team Member'
+                placeholder={t('auth.team_member_placeholder')}
                 options={options}
               />
               {formik.touched.team_member && formik.errors.team_member && (
