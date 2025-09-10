@@ -11,13 +11,22 @@
     "guestOrder": "სტუმრის რეჟიმი",
     "noAccount": "არ გაქვს ანგარიში?",
     "register_action": "დარეგისტრირდი",
+    "haveAnAccount": "უკვე გაქვს ანგარიში?",
+    "login_action": "ავტორიზაცია",
     "email_label": "ელ. ფოსტა",
     "password_label": "პაროლი",
     "email_placeholder": "შეიყვანეთ თქვენი ელ. ფოსტა",
     "password_placeholder": "შეიყვანეთ თქვენი პაროლი",
     "enter_email": "შეიყვანეთ თქვენი ელ. ფოსტა და ჩვენ გამოგიგზავნით ბმულს თქვენი პაროლის აღდგენისათვის.",
     "send_link": "გაგზავნე ბმული",
-    "back_to_login": "უკან ავტორიზაციაზე"
+    "back_to_login": "უკან ავტორიზაციაზე",
+    "name_label": "სახელი",
+    "name_placeholder": "შეიყვანეთ თქვენი სახელი",
+    "surname_label": "გვარი",
+    "surname_placeholder": "შეიყვანეთ თქვენი გვარი",
+    "number_label": "ტელეფონის ნომერი",
+    "number_placeholder": "შეიყვანეთ თქვენი ტელეფონის ნომერი",
+    "accept_terms": "ვეთანხმები წესებს და პირობებს"
   },
   "tabs": {
     "home": "მთავარი",

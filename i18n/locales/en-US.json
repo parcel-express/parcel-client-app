@@ -11,13 +11,22 @@
     "guestOrder": "Guest Order",
     "noAccount": "Don't have an account?",
     "register_action": "Register",
+    "haveAnAccount": "Already have an account?",
+    "login_action": "Login",
     "email_label": "Email",
     "password_label": "Password",
     "email_placeholder": "Enter your email",
     "password_placeholder": "Enter your password",
     "enter_email": "Enter your email address and we'll send you a link to reset your password.",
     "send_link": "Send Reset Link",
-    "back_to_login": "Back to Login"
+    "back_to_login": "Back to Login",
+    "name_label": "Name",
+    "name_placeholder": "Enter your name",
+    "surname_label": "Surname",
+    "surname_placeholder": "Enter your surname",
+    "number_label": "Phone Number",
+    "number_placeholder": "Enter your phone number",
+    "accept_terms": "I accept the Terms and Conditions"
   },
   "tabs": {
     "home": "Home",

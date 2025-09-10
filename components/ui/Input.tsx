@@ -7,7 +7,7 @@ import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';
 
-type InputProps<T = string> = {
+type InputProps<T = string | boolean> = {
   name: string & keyof T;
   label: string;
   placeholder?: string;
@@ -17,9 +17,19 @@ type InputProps<T = string> = {
   formik: FormikProps<T>;
   hint_message_on_press?: () => void;
   secure_text_entry?: boolean;
+  keyboard_type?:
+    | 'default'
+    | 'email-address'
+    | 'numeric'
+    | 'phone-pad'
+    | 'number-pad'
+    | 'decimal-pad'
+    | 'visible-password'
+    | 'url'
+    | undefined;
 };
 
-const Input = <T extends Record<string, string>>({
+const Input = <T extends Record<string, string | boolean>>({
   label,
   placeholder,
   hint_message,
@@ -29,6 +39,7 @@ const Input = <T extends Record<string, string>>({
   hint_message_on_press,
   secure_text_entry,
   name,
+  keyboard_type,
 }: InputProps<T>) => {
   const [isFocused, setIsFocused] = React.useState(false);
 
@@ -57,10 +68,11 @@ const Input = <T extends Record<string, string>>({
         style={{
           ...styles.input_container,
           borderColor: getBorderColor(),
-          backgroundColor: disabled ? Colors.background.disabled : Colors.background.transparent,
+          backgroundColor: disabled ? Colors.background.disabled : Colors.background.white,
         }}
       >
         <TextInput
+          keyboardType={keyboard_type ?? 'default'}
           style={styles.input}
           placeholder={placeholder}
           placeholderTextColor={Colors.text.placeholder}
@@ -74,7 +86,7 @@ const Input = <T extends Record<string, string>>({
           onChangeText={text => {
             formik.setFieldValue(name, text);
           }}
-          value={formik.values[name]}
+          value={typeof formik.values[name] === 'string' ? formik.values[name] : ''}
           secureTextEntry={secure_text_entry}
         />
 

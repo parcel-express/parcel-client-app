@@ -26,7 +26,7 @@ export const Typography = StyleSheet.create({
     fontFamily: 'Inter',
     fontWeight: '700',
     fontSize: 24,
-    lineHeight: 24,
+    lineHeight: 32,
     letterSpacing: 0,
     color: Colors.login.title,
   },
@@ -40,6 +40,10 @@ export const Typography = StyleSheet.create({
   text_md_regular: {
     ...text_md,
     fontWeight: '400',
+  },
+  text_md_medium: {
+    ...text_md,
+    fontWeight: '500',
   },
   text_lg_regular: {
     ...text_lg,

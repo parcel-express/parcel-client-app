@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
   actionContainer: {
     flexDirection: 'column',
     gap: 26,
+    paddingBottom: 24,
   },
   buttonContainer: {
     flexDirection: 'column',
