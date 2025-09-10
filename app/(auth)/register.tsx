@@ -35,13 +35,13 @@ export default function RegisterScreen() {
       accept_terms: false,
     },
     validationSchema: yup.object().shape({
-      team_member: yup.string().required(),
-      name: yup.string().required(),
-      surname: yup.string().required(),
-      email: yup.string().email().required(),
-      number: yup.string().min(9).required(),
-      password: yup.string().min(6).required(),
-      accept_terms: yup.boolean().oneOf([true], 'You must accept the terms and conditions'),
+      team_member: yup.string().required(t('auth.team_member_required')),
+      name: yup.string().required(t('auth.name_required')),
+      surname: yup.string().required(t('auth.surname_required')),
+      email: yup.string().email().required(t('auth.email_required')),
+      number: yup.string().min(9).required(t('auth.number_required')),
+      password: yup.string().min(6).required(t('auth.password_required')),
+      accept_terms: yup.boolean().oneOf([true], t('auth.accept_terms_error')),
     }),
     onSubmit: () => {
       router.replace('/(tabs)');
@@ -49,6 +49,7 @@ export default function RegisterScreen() {
   });
 
   const toggleCheckbox = () => {
+    formik.setFieldTouched('accept_terms', true, true);
     formik.setFieldValue('accept_terms', !formik.values.accept_terms);
   };
 
@@ -83,13 +84,20 @@ export default function RegisterScreen() {
 
           <View style={styles.inputsContainer}>
             <ThemedText style={Typography.title}>{t('auth.register')}</ThemedText>
-            <Select
-              label={'Team Member'}
-              setValue={(value: string) => formik.setFieldValue('team_member', value)}
-              value={formik.values.team_member}
-              placeholder='Select Team Member'
-              options={options}
-            />
+            <View style={styles.flex_1}>
+              <Select
+                label={'Team Member'}
+                setValue={(value: string) => formik.setFieldValue('team_member', value)}
+                value={formik.values.team_member}
+                placeholder='Select Team Member'
+                options={options}
+              />
+              {formik.touched.team_member && formik.errors.team_member && (
+                <Text style={[Typography.text_xs_medium, styles.error_text]}>
+                  {formik.errors.team_member}
+                </Text>
+              )}
+            </View>
             {input_names.map((name: keyof Form) => (
               <Input<Form>
                 key={name}
@@ -110,6 +118,11 @@ export default function RegisterScreen() {
                 checked={formik.values.accept_terms}
                 size='md'
               />
+              {formik.touched.accept_terms && formik.errors.accept_terms && (
+                <Text style={[Typography.text_xs_medium, styles.error_text]}>
+                  {formik.errors.accept_terms}
+                </Text>
+              )}
             </View>
           </View>
         </View>
@@ -136,7 +149,7 @@ export default function RegisterScreen() {
 
 const styles = StyleSheet.create({
   flexGrow: { flexGrow: 1 },
-  flex_1: { flex: 1 },
+  flex_1: { flex: 1, width: '100%' },
   container: {
     flex: 1,
     padding: 20,
@@ -182,5 +195,9 @@ const styles = StyleSheet.create({
   },
   bold: {
     fontWeight: '700',
+  },
+  error_text: {
+    marginTop: 6,
+    color: Colors.text.error.primary,
   },
 });

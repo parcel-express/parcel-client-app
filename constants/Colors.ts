@@ -70,6 +70,8 @@ export const Colors = {
     border: '#6670804D',
     background: '#FFFFFF',
     checkmark: '#000000',
+    disabled_background: '#FAFAFA',
+    disabled_border: '#D5D7DA',
   },
   login: {
     title: '#000000',

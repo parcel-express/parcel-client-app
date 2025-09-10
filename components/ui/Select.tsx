@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   },
 
   icon: {
-    transform: 'rotate(90deg)',
+    transform: [{ rotate: '90deg' }],
   },
   dropdown: {
     backgroundColor: Colors.background.white,
@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 1000,
+    elevation: 8,
   },
   option: {
     flexDirection: 'row',

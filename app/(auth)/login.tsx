@@ -16,17 +16,17 @@ type Form = {
   password: string;
 };
 export default function LoginScreen() {
+  const { t } = useTranslation();
   const formik = useFormik({
     initialValues: { email: '', password: '' },
     validationSchema: yup.object().shape({
-      email: yup.string().email().required(),
-      password: yup.string().min(6).required(),
+      email: yup.string().email().required(t('auth.email_required')),
+      password: yup.string().min(6).required(t('auth.password_required')),
     }),
     onSubmit: () => {
       router.replace('/(tabs)');
     },
   });
-  const { t } = useTranslation();
 
   const handleGuestOrder = () => {
     router.push('/(auth)/guest-order');
