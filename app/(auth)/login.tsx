@@ -21,7 +21,11 @@ export default function LoginScreen() {
     initialValues: { email: '', password: '' },
     validationSchema: yup.object().shape({
       email: yup.string().email().required(t('auth.email_required')),
-      password: yup.string().min(6).required(t('auth.password_required')),
+      password: yup
+        .string()
+        .min(6, t('auth.password_min'))
+        .max(20, t('auth.password_max'))
+        .required(t('auth.password_required')),
     }),
     onSubmit: () => {
       router.replace('/(tabs)');
