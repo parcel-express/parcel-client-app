@@ -20,9 +20,10 @@ export default function LoginScreen() {
   const languageOptions = [
     { label: 'En', value: 'en-US' },
     { label: 'ქარ', value: 'ka-GE' },
+    { label: 'Рус', value: 'ru-RU' },
   ];
-  const { i18n } = useTranslation();
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
+
   const formik = useFormik({
     initialValues: { email: '', password: '' },
     validationSchema: yup.object().shape({
@@ -51,8 +52,7 @@ export default function LoginScreen() {
       <View style={styles.formContainer}>
         <View style={styles.languageContainer}>
           <Select
-            value={i18n.language}
-            placeholder={i18n.language}
+            value={i18n.resolvedLanguage ?? i18n.language}
             options={languageOptions}
             setValue={val => i18n.changeLanguage(val)}
           />
