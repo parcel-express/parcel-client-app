@@ -2,7 +2,14 @@ import { Link } from 'expo-router';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, View } from 'react-native';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import * as yup from 'yup';
 
 import { ThemedText } from '@/components/ThemedText';
@@ -27,41 +34,52 @@ export default function ForgotPasswordScreen() {
   const { t } = useTranslation();
 
   return (
-    <ThemedView style={styles.container}>
-      <View style={styles.formContainer}>
-        <View style={styles.titleContainer}>
-          <ThemedText style={Typography.title}>{t('auth.forgotPassword')}</ThemedText>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.full}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ThemedView style={styles.container}>
+          <View style={styles.formContainer}>
+            <View style={styles.titleContainer}>
+              <ThemedText style={Typography.title}>{t('auth.forgotPassword')}</ThemedText>
 
-          <ThemedText style={styles.description}>{t('auth.enter_email')}</ThemedText>
-        </View>
+              <ThemedText style={styles.description}>{t('auth.enter_email')}</ThemedText>
+            </View>
 
-        <Input<Form>
-          placeholder={t('auth.email_placeholder')}
-          name={'email'}
-          label={t('auth.email_label')}
-          formik={formik}
-        />
+            <Input<Form>
+              placeholder={t('auth.email_placeholder')}
+              name={'email'}
+              label={t('auth.email_label')}
+              formik={formik}
+              keyboard_type='email-address'
+            />
 
-        <View style={styles.action_container}>
-          <Button
-            variant='primary'
-            size='md'
-            onPress={formik.handleSubmit}
-            disabled={formik.errors.email !== undefined}
-          >
-            {t('auth.send_link')}
-          </Button>
+            <View style={styles.action_container}>
+              <Button
+                variant='primary'
+                size='lg'
+                onPress={formik.handleSubmit}
+                disabled={formik.errors.email !== undefined}
+              >
+                {t('auth.send_link')}
+              </Button>
 
-          <Link href='/(auth)/login' style={styles.link}>
-            <ThemedText style={styles.linkText}>{t('auth.back_to_login')}</ThemedText>
-          </Link>
-        </View>
-      </View>
-    </ThemedView>
+              <Link href='/(auth)/login' style={styles.link}>
+                <ThemedText style={styles.linkText}>{t('auth.back_to_login')}</ThemedText>
+              </Link>
+            </View>
+          </View>
+        </ThemedView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
+  full: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     padding: 20,
@@ -79,7 +97,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     textAlign: 'center',
-    marginBottom: 30,
+    marginBottom: 32,
     lineHeight: 24,
   },
   action_container: {

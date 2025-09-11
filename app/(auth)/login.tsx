@@ -2,7 +2,15 @@ import { Link, router } from 'expo-router';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import {
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import * as yup from 'yup';
 
 import { ThemedText } from '@/components/ThemedText';
@@ -48,69 +56,99 @@ export default function LoginScreen() {
   };
 
   return (
-    <ThemedView style={styles.container}>
-      <View style={styles.formContainer}>
-        <View style={styles.languageContainer}>
-          <Select
-            value={i18n.resolvedLanguage ?? i18n.language}
-            options={languageOptions}
-            setValue={val => i18n.changeLanguage(val)}
-          />
-        </View>
-        <View style={styles.logoContainer}>
-          <Image source={require('../../assets/images/logo.png')} />
-        </View>
-        <View style={styles.inputsContainer}>
-          <ThemedText style={Typography.title}>{t('auth.login')}</ThemedText>
-          <Input<Form>
-            name={'email'}
-            label={t('auth.email_label')}
-            formik={formik}
-            placeholder={t('auth.email_placeholder')}
-            keyboard_type='email-address'
-          />
-          <Input<Form>
-            name={'password'}
-            label={t('auth.password_label')}
-            formik={formik}
-            placeholder={t('auth.password_placeholder')}
-            hint_message={t('auth.forgotPassword')}
-            hint_message_on_press={handleForgotPassword}
-            secure_text_entry
-          />
-        </View>
-      </View>
-      <View style={styles.actionContainer}>
-        <View style={styles.buttonContainer}>
-          <Button size='lg' variant='primary' onPress={formik.handleSubmit}>
-            {t('auth.login')}
-          </Button>
-          <Button size='lg' variant='secondary' onPress={handleGuestOrder}>
-            {t('auth.guestOrder')}
-          </Button>
-        </View>
-        <Link href='/(auth)/register'>
-          <Text style={styles.linkText}>
-            {t('auth.noAccount')}
-            <Text style={styles.bold}> {t('auth.register_action')}</Text>
-          </Text>
-        </Link>
-      </View>
-    </ThemedView>
+    <KeyboardAvoidingView
+      behavior='padding'
+      style={styles.flex_1}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
+    >
+      <ScrollView
+        keyboardShouldPersistTaps='handled'
+        contentContainerStyle={styles.contentContainer}
+      >
+        <ThemedView style={styles.container}>
+          <View style={styles.languageContainer}>
+            <Select
+              value={i18n.resolvedLanguage ?? i18n.language}
+              options={languageOptions}
+              setValue={val => i18n.changeLanguage(val)}
+            />
+          </View>
+
+          <View style={styles.formContainer}>
+            <View style={styles.logoContainer}>
+              <Image source={require('../../assets/images/logo.png')} />
+            </View>
+            <View style={styles.inputsOuterCointainer}>
+              <ThemedText style={Typography.title}>{t('auth.login')}</ThemedText>
+              <View style={styles.inputsContainer}>
+                <Input<Form>
+                  name={'email'}
+                  label={t('auth.email_label')}
+                  formik={formik}
+                  placeholder={t('auth.email_placeholder')}
+                  keyboard_type='email-address'
+                />
+                <Input<Form>
+                  name={'password'}
+                  label={t('auth.password_label')}
+                  formik={formik}
+                  placeholder={t('auth.password_placeholder')}
+                  hint_message={t('auth.forgotPassword')}
+                  hint_message_on_press={handleForgotPassword}
+                  secure_text_entry
+                />
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.actionContainer}>
+            <View style={styles.buttonContainer}>
+              <Button size='xl' variant='primary' onPress={formik.handleSubmit}>
+                {t('auth.login')}
+              </Button>
+              <Button size='xl' variant='secondary' onPress={handleGuestOrder}>
+                {t('auth.guestOrder')}
+              </Button>
+            </View>
+            <Link href='/(auth)/register'>
+              <Text style={styles.linkText}>
+                {t('auth.noAccount')}
+                <Text style={styles.bold}> {t('auth.register_action')}</Text>
+              </Text>
+            </Link>
+          </View>
+        </ThemedView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
+  flex_1: {
+    flex: 1,
+  },
+  contentContainer: {
+    flexGrow: 1,
+  },
   container: {
     flex: 1,
     padding: 20,
     backgroundColor: Colors.background.body,
     flexDirection: 'column',
     justifyContent: 'space-between',
+    gap: 40,
   },
   logoContainer: {
     alignItems: 'center',
-    marginBottom: 44,
+    paddingTop: 20,
+    marginBottom: 52,
+  },
+  inputsOuterCointainer: {
+    width: '100%',
+    alignItems: 'center',
+    flexDirection: 'column',
+    gap: 34,
+    flex: 1,
   },
   inputsContainer: {
     flex: 1,
@@ -124,7 +162,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  languageContainer: { position: 'absolute', top: 0, right: 0, alignSelf: 'flex-end' },
+  languageContainer: { position: 'absolute', top: 12, right: 20, alignSelf: 'flex-end' },
   actionContainer: {
     flexDirection: 'column',
     gap: 26,

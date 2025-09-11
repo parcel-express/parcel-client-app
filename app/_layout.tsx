@@ -21,24 +21,23 @@ export default function RootLayout() {
   }
 
   return (
-    <>
-      <SafeAreaView edges={['top']} style={styles.container}>
-        <ThemeProvider value={DefaultTheme}>
-          <Stack>
-            <Stack.Screen name='index' options={{ headerShown: false }} />
-            <Stack.Screen name='(auth)' options={{ headerShown: false }} />
-            <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-            <Stack.Screen name='+not-found' />
-          </Stack>
-        </ThemeProvider>
-        <StatusBar style='auto' backgroundColor={Colors.background.body} />
-      </SafeAreaView>
-    </>
+    <SafeAreaView edges={['top']} style={styles.container}>
+      <ThemeProvider value={DefaultTheme}>
+        <Stack>
+          <Stack.Screen name='index' options={{ headerShown: false }} />
+          <Stack.Screen name='(auth)' options={{ headerShown: false }} />
+          <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+          <Stack.Screen name='+not-found' />
+        </Stack>
+      </ThemeProvider>
+      <StatusBar style='auto' />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.background.body,
   },
 });

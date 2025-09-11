@@ -2,7 +2,15 @@ import { Link, router } from 'expo-router';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import * as yup from 'yup';
 
 import { ThemedText } from '@/components/ThemedText';
@@ -82,78 +90,96 @@ export default function RegisterScreen() {
   const input_names: (keyof Form)[] = ['name', 'surname', 'email', 'number', 'password'];
 
   return (
-    <ScrollView style={styles.flex_1} contentContainerStyle={styles.flexGrow}>
-      <ThemedView style={styles.container}>
-        <View style={styles.formContainer}>
-          <View style={styles.logoContainer}>
-            <Image source={require('../../assets/images/logo.png')} />
-          </View>
+    <KeyboardAvoidingView
+      behavior='padding'
+      style={styles.flex_1}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
+    >
+      <ScrollView
+        style={styles.flex_1}
+        contentContainerStyle={styles.flexGrow}
+        keyboardShouldPersistTaps='handled'
+      >
+        <ThemedView style={styles.container}>
+          <View>
+            <View style={styles.logoContainer}>
+              <Image source={require('../../assets/images/logo.png')} />
+            </View>
 
-          <View style={styles.inputsContainer}>
-            <ThemedText style={Typography.title}>{t('auth.register')}</ThemedText>
-            <View style={styles.flex_1}>
-              <Select
-                label={t('auth.team_member_label')}
-                setValue={(value: string) => {
-                  formik.setFieldTouched('team_member', true, true);
-                  formik.setFieldValue('team_member', value);
-                }}
-                value={formik.values.team_member}
-                placeholder={t('auth.team_member_placeholder')}
-                options={options}
-              />
-              {formik.touched.team_member && formik.errors.team_member && (
-                <Text style={[Typography.text_xs_medium, styles.error_text]}>
-                  {formik.errors.team_member}
-                </Text>
-              )}
-            </View>
-            {input_names.map((name: keyof Form) => (
-              <Input<Form>
-                key={name}
-                name={name}
-                label={t(`auth.${name}_label`)}
-                formik={formik}
-                placeholder={t(`auth.${name}_placeholder`)}
-                keyboard_type={
-                  name === 'email' ? 'email-address' : name === 'number' ? 'phone-pad' : 'default'
-                }
-                secure_text_entry={name === 'password'}
-              />
-            ))}
-            <View style={styles.checkboxWrapper}>
-              <Checkbox
-                label={t('auth.accept_terms')}
-                toggleCheckbox={toggleCheckbox}
-                checked={formik.values.accept_terms}
-                size='md'
-              />
-              {formik.touched.accept_terms && formik.errors.accept_terms && (
-                <Text style={[Typography.text_xs_medium, styles.error_text]}>
-                  {formik.errors.accept_terms}
-                </Text>
-              )}
+            <View style={styles.formContainer}>
+              <View style={styles.titleContainer}>
+                <ThemedText style={Typography.title}>{t('auth.register')}</ThemedText>
+              </View>
+              <View style={styles.inputsContainer}>
+                <View style={styles.flex_1}>
+                  <Select
+                    label={t('auth.team_member_label')}
+                    setValue={(value: string) => {
+                      formik.setFieldTouched('team_member', true, true);
+                      formik.setFieldValue('team_member', value);
+                    }}
+                    value={formik.values.team_member}
+                    placeholder={t('auth.team_member_placeholder')}
+                    options={options}
+                  />
+                  {formik.touched.team_member && formik.errors.team_member && (
+                    <Text style={[Typography.text_xs_medium, styles.error_text]}>
+                      {formik.errors.team_member}
+                    </Text>
+                  )}
+                </View>
+                {input_names.map((name: keyof Form) => (
+                  <Input<Form>
+                    key={name}
+                    name={name}
+                    label={t(`auth.${name}_label`)}
+                    formik={formik}
+                    placeholder={t(`auth.${name}_placeholder`)}
+                    keyboard_type={
+                      name === 'email'
+                        ? 'email-address'
+                        : name === 'number'
+                          ? 'phone-pad'
+                          : 'default'
+                    }
+                    secure_text_entry={name === 'password'}
+                  />
+                ))}
+                <View style={styles.checkboxWrapper}>
+                  <Checkbox
+                    label={t('auth.accept_terms')}
+                    toggleCheckbox={toggleCheckbox}
+                    checked={formik.values.accept_terms}
+                    size='md'
+                  />
+                  {formik.touched.accept_terms && formik.errors.accept_terms && (
+                    <Text style={[Typography.text_xs_medium, styles.error_text]}>
+                      {formik.errors.accept_terms}
+                    </Text>
+                  )}
+                </View>
+              </View>
             </View>
           </View>
-        </View>
-        <View style={styles.actionContainer}>
-          <View style={styles.buttonContainer}>
-            <Button size='lg' variant='primary' onPress={formik.handleSubmit}>
-              {t('auth.register')}
-            </Button>
-            <Button size='lg' variant='secondary' onPress={handleGuestOrder}>
-              {t('auth.guestOrder')}
-            </Button>
+          <View style={styles.actionContainer}>
+            <View style={styles.buttonContainer}>
+              <Button size='xl' variant='primary' onPress={formik.handleSubmit}>
+                {t('auth.register')}
+              </Button>
+              <Button size='xl' variant='secondary' onPress={handleGuestOrder}>
+                {t('auth.guestOrder')}
+              </Button>
+            </View>
+            <Link href='/(auth)/login'>
+              <Text style={styles.linkText}>
+                {t('auth.haveAnAccount')}
+                <Text style={styles.bold}> {t('auth.login_action')}</Text>
+              </Text>
+            </Link>
           </View>
-          <Link href='/(auth)/login'>
-            <Text style={styles.linkText}>
-              {t('auth.haveAnAccount')}
-              <Text style={styles.bold}> {t('auth.login_action')}</Text>
-            </Text>
-          </Link>
-        </View>
-      </ThemedView>
-    </ScrollView>
+        </ThemedView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -166,10 +192,16 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background.body,
     flexDirection: 'column',
     justifyContent: 'space-between',
+    gap: 40,
   },
   logoContainer: {
     alignItems: 'center',
     marginBottom: 44,
+  },
+  titleContainer: {
+    marginBottom: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   inputsContainer: {
     flex: 1,
@@ -177,7 +209,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     gap: 12,
     alignItems: 'center',
-    marginBottom: 20,
   },
   checkboxWrapper: {
     alignSelf: 'flex-start',
@@ -186,10 +217,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    gap: 52,
   },
   actionContainer: {
     flexDirection: 'column',
-    gap: 26,
+    gap: 36,
     paddingBottom: 28,
   },
   buttonContainer: {
