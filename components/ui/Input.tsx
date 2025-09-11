@@ -57,6 +57,27 @@ const Input = <T extends Record<string, string | boolean>>({
     return isFocused ? Colors.border.focused : Colors.border.primary;
   };
 
+  const getContentType = () => {
+    switch (keyboard_type) {
+      case 'email-address':
+        return 'emailAddress';
+      case 'phone-pad':
+        return 'telephoneNumber';
+      default:
+        return undefined;
+    }
+  };
+  const getAutoComplete = () => {
+    switch (keyboard_type) {
+      case 'email-address':
+        return 'email';
+      case 'phone-pad':
+        return 'tel';
+      default:
+        return undefined;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.flex_row}>
@@ -73,6 +94,8 @@ const Input = <T extends Record<string, string | boolean>>({
       >
         <TextInput
           keyboardType={keyboard_type ?? 'default'}
+          autoComplete={getAutoComplete()}
+          textContentType={getContentType()}
           style={styles.input}
           placeholder={placeholder}
           placeholderTextColor={Colors.text.placeholder}

@@ -49,7 +49,7 @@ export default function RegisterScreen() {
       email: yup.string().email(t('auth.email_invalid')).required(t('auth.email_required')),
       number: yup
         .string()
-        .matches(/^\+?[0-9]{9,14}$/, t('auth.number_invalid'))
+        .matches(/^\+?[0-9\s]{9,17}$/, t('auth.number_invalid')) // Allow spaces and increase max length
         .required(t('auth.number_required')),
       password: yup
         .string()
@@ -91,8 +91,8 @@ export default function RegisterScreen() {
 
   return (
     <KeyboardAvoidingView
-      behavior='padding'
       style={styles.flex_1}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
     >
       <ScrollView

@@ -57,8 +57,8 @@ export default function LoginScreen() {
 
   return (
     <KeyboardAvoidingView
-      behavior='padding'
       style={styles.flex_1}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
     >
       <ScrollView
@@ -78,7 +78,7 @@ export default function LoginScreen() {
             <View style={styles.logoContainer}>
               <Image source={require('../../assets/images/logo.png')} />
             </View>
-            <View style={styles.inputsOuterCointainer}>
+            <View style={styles.inputsOuterContainer}>
               <ThemedText style={Typography.title}>{t('auth.login')}</ThemedText>
               <View style={styles.inputsContainer}>
                 <Input<Form>
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     marginBottom: 52,
   },
-  inputsOuterCointainer: {
+  inputsOuterContainer: {
     width: '100%',
     alignItems: 'center',
     flexDirection: 'column',

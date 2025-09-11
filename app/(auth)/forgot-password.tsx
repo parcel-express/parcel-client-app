@@ -27,6 +27,7 @@ export default function ForgotPasswordScreen() {
     validationSchema: yup.object().shape({
       email: yup.string().email().required(),
     }),
+    validateOnMount: true,
     onSubmit: () => {
       // TODO: Implement password reset logic
     },
@@ -60,7 +61,7 @@ export default function ForgotPasswordScreen() {
                 variant='primary'
                 size='lg'
                 onPress={formik.handleSubmit}
-                disabled={formik.errors.email !== undefined}
+                disabled={!formik.isValid}
               >
                 {t('auth.send_link')}
               </Button>
