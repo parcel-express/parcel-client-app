@@ -11,7 +11,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
@@ -25,8 +24,9 @@ import Checkbox from '@/components/ui/Checkbox';
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
 import { Colors } from '@/constants/Colors';
+import { INPUT_NAMES, META, OPTIONS } from '@/constants/meta';
 import { Typography } from '@/constants/Typography';
-type Form = {
+export type Form = {
   team_member: string;
   name: string;
   surname: string;
@@ -35,10 +35,12 @@ type Form = {
   password: string;
   accept_terms: boolean;
 };
+
 export default function RegisterScreen() {
   const { t } = useTranslation();
   const headerHeight = useHeaderHeight();
   const insets = useSafeAreaInsets();
+  const keyboardVerticalOffset = Platform.OS === 'ios' ? headerHeight + insets.top : 0;
 
   const formik = useFormik<Form>({
     initialValues: {
@@ -82,67 +84,11 @@ export default function RegisterScreen() {
     router.push('/(auth)/guest-order');
   };
 
-  const options = React.useMemo(
-    () => [
-      { label: 'placeholder', value: 'placeholder' },
-      { label: 'placeholder 1', value: 'placeholder 1' },
-      { label: 'placeholder 2', value: 'placeholder 2' },
-      {
-        label: 'placeholder 3',
-        value: 'placeholder 3',
-      },
-      { label: 'placeholder 4', value: 'placeholder 4' },
-      { label: 'placeholder 5', value: 'placeholder 5' },
-      { label: 'placeholder 6', value: 'placeholder 6' },
-      { label: 'placeholder 7', value: 'placeholder 7' },
-      { label: 'placeholder 8', value: 'placeholder 8' },
-      { label: 'placeholder 9', value: 'placeholder 9' },
-    ],
-    []
-  );
-  const input_names: (keyof Omit<Form, 'team_member' | 'accept_terms'>)[] = React.useMemo(
-    () => ['name', 'surname', 'email', 'number', 'password'],
-    []
-  );
-  const meta: Record<
-    keyof Omit<Form, 'team_member' | 'accept_terms'>,
-    {
-      auto_complete: React.ComponentProps<typeof TextInput>['autoComplete'];
-      text_content_type: React.ComponentProps<typeof TextInput>['textContentType'];
-      autoCapitalize: React.ComponentProps<typeof TextInput>['autoCapitalize'];
-    }
-  > = React.useMemo(
-    () => ({
-      name: {
-        auto_complete: 'given-name',
-        text_content_type: 'givenName',
-        autoCapitalize: 'words',
-      },
-      surname: {
-        auto_complete: 'family-name',
-        text_content_type: 'familyName',
-        autoCapitalize: 'words',
-      },
-      email: { auto_complete: 'email', text_content_type: 'emailAddress', autoCapitalize: 'none' },
-      number: {
-        auto_complete: 'tel',
-        text_content_type: 'telephoneNumber',
-        autoCapitalize: 'none',
-      },
-      password: {
-        auto_complete: 'new-password',
-        text_content_type: 'newPassword',
-        autoCapitalize: 'none',
-      },
-    }),
-    []
-  );
-
   return (
     <KeyboardAvoidingView
       style={styles.flex_1}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? headerHeight : 0}
+      keyboardVerticalOffset={keyboardVerticalOffset}
     >
       <ScrollView
         style={styles.flex_1}
@@ -174,7 +120,7 @@ export default function RegisterScreen() {
                       }}
                       value={formik.values.team_member}
                       placeholder={t('auth.team_member_placeholder')}
-                      options={options}
+                      options={OPTIONS}
                     />
                     {formik.touched.team_member && formik.errors.team_member && (
                       <Text style={[Typography.text_xs_medium, styles.error_text]}>
@@ -182,16 +128,16 @@ export default function RegisterScreen() {
                       </Text>
                     )}
                   </View>
-                  {input_names.map(name => (
+                  {INPUT_NAMES.map(name => (
                     <Input<Form>
                       key={name}
                       name={name}
                       label={t(`auth.${name}_label`)}
                       formik={formik}
                       placeholder={t(`auth.${name}_placeholder`)}
-                      auto_complete={meta[name].auto_complete}
-                      text_content_type={meta[name].text_content_type}
-                      autoCapitalize={meta[name].autoCapitalize}
+                      auto_complete={META[name].auto_complete}
+                      text_content_type={META[name].text_content_type}
+                      autoCapitalize={META[name].autoCapitalize}
                       keyboard_type={
                         name === 'email'
                           ? 'email-address'
