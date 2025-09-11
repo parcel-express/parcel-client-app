@@ -11,6 +11,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as yup from 'yup';
 
 import { ThemedText } from '@/components/ThemedText';
@@ -31,6 +32,7 @@ export default function LoginScreen() {
     { label: 'Рус', value: 'ru-RU' },
   ];
   const { i18n, t } = useTranslation();
+  const insets = useSafeAreaInsets();
 
   const formik = useFormik({
     initialValues: { email: '', password: '' },
@@ -59,14 +61,14 @@ export default function LoginScreen() {
     <KeyboardAvoidingView
       style={styles.flex_1}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? insets.top : 0}
     >
       <ScrollView
         keyboardShouldPersistTaps='handled'
         contentContainerStyle={styles.contentContainer}
       >
         <ThemedView style={styles.container}>
-          <View style={styles.languageContainer}>
+          <View style={[styles.languageContainer, { top: insets.top + 10 }]}>
             <Select
               value={i18n.resolvedLanguage ?? i18n.language}
               options={languageOptions}
@@ -167,7 +169,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  languageContainer: { position: 'absolute', top: 12, right: 20, alignSelf: 'flex-end' },
+  languageContainer: { position: 'absolute', right: 20, alignSelf: 'flex-end' },
   actionContainer: {
     flexDirection: 'column',
     gap: 26,
