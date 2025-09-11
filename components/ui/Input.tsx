@@ -61,7 +61,7 @@ const Input = <T extends Record<string, string | boolean>>({
     return isFocused ? Colors.border.focused : Colors.border.primary;
   };
 
-  const getContentType = () => {
+  const getContentType = (): React.ComponentProps<typeof TextInput>['textContentType'] => {
     if (secure_text_entry || keyboard_type === 'visible-password') {
       return 'password';
     }
@@ -74,7 +74,7 @@ const Input = <T extends Record<string, string | boolean>>({
         return undefined;
     }
   };
-  const getAutoComplete = () => {
+  const getAutoComplete = (): React.ComponentProps<typeof TextInput>['autoComplete'] => {
     if (secure_text_entry || keyboard_type === 'visible-password') {
       return 'password';
     }
