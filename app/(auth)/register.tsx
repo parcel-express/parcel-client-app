@@ -15,6 +15,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as yup from 'yup';
 
 import { ThemedText } from '@/components/ThemedText';
@@ -37,6 +38,7 @@ type Form = {
 export default function RegisterScreen() {
   const { t } = useTranslation();
   const headerHeight = useHeaderHeight();
+  const insets = useSafeAreaInsets();
 
   const formik = useFormik<Form>({
     initialValues: {
@@ -178,7 +180,9 @@ export default function RegisterScreen() {
                           : name === 'number'
                             ? 'phone-pad'
                             : name === 'password'
-                              ? 'visible-password'
+                              ? Platform.OS === 'android'
+                                ? 'visible-password'
+                                : 'default'
                               : 'default'
                       }
                       secure_text_entry={name === 'password'}
@@ -200,7 +204,7 @@ export default function RegisterScreen() {
                 </View>
               </View>
             </View>
-            <View style={styles.actionContainer}>
+            <View style={[styles.actionContainer, { paddingBottom: insets.bottom }]}>
               <View style={styles.buttonContainer}>
                 <Button
                   size='xl'
@@ -267,7 +271,6 @@ const styles = StyleSheet.create({
   actionContainer: {
     flexDirection: 'column',
     gap: 36,
-    paddingBottom: 28,
   },
   buttonContainer: {
     flexDirection: 'column',
