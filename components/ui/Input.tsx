@@ -1,7 +1,7 @@
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { FormikProps } from 'formik';
 import React from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, StyleSheet, Text, TextInput, TextInputProps, View } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
@@ -27,9 +27,9 @@ type InputProps<T = string | boolean> = {
     | 'visible-password'
     | 'url'
     | undefined;
-  autoComplete?: React.ComponentProps<typeof TextInput>['autoComplete'];
-  textContentType?: React.ComponentProps<typeof TextInput>['textContentType'];
-  autoCapitalize?: React.ComponentProps<typeof TextInput>['autoCapitalize'];
+  autoComplete?: TextInputProps['autoComplete'];
+  textContentType?: TextInputProps['textContentType'];
+  autoCapitalize?: TextInputProps['autoCapitalize'];
 };
 
 const Input = <T extends Record<string, string | boolean>>({

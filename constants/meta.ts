@@ -1,4 +1,4 @@
-import { TextInput } from 'react-native';
+import { TextInputProps } from 'react-native';
 
 export type RegisterForm = {
   team_member: string;
@@ -12,9 +12,9 @@ export type RegisterForm = {
 export const META: Record<
   keyof Omit<RegisterForm, 'team_member' | 'accept_terms'>,
   {
-    autoComplete: React.ComponentProps<typeof TextInput>['autoComplete'];
-    textContentType: React.ComponentProps<typeof TextInput>['textContentType'];
-    autoCapitalize: React.ComponentProps<typeof TextInput>['autoCapitalize'];
+    autoComplete: TextInputProps['autoComplete'];
+    textContentType: TextInputProps['textContentType'];
+    autoCapitalize: TextInputProps['autoCapitalize'];
   }
 > = {
   name: {
