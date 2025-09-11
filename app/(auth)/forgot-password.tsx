@@ -53,7 +53,7 @@ export default function ForgotPasswordScreen() {
               name={'email'}
               label={t('auth.email_label')}
               formik={formik}
-              keyboard_type='email-address'
+              keyboardType='email-address'
             />
 
             <View style={styles.action_container}>

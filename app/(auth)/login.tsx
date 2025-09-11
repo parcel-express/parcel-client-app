@@ -86,7 +86,7 @@ export default function LoginScreen() {
                   label={t('auth.email_label')}
                   formik={formik}
                   placeholder={t('auth.email_placeholder')}
-                  keyboard_type='email-address'
+                  key='email-address'
                 />
                 <Input<Form>
                   name={'password'}
@@ -95,7 +95,7 @@ export default function LoginScreen() {
                   placeholder={t('auth.password_placeholder')}
                   hint_message={t('auth.forgotPassword')}
                   hint_message_on_press={handleForgotPassword}
-                  secure_text_entry
+                  secureTextEntry
                 />
               </View>
             </View>

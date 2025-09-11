@@ -129,18 +129,8 @@ export default function RegisterScreen() {
                       autoComplete={META[name].autoComplete}
                       textContentType={META[name].textContentType}
                       autoCapitalize={META[name].autoCapitalize}
-                      keyboard_type={
-                        name === 'email'
-                          ? 'email-address'
-                          : name === 'number'
-                            ? 'phone-pad'
-                            : name === 'password'
-                              ? Platform.OS === 'android'
-                                ? 'visible-password'
-                                : 'default'
-                              : 'default'
-                      }
-                      secure_text_entry={name === 'password'}
+                      keyboardType={META[name].keyboardType}
+                      secureTextEntry={META[name].secureTextEntry ?? false}
                     />
                   ))}
                   <View style={styles.checkboxWrapper}>

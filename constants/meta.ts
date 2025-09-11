@@ -9,48 +9,48 @@ export type RegisterForm = {
   password: string;
   accept_terms: boolean;
 };
-export const META: Record<
-  keyof Omit<RegisterForm, 'team_member' | 'accept_terms'>,
-  {
-    autoComplete: TextInputProps['autoComplete'];
-    textContentType: TextInputProps['textContentType'];
-    autoCapitalize: TextInputProps['autoCapitalize'];
-  }
-> = {
+export type InputName = keyof Omit<RegisterForm, 'team_member' | 'accept_terms'>;
+type InputMeta = {
+  autoComplete: TextInputProps['autoComplete'];
+  textContentType: TextInputProps['textContentType'];
+  autoCapitalize: TextInputProps['autoCapitalize'];
+  keyboardType: TextInputProps['keyboardType'];
+  secureTextEntry?: boolean;
+};
+export const META: Record<InputName, InputMeta> = {
   name: {
     autoComplete: 'given-name',
     textContentType: 'givenName',
     autoCapitalize: 'words',
+    keyboardType: 'default',
   },
   surname: {
     autoComplete: 'family-name',
     textContentType: 'familyName',
     autoCapitalize: 'words',
+    keyboardType: 'default',
   },
   email: {
     autoComplete: 'email',
     textContentType: 'emailAddress',
     autoCapitalize: 'none',
+    keyboardType: 'email-address',
   },
   number: {
     autoComplete: 'tel',
     textContentType: 'telephoneNumber',
     autoCapitalize: 'none',
+    keyboardType: 'phone-pad',
   },
   password: {
     autoComplete: 'new-password',
     textContentType: 'newPassword',
     autoCapitalize: 'none',
+    keyboardType: 'default',
+    secureTextEntry: true,
   },
 };
-
-export const INPUT_NAMES: (keyof Omit<RegisterForm, 'team_member' | 'accept_terms'>)[] = [
-  'name',
-  'surname',
-  'email',
-  'number',
-  'password',
-];
+export const INPUT_NAMES: InputName[] = ['name', 'surname', 'email', 'number', 'password'];
 
 export const OPTIONS: { label: string; value: string }[] = [
   { label: 'placeholder', value: 'placeholder' },
