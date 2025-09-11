@@ -61,33 +61,6 @@ const Input = <T extends Record<string, string | boolean>>({
     return isFocused ? Colors.border.focused : Colors.border.primary;
   };
 
-  const getContentType = (): React.ComponentProps<typeof TextInput>['textContentType'] => {
-    if (secure_text_entry || keyboard_type === 'visible-password') {
-      return 'password';
-    }
-    switch (keyboard_type) {
-      case 'email-address':
-        return 'emailAddress';
-      case 'phone-pad':
-        return 'telephoneNumber';
-      default:
-        return undefined;
-    }
-  };
-  const getAutoComplete = (): React.ComponentProps<typeof TextInput>['autoComplete'] => {
-    if (secure_text_entry || keyboard_type === 'visible-password') {
-      return 'password';
-    }
-    switch (keyboard_type) {
-      case 'email-address':
-        return 'email';
-      case 'phone-pad':
-        return 'tel';
-      default:
-        return undefined;
-    }
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.flex_row}>
@@ -104,8 +77,8 @@ const Input = <T extends Record<string, string | boolean>>({
       >
         <TextInput
           keyboardType={keyboard_type ?? 'default'}
-          autoComplete={auto_complete ?? getAutoComplete()}
-          textContentType={text_content_type ?? getContentType()}
+          autoComplete={auto_complete ?? undefined}
+          textContentType={text_content_type ?? undefined}
           style={styles.input}
           placeholder={placeholder}
           placeholderTextColor={Colors.text.placeholder}

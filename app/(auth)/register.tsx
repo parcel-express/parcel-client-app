@@ -50,11 +50,12 @@ export default function RegisterScreen() {
     },
     validationSchema: yup.object().shape({
       team_member: yup.string().required(t('auth.team_member_required')),
-      name: yup.string().required(t('auth.name_required')),
-      surname: yup.string().required(t('auth.surname_required')),
-      email: yup.string().email(t('auth.email_invalid')).required(t('auth.email_required')),
+      name: yup.string().trim().required(t('auth.name_required')),
+      surname: yup.string().trim().required(t('auth.surname_required')),
+      email: yup.string().trim().email(t('auth.email_invalid')).required(t('auth.email_required')),
       number: yup
         .string()
+        .trim()
         .matches(/^\+?(?:\d[\s-]?){8,16}\d$/, t('auth.number_invalid'))
         .required(t('auth.number_required')),
       password: yup
@@ -79,41 +80,44 @@ export default function RegisterScreen() {
     router.push('/(auth)/guest-order');
   };
 
-  const options = [
-    { label: 'Apple', value: 'apple' },
-    { label: 'Banana', value: 'banana' },
-    { label: 'Orange', value: 'orange' },
-    {
-      label: 'Grapes',
-      value: 'grapes',
-    },
-    { label: 'Mango', value: 'mango' },
-    { label: 'Pineapple', value: 'pineapple' },
-    { label: 'Strawberry', value: 'strawberry' },
-    { label: 'Watermelon', value: 'watermelon' },
-    { label: 'Kiwi', value: 'kiwi' },
-    { label: 'Peach', value: 'peach' },
-  ];
-  const input_names: (keyof Omit<Form, 'team_member' | 'accept_terms'>)[] = [
-    'name',
-    'surname',
-    'email',
-    'number',
-    'password',
-  ];
+  const options = React.useMemo(
+    () => [
+      { label: 'Apple', value: 'apple' },
+      { label: 'Banana', value: 'banana' },
+      { label: 'Orange', value: 'orange' },
+      {
+        label: 'Grapes',
+        value: 'grapes',
+      },
+      { label: 'Mango', value: 'mango' },
+      { label: 'Pineapple', value: 'pineapple' },
+      { label: 'Strawberry', value: 'strawberry' },
+      { label: 'Watermelon', value: 'watermelon' },
+      { label: 'Kiwi', value: 'kiwi' },
+      { label: 'Peach', value: 'peach' },
+    ],
+    []
+  );
+  const input_names: (keyof Omit<Form, 'team_member' | 'accept_terms'>)[] = React.useMemo(
+    () => ['name', 'surname', 'email', 'number', 'password'],
+    []
+  );
   const meta: Record<
     keyof Omit<Form, 'team_member' | 'accept_terms'>,
     {
       auto_complete: React.ComponentProps<typeof TextInput>['autoComplete'];
       text_content_type: React.ComponentProps<typeof TextInput>['textContentType'];
     }
-  > = {
-    name: { auto_complete: 'name-given', text_content_type: 'givenName' },
-    surname: { auto_complete: 'name-family', text_content_type: 'familyName' },
-    email: { auto_complete: 'email', text_content_type: 'emailAddress' },
-    number: { auto_complete: 'tel', text_content_type: 'telephoneNumber' },
-    password: { auto_complete: 'password-new', text_content_type: 'newPassword' },
-  };
+  > = React.useMemo(
+    () => ({
+      name: { auto_complete: 'given-name', text_content_type: 'givenName' },
+      surname: { auto_complete: 'family-name', text_content_type: 'familyName' },
+      email: { auto_complete: 'email', text_content_type: 'emailAddress' },
+      number: { auto_complete: 'tel', text_content_type: 'telephoneNumber' },
+      password: { auto_complete: 'new-password', text_content_type: 'newPassword' },
+    }),
+    []
+  );
 
   return (
     <KeyboardAvoidingView
