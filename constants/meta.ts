@@ -1,43 +1,50 @@
 import { TextInput } from 'react-native';
 
-import { Form } from '@/app/(auth)/register';
-
+export type RegisterForm = {
+  team_member: string;
+  name: string;
+  surname: string;
+  email: string;
+  number: string;
+  password: string;
+  accept_terms: boolean;
+};
 export const META: Record<
-  keyof Omit<Form, 'team_member' | 'accept_terms'>,
+  keyof Omit<RegisterForm, 'team_member' | 'accept_terms'>,
   {
-    auto_complete: React.ComponentProps<typeof TextInput>['autoComplete'];
-    text_content_type: React.ComponentProps<typeof TextInput>['textContentType'];
+    autoComplete: React.ComponentProps<typeof TextInput>['autoComplete'];
+    textContentType: React.ComponentProps<typeof TextInput>['textContentType'];
     autoCapitalize: React.ComponentProps<typeof TextInput>['autoCapitalize'];
   }
 > = {
   name: {
-    auto_complete: 'given-name',
-    text_content_type: 'givenName',
+    autoComplete: 'given-name',
+    textContentType: 'givenName',
     autoCapitalize: 'words',
   },
   surname: {
-    auto_complete: 'family-name',
-    text_content_type: 'familyName',
+    autoComplete: 'family-name',
+    textContentType: 'familyName',
     autoCapitalize: 'words',
   },
   email: {
-    auto_complete: 'email',
-    text_content_type: 'emailAddress',
+    autoComplete: 'email',
+    textContentType: 'emailAddress',
     autoCapitalize: 'none',
   },
   number: {
-    auto_complete: 'tel',
-    text_content_type: 'telephoneNumber',
+    autoComplete: 'tel',
+    textContentType: 'telephoneNumber',
     autoCapitalize: 'none',
   },
   password: {
-    auto_complete: 'new-password',
-    text_content_type: 'newPassword',
+    autoComplete: 'new-password',
+    textContentType: 'newPassword',
     autoCapitalize: 'none',
   },
 };
 
-export const INPUT_NAMES: (keyof Omit<Form, 'team_member' | 'accept_terms'>)[] = [
+export const INPUT_NAMES: (keyof Omit<RegisterForm, 'team_member' | 'accept_terms'>)[] = [
   'name',
   'surname',
   'email',

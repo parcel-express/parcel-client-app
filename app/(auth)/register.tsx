@@ -24,17 +24,8 @@ import Checkbox from '@/components/ui/Checkbox';
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
 import { Colors } from '@/constants/Colors';
-import { INPUT_NAMES, META, OPTIONS } from '@/constants/meta';
+import { INPUT_NAMES, META, OPTIONS, RegisterForm } from '@/constants/meta';
 import { Typography } from '@/constants/Typography';
-export type Form = {
-  team_member: string;
-  name: string;
-  surname: string;
-  email: string;
-  number: string;
-  password: string;
-  accept_terms: boolean;
-};
 
 export default function RegisterScreen() {
   const { t } = useTranslation();
@@ -42,7 +33,7 @@ export default function RegisterScreen() {
   const insets = useSafeAreaInsets();
   const keyboardVerticalOffset = Platform.OS === 'ios' ? headerHeight + insets.top : 0;
 
-  const formik = useFormik<Form>({
+  const formik = useFormik<RegisterForm>({
     initialValues: {
       team_member: '',
       name: '',
@@ -129,14 +120,14 @@ export default function RegisterScreen() {
                     )}
                   </View>
                   {INPUT_NAMES.map(name => (
-                    <Input<Form>
+                    <Input<RegisterForm>
                       key={name}
                       name={name}
                       label={t(`auth.${name}_label`)}
                       formik={formik}
                       placeholder={t(`auth.${name}_placeholder`)}
-                      auto_complete={META[name].auto_complete}
-                      text_content_type={META[name].text_content_type}
+                      autoComplete={META[name].autoComplete}
+                      textContentType={META[name].textContentType}
                       autoCapitalize={META[name].autoCapitalize}
                       keyboard_type={
                         name === 'email'

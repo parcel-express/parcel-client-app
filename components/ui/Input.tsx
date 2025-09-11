@@ -27,8 +27,8 @@ type InputProps<T = string | boolean> = {
     | 'visible-password'
     | 'url'
     | undefined;
-  auto_complete?: React.ComponentProps<typeof TextInput>['autoComplete'];
-  text_content_type?: React.ComponentProps<typeof TextInput>['textContentType'];
+  autoComplete?: React.ComponentProps<typeof TextInput>['autoComplete'];
+  textContentType?: React.ComponentProps<typeof TextInput>['textContentType'];
   autoCapitalize?: React.ComponentProps<typeof TextInput>['autoCapitalize'];
 };
 
@@ -43,8 +43,8 @@ const Input = <T extends Record<string, string | boolean>>({
   secure_text_entry,
   name,
   keyboard_type,
-  auto_complete,
-  text_content_type,
+  autoComplete,
+  textContentType,
   autoCapitalize,
 }: InputProps<T>) => {
   const [isFocused, setIsFocused] = React.useState(false);
@@ -79,8 +79,8 @@ const Input = <T extends Record<string, string | boolean>>({
       >
         <TextInput
           keyboardType={keyboard_type ?? 'default'}
-          autoComplete={auto_complete ?? undefined}
-          textContentType={text_content_type ?? undefined}
+          autoComplete={autoComplete ?? undefined}
+          textContentType={textContentType ?? undefined}
           style={styles.input}
           placeholder={placeholder}
           placeholderTextColor={Colors.text.placeholder}
