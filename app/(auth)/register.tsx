@@ -11,6 +11,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
@@ -37,7 +38,7 @@ export default function RegisterScreen() {
   const { t } = useTranslation();
   const headerHeight = useHeaderHeight();
 
-  const formik = useFormik({
+  const formik = useFormik<Form>({
     initialValues: {
       team_member: '',
       name: '',
@@ -63,6 +64,7 @@ export default function RegisterScreen() {
         .required(t('auth.password_required')),
       accept_terms: yup.boolean().oneOf([true], t('auth.accept_terms_error')),
     }),
+    validateOnMount: true,
     onSubmit: () => {
       router.replace('/(tabs)');
     },
@@ -92,7 +94,26 @@ export default function RegisterScreen() {
     { label: 'Kiwi', value: 'kiwi' },
     { label: 'Peach', value: 'peach' },
   ];
-  const input_names: (keyof Form)[] = ['name', 'surname', 'email', 'number', 'password'];
+  const input_names: (keyof Omit<Form, 'team_member' | 'accept_terms'>)[] = [
+    'name',
+    'surname',
+    'email',
+    'number',
+    'password',
+  ];
+  const meta: Record<
+    keyof Omit<Form, 'team_member' | 'accept_terms'>,
+    {
+      auto_complete: React.ComponentProps<typeof TextInput>['autoComplete'];
+      text_content_type: React.ComponentProps<typeof TextInput>['textContentType'];
+    }
+  > = {
+    name: { auto_complete: 'name-given', text_content_type: 'givenName' },
+    surname: { auto_complete: 'name-family', text_content_type: 'familyName' },
+    email: { auto_complete: 'email', text_content_type: 'emailAddress' },
+    number: { auto_complete: 'tel', text_content_type: 'telephoneNumber' },
+    password: { auto_complete: 'password-new', text_content_type: 'newPassword' },
+  };
 
   return (
     <KeyboardAvoidingView
@@ -138,13 +159,15 @@ export default function RegisterScreen() {
                       </Text>
                     )}
                   </View>
-                  {input_names.map((name: keyof Form) => (
+                  {input_names.map(name => (
                     <Input<Form>
                       key={name}
                       name={name}
                       label={t(`auth.${name}_label`)}
                       formik={formik}
                       placeholder={t(`auth.${name}_placeholder`)}
+                      auto_complete={meta[name].auto_complete}
+                      text_content_type={meta[name].text_content_type}
                       keyboard_type={
                         name === 'email'
                           ? 'email-address'
@@ -175,7 +198,12 @@ export default function RegisterScreen() {
             </View>
             <View style={styles.actionContainer}>
               <View style={styles.buttonContainer}>
-                <Button size='xl' variant='primary' onPress={formik.handleSubmit}>
+                <Button
+                  size='xl'
+                  variant='primary'
+                  onPress={formik.handleSubmit}
+                  disabled={!formik.isValid}
+                >
                   {t('auth.register')}
                 </Button>
                 <Button size='xl' variant='secondary' onPress={handleGuestOrder}>
