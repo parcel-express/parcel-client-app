@@ -1,9 +1,11 @@
+import { useHeaderHeight } from '@react-navigation/elements';
 import { Link, router } from 'expo-router';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Image,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -32,6 +34,8 @@ type Form = {
 };
 export default function RegisterScreen() {
   const { t } = useTranslation();
+  const headerHeight = useHeaderHeight();
+
   const formik = useFormik({
     initialValues: {
       team_member: '',
@@ -49,7 +53,7 @@ export default function RegisterScreen() {
       email: yup.string().email(t('auth.email_invalid')).required(t('auth.email_required')),
       number: yup
         .string()
-        .matches(/^\+?[0-9\s]{9,17}$/, t('auth.number_invalid')) // Allow spaces and increase max length
+        .matches(/^\+?(?:\d[\s-]?){8,16}\d$/, t('auth.number_invalid'))
         .required(t('auth.number_required')),
       password: yup
         .string()
@@ -73,19 +77,19 @@ export default function RegisterScreen() {
   };
 
   const options = [
-    { label: 'Apple ', value: 'apple' },
-    { label: 'Banana ', value: 'banana' },
-    { label: 'Orange ', value: 'orange' },
+    { label: 'Apple', value: 'apple' },
+    { label: 'Banana', value: 'banana' },
+    { label: 'Orange', value: 'orange' },
     {
-      label: 'Grapes ',
+      label: 'Grapes',
       value: 'grapes',
     },
-    { label: 'Mango ', value: 'mango' },
-    { label: 'Pineapple ', value: 'pineapple' },
-    { label: 'Strawberry ', value: 'strawberry' },
-    { label: 'Watermelon ', value: 'watermelon' },
-    { label: 'Kiwi ', value: 'kiwi' },
-    { label: 'Peach ', value: 'peach' },
+    { label: 'Mango', value: 'mango' },
+    { label: 'Pineapple', value: 'pineapple' },
+    { label: 'Strawberry', value: 'strawberry' },
+    { label: 'Watermelon', value: 'watermelon' },
+    { label: 'Kiwi', value: 'kiwi' },
+    { label: 'Peach', value: 'peach' },
   ];
   const input_names: (keyof Form)[] = ['name', 'surname', 'email', 'number', 'password'];
 
@@ -93,17 +97,25 @@ export default function RegisterScreen() {
     <KeyboardAvoidingView
       style={styles.flex_1}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? headerHeight : 0}
     >
       <ScrollView
         style={styles.flex_1}
         contentContainerStyle={styles.flexGrow}
         keyboardShouldPersistTaps='handled'
       >
-        <ThemedView style={styles.container}>
+        <ThemedView
+          style={styles.container}
+          onStartShouldSetResponder={() => true}
+          onResponderGrant={Keyboard.dismiss}
+        >
           <View>
             <View style={styles.logoContainer}>
-              <Image source={require('../../assets/images/logo.png')} />
+              <Image
+                source={require('../../assets/images/logo.png')}
+                accessibilityRole='image'
+                accessibilityLabel={t('common.logo')}
+              />
             </View>
 
             <View style={styles.formContainer}>
@@ -140,7 +152,9 @@ export default function RegisterScreen() {
                         ? 'email-address'
                         : name === 'number'
                           ? 'phone-pad'
-                          : 'default'
+                          : name === 'password'
+                            ? 'visible-password'
+                            : 'default'
                     }
                     secure_text_entry={name === 'password'}
                   />

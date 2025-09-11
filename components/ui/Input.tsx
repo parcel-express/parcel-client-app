@@ -27,6 +27,8 @@ type InputProps<T = string | boolean> = {
     | 'visible-password'
     | 'url'
     | undefined;
+  auto_complete?: React.ComponentProps<typeof TextInput>['autoComplete'];
+  text_content_type?: React.ComponentProps<typeof TextInput>['textContentType'];
 };
 
 const Input = <T extends Record<string, string | boolean>>({
@@ -40,6 +42,8 @@ const Input = <T extends Record<string, string | boolean>>({
   secure_text_entry,
   name,
   keyboard_type,
+  auto_complete,
+  text_content_type,
 }: InputProps<T>) => {
   const [isFocused, setIsFocused] = React.useState(false);
 
@@ -58,6 +62,9 @@ const Input = <T extends Record<string, string | boolean>>({
   };
 
   const getContentType = () => {
+    if (secure_text_entry || keyboard_type === 'visible-password') {
+      return 'password';
+    }
     switch (keyboard_type) {
       case 'email-address':
         return 'emailAddress';
@@ -68,6 +75,9 @@ const Input = <T extends Record<string, string | boolean>>({
     }
   };
   const getAutoComplete = () => {
+    if (secure_text_entry || keyboard_type === 'visible-password') {
+      return 'password';
+    }
     switch (keyboard_type) {
       case 'email-address':
         return 'email';
@@ -94,8 +104,8 @@ const Input = <T extends Record<string, string | boolean>>({
       >
         <TextInput
           keyboardType={keyboard_type ?? 'default'}
-          autoComplete={getAutoComplete()}
-          textContentType={getContentType()}
+          autoComplete={auto_complete ?? getAutoComplete()}
+          textContentType={text_content_type ?? getContentType()}
           style={styles.input}
           placeholder={placeholder}
           placeholderTextColor={Colors.text.placeholder}
