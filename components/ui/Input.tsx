@@ -1,7 +1,7 @@
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { FormikProps } from 'formik';
 import React from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, StyleSheet, Text, TextInput, TextInputProps, View } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
@@ -16,17 +16,11 @@ type InputProps<T = string | boolean> = {
   icon_name?: keyof typeof MaterialIcons.glyphMap;
   formik: FormikProps<T>;
   hint_message_on_press?: () => void;
-  secure_text_entry?: boolean;
-  keyboard_type?:
-    | 'default'
-    | 'email-address'
-    | 'numeric'
-    | 'phone-pad'
-    | 'number-pad'
-    | 'decimal-pad'
-    | 'visible-password'
-    | 'url'
-    | undefined;
+  secureTextEntry?: boolean;
+  keyboardType?: TextInputProps['keyboardType'];
+  autoComplete?: TextInputProps['autoComplete'];
+  textContentType?: TextInputProps['textContentType'];
+  autoCapitalize?: TextInputProps['autoCapitalize'];
 };
 
 const Input = <T extends Record<string, string | boolean>>({
@@ -37,9 +31,12 @@ const Input = <T extends Record<string, string | boolean>>({
   icon_name,
   formik,
   hint_message_on_press,
-  secure_text_entry,
+  secureTextEntry,
   name,
-  keyboard_type,
+  keyboardType,
+  autoComplete,
+  textContentType,
+  autoCapitalize,
 }: InputProps<T>) => {
   const [isFocused, setIsFocused] = React.useState(false);
 
@@ -72,11 +69,13 @@ const Input = <T extends Record<string, string | boolean>>({
         }}
       >
         <TextInput
-          keyboardType={keyboard_type ?? 'default'}
+          keyboardType={keyboardType ?? 'default'}
+          autoComplete={autoComplete ?? undefined}
+          textContentType={textContentType ?? undefined}
           style={styles.input}
           placeholder={placeholder}
           placeholderTextColor={Colors.text.placeholder}
-          autoCapitalize='none'
+          autoCapitalize={autoCapitalize ?? 'none'}
           onFocus={() => setIsFocused(true)}
           onBlur={() => {
             setIsFocused(false);
@@ -87,7 +86,7 @@ const Input = <T extends Record<string, string | boolean>>({
             formik.setFieldValue(name, text);
           }}
           value={typeof formik.values[name] === 'string' ? formik.values[name] : ''}
-          secureTextEntry={secure_text_entry}
+          secureTextEntry={secureTextEntry}
         />
 
         {icon_name && (
