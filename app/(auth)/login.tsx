@@ -82,11 +82,14 @@ export default function LoginScreen() {
               <ThemedText style={Typography.title}>{t('auth.login')}</ThemedText>
               <View style={styles.inputsContainer}>
                 <Input<Form>
-                  name={'email'}
+                  name='email'
                   label={t('auth.email_label')}
                   formik={formik}
                   placeholder={t('auth.email_placeholder')}
-                  key='email-address'
+                  keyboardType='email-address'
+                  autoComplete='email'
+                  textContentType='emailAddress'
+                  autoCapitalize='none'
                 />
                 <Input<Form>
                   name={'password'}
@@ -95,6 +98,8 @@ export default function LoginScreen() {
                   placeholder={t('auth.password_placeholder')}
                   hint_message={t('auth.forgotPassword')}
                   hint_message_on_press={handleForgotPassword}
+                  autoComplete='password'
+                  textContentType='password'
                   secureTextEntry
                 />
               </View>
