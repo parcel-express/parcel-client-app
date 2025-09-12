@@ -192,8 +192,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 20,
     alignSelf: 'flex-end',
-    zIndex: 100,
-    elevation: 100,
+    zIndex: 10,
+    elevation: 10,
   },
   actionContainer: {
     flexDirection: 'column',

@@ -26,7 +26,7 @@ export default function ForgotPasswordScreen() {
   const formik = useFormik({
     initialValues: { email: '' },
     validationSchema: yup.object().shape({
-      email: yup.string().email().required(t('auth.emailRequired')),
+      email: yup.string().email(t('auth.emailInvalid')).required(t('auth.emailRequired')),
     }),
     validateOnMount: true,
     onSubmit: () => {

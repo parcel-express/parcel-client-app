@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     gap: 6,
     width: '100%',
-    zIndex: 10,
+
     elevation: 10,
   },
   flexRow: {
