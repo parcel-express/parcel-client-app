@@ -158,7 +158,7 @@ export default function RegisterScreen() {
                   size='xl'
                   variant='primary'
                   onPress={formik.handleSubmit}
-                  disabled={!formik.isValid || formik.isSubmitting}
+                  disabled={!formik.dirty || !formik.isValid || formik.isSubmitting}
                 >
                   {t('auth.register')}
                 </Button>
