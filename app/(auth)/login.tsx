@@ -36,6 +36,8 @@ export default function LoginScreen() {
 
   const formik = useFormik({
     initialValues: { email: '', password: '' },
+    validateOnChange: true,
+    validateOnBlur: false,
     validationSchema: yup.object().shape({
       email: yup.string().trim().email(t('auth.emailInvalid')).required(t('auth.emailRequired')),
       password: yup
@@ -44,7 +46,7 @@ export default function LoginScreen() {
         .max(20, t('auth.passwordMax'))
         .required(t('auth.passwordRequired')),
     }),
-    validateOnMount: true,
+    validateOnMount: false,
     onSubmit: () => {
       router.replace('/(tabs)');
     },

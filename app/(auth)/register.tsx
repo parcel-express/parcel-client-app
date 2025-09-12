@@ -60,7 +60,9 @@ export default function RegisterScreen() {
         .required(t('auth.passwordRequired')),
       acceptTerms: yup.boolean().oneOf([true], t('auth.acceptTermsError')),
     }),
-    validateOnMount: true,
+    validateOnMount: false,
+    validateOnBlur: false,
+    validateOnChange: true,
     onSubmit: () => {
       router.replace('/(tabs)');
     },
