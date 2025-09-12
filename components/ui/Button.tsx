@@ -11,66 +11,65 @@ type Props = {
   onPress?: () => void;
   disabled?: boolean;
   children?: React.ReactNode;
-  left_icon_name?: keyof typeof MaterialIcons.glyphMap;
-  right_icon_name?: keyof typeof MaterialIcons.glyphMap;
+  leftIconName?: keyof typeof MaterialIcons.glyphMap;
+  rightIconName?: keyof typeof MaterialIcons.glyphMap;
 };
-
+const sizes = {
+  sm: { paddingVertical: 8, paddingHorizontal: 12, gap: 4 },
+  md: { paddingVertical: 10, paddingHorizontal: 14, gap: 4 },
+  lg: { paddingVertical: 10, paddingHorizontal: 16, gap: 6 },
+  xl: { paddingVertical: 12, paddingHorizontal: 18, gap: 6 },
+  '2xl': { paddingVertical: 16, paddingHorizontal: 22, gap: 8, borderRadius: 10 },
+};
+const typography = {
+  sm: Typography.textSmSemiBold,
+  md: Typography.textMdSemiBold,
+  lg: Typography.textLgSemiBold,
+  xl: Typography.textMdSemiBold,
+  '2xl': Typography.textLgSemiBold,
+};
 const Button = ({
   size,
   variant,
   onPress,
   disabled,
   children,
-  left_icon_name,
-  right_icon_name,
+  leftIconName,
+  rightIconName,
 }: Props) => {
   const [isFocused, setIsFocused] = React.useState(false);
 
-  const sizes = {
-    sm: { paddingVertical: 8, paddingHorizontal: 12, gap: 4 },
-    md: { paddingVertical: 10, paddingHorizontal: 14, gap: 4 },
-    lg: { paddingVertical: 10, paddingHorizontal: 16, gap: 6 },
-    xl: { paddingVertical: 12, paddingHorizontal: 18, gap: 6 },
-    '2xl': { paddingVertical: 16, paddingHorizontal: 22, gap: 8, borderRadius: 10 },
-  };
-  const typography = {
-    sm: Typography.text_sm_semiBold,
-    md: Typography.text_sm_semiBold,
-    lg: Typography.text_md_semiBold,
-    xl: Typography.text_md_semiBold,
-    '2xl': Typography.text_lg_semiBold,
-  };
   const getIconColor = (pressed: boolean) => {
     if (disabled) {
-      return Colors.button.disabled_text;
+      return Colors.button.disabledText;
     }
 
     if (pressed) {
       return variant === 'secondary'
-        ? Colors.button.secondary_hover_text
-        : Colors.button.primary_hover_text;
+        ? Colors.button.secondaryHoverText
+        : Colors.button.primaryHoverText;
     }
 
-    return variant === 'secondary' ? Colors.button.secondary_text : Colors.button.primary_text;
+    return variant === 'secondary' ? Colors.button.secondaryText : Colors.button.primaryText;
   };
 
   const getBorderColor = () => {
     if (disabled) {
-      return Colors.button.disabled_border;
+      return Colors.button.disabledBorder;
     }
-    return variant === 'secondary' ? Colors.button.secondary_border : Colors.button.primary_border;
+    return variant === 'secondary' ? Colors.button.secondaryBorder : Colors.button.primaryBorder;
   };
 
   const getTextColor = (pressed: boolean) => {
     if (disabled) {
-      return Colors.button.disabled_text;
+      return Colors.button.disabledText;
     }
     if (pressed) {
       return variant === 'secondary'
-        ? Colors.button.secondary_hover_text
-        : Colors.button.primary_hover_text;
+        ? Colors.button.secondaryHoverText
+        : Colors.button.primaryHoverText;
     }
-    return variant === 'secondary' ? Colors.button.secondary_text : Colors.button.primary_text;
+    return variant === 'secondary' ? Colors.button.secondaryText : Colors.button.primaryText;
   };
 
   return (
@@ -79,18 +78,18 @@ const Button = ({
       disabled={disabled}
       onFocus={() => setIsFocused(true)}
       onBlur={() => setIsFocused(false)}
-      style={[isFocused && styles.button_outline]}
+      style={[isFocused && styles.buttonOutline]}
     >
       {({ pressed }) => (
         <LinearGradient
           colors={
             pressed && variant === 'secondary'
-              ? [Colors.button.secondary_hover_background, Colors.button.secondary_hover_background]
+              ? [Colors.button.secondaryHoverBackground, Colors.button.secondaryHoverBackground]
               : disabled
-                ? [Colors.button.disabled_background, Colors.button.disabled_background]
+                ? [Colors.button.disabledBackground, Colors.button.disabledBackground]
                 : variant === 'secondary'
-                  ? [Colors.button.secondary_background, Colors.button.secondary_background]
-                  : [Colors.button.primary_background_start, Colors.button.primary_background_end]
+                  ? [Colors.button.secondaryBackground, Colors.button.secondaryBackground]
+                  : [Colors.button.primaryBackgroundStart, Colors.button.primaryBackgroundEnd]
           }
           start={{ x: 0, y: 0.5 }}
           end={{ x: 1, y: 0.5 }}
@@ -104,17 +103,14 @@ const Button = ({
         >
           {pressed && variant === 'primary' && (
             <LinearGradient
-              colors={[
-                Colors.button.primary_pressed_overlay,
-                Colors.button.primary_pressed_overlay,
-              ]}
+              colors={[Colors.button.primaryPressedOverlay, Colors.button.primaryPressedOverlay]}
               start={{ x: 0, y: 0 }}
               end={{ x: 0, y: 1 }}
               style={StyleSheet.absoluteFillObject}
             />
           )}
-          {left_icon_name && (
-            <MaterialIcons name={left_icon_name} size={20} color={getIconColor(pressed)} />
+          {leftIconName && (
+            <MaterialIcons name={leftIconName} size={20} color={getIconColor(pressed)} />
           )}
           <Text
             style={[
@@ -127,8 +123,8 @@ const Button = ({
           >
             {children || 'Button Text'}
           </Text>
-          {right_icon_name && (
-            <MaterialIcons name={right_icon_name} size={20} color={getIconColor(pressed)} />
+          {rightIconName && (
+            <MaterialIcons name={rightIconName} size={20} color={getIconColor(pressed)} />
           )}
         </LinearGradient>
       )}
@@ -145,7 +141,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderWidth: 1,
   },
-  button_outline: {
+  buttonOutline: {
     borderRadius: 8,
     outlineOffset: 4,
     outlineWidth: 2,

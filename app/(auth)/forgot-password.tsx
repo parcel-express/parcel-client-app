@@ -22,17 +22,17 @@ type Form = {
   email: string;
 };
 export default function ForgotPasswordScreen() {
+  const { t } = useTranslation();
   const formik = useFormik({
     initialValues: { email: '' },
     validationSchema: yup.object().shape({
-      email: yup.string().email().required(),
+      email: yup.string().email(t('auth.emailInvalid')).required(t('auth.emailRequired')),
     }),
     validateOnMount: true,
     onSubmit: () => {
       // TODO: Implement password reset logic
     },
   });
-  const { t } = useTranslation();
 
   return (
     <KeyboardAvoidingView
@@ -49,14 +49,14 @@ export default function ForgotPasswordScreen() {
             </View>
 
             <Input<Form>
-              placeholder={t('auth.email_placeholder')}
+              placeholder={t('auth.emailPlaceholder')}
               name={'email'}
-              label={t('auth.email_label')}
+              label={t('auth.emailLabel')}
               formik={formik}
               keyboardType='email-address'
             />
 
-            <View style={styles.action_container}>
+            <View style={styles.actionContainer}>
               <Button
                 variant='primary'
                 size='lg'
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     marginBottom: 32,
     lineHeight: 24,
   },
-  action_container: {
+  actionContainer: {
     width: '100%',
     gap: 12,
     marginTop: 20,

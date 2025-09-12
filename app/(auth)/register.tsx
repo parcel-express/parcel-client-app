@@ -35,30 +35,30 @@ export default function RegisterScreen() {
 
   const formik = useFormik<RegisterForm>({
     initialValues: {
-      team_member: '',
+      teamMember: '',
       name: '',
       surname: '',
       email: '',
       number: '',
       password: '',
-      accept_terms: false,
+      acceptTerms: false,
     },
     validationSchema: yup.object().shape({
-      team_member: yup.string().required(t('auth.team_member_required')),
-      name: yup.string().trim().required(t('auth.name_required')),
-      surname: yup.string().trim().required(t('auth.surname_required')),
-      email: yup.string().trim().email(t('auth.email_invalid')).required(t('auth.email_required')),
+      teamMember: yup.string().trim().required(t('auth.teamMemberRequired')),
+      name: yup.string().trim().required(t('auth.nameRequired')),
+      surname: yup.string().trim().required(t('auth.surnameRequired')),
+      email: yup.string().trim().email(t('auth.emailInvalid')).required(t('auth.emailRequired')),
       number: yup
         .string()
         .trim()
-        .matches(/^\+?(?:\d[\s-]?){8,16}\d$/, t('auth.number_invalid'))
-        .required(t('auth.number_required')),
+        .matches(/^\+?(?:\d[\s-]?){8,16}\d$/, t('auth.numberInvalid'))
+        .required(t('auth.numberRequired')),
       password: yup
         .string()
-        .min(6, t('auth.password_min'))
-        .max(20, t('auth.password_max'))
-        .required(t('auth.password_required')),
-      accept_terms: yup.boolean().oneOf([true], t('auth.accept_terms_error')),
+        .min(6, t('auth.passwordMin'))
+        .max(20, t('auth.passwordMax'))
+        .required(t('auth.passwordRequired')),
+      acceptTerms: yup.boolean().oneOf([true], t('auth.acceptTermsError')),
     }),
     validateOnMount: true,
     onSubmit: () => {
@@ -66,9 +66,9 @@ export default function RegisterScreen() {
     },
   });
 
-  const toggleCheckbox = () => {
-    formik.setFieldTouched('accept_terms', true, true);
-    formik.setFieldValue('accept_terms', !formik.values.accept_terms);
+  const toggleCheckbox = async () => {
+    await formik.setFieldValue('acceptTerms', !formik.values.acceptTerms);
+    formik.setFieldTouched('acceptTerms', true, true);
   };
 
   const handleGuestOrder = () => {
@@ -77,12 +77,12 @@ export default function RegisterScreen() {
 
   return (
     <KeyboardAvoidingView
-      style={styles.flex_1}
+      style={styles.flexOne}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={keyboardVerticalOffset}
     >
       <ScrollView
-        style={styles.flex_1}
+        style={styles.flexOne}
         contentContainerStyle={styles.flexGrow}
         keyboardShouldPersistTaps='handled'
       >
@@ -94,6 +94,7 @@ export default function RegisterScreen() {
                   source={require('../../assets/images/logo.png')}
                   accessibilityRole='image'
                   accessibilityLabel={t('common.logo')}
+                  style={styles.logo}
                 />
               </View>
 
@@ -102,20 +103,20 @@ export default function RegisterScreen() {
                   <ThemedText style={Typography.title}>{t('auth.register')}</ThemedText>
                 </View>
                 <View style={styles.inputsContainer}>
-                  <View style={styles.flex_1}>
+                  <View style={styles.flexOne}>
                     <Select
-                      label={t('auth.team_member_label')}
-                      setValue={(value: string) => {
-                        formik.setFieldTouched('team_member', true, true);
-                        formik.setFieldValue('team_member', value);
+                      label={t('auth.teamMemberLabel')}
+                      setValue={async (value: string) => {
+                        await formik.setFieldValue('teamMember', value);
+                        formik.setFieldTouched('teamMember', true);
                       }}
-                      value={formik.values.team_member}
-                      placeholder={t('auth.team_member_placeholder')}
+                      value={formik.values.teamMember}
+                      placeholder={t('auth.teamMemberPlaceholder')}
                       options={OPTIONS}
                     />
-                    {formik.touched.team_member && formik.errors.team_member && (
-                      <Text style={[Typography.text_xs_medium, styles.error_text]}>
-                        {formik.errors.team_member}
+                    {formik.touched.teamMember && formik.errors.teamMember && (
+                      <Text style={[Typography.textXsMedium, styles.errorText]}>
+                        {formik.errors.teamMember}
                       </Text>
                     )}
                   </View>
@@ -123,9 +124,9 @@ export default function RegisterScreen() {
                     <Input<RegisterForm>
                       key={name}
                       name={name}
-                      label={t(`auth.${name}_label`)}
+                      label={t(`auth.${name}Label`)}
                       formik={formik}
-                      placeholder={t(`auth.${name}_placeholder`)}
+                      placeholder={t(`auth.${name}Placeholder`)}
                       autoComplete={META[name].autoComplete}
                       textContentType={META[name].textContentType}
                       autoCapitalize={META[name].autoCapitalize}
@@ -135,14 +136,14 @@ export default function RegisterScreen() {
                   ))}
                   <View style={styles.checkboxWrapper}>
                     <Checkbox
-                      label={t('auth.accept_terms')}
+                      label={t('auth.acceptTerms')}
                       toggleCheckbox={toggleCheckbox}
-                      checked={formik.values.accept_terms}
+                      checked={formik.values.acceptTerms}
                       size='md'
                     />
-                    {formik.touched.accept_terms && formik.errors.accept_terms && (
-                      <Text style={[Typography.text_xs_medium, styles.error_text]}>
-                        {formik.errors.accept_terms}
+                    {formik.touched.acceptTerms && formik.errors.acceptTerms && (
+                      <Text style={[Typography.textXsMedium, styles.errorText]}>
+                        {formik.errors.acceptTerms}
                       </Text>
                     )}
                   </View>
@@ -160,13 +161,13 @@ export default function RegisterScreen() {
                   {t('auth.register')}
                 </Button>
                 <Button size='xl' variant='secondary' onPress={handleGuestOrder}>
-                  {t('auth.guestOrder')}
+                  {t('auth.withoutRegistration')}
                 </Button>
               </View>
               <Link href='/(auth)/login'>
                 <Text style={styles.linkText}>
                   {t('auth.haveAnAccount')}
-                  <Text style={styles.bold}> {t('auth.login_action')}</Text>
+                  <Text style={styles.bold}> {t('auth.loginAction')}</Text>
                 </Text>
               </Link>
             </View>
@@ -179,7 +180,7 @@ export default function RegisterScreen() {
 
 const styles = StyleSheet.create({
   flexGrow: { flexGrow: 1 },
-  flex_1: { flex: 1, width: '100%' },
+  flexOne: { flex: 1, width: '100%' },
   container: {
     flex: 1,
     padding: 20,
@@ -191,6 +192,10 @@ const styles = StyleSheet.create({
   logoContainer: {
     alignItems: 'center',
     marginBottom: 44,
+  },
+  logo: {
+    height: 68,
+    resizeMode: 'contain',
   },
   titleContainer: {
     marginBottom: 10,
@@ -211,7 +216,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 52,
+    gap: 44,
   },
   actionContainer: {
     flexDirection: 'column',
@@ -231,7 +236,7 @@ const styles = StyleSheet.create({
   bold: {
     fontWeight: '700',
   },
-  error_text: {
+  errorText: {
     marginTop: 6,
     color: Colors.text.error.primary,
   },

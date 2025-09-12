@@ -20,7 +20,7 @@ const Select = ({ label, setValue, value, placeholder, options, disabled }: Prop
 
   const getBorderColor = () => {
     if (disabled) {
-      return Colors.border.disabled_border;
+      return Colors.border.disabledBorder;
     }
     return isFocused ? Colors.border.focused : Colors.border.primary;
   };
@@ -28,8 +28,8 @@ const Select = ({ label, setValue, value, placeholder, options, disabled }: Prop
   return (
     <View style={styles.wrapper}>
       <View style={styles.container}>
-        <View style={styles.flex_row}>
-          <Text style={{ ...Typography.text_xs_medium, color: Colors.text.secondary }}>
+        <View style={styles.flexRow}>
+          <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>
             {label}
             {label && <Text style={{ color: Colors.text.brand.tertiary }}>*</Text>}
           </Text>
@@ -37,25 +37,22 @@ const Select = ({ label, setValue, value, placeholder, options, disabled }: Prop
         <Pressable
           onPress={() => !disabled && setIsFocused(prev => !prev)}
           style={{
-            ...styles.input_container,
+            ...styles.inputContainer,
             borderColor: getBorderColor(),
             backgroundColor: disabled ? Colors.background.disabled : Colors.background.white,
           }}
         >
           <Text
             style={[
-              Typography.text_md_medium,
+              Typography.textMdMedium,
               { color: value ? Colors.text.primary : Colors.text.placeholder },
             ]}
           >
             {value || placeholder}
           </Text>
-          <MaterialIcons
-            style={[styles.icon, isFocused && { transform: [{ rotate: '270deg' }] }]}
-            name={'chevron-right'}
-            size={20}
-            color={Colors.text.placeholder}
-          />
+          <View style={{ transform: [{ rotate: isFocused ? '90deg' : '-90deg' }] }}>
+            <MaterialIcons name={'chevron-left'} size={20} color={Colors.text.placeholder} />
+          </View>
         </Pressable>
       </View>
 
@@ -74,7 +71,7 @@ const Select = ({ label, setValue, value, placeholder, options, disabled }: Prop
                   setIsFocused(false);
                 }}
               >
-                <Text style={[Typography.text_md_medium, styles.label]}>{item.label}</Text>
+                <Text style={[Typography.textMdMedium, styles.label]}>{item.label}</Text>
                 {value === item.value && <MaterialIcons name='check' size={20} color={'#7F56D9'} />}
               </TouchableOpacity>
             ))}
@@ -98,13 +95,13 @@ const styles = StyleSheet.create({
     gap: 6,
     width: '100%',
   },
-  flex_row: {
+  flexRow: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     gap: 2,
   },
-  input_container: {
+  inputContainer: {
     borderRadius: 8,
     borderWidth: 1,
     borderColor: Colors.border.primary,
@@ -118,16 +115,13 @@ const styles = StyleSheet.create({
     height: 44,
   },
 
-  icon: {
-    transform: [{ rotate: '90deg' }],
-  },
   dropdown: {
     backgroundColor: Colors.background.white,
     borderRadius: 8,
     paddingVertical: 4,
     maxHeight: 256,
     borderWidth: 1,
-    borderColor: Colors.border.disabled_border,
+    borderColor: Colors.border.disabledBorder,
     position: 'absolute',
     top: 72,
     left: 0,

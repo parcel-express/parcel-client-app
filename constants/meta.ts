@@ -1,15 +1,15 @@
 import { TextInputProps } from 'react-native';
 
 export type RegisterForm = {
-  team_member: string;
+  teamMember: string;
   name: string;
   surname: string;
   email: string;
   number: string;
   password: string;
-  accept_terms: boolean;
+  acceptTerms: boolean;
 };
-export type InputName = keyof Omit<RegisterForm, 'team_member' | 'accept_terms'>;
+export type InputName = keyof Omit<RegisterForm, 'teamMember' | 'acceptTerms'>;
 type InputMeta = {
   autoComplete: TextInputProps['autoComplete'];
   textContentType: TextInputProps['textContentType'];
