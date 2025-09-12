@@ -13,19 +13,18 @@ type Props = {
   indeterminate?: boolean;
   disabled?: boolean;
 };
-
+const sizes = {
+  sm: { width: 16, height: 16 },
+  md: { width: 20, height: 20 },
+};
+const iconSizes = {
+  sm: 14,
+  md: 16,
+};
 const Checkbox = ({ label, toggleCheckbox, checked, size, indeterminate, disabled }: Props) => {
-  const sizes = {
-    sm: { width: 16, height: 16 },
-    md: { width: 20, height: 20 },
-  };
-  const iconSizes = {
-    sm: 14,
-    md: 16,
-  };
   return (
     <TouchableOpacity
-      style={styles.checkbox_container}
+      style={styles.checkboxContainer}
       onPress={() => !disabled && toggleCheckbox()}
       disabled={disabled}
       accessibilityLabel={label}
@@ -37,18 +36,15 @@ const Checkbox = ({ label, toggleCheckbox, checked, size, indeterminate, disable
         style={[
           { ...sizes[size] },
           styles.checkbox,
-          !checked && styles.checkbox_border,
-          disabled && styles.disabled_checkbox,
+          !checked && styles.checkboxBorder,
+          disabled && styles.disabledCheckbox,
         ]}
       >
         {checked && (
           <>
             {!disabled && (
               <LinearGradient
-                colors={[
-                  Colors.button.primary_background_start,
-                  Colors.button.primary_background_end,
-                ]}
+                colors={[Colors.button.primaryBackgroundStart, Colors.button.primaryBackgroundEnd]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 0, y: 1 }}
                 style={StyleSheet.absoluteFillObject}
@@ -57,7 +53,7 @@ const Checkbox = ({ label, toggleCheckbox, checked, size, indeterminate, disable
             <MaterialIcons
               name={indeterminate ? 'remove' : 'check'}
               size={iconSizes[size]}
-              color={disabled ? Colors.checkbox.disabled_border : Colors.background.white}
+              color={disabled ? Colors.checkbox.disabledBorder : Colors.background.white}
             />
           </>
         )}
@@ -70,7 +66,7 @@ const Checkbox = ({ label, toggleCheckbox, checked, size, indeterminate, disable
 export default Checkbox;
 
 const styles = StyleSheet.create({
-  checkbox_container: {
+  checkboxContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
@@ -81,12 +77,12 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     overflow: 'hidden',
   },
-  checkbox_border: {
+  checkboxBorder: {
     borderWidth: 1,
     borderColor: Colors.checkbox.border,
   },
-  disabled_checkbox: {
-    backgroundColor: Colors.checkbox.disabled_background,
-    borderColor: Colors.checkbox.disabled_border,
+  disabledCheckbox: {
+    backgroundColor: Colors.checkbox.disabledBackground,
+    borderColor: Colors.checkbox.disabledBorder,
   },
 });

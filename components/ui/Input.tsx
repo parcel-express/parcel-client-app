@@ -1,7 +1,7 @@
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { FormikProps } from 'formik';
 import React from 'react';
-import { Pressable, StyleSheet, Text, TextInput, TextInputProps, View } from 'react-native';
+import { StyleSheet, Text, TextInput, TextInputProps, View } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
@@ -11,11 +11,10 @@ type InputProps<T = string | boolean> = {
   name: string & keyof T;
   label: string;
   placeholder?: string;
-  hint_message?: string;
+  hintMessage?: string;
   disabled?: boolean;
-  icon_name?: keyof typeof MaterialIcons.glyphMap;
+  iconName?: keyof typeof MaterialIcons.glyphMap;
   formik: FormikProps<T>;
-  hint_message_on_press?: () => void;
   secureTextEntry?: boolean;
   keyboardType?: TextInputProps['keyboardType'];
   autoComplete?: TextInputProps['autoComplete'];
@@ -26,11 +25,10 @@ type InputProps<T = string | boolean> = {
 const Input = <T extends Record<string, string | boolean>>({
   label,
   placeholder,
-  hint_message,
+  hintMessage,
   disabled,
-  icon_name,
+  iconName,
   formik,
-  hint_message_on_press,
   secureTextEntry,
   name,
   keyboardType,
@@ -49,21 +47,21 @@ const Input = <T extends Record<string, string | boolean>>({
       return Colors.border.primary;
     }
     if (fieldError) {
-      return isFocused ? Colors.border.active_error : Colors.border.subtle_error;
+      return isFocused ? Colors.border.activeError : Colors.border.subtleError;
     }
     return isFocused ? Colors.border.focused : Colors.border.primary;
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.flex_row}>
-        <Text style={{ ...Typography.text_xs_medium, color: Colors.text.secondary }}>
+      <View style={styles.flexRow}>
+        <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>
           {label} <Text style={{ color: Colors.text.brand.tertiary }}>*</Text>
         </Text>
       </View>
       <View
         style={{
-          ...styles.input_container,
+          ...styles.inputContainer,
           borderColor: getBorderColor(),
           backgroundColor: disabled ? Colors.background.disabled : Colors.background.white,
         }}
@@ -84,29 +82,28 @@ const Input = <T extends Record<string, string | boolean>>({
           editable={!disabled}
           onChangeText={text => {
             formik.setFieldValue(name, text);
+            formik.setFieldTouched(name, false);
           }}
           value={typeof formik.values[name] === 'string' ? formik.values[name] : ''}
           secureTextEntry={secureTextEntry}
         />
 
-        {icon_name && (
+        {iconName && (
           <MaterialIcons
             style={styles.icon}
-            name={icon_name}
+            name={iconName}
             size={20}
             color={Colors.text.placeholder}
           />
         )}
       </View>
-      {hint_message && !fieldError && !disabled && (
-        <Pressable onPress={hint_message_on_press}>
-          <Text style={{ ...Typography.text_sm_regular, color: Colors.text.tertiary }}>
-            {hint_message}
-          </Text>
-        </Pressable>
+      {hintMessage && !fieldError && !disabled && (
+        <Text style={{ ...Typography.textSmRegular, color: Colors.text.tertiary }}>
+          {hintMessage}
+        </Text>
       )}
       {fieldError && !disabled && (
-        <Text style={{ ...Typography.text_sm_regular, color: Colors.text.error.primary }}>
+        <Text style={{ ...Typography.textSmRegular, color: Colors.text.error.primary }}>
           {fieldError}
         </Text>
       )}
@@ -122,14 +119,16 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     gap: 6,
     width: '100%',
+    zIndex: 10,
+    elevation: 10,
   },
-  flex_row: {
+  flexRow: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     gap: 2,
   },
-  input_container: {
+  inputContainer: {
     borderRadius: 8,
     borderWidth: 1,
     borderColor: Colors.border.primary,
@@ -145,9 +144,10 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    paddingVertical: 12,
+    paddingVertical: 11,
     color: Colors.text.primary,
-    ...Typography.text_md_regular,
-    lineHeight: undefined,
+    ...Typography.textMdRegular,
+    lineHeight: 19.7,
+    // height: 44,
   },
 });

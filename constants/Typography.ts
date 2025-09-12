@@ -2,19 +2,19 @@ import { StyleSheet } from 'react-native';
 
 import { Colors } from './Colors';
 
-const text_sm = {
+const textSm = {
   fontFamily: 'Inter',
   fontSize: 14,
   lineHeight: 20,
   letterSpacing: 0,
 };
-const text_md = {
+const textMd = {
   fontFamily: 'Inter',
   fontSize: 16,
   lineHeight: 24,
   letterSpacing: 0,
 };
-const text_lg = {
+const textLg = {
   fontFamily: 'Inter',
   fontSize: 18,
   lineHeight: 28,
@@ -30,39 +30,43 @@ export const Typography = StyleSheet.create({
     letterSpacing: 0,
     color: Colors.login.title,
   },
-  text_xs_medium: {
+  textXsMedium: {
     fontFamily: 'Inter',
     fontWeight: '500',
     fontSize: 12,
     lineHeight: 16,
     letterSpacing: 0,
   },
-  text_md_regular: {
-    ...text_md,
+  textMdRegular: {
+    ...textMd,
     fontWeight: '400',
   },
-  text_md_medium: {
-    ...text_md,
+  textMdMedium: {
+    ...textMd,
     fontWeight: '500',
   },
-  text_lg_regular: {
-    ...text_lg,
+  textLgRegular: {
+    ...textLg,
     fontWeight: '400',
   },
-  text_sm_regular: {
-    ...text_sm,
+  textSmRegular: {
+    ...textSm,
     fontWeight: '400',
   },
-  text_sm_semiBold: {
-    ...text_sm,
+  textSmMedium: {
+    ...textSm,
+    fontWeight: '500',
+  },
+  textSmSemiBold: {
+    ...textSm,
     fontWeight: '600',
   },
-  text_md_semiBold: {
-    ...text_md,
+  textMdSemiBold: {
+    ...textMd,
     fontWeight: '600',
   },
-  text_lg_semiBold: {
-    ...text_lg,
+  textLgSemiBold: {
+    ...textLg,
     fontWeight: '600',
   },
 });
