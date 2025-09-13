@@ -13,6 +13,12 @@
       "backgroundColor": "#FFFFFF",
       "barStyle": "dark-content"
     },
+    "splash": {
+      "image": "./assets/images/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFFFFF",
+      "width": 164
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "ge.parcelexpress.clientapp",
@@ -32,19 +38,7 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": [
-      "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 164,
-          "resizeMode": "contain",
-          "backgroundColor": "#FFFFFF"
-        }
-      ],
-      "expo-localization"
-    ],
+    "plugins": ["expo-router", "expo-splash-screen", "expo-localization"],
     "experiments": {
       "typedRoutes": true
     },
