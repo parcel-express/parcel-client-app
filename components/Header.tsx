@@ -15,14 +15,23 @@ const Header = ({ title, closeButton }: Props) => {
   const router = useRouter();
   return (
     <LinearGradient
-      colors={['#662D91', '#302E9C']}
+      colors={[Colors.gradient.primary.start, Colors.gradient.primary.end]}
       start={{ x: 0, y: 0.5 }}
       end={{ x: 1, y: 0.5 }}
       style={styles.header}
+      accessibilityRole='header'
     >
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title} accessibilityRole='header'>
+        {title}
+      </Text>
       {closeButton && (
-        <TouchableOpacity style={styles.closeButton} onPress={() => router.back()}>
+        <TouchableOpacity
+          style={styles.closeButton}
+          onPress={() => router.back()}
+          accessibilityLabel='Close'
+          accessibilityRole='button'
+          accessibilityHint='Go back to previous screen'
+        >
           <View style={styles.overlay} />
           <MaterialIcons name='close' size={20} color={Colors.text.white} />
         </TouchableOpacity>

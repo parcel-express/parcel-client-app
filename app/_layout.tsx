@@ -26,7 +26,9 @@ export default function RootLayout() {
   return (
     <LinearGradient
       colors={
-        hasGradient ? ['#662D91', '#302E9C'] : [Colors.background.body, Colors.background.body]
+        hasGradient
+          ? [Colors.gradient.primary.start, Colors.gradient.primary.end]
+          : [Colors.background.body, Colors.background.body]
       }
       start={{ x: 0, y: 0.5 }}
       end={{ x: 1, y: 0.5 }}
