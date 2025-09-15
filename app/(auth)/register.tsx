@@ -60,7 +60,9 @@ export default function RegisterScreen() {
         .required(t('auth.passwordRequired')),
       acceptTerms: yup.boolean().oneOf([true], t('auth.acceptTermsError')),
     }),
-    validateOnMount: true,
+    validateOnMount: false,
+    validateOnBlur: false,
+    validateOnChange: true,
     onSubmit: () => {
       router.replace('/(tabs)');
     },
@@ -156,7 +158,7 @@ export default function RegisterScreen() {
                   size='xl'
                   variant='primary'
                   onPress={formik.handleSubmit}
-                  disabled={!formik.isValid || formik.isSubmitting}
+                  disabled={!formik.dirty || !formik.isValid || formik.isSubmitting}
                 >
                   {t('auth.register')}
                 </Button>

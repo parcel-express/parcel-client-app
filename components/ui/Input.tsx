@@ -40,7 +40,7 @@ const Input = <T extends Record<string, string | boolean>>({
 
   // Check if this field has an error
   const fieldError =
-    formik.touched[name] && formik.errors[name] ? String(formik.errors[name]) : null;
+    formik.submitCount > 0 && formik.errors[name] ? String(formik.errors[name]) : null;
 
   const getBorderColor = () => {
     if (disabled) {
@@ -77,12 +77,11 @@ const Input = <T extends Record<string, string | boolean>>({
           onFocus={() => setIsFocused(true)}
           onBlur={() => {
             setIsFocused(false);
-            formik.setFieldTouched(name, true);
+            formik.setFieldTouched(name, true, false);
           }}
           editable={!disabled}
           onChangeText={text => {
             formik.setFieldValue(name, text);
-            formik.setFieldTouched(name, false);
           }}
           value={typeof formik.values[name] === 'string' ? formik.values[name] : ''}
           secureTextEntry={secureTextEntry}
