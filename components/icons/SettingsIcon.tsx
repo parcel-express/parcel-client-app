@@ -3,11 +3,18 @@ import Svg, { ClipPath, Defs, G, Path } from 'react-native-svg';
 
 import { Colors } from '@/constants/Colors';
 
-import { IconProps } from './BarLineChartIcon';
+import type { IconProps } from './BarLineChartIcon';
 
-function SettingsIcon({ width, height, fill }: IconProps) {
-  return (
-    <Svg width={width || 20} height={height || 20} viewBox='0 0 20 20' fill='none'>
+function SettingsIcon({ width, height, fill, ...props }: IconProps) {
+  return +(
+    <Svg
+      width={width || 20}
+      height={height || 20}
+      viewBox='0 0 20 20'
+      fill='none'
+      accessibilityRole='image'
+      {...props}
+    >
       <G
         clipPath='url(#clip0_346_40467)'
         stroke={fill || Colors.icon.primary}

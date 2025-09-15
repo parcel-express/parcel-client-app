@@ -3,7 +3,7 @@ import Svg, { Path } from 'react-native-svg';
 
 import { Colors } from '@/constants/Colors';
 
-import { IconProps } from './BarLineChartIcon';
+import type { IconProps } from './BarLineChartIcon';
 
 function LogOutIcon({ width, height, fill, ...props }: IconProps) {
   return (
@@ -26,4 +26,4 @@ function LogOutIcon({ width, height, fill, ...props }: IconProps) {
   );
 }
 
-export default LogOutIcon;
+export default React.memo(LogOutIcon);

@@ -26,4 +26,4 @@ function FileIcon({ width, height, fill, ...props }: IconProps) {
   );
 }
 
-export default FileIcon;
+export default React.memo(FileIcon);

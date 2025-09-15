@@ -21,56 +21,56 @@ import { Typography } from '@/constants/Typography';
 
 const getProfileMenuItems = () => [
   {
-    iconName: <TermsIcon />,
+    iconName: TermsIcon,
     titleKey: 'profile.menu.conditions',
     action: () => {
       router.push('/(tabs)/(profile)/conditions');
     },
   },
   {
-    iconName: <FileIcon />,
+    iconName: FileIcon,
     titleKey: 'profile.menu.invoices',
     action: () => {
       router.push('/(tabs)/(profile)/invoices');
     },
   },
   {
-    iconName: <BarLineChart />,
+    iconName: BarLineChart,
     titleKey: 'profile.menu.analytics',
     action: () => {
       router.push('/(tabs)/(profile)/analytics');
     },
   },
   {
-    iconName: <PieChartIcon />,
+    iconName: PieChartIcon,
     titleKey: 'profile.menu.tariffs',
     action: () => {
       router.push('/(tabs)/(profile)/tariffs');
     },
   },
   {
-    iconName: <MarkerPinIcon />,
+    iconName: MarkerPinIcon,
     titleKey: 'profile.menu.myAddresses',
     action: () => {
       router.push('/(tabs)/(profile)/addresses');
     },
   },
   {
-    iconName: <SettingsIcon />,
+    iconName: SettingsIcon,
     titleKey: 'profile.menu.settings',
     action: () => {
       router.push('/(tabs)/(profile)/settings');
     },
   },
   {
-    iconName: <FaceIdIcon />,
+    iconName: FaceIdIcon,
     titleKey: 'profile.menu.easyAuth',
     action: () => {
       router.push('/(tabs)/(profile)/easy-auth');
     },
   },
   {
-    iconName: <MessageChatCircleIcon />,
+    iconName: MessageChatCircleIcon,
     titleKey: 'profile.menu.contact',
     action: () => {
       router.push('/(tabs)/support');
@@ -83,9 +83,9 @@ export default function ProfileScreen() {
   const { t } = useTranslation();
 
   const handleLogout = () => {
-    Alert.alert(t('profile.menu.logout'), 'Are you sure you want to logout?', [
+    Alert.alert(t('profile.menu.logout'), t('profile.logout.confirm'), [
       {
-        text: 'Cancel',
+        text: t('common.cancel'),
         style: 'cancel',
       },
       {
@@ -102,13 +102,18 @@ export default function ProfileScreen() {
   return (
     <ThemedView style={styles.container}>
       <Header title={t('tabs.profiletitle')} />
-      <View style={styles.contentsContainer}>
+      <ThemedView
+        style={styles.contentsContainer}
+        lightColor={Colors.background.white}
+        darkColor={Colors.background.body_dark}
+      >
         <ScrollView contentContainerStyle={styles.content}>
           <View style={styles.userSection}>
             <View style={styles.avatar}>
               <View style={styles.onlineIndicator} />
             </View>
             <View style={styles.userInfo}>
+              {/* TODO: replace with real data */}
               <ThemedText style={styles.userName}>Gagi Murjikneli</ThemedText>
               <ThemedText style={styles.userEmail}>gagi.murjikneli@gmail.com</ThemedText>
             </View>
@@ -125,7 +130,7 @@ export default function ProfileScreen() {
                 hitSlop={8}
               >
                 <View style={styles.menuItemContent}>
-                  {item.iconName}
+                  {<item.iconName />}
                   <ThemedText style={styles.menuItemTitle}>{t(item.titleKey)}</ThemedText>
                 </View>
                 {item.showBadge && (
@@ -146,12 +151,14 @@ export default function ProfileScreen() {
               accessibilityLabel={t('profile.menu.logout')}
               hitSlop={8}
             >
-              <LogOutIcon />
-              <ThemedText style={styles.menuItemTitle}>{t('profile.menu.logout')}</ThemedText>
+              <View style={styles.menuItemContent}>
+                <LogOutIcon />
+                <ThemedText style={styles.menuItemTitle}>{t('profile.menu.logout')}</ThemedText>
+              </View>
             </Pressable>
           </View>
         </ScrollView>
-      </View>
+      </ThemedView>
     </ThemedView>
   );
 }
@@ -159,13 +166,12 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background.body,
   },
   contentsContainer: {
     flex: 1,
     zIndex: 1000,
     marginTop: -20,
-    backgroundColor: Colors.background.body,
+
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
   },
