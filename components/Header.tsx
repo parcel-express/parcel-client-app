@@ -21,9 +21,7 @@ const Header = ({ title, closeButton }: Props) => {
       style={styles.header}
       accessibilityRole='header'
     >
-      <Text style={styles.title} accessibilityRole='header'>
-        {title}
-      </Text>
+      <Text style={styles.title}>{title}</Text>
       {closeButton && (
         <TouchableOpacity
           style={styles.closeButton}

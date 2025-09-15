@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Svg, { ClipPath, Defs, G, Path } from 'react-native-svg';
 
+import { Colors } from '@/constants/Colors';
+
 import { IconProps } from './BarLineChartIcon';
 
 function SettingsIcon({ width, height, fill }: IconProps) {
@@ -8,7 +10,7 @@ function SettingsIcon({ width, height, fill }: IconProps) {
     <Svg width={width || 20} height={height || 20} viewBox='0 0 20 20' fill='none'>
       <G
         clipPath='url(#clip0_346_40467)'
-        stroke={fill || '#717680'}
+        stroke={fill || Colors.icon.primary}
         strokeWidth={1.39167}
         strokeLinecap='round'
         strokeLinejoin='round'

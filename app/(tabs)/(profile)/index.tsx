@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
 import Header from '@/components/Header';
 import BarLineChart from '@/components/icons/BarLineChartIcon';
@@ -116,21 +116,36 @@ export default function ProfileScreen() {
 
           <View style={styles.menuSection}>
             {getProfileMenuItems().map(item => (
-              <Pressable key={item.titleKey} style={styles.menuItem} onPress={item.action}>
+              <Pressable
+                key={item.titleKey}
+                style={styles.menuItem}
+                onPress={item.action}
+                accessibilityRole='button'
+                accessibilityLabel={t(item.titleKey)}
+                hitSlop={8}
+              >
                 <View style={styles.menuItemContent}>
                   {item.iconName}
-                  <Text style={styles.menuItemTitle}>{t(item.titleKey)}</Text>
+                  <ThemedText style={styles.menuItemTitle}>{t(item.titleKey)}</ThemedText>
                 </View>
                 {item.showBadge && (
                   <View style={styles.badge}>
                     <View style={styles.onlineDot} />
-                    <Text style={Typography.textXsMedium}>{t('profile.contact.online')}</Text>
+                    <ThemedText style={Typography.textXsMedium}>
+                      {t('profile.contact.online')}
+                    </ThemedText>
                   </View>
                 )}
               </Pressable>
             ))}
 
-            <Pressable style={styles.menuItem} onPress={handleLogout}>
+            <Pressable
+              style={styles.menuItem}
+              onPress={handleLogout}
+              accessibilityRole='button'
+              accessibilityLabel={t('profile.menu.logout')}
+              hitSlop={8}
+            >
               <LogOutIcon />
               <ThemedText style={styles.menuItemTitle}>{t('profile.menu.logout')}</ThemedText>
             </Pressable>
