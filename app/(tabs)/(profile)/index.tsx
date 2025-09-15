@@ -114,7 +114,7 @@ export default function ProfileScreen() {
             </View>
             <View style={styles.userInfo}>
               {/* TODO: replace with real data */}
-              <ThemedText style={styles.userName}>John Doe</ThemedText>+{' '}
+              <ThemedText style={styles.userName}>John Doe</ThemedText>
               <ThemedText style={styles.userEmail}>john.doe@example.com</ThemedText>
             </View>
           </View>
