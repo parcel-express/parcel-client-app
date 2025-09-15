@@ -48,6 +48,7 @@ export const Colors = {
     subtleError: '#FDA29B',
     activeError: '#F04438',
     disabledBorder: '#E9EAEB',
+    borderLight: '#00000014',
   },
   background: {
     white: '#FFFFFF',
@@ -55,6 +56,8 @@ export const Colors = {
     transparent: 'transparent',
     body: '#F5F5F5',
     body_dark: '#151718',
+    successSecondary: '#17B26A',
+    avatar: '#F0F0F0',
   },
   button: {
     primaryBorder: '#FFFFFF',
@@ -83,5 +86,8 @@ export const Colors = {
   login: {
     title: '#000000',
     forgotPassword: '#000000',
+  },
+  icon: {
+    primary: '#717680',
   },
 };

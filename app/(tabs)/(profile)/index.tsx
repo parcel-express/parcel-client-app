@@ -1,62 +1,83 @@
 import { router } from 'expo-router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
+import Header from '@/components/Header';
+import BarLineChart from '@/components/icons/BarLineChartIcon';
+import FaceIdIcon from '@/components/icons/FaceIdIcon';
+import FileIcon from '@/components/icons/FileIcon';
+import LogOutIcon from '@/components/icons/LogOutIcon';
+import MarkerPinIcon from '@/components/icons/MarkerPinIcon';
+import MessageChatCircleIcon from '@/components/icons/MessageChatCircleIcon';
+import PieChartIcon from '@/components/icons/PieChartIcon';
+import SettingsIcon from '@/components/icons/SettingsIcon';
+import TermsIcon from '@/components/icons/TermsIcon';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { Colors } from '@/constants/Colors';
+import { Shadows } from '@/constants/Shadows';
+import { Typography } from '@/constants/Typography';
 
-// const getProfileMenuItems = () => [
-//   {
-//     titleKey: 'profile.menu.conditions',
-//     action: () => {
-//       router.push('/(tabs)/(profile)/conditions');
-//     },
-//   },
-//   {
-//     titleKey: 'profile.menu.invoices',
-//     action: () => {
-//       router.push('/(tabs)/(profile)/invoices');
-//     },
-//   },
-//   {
-//     titleKey: 'profile.menu.analytics',
-//     action: () => {
-//       router.push('/(tabs)/(profile)/analytics');
-//     },
-//   },
-//   {
-//     titleKey: 'profile.menu.tariffs',
-//     action: () => {
-//       router.push('/(tabs)/(profile)/tariffs');
-//     },
-//   },
-//   {
-//     titleKey: 'profile.menu.myAddresses',
-//     action: () => {
-//       router.push('/(tabs)/(profile)/addresses');
-//     },
-//   },
-//   {
-//     titleKey: 'profile.menu.settings',
-//     action: () => {
-//       router.push('/(tabs)/(profile)/settings');
-//     },
-//   },
-//   {
-//     titleKey: 'profile.menu.easyAuth',
-//     action: () => {
-//       router.push('/(tabs)/(profile)/easy-auth');
-//     },
-//   },
-//   {
-//     titleKey: 'profile.menu.contact',
-//     action: () => {
-//       router.push('/(tabs)/support');
-//     },
-//     showBadge: true,
-//   },
-// ];
+const getProfileMenuItems = () => [
+  {
+    iconName: <TermsIcon />,
+    titleKey: 'profile.menu.conditions',
+    action: () => {
+      router.push('/(tabs)/(profile)/conditions');
+    },
+  },
+  {
+    iconName: <FileIcon />,
+    titleKey: 'profile.menu.invoices',
+    action: () => {
+      router.push('/(tabs)/(profile)/invoices');
+    },
+  },
+  {
+    iconName: <BarLineChart />,
+    titleKey: 'profile.menu.analytics',
+    action: () => {
+      router.push('/(tabs)/(profile)/analytics');
+    },
+  },
+  {
+    iconName: <PieChartIcon />,
+    titleKey: 'profile.menu.tariffs',
+    action: () => {
+      router.push('/(tabs)/(profile)/tariffs');
+    },
+  },
+  {
+    iconName: <MarkerPinIcon />,
+    titleKey: 'profile.menu.myAddresses',
+    action: () => {
+      router.push('/(tabs)/(profile)/addresses');
+    },
+  },
+  {
+    iconName: <SettingsIcon />,
+    titleKey: 'profile.menu.settings',
+    action: () => {
+      router.push('/(tabs)/(profile)/settings');
+    },
+  },
+  {
+    iconName: <FaceIdIcon />,
+    titleKey: 'profile.menu.easyAuth',
+    action: () => {
+      router.push('/(tabs)/(profile)/easy-auth');
+    },
+  },
+  {
+    iconName: <MessageChatCircleIcon />,
+    titleKey: 'profile.menu.contact',
+    action: () => {
+      router.push('/(tabs)/support');
+    },
+    showBadge: true,
+  },
+];
 
 export default function ProfileScreen() {
   const { t } = useTranslation();
@@ -78,52 +99,44 @@ export default function ProfileScreen() {
     ]);
   };
 
-  // const renderMenuItem = (item: any, index: number) => (
-  //   <Pressable key={index} style={styles.menuItem} onPress={item.action}>
-  //     <View style={styles.menuItemContent}>
-  //       <ThemedText style={styles.menuItemTitle}>{t(item.titleKey)}</ThemedText>
-  //       {item.showBadge && (
-  //         <View style={styles.badgeContainer}>
-  //           <View style={styles.badge}>
-  //             <View style={styles.onlineDot} />
-  //             <ThemedText style={styles.badgeText}>{t('profile.contact.online')}</ThemedText>
-  //           </View>
-  //         </View>
-  //       )}
-  //     </View>
-  //     <ThemedText style={styles.menuItemArrow}>›</ThemedText>
-  //   </Pressable>
-  // );
-
   return (
     <ThemedView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
-        <View style={styles.header}>
-          <ThemedText style={styles.title}>{t('profile.title')}</ThemedText>
-        </View>
-
-        <View style={styles.userSection}>
-          <View style={styles.avatar}>
-            <ThemedText style={styles.avatarText}>GM</ThemedText>
-            <View style={styles.onlineIndicator} />
-          </View>
-          <View style={styles.userInfo}>
-            <ThemedText style={styles.userName}>Gagi Murjikneli</ThemedText>
-            <ThemedText style={styles.userEmail}>gagi.murjikneli@gmail.com</ThemedText>
-          </View>
-        </View>
-
-        <View style={styles.menuSection}>
-          {/* {profileMenuItems.map(renderMenuItem)} */}
-
-          <Pressable style={styles.menuItem} onPress={handleLogout}>
-            <View style={styles.menuItemContent}>
-              <ThemedText style={styles.menuItemTitle}>{t('profile.menu.logout')}</ThemedText>
+      <Header title={t('tabs.profiletitle')} />
+      <View style={styles.contentsContainer}>
+        <ScrollView contentContainerStyle={styles.content}>
+          <View style={styles.userSection}>
+            <View style={styles.avatar}>
+              <View style={styles.onlineIndicator} />
             </View>
-            <ThemedText style={styles.menuItemArrow}>›</ThemedText>
-          </Pressable>
-        </View>
-      </ScrollView>
+            <View style={styles.userInfo}>
+              <ThemedText style={styles.userName}>Gagi Murjikneli</ThemedText>
+              <ThemedText style={styles.userEmail}>gagi.murjikneli@gmail.com</ThemedText>
+            </View>
+          </View>
+
+          <View style={styles.menuSection}>
+            {getProfileMenuItems().map(item => (
+              <Pressable key={item.titleKey} style={styles.menuItem} onPress={item.action}>
+                <View style={styles.menuItemContent}>
+                  {item.iconName}
+                  <Text style={styles.menuItemTitle}>{t(item.titleKey)}</Text>
+                </View>
+                {item.showBadge && (
+                  <View style={styles.badge}>
+                    <View style={styles.onlineDot} />
+                    <Text style={Typography.textXsMedium}>{t('profile.contact.online')}</Text>
+                  </View>
+                )}
+              </Pressable>
+            ))}
+
+            <Pressable style={styles.menuItem} onPress={handleLogout}>
+              <LogOutIcon />
+              <ThemedText style={styles.menuItemTitle}>{t('profile.menu.logout')}</ThemedText>
+            </Pressable>
+          </View>
+        </ScrollView>
+      </View>
     </ThemedView>
   );
 }
@@ -131,76 +144,107 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.background.body,
+  },
+  contentsContainer: {
+    flex: 1,
+    zIndex: 1000,
+    marginTop: -20,
+    backgroundColor: Colors.background.body,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
   },
   content: {
     padding: 20,
   },
-  header: {
-    marginBottom: 30,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-  },
   userSection: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 20,
+    padding: 12,
     borderRadius: 12,
     marginBottom: 20,
+    gap: 16,
+    borderWidth: 1,
+    borderColor: Colors.border.disabledBorder,
+    ...Shadows.shadow_xs,
+    backgroundColor: Colors.background.white,
   },
   avatar: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: 40,
+    height: 40,
+    borderRadius: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 15,
-  },
-  avatarText: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    borderWidth: 0.75,
+    borderColor: Colors.border.borderLight,
+    backgroundColor: Colors.background.avatar,
   },
   onlineIndicator: {
     position: 'absolute',
     bottom: 0,
     right: 0,
-    width: 12,
-    height: 12,
+    width: 10,
+    height: 10,
     borderRadius: 6,
-    borderWidth: 2,
+    borderWidth: 1.5,
+    borderColor: Colors.background.white,
+    backgroundColor: Colors.background.successSecondary,
   },
   userInfo: {
     flex: 1,
   },
   userName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 4,
+    fontSize: 13,
+    fontWeight: '600',
+    lineHeight: 20,
+    color: Colors.text.primary,
   },
   userEmail: {
-    fontSize: 16,
-    opacity: 0.7,
+    fontSize: 12,
+    fontWeight: '400',
+    lineHeight: 20,
+    letterSpacing: 0,
+    color: Colors.text.tertiary,
   },
   menuSection: {
     marginBottom: 30,
   },
   menuItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 20,
-    borderRadius: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 17.5,
+    borderRadius: 8,
     marginBottom: 8,
+    backgroundColor: Colors.background.white,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   menuItemContent: {
-    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
   },
   menuItemTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 4,
+    fontSize: 14,
+    fontWeight: '400',
+    lineHeight: 24,
+    letterSpacing: 0,
   },
-  menuItemArrow: {
-    fontSize: 20,
+  badge: {
+    paddingHorizontal: 6,
+    paddingVertical: 4,
+    gap: 4,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: Colors.border.disabledBorder,
+    backgroundColor: Colors.background.white,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  onlineDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: Colors.background.successSecondary,
   },
 });
