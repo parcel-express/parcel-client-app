@@ -47,7 +47,12 @@
     "orders": "Заказы",
     "newOrder": "Новый заказ",
     "support": "Поддержка",
-    "profile": "Профиль"
+    "profile": "Профиль",
+    "hometitle": "Моя панель",
+    "orderstitle": "Мои заказы",
+    "newOrdertitle": "Новый заказ",
+    "supporttitle": "Поддержка",
+    "profiletitle": "Мой профиль"
   },
   "home": {
     "welcome": "Добро пожаловать в Parcel Express! Ваш надежный курьерский сервис."

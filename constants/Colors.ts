@@ -34,6 +34,7 @@ export const Colors = {
     secondary: '#414651',
     placeholder: '#717680',
     primary: '#181D27',
+    white: '#FFFFFF',
   },
   border: {
     primary: '#E6E8EB',

@@ -47,7 +47,12 @@
     "orders": "Orders",
     "newOrder": "New Order",
     "support": "Support",
-    "profile": "Profile"
+    "profile": "Profile",
+    "hometitle": "My Dashboard",
+    "orderstitle": "My Orders",
+    "newOrdertitle": "New Order",
+    "supporttitle": "Support",
+    "profiletitle": "My Profile"
   },
   "home": {
     "welcome": "Welcome to Parcel Express! Your reliable courier service."

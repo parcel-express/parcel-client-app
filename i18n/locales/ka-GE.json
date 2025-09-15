@@ -47,7 +47,12 @@
     "orders": "შეკვეთები",
     "newOrder": "ახალი შეკვეთა",
     "support": "ჩათი",
-    "profile": "პროფილი"
+    "profile": "პროფილი",
+    "hometitle": "ჩემი დეშბორდი",
+    "orderstitle": "ჩემი შეკვეთები",
+    "newOrdertitle": "ახალი შეკვეთა",
+    "supporttitle": "ჩათი",
+    "profiletitle": "ჩემი პროფილი"
   },
   "home": {
     "welcome": "მოგესალმებით Parcel Express-ში! თქვენი სანდო კურიერული სერვისი."
