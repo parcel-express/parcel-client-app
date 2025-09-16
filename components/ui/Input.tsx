@@ -66,6 +66,7 @@ const Input = <T extends Record<string, string | boolean>>({
         <TextInput
           accessibilityLabel={label}
           accessibilityHint={hintMessage}
+          accessibilityState={{ disabled: !!disabled }}
           keyboardType={keyboardType ?? 'default'}
           autoComplete={autoComplete ?? undefined}
           textContentType={textContentType ?? undefined}
