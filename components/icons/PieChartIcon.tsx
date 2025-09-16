@@ -3,11 +3,11 @@ import Svg, { ClipPath, Defs, G, Path } from 'react-native-svg';
 
 import { Colors } from '@/constants/Colors';
 
-import { IconProps } from './types';
+import type { IconProps } from './types';
 
 function PieChartIcon({ width, height, fill }: IconProps) {
   return (
-    <Svg width={width || 20} height={height || 20} viewBox='0 0 20 20' fill='none'>
+    <Svg width={width ?? 20} height={height ?? 20} viewBox='0 0 20 20' fill='none'>
       <G clipPath='url(#clip0_346_40455)'>
         <Path
           d='M10 1.667A8.334 8.334 0 0118.334 10M10 1.667V10m0-8.333A8.333 8.333 0 1018.334 10M10 1.667A8.333 8.333 0 0118.334 10m0 0H10m8.334 0a8.333 8.333 0 01-3.435 6.742L10 10'
@@ -26,4 +26,4 @@ function PieChartIcon({ width, height, fill }: IconProps) {
   );
 }
 
-export default PieChartIcon;
+export default React.memo(PieChartIcon);

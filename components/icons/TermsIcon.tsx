@@ -5,7 +5,7 @@ import { Colors } from '@/constants/Colors';
 
 import type { IconProps } from './types';
 
-function SvgComponent({ width, height, fill, ...props }: IconProps) {
+function TermsIcon({ width, height, fill, ...props }: IconProps) {
   return (
     <Svg
       width={width || 18}
@@ -26,4 +26,4 @@ function SvgComponent({ width, height, fill, ...props }: IconProps) {
   );
 }
 
-export default SvgComponent;
+export default React.memo(TermsIcon);

@@ -8,8 +8,8 @@ import type { IconProps } from './types';
 function MarkerPinIcon({ width, height, fill, ...props }: IconProps) {
   return (
     <Svg
-      width={width || 20}
-      height={height || 20}
+      width={width ?? 20}
+      height={height ?? 20}
       viewBox='0 0 20 20'
       fill='none'
       accessibilityRole='image'
