@@ -1,3 +1,4 @@
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { router } from 'expo-router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -81,6 +82,9 @@ const getProfileMenuItems = () => [
 
 export default function ProfileScreen() {
   const { t } = useTranslation();
+  const tabBarHeight = useBottomTabBarHeight();
+  const bottomPad = Platform.OS === 'ios' ? tabBarHeight : 0;
+  const menuItems = React.useMemo(getProfileMenuItems, []);
 
   const handleLogout = () => {
     Alert.alert(t('profile.menu.logout'), t('profile.menu.logoutConfirm'), [
@@ -106,9 +110,7 @@ export default function ProfileScreen() {
         lightColor={Colors.background.body}
         darkColor={Colors.background.body_dark}
       >
-        <ScrollView
-          contentContainerStyle={[styles.content, Platform.OS === 'ios' && styles.iosPadding]}
-        >
+        <ScrollView contentContainerStyle={[styles.content, { paddingBottom: bottomPad }]}>
           <View style={styles.userSection}>
             <View style={styles.avatar}>
               <View style={styles.onlineIndicator} />
@@ -120,7 +122,7 @@ export default function ProfileScreen() {
             </View>
           </View>
 
-          {getProfileMenuItems().map(tab => (
+          {menuItems.map(tab => (
             <TabButton key={tab.titleKey} tab={tab} />
           ))}
           <TabButton
@@ -199,9 +201,5 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     letterSpacing: 0,
     color: Colors.text.tertiary,
-  },
-  iosPadding: {
-    // This padding represents the tab bar height on iOS
-    paddingBottom: 83,
   },
 });
