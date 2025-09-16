@@ -35,4 +35,4 @@ function MarkerPinIcon({ width, height, stroke, ...props }: IconProps) {
   );
 }
 
-export default MarkerPinIcon;
+export default React.memo(MarkerPinIcon);

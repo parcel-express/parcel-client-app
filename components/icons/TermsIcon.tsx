@@ -8,8 +8,8 @@ import type { IconProps } from './types';
 function TermsIcon({ width, height, stroke, ...props }: IconProps) {
   return (
     <Svg
-      width={width || 18}
-      height={height || 17}
+      width={width ?? 18}
+      height={height ?? 17}
       viewBox='0 0 18 17'
       fill='none'
       accessibilityRole='image'
