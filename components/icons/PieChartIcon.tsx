@@ -5,10 +5,18 @@ import { Colors } from '@/constants/Colors';
 
 import type { IconProps } from './types';
 
-function PieChartIcon({ width, height, fill }: IconProps) {
+function PieChartIcon({ width, height, fill, ...props }: IconProps) {
+  const clipId = React.useId();
   return (
-    <Svg width={width ?? 20} height={height ?? 20} viewBox='0 0 20 20' fill='none'>
-      <G clipPath='url(#clip0_346_40455)'>
+    <Svg
+      width={width ?? 20}
+      height={height ?? 20}
+      viewBox='0 0 20 20'
+      fill='none'
+      accessibilityRole='image'
+      {...props}
+    >
+      <G clipPath={`url(#${clipId})`}>
         <Path
           d='M10 1.667A8.334 8.334 0 0118.334 10M10 1.667V10m0-8.333A8.333 8.333 0 1018.334 10M10 1.667A8.333 8.333 0 0118.334 10m0 0H10m8.334 0a8.333 8.333 0 01-3.435 6.742L10 10'
           stroke={fill || Colors.icon.primary}
@@ -18,7 +26,7 @@ function PieChartIcon({ width, height, fill }: IconProps) {
         />
       </G>
       <Defs>
-        <ClipPath id='clip0_346_40455'>
+        <ClipPath id={clipId}>
           <Path fill='#fff' d='M0 0H20V20H0z' />
         </ClipPath>
       </Defs>
