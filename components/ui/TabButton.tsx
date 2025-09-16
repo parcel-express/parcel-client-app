@@ -5,11 +5,12 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
 
+import { IconProps } from '../icons/types';
 import { ThemedText } from '../ThemedText';
 
 type Props = {
   tab: {
-    iconName: React.ComponentType<{ width?: number; height?: number; fill?: string }>;
+    iconName: React.ComponentType<IconProps>;
     titleKey: string;
     action: () => void;
     showBadge?: boolean;
