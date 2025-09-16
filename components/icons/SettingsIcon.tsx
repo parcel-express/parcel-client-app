@@ -6,7 +6,7 @@ import { Colors } from '@/constants/Colors';
 import type { IconProps } from './BarLineChartIcon';
 
 function SettingsIcon({ width, height, fill, ...props }: IconProps) {
-  return +(
+  return (
     <Svg
       width={width || 20}
       height={height || 20}

@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 
 import Header from '@/components/Header';
 import BarLineChart from '@/components/icons/BarLineChartIcon';
@@ -15,9 +15,9 @@ import SettingsIcon from '@/components/icons/SettingsIcon';
 import TermsIcon from '@/components/icons/TermsIcon';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import TabButton from '@/components/ui/TabButton';
 import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
-import { Typography } from '@/constants/Typography';
 
 const getProfileMenuItems = () => [
   {
@@ -83,7 +83,7 @@ export default function ProfileScreen() {
   const { t } = useTranslation();
 
   const handleLogout = () => {
-    Alert.alert(t('profile.menu.logout'), t('profile.logout.confirm'), [
+    Alert.alert(t('profile.menu.logout'), t('profile.menu.logoutConfirm'), [
       {
         text: t('common.cancel'),
         style: 'cancel',
@@ -104,7 +104,7 @@ export default function ProfileScreen() {
       <Header title={t('tabs.profiletitle')} />
       <ThemedView
         style={styles.contentsContainer}
-        lightColor={Colors.background.white}
+        lightColor={Colors.background.body}
         darkColor={Colors.background.body_dark}
       >
         <ScrollView contentContainerStyle={styles.content}>
@@ -120,42 +120,16 @@ export default function ProfileScreen() {
           </View>
 
           <View style={styles.menuSection}>
-            {getProfileMenuItems().map(item => (
-              <Pressable
-                key={item.titleKey}
-                style={styles.menuItem}
-                onPress={item.action}
-                accessibilityRole='button'
-                accessibilityLabel={t(item.titleKey)}
-                hitSlop={8}
-              >
-                <View style={styles.menuItemContent}>
-                  {<item.iconName />}
-                  <ThemedText style={styles.menuItemTitle}>{t(item.titleKey)}</ThemedText>
-                </View>
-                {item.showBadge && (
-                  <View style={styles.badge}>
-                    <View style={styles.onlineDot} />
-                    <ThemedText style={Typography.textXsMedium}>
-                      {t('profile.contact.online')}
-                    </ThemedText>
-                  </View>
-                )}
-              </Pressable>
+            {getProfileMenuItems().map(tab => (
+              <TabButton key={tab.titleKey} tab={tab} />
             ))}
-
-            <Pressable
-              style={styles.menuItem}
-              onPress={handleLogout}
-              accessibilityRole='button'
-              accessibilityLabel={t('profile.menu.logout')}
-              hitSlop={8}
-            >
-              <View style={styles.menuItemContent}>
-                <LogOutIcon />
-                <ThemedText style={styles.menuItemTitle}>{t('profile.menu.logout')}</ThemedText>
-              </View>
-            </Pressable>
+            <TabButton
+              tab={{
+                iconName: LogOutIcon,
+                titleKey: 'profile.menu.logout',
+                action: handleLogout,
+              }}
+            />
           </View>
         </ScrollView>
       </ThemedView>
@@ -171,7 +145,6 @@ const styles = StyleSheet.create({
     flex: 1,
     zIndex: 1000,
     marginTop: -20,
-
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
   },
@@ -229,43 +202,5 @@ const styles = StyleSheet.create({
   },
   menuSection: {
     marginBottom: 30,
-  },
-  menuItem: {
-    paddingHorizontal: 12,
-    paddingVertical: 17.5,
-    borderRadius: 8,
-    marginBottom: 8,
-    backgroundColor: Colors.background.white,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  menuItemContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  menuItemTitle: {
-    fontSize: 14,
-    fontWeight: '400',
-    lineHeight: 24,
-    letterSpacing: 0,
-  },
-  badge: {
-    paddingHorizontal: 6,
-    paddingVertical: 4,
-    gap: 4,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: Colors.border.disabledBorder,
-    backgroundColor: Colors.background.white,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  onlineDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: Colors.background.successSecondary,
   },
 });

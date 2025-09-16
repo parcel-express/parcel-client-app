@@ -69,7 +69,7 @@
       "easyAuth": "Easy Authorization",
       "contact": "Contact",
       "logout": "Logout",
-      "confirm": "Are you sure you want to logout?"
+      "logoutConfirm": "Are you sure you want to logout?"
     },
     "contact": {
       "online": "Online"
