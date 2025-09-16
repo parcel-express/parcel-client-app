@@ -7,8 +7,8 @@ import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';
 
-type InputProps<T = string | boolean> = {
-  name: string & keyof T;
+type InputProps<T extends Record<string, string | boolean>> = {
+  name: Extract<keyof T, string>;
   label: string;
   placeholder?: string;
   hintMessage?: string;
@@ -54,11 +54,8 @@ const Input = <T extends Record<string, string | boolean>>({
 
   return (
     <View style={styles.container}>
-      <View style={styles.flexRow}>
-        <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>
-          {label} <Text style={{ color: Colors.text.brand.tertiary }}>*</Text>
-        </Text>
-      </View>
+      <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>{label}</Text>
+
       <View
         style={{
           ...styles.inputContainer,
@@ -67,6 +64,9 @@ const Input = <T extends Record<string, string | boolean>>({
         }}
       >
         <TextInput
+          accessibilityLabel={label}
+          accessibilityHint={hintMessage}
+          accessibilityState={{ disabled: !!disabled }}
           keyboardType={keyboardType ?? 'default'}
           autoComplete={autoComplete ?? undefined}
           textContentType={textContentType ?? undefined}
@@ -120,12 +120,6 @@ const styles = StyleSheet.create({
     width: '100%',
 
     elevation: 10,
-  },
-  flexRow: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 2,
   },
   inputContainer: {
     borderRadius: 8,

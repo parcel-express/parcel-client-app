@@ -45,6 +45,10 @@ export const Typography = StyleSheet.create({
     ...textMd,
     fontWeight: '500',
   },
+  textMdBold: {
+    ...textMd,
+    fontWeight: '700',
+  },
   textLgRegular: {
     ...textLg,
     fontWeight: '400',

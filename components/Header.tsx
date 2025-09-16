@@ -9,20 +9,35 @@ import { Colors } from '@/constants/Colors';
 type Props = {
   title: string;
   closeButton?: boolean;
+  hasGoBack?: boolean;
 };
 
-const Header = ({ title, closeButton }: Props) => {
+const Header = ({ title, closeButton, hasGoBack }: Props) => {
   const router = useRouter();
   return (
     <LinearGradient
       colors={[Colors.gradient.primary.start, Colors.gradient.primary.end]}
       start={{ x: 0, y: 0.5 }}
       end={{ x: 1, y: 0.5 }}
-      style={styles.header}
+      style={[styles.header, !hasGoBack && closeButton && styles.paddingBottomSm]}
       accessibilityRole='header'
     >
-      <Text style={styles.title}>{title}</Text>
-      {closeButton && (
+      {hasGoBack && !closeButton && (
+        <TouchableOpacity
+          style={styles.chevronIcon}
+          onPress={() => router.back()}
+          accessibilityLabel='Go back'
+          accessibilityRole='button'
+          accessibilityHint='Go back to previous screen'
+          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+        >
+          <View style={[styles.overlay, styles.rounded]} />
+          <MaterialIcons name='arrow-back-ios' size={10} color={'#FFF'} style={styles.chevron} />
+        </TouchableOpacity>
+      )}
+      <Text style={[styles.title, hasGoBack && styles.centeredText]}>{title}</Text>
+      {hasGoBack && !closeButton && <View style={styles.rightPlaceholder}></View>}
+      {closeButton && !hasGoBack && (
         <TouchableOpacity
           style={styles.closeButton}
           onPress={() => router.back()}
@@ -49,17 +64,30 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  paddingBottomSm: {
+    paddingBottom: 40,
+  },
   title: {
     fontWeight: '600',
     fontSize: 24,
     lineHeight: 32,
     color: Colors.text.white,
   },
+  centeredText: {
+    textAlign: 'center',
+  },
+  chevronIcon: {
+    width: 28,
+    height: 28,
+    borderRadius: 28,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  chevron: { width: 6.25, height: 10.49 },
   closeButton: {
     width: 40,
     height: 40,
     borderRadius: 9.23,
-
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -68,5 +96,12 @@ const styles = StyleSheet.create({
     borderRadius: 9.23,
     backgroundColor: Colors.background.white,
     opacity: 0.2,
+  },
+  rounded: {
+    borderRadius: 28,
+  },
+  rightPlaceholder: {
+    width: 28,
+    height: 28,
   },
 });
