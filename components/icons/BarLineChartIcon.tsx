@@ -3,11 +3,7 @@ import Svg, { Path } from 'react-native-svg';
 
 import { Colors } from '@/constants/Colors';
 
-export type IconProps = {
-  width?: number;
-  height?: number;
-  fill?: string;
-} & React.ComponentProps<typeof Svg>;
+import type { IconProps } from './types';
 
 function BarLineChartIcon({ width, height, fill }: IconProps) {
   return (
@@ -23,4 +19,4 @@ function BarLineChartIcon({ width, height, fill }: IconProps) {
   );
 }
 
-export default BarLineChartIcon;
+export default React.memo(BarLineChartIcon);

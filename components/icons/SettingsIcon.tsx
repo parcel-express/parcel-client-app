@@ -3,7 +3,7 @@ import Svg, { ClipPath, Defs, G, Path } from 'react-native-svg';
 
 import { Colors } from '@/constants/Colors';
 
-import type { IconProps } from './BarLineChartIcon';
+import type { IconProps } from './types';
 
 function SettingsIcon({ width, height, fill, ...props }: IconProps) {
   return (
@@ -34,4 +34,4 @@ function SettingsIcon({ width, height, fill, ...props }: IconProps) {
   );
 }
 
-export default SettingsIcon;
+export default React.memo(SettingsIcon);

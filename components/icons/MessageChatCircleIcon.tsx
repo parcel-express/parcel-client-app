@@ -3,7 +3,7 @@ import Svg, { ClipPath, Defs, G, Path } from 'react-native-svg';
 
 import { Colors } from '@/constants/Colors';
 
-import { IconProps } from './BarLineChartIcon';
+import { IconProps } from './types';
 
 function SvgComponent({ width, height, fill }: IconProps) {
   return (

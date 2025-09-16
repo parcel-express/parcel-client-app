@@ -3,7 +3,7 @@ import Svg, { Path } from 'react-native-svg';
 
 import { Colors } from '@/constants/Colors';
 
-import type { IconProps } from './BarLineChartIcon';
+import type { IconProps } from './types';
 
 function FaceIdIcon({ width, height, fill, ...props }: IconProps) {
   return (
