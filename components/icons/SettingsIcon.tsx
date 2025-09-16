@@ -5,8 +5,9 @@ import { Colors } from '@/constants/Colors';
 
 import type { IconProps } from './types';
 
-function SettingsIcon({ width, height, fill, ...props }: IconProps) {
-  const clipId = React.useId();
+function SettingsIcon({ width, height, stroke, ...props }: IconProps) {
+  const rawId = React.useId();
+  const clipId = React.useMemo(() => `clip-${rawId.replace(/[^a-zA-Z0-9_-]/g, '')}`, [rawId]);
   return (
     <Svg
       width={width ?? 20}
@@ -18,7 +19,7 @@ function SettingsIcon({ width, height, fill, ...props }: IconProps) {
     >
       <G
         clipPath={`url(#${clipId})`}
-        stroke={fill || Colors.icon.primary}
+        stroke={stroke ?? Colors.icon.primary}
         strokeWidth={1.39167}
         strokeLinecap='round'
         strokeLinejoin='round'
