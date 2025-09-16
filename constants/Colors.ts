@@ -91,5 +91,6 @@ export const Colors = {
   },
   icon: {
     primary: '#717680',
+    black: '#000000',
   },
 };

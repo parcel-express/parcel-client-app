@@ -73,7 +73,7 @@
     },
     "settings": {
       "companyLogo": "Upload Company Logo",
-      "logoPlaceholder": "Upload Company Logo",
+      "companyLogoPlaceholder": "Upload Company Logo",
       "legalName": "Legal Company Name",
       "legalNamePlaceholder": "Enter Legal Company Name",
       "legalNameRequired": "Legal Company Name is required",

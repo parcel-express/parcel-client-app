@@ -1,17 +1,10 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as yup from 'yup';
 
 import Header from '@/components/Header';
@@ -153,9 +146,9 @@ export default function SettingsScreen() {
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ['images', 'videos'],
+      mediaTypes: ['images'],
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
     });
 
@@ -174,7 +167,12 @@ export default function SettingsScreen() {
           ) : (
             <View style={styles.logo} />
           )}
-          <TouchableOpacity onPress={pickImage} style={[styles.imageUpload, Shadows.shadow_xs]}>
+          <TouchableOpacity
+            onPress={pickImage}
+            accessibilityRole='button'
+            accessibilityLabel={t('profile.settings.companyLogo')}
+            style={[styles.imageUpload, Shadows.shadow_xs]}
+          >
             <View style={styles.imageUploadContent}>
               <UploadIcon />
               <Text style={[Typography.textMdMedium, { color: Colors.text.secondary }]}>
@@ -208,6 +206,7 @@ export default function SettingsScreen() {
                   label={t(`profile.settings.${key}`)}
                   placeholder={t(`profile.settings.${key}Placeholder`)}
                   formik={passwordFormik}
+                  secureTextEntry
                 />
               ))}
               <Button onPress={passwordFormik.handleSubmit} size={'md'} variant={'primary'}>
@@ -238,7 +237,7 @@ const styles = StyleSheet.create({
     height: 71,
     borderRadius: 14,
     backgroundColor: Colors.background.imagePlaceholder,
-    marginHorizontal: 'auto',
+    alignSelf: 'center',
   },
   imageUpload: {
     height: 116,

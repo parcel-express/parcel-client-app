@@ -29,6 +29,7 @@ const Header = ({ title, closeButton, hasGoBack }: Props) => {
           accessibilityLabel='Go back'
           accessibilityRole='button'
           accessibilityHint='Go back to previous screen'
+          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
         >
           <View style={[styles.overlay, styles.rounded]} />
           <MaterialIcons name='arrow-back-ios' size={10} color={'#FFF'} style={styles.chevron} />
