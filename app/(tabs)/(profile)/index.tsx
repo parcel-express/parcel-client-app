@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, Platform, ScrollView, StyleSheet, View } from 'react-native';
 
 import Header from '@/components/Header';
 import BarLineChart from '@/components/icons/BarLineChartIcon';
@@ -98,7 +98,6 @@ export default function ProfileScreen() {
       },
     ]);
   };
-
   return (
     <ThemedView style={styles.container}>
       <Header title={t('tabs.profiletitle')} />
@@ -107,7 +106,9 @@ export default function ProfileScreen() {
         lightColor={Colors.background.body}
         darkColor={Colors.background.body_dark}
       >
-        <ScrollView contentContainerStyle={styles.content}>
+        <ScrollView
+          contentContainerStyle={[styles.content, Platform.OS === 'ios' && styles.iosPadding]}
+        >
           <View style={styles.userSection}>
             <View style={styles.avatar}>
               <View style={styles.onlineIndicator} />
@@ -119,18 +120,16 @@ export default function ProfileScreen() {
             </View>
           </View>
 
-          <View style={styles.menuSection}>
-            {getProfileMenuItems().map(tab => (
-              <TabButton key={tab.titleKey} tab={tab} />
-            ))}
-            <TabButton
-              tab={{
-                iconName: LogOutIcon,
-                titleKey: 'profile.menu.logout',
-                action: handleLogout,
-              }}
-            />
-          </View>
+          {getProfileMenuItems().map(tab => (
+            <TabButton key={tab.titleKey} tab={tab} />
+          ))}
+          <TabButton
+            tab={{
+              iconName: LogOutIcon,
+              titleKey: 'profile.menu.logout',
+              action: handleLogout,
+            }}
+          />
         </ScrollView>
       </ThemedView>
     </ThemedView>
@@ -150,6 +149,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
+    paddingBottom: 0,
   },
   userSection: {
     flexDirection: 'row',
@@ -200,7 +200,8 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
     color: Colors.text.tertiary,
   },
-  menuSection: {
-    marginBottom: 30,
+  iosPadding: {
+    // This padding represents the tab bar height on iOS
+    paddingBottom: 83,
   },
 });
