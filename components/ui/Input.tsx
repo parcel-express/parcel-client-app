@@ -55,9 +55,7 @@ const Input = <T extends Record<string, string | boolean>>({
   return (
     <View style={styles.container}>
       <View style={styles.flexRow}>
-        <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>
-          {label} <Text style={{ color: Colors.text.brand.tertiary }}>*</Text>
-        </Text>
+        <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>{label}</Text>
       </View>
       <View
         style={{

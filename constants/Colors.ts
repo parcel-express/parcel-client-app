@@ -49,6 +49,7 @@ export const Colors = {
     activeError: '#F04438',
     disabledBorder: '#E9EAEB',
     borderLight: '#00000014',
+    secondary: '#D5D7DA',
   },
   background: {
     white: '#FFFFFF',
@@ -58,6 +59,7 @@ export const Colors = {
     body_dark: '#151718',
     successSecondary: '#17B26A',
     avatar: '#F0F0F0',
+    imagePlaceholder: '#D9D9D9',
   },
   button: {
     primaryBorder: '#FFFFFF',
