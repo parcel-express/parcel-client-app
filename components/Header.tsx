@@ -7,10 +7,11 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
 
-type Props =
-  | { title: string; hasGoBack: true; closeButton?: false }
-  | { title: string; closeButton: true; hasGoBack?: false }
-  | { title: string; hasGoBack?: false; closeButton?: false };
+type Props = {
+  title: string;
+  hasGoBack?: boolean;
+  closeButton?: boolean;
+};
 
 const Header = ({ title, closeButton, hasGoBack }: Props) => {
   const router = useRouter();
@@ -21,8 +22,7 @@ const Header = ({ title, closeButton, hasGoBack }: Props) => {
       end={{ x: 1, y: 0.5 }}
       style={[
         styles.header,
-        hasGoBack && styles.paddingBottomXs,
-        closeButton && styles.paddingBottomSm,
+        closeButton ? styles.paddingBottomSm : hasGoBack ? styles.paddingBottomXs : null,
       ]}
       accessibilityRole='header'
     >
