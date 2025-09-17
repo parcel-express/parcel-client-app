@@ -28,19 +28,21 @@ const Select = ({ label, setValue, value, placeholder, options, disabled }: Prop
   return (
     <View style={styles.wrapper}>
       <View style={styles.container}>
-        <View style={styles.flexRow}>
-          <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>
-            {label}
-            {label && <Text style={{ color: Colors.text.brand.tertiary }}>*</Text>}
-          </Text>
-        </View>
+        {!!label && (
+          <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>{label}</Text>
+        )}
         <Pressable
+          disabled={!!disabled}
           onPress={() => !disabled && setIsFocused(prev => !prev)}
           style={{
             ...styles.inputContainer,
             borderColor: getBorderColor(),
             backgroundColor: disabled ? Colors.background.disabled : Colors.background.white,
           }}
+          accessibilityRole='button'
+          accessibilityLabel={label || placeholder}
+          accessibilityHint={isFocused ? 'Collapse options' : 'Expand options'}
+          accessibilityState={{ expanded: isFocused, disabled: !!disabled }}
         >
           <Text
             style={[
@@ -57,10 +59,11 @@ const Select = ({ label, setValue, value, placeholder, options, disabled }: Prop
       </View>
 
       {isFocused && (
-        <View style={styles.dropdown}>
+        <View style={styles.dropdown} accessibilityRole='menu'>
           <ScrollView>
             {options.map(item => (
               <TouchableOpacity
+                accessibilityRole='menuitem'
                 key={item.value}
                 style={[
                   styles.option,
@@ -72,7 +75,9 @@ const Select = ({ label, setValue, value, placeholder, options, disabled }: Prop
                 }}
               >
                 <Text style={[Typography.textMdMedium, styles.label]}>{item.label}</Text>
-                {value === item.value && <MaterialIcons name='check' size={20} color={'#7F56D9'} />}
+                {value === item.value && (
+                  <MaterialIcons name='check' size={20} color={Colors.text.brand.tertiary} />
+                )}
               </TouchableOpacity>
             ))}
           </ScrollView>
@@ -95,12 +100,7 @@ const styles = StyleSheet.create({
     gap: 6,
     width: '100%',
   },
-  flexRow: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 2,
-  },
+
   inputContainer: {
     borderRadius: 8,
     borderWidth: 1,

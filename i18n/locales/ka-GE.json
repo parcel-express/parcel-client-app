@@ -131,6 +131,34 @@
       "confirmNewPasswordPlaceholder": "დაადასტურეთ ახალი პაროლი",
       "changePassword": "პაროლის შეცვლა"
     },
+    "addresses": {
+      "noAddressTitle": "მისამართები არ არის დამატებული",
+      "noAddressesMessage": "მისამართები შეგიძლია დაამატო და შეინახო შენს ფილიალებში",
+      "addBranch": "ფილიალის დამატება",
+      "addAddress": "მისამართის დამატება",
+      "addAddressSubtitle": "დაამატეთ თქვენი ფილიალის მისამართი",
+      "branchName": "ფილიალის დასახელება",
+      "branchNamePlaceholder": "ჩაწერეთ ფილიალის დასახელება",
+      "branchNameRequired": "ფილიალის დასახელება აუცილებელია",
+      "customerName": "შემკვეთის სახელი",
+      "customerNamePlaceholder": "ჩაწერეთ შემკვეთის სახელი",
+      "customerNameRequired": "შემკვეთის სახელი აუცილებელია",
+      "company": "კომპანია",
+      "companyPlaceholder": "კომპანია",
+      "companyRequired": "კომპანია აუცილებელია",
+      "city": "ქალაქი",
+      "cityPlaceholder": "აირჩიეთ ქალაქი",
+      "cityRequired": "ქალაქი აუცილებელია",
+      "address": "მისამართი",
+      "addressPlaceholder": "მისამართი",
+      "addressRequired": "მისამართი აუცილებელია",
+      "phone": "ტელეფონი",
+      "phonePlaceholder": "ტელეფონი",
+      "phoneRequired": "ტელეფონი აუცილებელია",
+      "phoneInvalid": "ტელეფონი არასწორია",
+      "delete": "წაშლა",
+      "deleteConfirm": "დარწმუნებული ხართ, რომ გსურთ ამ მისამართის წაშლა?"
+    },
     "contact": {
       "online": "Online"
     }

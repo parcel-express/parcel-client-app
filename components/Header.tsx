@@ -5,11 +5,12 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
+import { Typography } from '@/constants/Typography';
 
 type Props = {
   title: string;
-  closeButton?: boolean;
   hasGoBack?: boolean;
+  closeButton?: boolean;
 };
 
 const Header = ({ title, closeButton, hasGoBack }: Props) => {
@@ -19,7 +20,10 @@ const Header = ({ title, closeButton, hasGoBack }: Props) => {
       colors={[Colors.gradient.primary.start, Colors.gradient.primary.end]}
       start={{ x: 0, y: 0.5 }}
       end={{ x: 1, y: 0.5 }}
-      style={[styles.header, !hasGoBack && closeButton && styles.paddingBottomSm]}
+      style={[
+        styles.header,
+        closeButton ? styles.paddingBottomSm : hasGoBack ? styles.paddingBottomXs : null,
+      ]}
       accessibilityRole='header'
     >
       {hasGoBack && !closeButton && (
@@ -35,7 +39,11 @@ const Header = ({ title, closeButton, hasGoBack }: Props) => {
           <MaterialIcons name='arrow-back-ios' size={10} color={'#FFF'} style={styles.chevron} />
         </TouchableOpacity>
       )}
-      <Text style={[styles.title, hasGoBack && styles.centeredText]}>{title}</Text>
+      <Text
+        style={[hasGoBack ? styles.smallTitle : styles.title, hasGoBack && styles.centeredText]}
+      >
+        {title}
+      </Text>
       {hasGoBack && !closeButton && <View style={styles.rightPlaceholder}></View>}
       {closeButton && !hasGoBack && (
         <TouchableOpacity
@@ -66,6 +74,13 @@ const styles = StyleSheet.create({
   },
   paddingBottomSm: {
     paddingBottom: 40,
+  },
+  paddingBottomXs: {
+    paddingBottom: 28,
+  },
+  smallTitle: {
+    ...Typography.textSmSemiBold,
+    color: Colors.text.white,
   },
   title: {
     fontWeight: '600',

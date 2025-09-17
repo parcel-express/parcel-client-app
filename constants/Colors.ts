@@ -31,6 +31,7 @@ export const Colors = {
   },
   text: {
     brand: {
+      primary: '#662D91',
       tertiary: '#7F56D9',
     },
     error: {
@@ -50,6 +51,7 @@ export const Colors = {
     disabledBorder: '#E9EAEB',
     borderLight: '#00000014',
     secondary: '#D5D7DA',
+    card: '#E2E3E5',
   },
   background: {
     white: '#FFFFFF',
@@ -92,5 +94,30 @@ export const Colors = {
   icon: {
     primary: '#717680',
     black: '#000000',
+    secondary: '#A4A7AE',
+  },
+  tag: {
+    success: {
+      border: '#ABEFC6',
+      background: '#ECFDF3',
+      icon: '#17B26A',
+      label: '#067647',
+    },
+    warning: {
+      border: '#FEDF89',
+      background: '#FFFAEB',
+      icon: '#F79009',
+      label: '#B54708',
+    },
+    error: {
+      border: '#FECDCA',
+      background: '#FEF3F2',
+      icon: '#F04438',
+      label: '#B42318',
+    },
+  },
+  modal: {
+    background: '#F2F2F2',
+    overlay: 'rgba(0,0,0,0.5)',
   },
 };
