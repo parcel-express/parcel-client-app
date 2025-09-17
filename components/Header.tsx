@@ -7,11 +7,10 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
 
-type Props = {
-  title: string;
-  closeButton?: boolean;
-  hasGoBack?: boolean;
-};
+type Props =
+  | { title: string; hasGoBack: true; closeButton?: false }
+  | { title: string; closeButton: true; hasGoBack?: false }
+  | { title: string; hasGoBack?: false; closeButton?: false };
 
 const Header = ({ title, closeButton, hasGoBack }: Props) => {
   const router = useRouter();

@@ -32,6 +32,7 @@ const Select = ({ label, setValue, value, placeholder, options, disabled }: Prop
           <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>{label}</Text>
         )}
         <Pressable
+          disabled={!!disabled}
           onPress={() => !disabled && setIsFocused(prev => !prev)}
           style={{
             ...styles.inputContainer,
@@ -39,6 +40,8 @@ const Select = ({ label, setValue, value, placeholder, options, disabled }: Prop
             backgroundColor: disabled ? Colors.background.disabled : Colors.background.white,
           }}
           accessibilityRole='button'
+          accessibilityLabel={label || placeholder}
+          accessibilityHint={isFocused ? 'Collapse options' : 'Expand options'}
           accessibilityState={{ expanded: isFocused, disabled: !!disabled }}
         >
           <Text

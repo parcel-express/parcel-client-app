@@ -32,13 +32,20 @@ type Props = {
   transparent?: boolean;
   form: FormikProps<Form>;
 };
-
+const inputs: (keyof Form)[] = [
+  'branchName',
+  'customerName',
+  'company',
+  'city',
+  'address',
+  'phone',
+];
 const Modal = ({ visible, onClose, transparent = true, form, title, subtitle }: Props) => {
   const { t } = useTranslation();
   const windowHeight = useWindowDimensions().height;
   const panelHeight = windowHeight * 0.85;
   const overlayHeight = windowHeight - panelHeight;
-  const inputs = Object.keys(form.values) as (keyof Form)[];
+
   const insets = useSafeAreaInsets();
 
   const bottomPad = insets.bottom + 22;
@@ -48,14 +55,16 @@ const Modal = ({ visible, onClose, transparent = true, form, title, subtitle }: 
       transparent={transparent}
       animationType='slide'
       onRequestClose={onClose}
+      statusBarTranslucent
     >
       <TouchableWithoutFeedback onPress={onClose}>
         <View style={[styles.topOverlay, { height: overlayHeight }]} />
       </TouchableWithoutFeedback>
-      <View style={styles.overlay}>
+      <View style={styles.overlay} accessibilityViewIsModal accessible>
         <View style={[styles.content, { height: panelHeight }]}>
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 24}
             style={styles.full}
           >
             <ScrollView
