@@ -131,6 +131,34 @@
       "confirmNewPasswordPlaceholder": "Confirm New Password",
       "changePassword": "Change Password"
     },
+    "addresses": {
+      "noAddressTitle": "No addresses added",
+      "noAddressesMessage": "You can add and save addresses to your branches",
+      "addBranch": "Add Branch",
+      "addAddress": "Add Address",
+      "addAddressSubtitle": "Add your branch address",
+      "branchName": "Branch Name",
+      "branchNamePlaceholder": "Enter Branch Name",
+      "branchNameRequired": "Branch Name is required",
+      "customerName": "Customer Name",
+      "customerNamePlaceholder": "Enter Customer Name",
+      "customerNameRequired": "Customer Name is required",
+      "company": "Company",
+      "companyPlaceholder": "Enter Company",
+      "companyRequired": "Company is required",
+      "city": "City",
+      "cityPlaceholder": "Choose City",
+      "cityRequired": "City is required",
+      "address": "Address",
+      "addressPlaceholder": "Enter Address",
+      "addressRequired": "Address is required",
+      "phone": "Phone",
+      "phonePlaceholder": "Enter Phone",
+      "phoneRequired": "Phone is required",
+      "phoneInvalid": "Phone is invalid",
+      "delete": "Delete",
+      "deleteConfirm": "Are you sure you want to delete this address?"
+    },
     "contact": {
       "online": "Online"
     }

@@ -28,12 +28,7 @@ const Select = ({ label, setValue, value, placeholder, options, disabled }: Prop
   return (
     <View style={styles.wrapper}>
       <View style={styles.container}>
-        <View style={styles.flexRow}>
-          <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>
-            {label}
-            {label && <Text style={{ color: Colors.text.brand.tertiary }}>*</Text>}
-          </Text>
-        </View>
+        <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>{label}</Text>
         <Pressable
           onPress={() => !disabled && setIsFocused(prev => !prev)}
           style={{
@@ -94,12 +89,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     gap: 6,
     width: '100%',
-  },
-  flexRow: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 2,
   },
   inputContainer: {
     borderRadius: 8,

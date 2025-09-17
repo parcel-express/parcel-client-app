@@ -2,6 +2,11 @@ import { StyleSheet } from 'react-native';
 
 import { Colors } from './Colors';
 
+const textXs = {
+  fontFamily: 'Inter',
+  fontSize: 12,
+  letterSpacing: 0,
+};
 const textSm = {
   fontFamily: 'Inter',
   fontSize: 14,
@@ -31,11 +36,13 @@ export const Typography = StyleSheet.create({
     color: Colors.login.title,
   },
   textXsMedium: {
-    fontFamily: 'Inter',
+    ...textXs,
     fontWeight: '500',
-    fontSize: 12,
     lineHeight: 16,
-    letterSpacing: 0,
+  },
+  textXsRegular: {
+    ...textXs,
+    fontWeight: '400',
   },
   textMdRegular: {
     ...textMd,
@@ -64,6 +71,10 @@ export const Typography = StyleSheet.create({
   textSmSemiBold: {
     ...textSm,
     fontWeight: '600',
+  },
+  textSmBold: {
+    ...textSm,
+    fontWeight: '700',
   },
   textMdSemiBold: {
     ...textMd,

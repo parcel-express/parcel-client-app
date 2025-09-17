@@ -131,6 +131,34 @@
       "confirmNewPasswordPlaceholder": "Подтвердите новый пароль",
       "changePassword": "Изменить пароль"
     },
+    "addresses": {
+      "noAddressTitle": "Адреса не добавлены.",
+      "noAddressesMessage": "Вы можете добавлять и сохранять адреса в своих филиалах",
+      "addBranch": "Добавить филиал",
+      "addAddress": "Добавить адрес",
+      "addAddressSubtitle": "Добавьте адрес вашего филиала",
+      "branchName": "Название филиала",
+      "branchNamePlaceholder": "Введите название филиала",
+      "branchNameRequired": "Название филиала обязательно",
+      "customerName": "Имя клиента",
+      "customerNamePlaceholder": "Введите имя клиента",
+      "customerNameRequired": "Имя клиента обязательно",
+      "company": "Компания",
+      "companyPlaceholder": "Введите компанию",
+      "companyRequired": "Компания обязательна",
+      "city": "Город",
+      "cityPlaceholder": "Введите город",
+      "cityRequired": "Город обязателен",
+      "address": "Адрес",
+      "addressPlaceholder": "Введите адрес",
+      "addressRequired": "Адрес обязателен",
+      "phone": "Телефон",
+      "phonePlaceholder": "Введите телефон",
+      "phoneRequired": "Телефон обязателен",
+      "phoneInvalid": "Телефон недействителен",
+      "delete": "Удалить",
+      "deleteConfirm": "Вы уверены, что хотите удалить этот адрес?"
+    },
     "contact": {
       "online": "Онлайн"
     }

@@ -1,0 +1,148 @@
+import { FormikProps } from 'formik';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import {
+  Platform,
+  Modal as RNModal,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  useWindowDimensions,
+  View,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { Colors } from '@/constants/Colors';
+import { Typography } from '@/constants/Typography';
+
+import XIcon from '../icons/XIcon';
+
+import Button from './Button';
+import Input from './Input';
+import Select from './Select';
+type Form = {
+  branchName: string;
+  customerName: string;
+  company: string;
+  city: string;
+  address: string;
+  phone: string;
+};
+type Props = {
+  title?: string;
+  subtitle?: string;
+  visible: boolean;
+  onClose: () => void;
+  transparent?: boolean;
+  form: FormikProps<Form>;
+};
+
+const Modal = ({ visible, onClose, transparent = true, form, title, subtitle }: Props) => {
+  const { t } = useTranslation();
+  const windowHeight = useWindowDimensions().height;
+  const Height = windowHeight * 0.85;
+  const overlayHeight = windowHeight - Height;
+  const inputs = Object.keys(form.values) as (keyof Form)[];
+  const insets = useSafeAreaInsets();
+
+  const bottomPad = insets.bottom + 22;
+  return (
+    <RNModal
+      visible={visible}
+      transparent={transparent}
+      animationType='slide'
+      onRequestClose={onClose}
+    >
+      {Platform.OS === 'ios' && (
+        <TouchableWithoutFeedback onPress={onClose}>
+          <View style={[styles.topOverlay, { height: overlayHeight }]} />
+        </TouchableWithoutFeedback>
+      )}
+      <View style={styles.overlay}>
+        <View style={[styles.content, { height: Height }]}>
+          <ScrollView
+            contentContainerStyle={[styles.contentContainer, { paddingBottom: bottomPad }]}
+          >
+            <View style={styles.header}>
+              <View style={styles.row}>
+                <Text style={Typography.textMdSemiBold}>{title}</Text>
+                <XIcon onPress={onClose} />
+              </View>
+              <Text style={[Typography.textXsRegular]}>{subtitle}</Text>
+            </View>
+            <View style={styles.body}>
+              {inputs.map((input, index) => {
+                return input === 'city' ? (
+                  <Select
+                    key={input}
+                    setValue={value => form.setFieldValue('city', value)}
+                    options={[
+                      { label: 'City 1', value: 'city1' },
+                      { label: 'City 2', value: 'city2' },
+                      { label: 'City 3', value: 'city3' },
+                    ]}
+                    value={form.values.city}
+                    label={t(`profile.addresses.${input}`)}
+                    placeholder={t(`profile.addresses.${input}Placeholder`)}
+                  />
+                ) : (
+                  <Input<Form>
+                    name={input}
+                    label={t(`profile.addresses.${input}`)}
+                    placeholder={t(`profile.addresses.${input}Placeholder`)}
+                    formik={form}
+                    key={index}
+                    keyboardType={input === 'phone' ? 'phone-pad' : 'default'}
+                  />
+                );
+              })}
+            </View>
+            <Button variant='primary' size='md' onPress={form.handleSubmit}>
+              ფილიალის დამატება
+            </Button>
+          </ScrollView>
+        </View>
+      </View>
+    </RNModal>
+  );
+};
+
+const styles = StyleSheet.create({
+  topOverlay: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+    zIndex: 100,
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: Colors.modal.overlay,
+    justifyContent: 'flex-end',
+  },
+  content: {
+    minWidth: 280,
+    minHeight: 120,
+    backgroundColor: Colors.modal.background,
+    borderRadius: 12,
+
+    elevation: 5,
+    gap: 22,
+  },
+  contentContainer: { paddingTop: 20, paddingHorizontal: 18, paddingBottom: 24, gap: 22 },
+  header: {
+    width: '100%',
+    gap: 6,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  body: {
+    gap: 22,
+  },
+});
+
+export default Modal;
