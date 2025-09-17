@@ -44,7 +44,7 @@ const Input = <T extends Record<string, string | boolean>>({
 
   const getBorderColor = () => {
     if (disabled) {
-      return Colors.border.primary;
+      return Colors.border.secondary;
     }
     if (fieldError) {
       return isFocused ? Colors.border.activeError : Colors.border.subtleError;

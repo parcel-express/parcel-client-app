@@ -8,8 +8,8 @@ import { IconProps } from './types';
 function TrashIcon({ width, height, stroke, ...props }: IconProps) {
   return (
     <Svg
-      width={height ?? 14}
-      height={width ?? 16}
+      width={width ?? 14}
+      height={height ?? 16}
       viewBox='0 0 14 16'
       fill='none'
       accessibilityRole='image'

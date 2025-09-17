@@ -24,7 +24,7 @@ const Tag = ({ variant = 'success', label }: Props) => {
   );
 };
 
-export default Tag;
+export default React.memo(Tag);
 
 const styles = StyleSheet.create({
   tag: {

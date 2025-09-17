@@ -5,6 +5,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
+import { Typography } from '@/constants/Typography';
 
 type Props = {
   title: string;
@@ -79,8 +80,7 @@ const styles = StyleSheet.create({
     paddingBottom: 28,
   },
   smallTitle: {
-    fontSize: 14,
-    lineHeight: 32,
+    ...Typography.textSmSemiBold,
     color: Colors.text.white,
   },
   title: {

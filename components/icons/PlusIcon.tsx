@@ -6,8 +6,8 @@ import { IconProps } from './types';
 function PlusIcon({ width, height, ...props }: IconProps) {
   return (
     <Svg
-      width={height ?? 16}
-      height={width ?? 16}
+      width={width ?? 16}
+      height={height ?? 16}
       viewBox='0 0 16 16'
       fill='none'
       accessibilityRole='image'

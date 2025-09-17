@@ -13,8 +13,13 @@ type Props = {
 
 const SettingsButton = ({ onPress, children }: Props) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.button}>
-      <View style={styles.overlay} />
+    <TouchableOpacity
+      onPress={onPress}
+      accessibilityRole='button'
+      accessibilityLabel={children}
+      style={styles.button}
+    >
+      <View pointerEvents='none' style={styles.overlay} />
       <PlusIcon />
       <Text style={[styles.label, Typography.textSmSemiBold]}>{children}</Text>
     </TouchableOpacity>

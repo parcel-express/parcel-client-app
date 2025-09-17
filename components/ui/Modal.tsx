@@ -2,6 +2,7 @@ import { FormikProps } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  KeyboardAvoidingView,
   Platform,
   Modal as RNModal,
   ScrollView,
@@ -13,6 +14,7 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { Form } from '@/app/(tabs)/(profile)/addresses';
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
 
@@ -21,14 +23,7 @@ import XIcon from '../icons/XIcon';
 import Button from './Button';
 import Input from './Input';
 import Select from './Select';
-type Form = {
-  branchName: string;
-  customerName: string;
-  company: string;
-  city: string;
-  address: string;
-  phone: string;
-};
+
 type Props = {
   title?: string;
   subtitle?: string;
@@ -41,8 +36,8 @@ type Props = {
 const Modal = ({ visible, onClose, transparent = true, form, title, subtitle }: Props) => {
   const { t } = useTranslation();
   const windowHeight = useWindowDimensions().height;
-  const Height = windowHeight * 0.85;
-  const overlayHeight = windowHeight - Height;
+  const panelHeight = windowHeight * 0.85;
+  const overlayHeight = windowHeight - panelHeight;
   const inputs = Object.keys(form.values) as (keyof Form)[];
   const insets = useSafeAreaInsets();
 
@@ -54,54 +49,58 @@ const Modal = ({ visible, onClose, transparent = true, form, title, subtitle }: 
       animationType='slide'
       onRequestClose={onClose}
     >
-      {Platform.OS === 'ios' && (
-        <TouchableWithoutFeedback onPress={onClose}>
-          <View style={[styles.topOverlay, { height: overlayHeight }]} />
-        </TouchableWithoutFeedback>
-      )}
+      <TouchableWithoutFeedback onPress={onClose}>
+        <View style={[styles.topOverlay, { height: overlayHeight }]} />
+      </TouchableWithoutFeedback>
       <View style={styles.overlay}>
-        <View style={[styles.content, { height: Height }]}>
-          <ScrollView
-            contentContainerStyle={[styles.contentContainer, { paddingBottom: bottomPad }]}
+        <View style={[styles.content, { height: panelHeight }]}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            style={styles.full}
           >
-            <View style={styles.header}>
-              <View style={styles.row}>
-                <Text style={Typography.textMdSemiBold}>{title}</Text>
-                <XIcon onPress={onClose} />
+            <ScrollView
+              keyboardShouldPersistTaps='handled'
+              contentContainerStyle={[styles.contentContainer, { paddingBottom: bottomPad }]}
+            >
+              <View style={styles.header}>
+                <View style={styles.row}>
+                  <Text style={Typography.textMdSemiBold}>{title}</Text>
+                  <XIcon onPress={onClose} />
+                </View>
+                <Text style={[Typography.textXsRegular]}>{subtitle}</Text>
               </View>
-              <Text style={[Typography.textXsRegular]}>{subtitle}</Text>
-            </View>
-            <View style={styles.body}>
-              {inputs.map((input, index) => {
-                return input === 'city' ? (
-                  <Select
-                    key={input}
-                    setValue={value => form.setFieldValue('city', value)}
-                    options={[
-                      { label: 'City 1', value: 'city1' },
-                      { label: 'City 2', value: 'city2' },
-                      { label: 'City 3', value: 'city3' },
-                    ]}
-                    value={form.values.city}
-                    label={t(`profile.addresses.${input}`)}
-                    placeholder={t(`profile.addresses.${input}Placeholder`)}
-                  />
-                ) : (
-                  <Input<Form>
-                    name={input}
-                    label={t(`profile.addresses.${input}`)}
-                    placeholder={t(`profile.addresses.${input}Placeholder`)}
-                    formik={form}
-                    key={index}
-                    keyboardType={input === 'phone' ? 'phone-pad' : 'default'}
-                  />
-                );
-              })}
-            </View>
-            <Button variant='primary' size='md' onPress={form.handleSubmit}>
-              ფილიალის დამატება
-            </Button>
-          </ScrollView>
+              <View style={styles.body}>
+                {inputs.map(input => {
+                  return input === 'city' ? (
+                    <Select
+                      key={input}
+                      setValue={value => form.setFieldValue('city', value)}
+                      options={[
+                        { label: 'City 1', value: 'city1' },
+                        { label: 'City 2', value: 'city2' },
+                        { label: 'City 3', value: 'city3' },
+                      ]}
+                      value={form.values.city}
+                      label={t(`profile.addresses.${input}`)}
+                      placeholder={t(`profile.addresses.${input}Placeholder`)}
+                    />
+                  ) : (
+                    <Input<Form>
+                      name={input}
+                      label={t(`profile.addresses.${input}`)}
+                      placeholder={t(`profile.addresses.${input}Placeholder`)}
+                      formik={form}
+                      key={input}
+                      keyboardType={input === 'phone' ? 'phone-pad' : 'default'}
+                    />
+                  );
+                })}
+              </View>
+              <Button variant='primary' size='md' onPress={form.handleSubmit}>
+                {t('profile.addresses.addAddress')}
+              </Button>
+            </ScrollView>
+          </KeyboardAvoidingView>
         </View>
       </View>
     </RNModal>
@@ -143,6 +142,7 @@ const styles = StyleSheet.create({
   body: {
     gap: 22,
   },
+  full: { flex: 1 },
 });
 
 export default Modal;

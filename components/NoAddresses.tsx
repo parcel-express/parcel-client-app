@@ -15,7 +15,7 @@ const NoAddresses = ({ onPress }: { onPress: () => void }) => {
       <View style={styles.content}>
         <MarkerPinIconLarge stroke={Colors.icon.black} />
         <View style={styles.textContainer}>
-          <Text style={[Typography.textSmBold, styles.middle]}>
+          <Text accessibilityRole='header' style={[Typography.textSmBold, styles.middle]}>
             {t('profile.addresses.noAddressTitle')}
           </Text>
           <Text style={[Typography.textXsRegular, styles.middle]}>

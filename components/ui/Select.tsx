@@ -28,7 +28,9 @@ const Select = ({ label, setValue, value, placeholder, options, disabled }: Prop
   return (
     <View style={styles.wrapper}>
       <View style={styles.container}>
-        <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>{label}</Text>
+        {!!label && (
+          <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>{label}</Text>
+        )}
         <Pressable
           onPress={() => !disabled && setIsFocused(prev => !prev)}
           style={{
@@ -36,6 +38,8 @@ const Select = ({ label, setValue, value, placeholder, options, disabled }: Prop
             borderColor: getBorderColor(),
             backgroundColor: disabled ? Colors.background.disabled : Colors.background.white,
           }}
+          accessibilityRole='button'
+          accessibilityState={{ expanded: isFocused, disabled: !!disabled }}
         >
           <Text
             style={[
@@ -52,10 +56,11 @@ const Select = ({ label, setValue, value, placeholder, options, disabled }: Prop
       </View>
 
       {isFocused && (
-        <View style={styles.dropdown}>
+        <View style={styles.dropdown} accessibilityRole='menu'>
           <ScrollView>
             {options.map(item => (
               <TouchableOpacity
+                accessibilityRole='menuitem'
                 key={item.value}
                 style={[
                   styles.option,
@@ -67,7 +72,9 @@ const Select = ({ label, setValue, value, placeholder, options, disabled }: Prop
                 }}
               >
                 <Text style={[Typography.textMdMedium, styles.label]}>{item.label}</Text>
-                {value === item.value && <MaterialIcons name='check' size={20} color={'#7F56D9'} />}
+                {value === item.value && (
+                  <MaterialIcons name='check' size={20} color={Colors.text.brand.tertiary} />
+                )}
               </TouchableOpacity>
             ))}
           </ScrollView>
@@ -90,6 +97,7 @@ const styles = StyleSheet.create({
     gap: 6,
     width: '100%',
   },
+
   inputContainer: {
     borderRadius: 8,
     borderWidth: 1,

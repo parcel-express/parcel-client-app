@@ -10,7 +10,7 @@ function MarkerPinIconLarge({ width, height, stroke, ...props }: IconProps) {
     <Svg
       width={width ?? 66}
       height={height ?? 66}
-      viewBox={`0 0 66 66`}
+      viewBox='0 0 66 66'
       fill='none'
       accessibilityRole='image'
       {...props}

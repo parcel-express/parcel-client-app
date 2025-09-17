@@ -43,6 +43,7 @@ export const Typography = StyleSheet.create({
   textXsRegular: {
     ...textXs,
     fontWeight: '400',
+    lineHeight: 16,
   },
   textMdRegular: {
     ...textMd,

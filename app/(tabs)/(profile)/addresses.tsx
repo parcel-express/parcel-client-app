@@ -13,7 +13,7 @@ import Card from '@/components/ui/Card';
 import Modal from '@/components/ui/Modal';
 import { Colors } from '@/constants/Colors';
 type Data = { title: string; address: string; body: { label: string; value: string }[] };
-type Form = {
+export type Form = {
   branchName: string;
   customerName: string;
   company: string;
@@ -32,8 +32,9 @@ export default function AddressesScreen() {
       address: '',
       phone: '',
     },
-    onSubmit: () => {
+    onSubmit: (_values, { resetForm }) => {
       setModalVisible(false);
+      resetForm();
     },
   });
   const { t } = useTranslation();
@@ -54,13 +55,13 @@ export default function AddressesScreen() {
   const openModal = () => setModalVisible(true);
 
   const handleDelete = () => {
-    Alert.alert(t('profile.addresses.delete'), t('profile.addresses.deleteConfirm'), [
+    Alert.alert(t('common.delete'), t('profile.addresses.deleteConfirm'), [
       {
         text: t('common.cancel'),
         style: 'cancel',
       },
       {
-        text: t('profile.addresses.delete'),
+        text: t('common.delete'),
         style: 'destructive',
       },
     ]);
@@ -87,7 +88,7 @@ export default function AddressesScreen() {
           ListHeaderComponent={
             <SettingsButton onPress={openModal}>{t('profile.addresses.addBranch')}</SettingsButton>
           }
-          keyExtractor={(item, index) => item.title + index.toString()}
+          keyExtractor={item => item.title}
           renderItem={({ item }) => (
             <Card
               variant={'addresses'}
@@ -112,6 +113,5 @@ const styles = StyleSheet.create({
     gap: 10,
     paddingVertical: 16,
     paddingHorizontal: 16,
-    paddingBottom: 83,
   },
 });

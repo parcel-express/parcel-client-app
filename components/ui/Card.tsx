@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
@@ -15,13 +16,24 @@ type Props = {
   onEditPress?: () => void;
   onDeletePress?: () => void;
   data: { title: string; address: string; body: { label: string; value: string }[] };
+  tagLabel?: string;
 };
-const sizes = {
+const sizes: Record<
+  Props['variant'],
+  { header: { paddingBottom: number }; body: { paddingTop: number }; paddingBottom: number }
+> = {
   default: { header: { paddingBottom: 20 }, body: { paddingTop: 20 }, paddingBottom: 16 },
   invoices: { header: { paddingBottom: 18 }, body: { paddingTop: 20 }, paddingBottom: 22 },
   addresses: { header: { paddingBottom: 24 }, body: { paddingTop: 14 }, paddingBottom: 24 },
 };
-const Card = ({ variant = 'default', onEditPress, onDeletePress, data }: Props) => {
+const Card = ({
+  variant = 'default',
+  onEditPress,
+  onDeletePress,
+  data,
+  tagLabel = 'Success',
+}: Props) => {
+  const { t } = useTranslation();
   return (
     <View style={[styles.card, { paddingBottom: sizes[variant].paddingBottom }]}>
       <View style={[styles.header, sizes[variant].header, variant === 'addresses' && styles.gapMd]}>
@@ -29,21 +41,31 @@ const Card = ({ variant = 'default', onEditPress, onDeletePress, data }: Props) 
           <Text style={Typography.textSmMedium}>{data.title}</Text>
           {variant === 'addresses' ? (
             <View style={styles.actionsContainer}>
-              <TouchableOpacity onPress={onDeletePress}>
+              <TouchableOpacity
+                onPress={onDeletePress}
+                accessibilityRole='button'
+                accessibilityLabel='Delete address'
+                hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+              >
                 <TrashIcon />
               </TouchableOpacity>
-              <TouchableOpacity onPress={onEditPress}>
+              <TouchableOpacity
+                onPress={onEditPress}
+                accessibilityRole='button'
+                accessibilityLabel='Edit address'
+                hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+              >
                 <PencilIcon />
               </TouchableOpacity>
             </View>
           ) : (
-            <Tag label='Success' />
+            <Tag label={tagLabel} />
           )}
         </View>
         {variant === 'addresses' && (
           <View style={styles.gapSm}>
             <Text style={[Typography.textXsMedium, { color: Colors.text.tertiary }]}>
-              მისამართი
+              {t('profile.addresses.address')}
             </Text>
             <Text style={[Typography.textSmBold, { color: Colors.text.primary }]}>
               {data.address}
@@ -52,8 +74,8 @@ const Card = ({ variant = 'default', onEditPress, onDeletePress, data }: Props) 
         )}
       </View>
       <View style={[styles.gapMd, sizes[variant].body]}>
-        {data?.body?.map(item => (
-          <View style={styles.row} key={item.label}>
+        {data?.body?.map((item, idx) => (
+          <View style={styles.row} key={`${item.label}-${idx}`}>
             <Text style={Typography.textXsRegular}>{item.label}</Text>
             <Text style={Typography.textXsRegular}>{item.value}</Text>
           </View>

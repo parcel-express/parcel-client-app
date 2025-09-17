@@ -134,9 +134,9 @@
     "addresses": {
       "noAddressTitle": "მისამართები არ არის დამატებული",
       "noAddressesMessage": "მისამართები შეგიძლია დაამატო და შეინახო შენს ფილიალებში",
-      "addBranch": "დამატება ფილიალის",
+      "addBranch": "ფილიალის დამატება",
       "addAddress": "მისამართის დამატება",
-      "addAddressSubtitle": "დაამატე თქვენი ფილიალის მისამართი",
+      "addAddressSubtitle": "დაამატეთ თქვენი ფილიალის მისამართი",
       "branchName": "ფილიალის დასახელება",
       "branchNamePlaceholder": "ჩაწერეთ ფილიალის დასახელება",
       "branchNameRequired": "ფილიალის დასახელება აუცილებელია",
