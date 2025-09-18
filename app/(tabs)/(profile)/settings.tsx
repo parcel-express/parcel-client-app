@@ -4,7 +4,15 @@ import * as ImagePicker from 'expo-image-picker';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import * as yup from 'yup';
 
 import Header from '@/components/Header';
@@ -61,6 +69,7 @@ const passwordItems: (keyof PasswordValues)[] = [
 export type FormKeys = keyof Omit<FormValues, 'logo' | 'field'>;
 export default function SettingsScreen() {
   const { t } = useTranslation();
+  const HEADER_HEIGHT = 80;
   const tabBarHeight = useBottomTabBarHeight();
   const bottomPad = Platform.OS === 'ios' ? tabBarHeight + 20 : 20;
   const formik = useFormik({
@@ -160,62 +169,68 @@ export default function SettingsScreen() {
   return (
     <ThemedView style={styles.container}>
       <Header title={t('profile.menu.settings')} hasGoBack />
-      <ScrollView contentContainerStyle={[styles.content, { paddingBottom: bottomPad }]}>
-        <View style={styles.logoContainer}>
-          {formik.values.logo ? (
-            <Image source={{ uri: formik.values.logo }} style={styles.logo} />
-          ) : (
-            <View style={styles.logo} />
-          )}
-          <TouchableOpacity
-            onPress={pickImage}
-            accessibilityRole='button'
-            accessibilityLabel={t('profile.settings.companyLogo')}
-            style={[styles.imageUpload, Shadows.shadow_xs]}
-          >
-            <View style={styles.imageUploadContent}>
-              <UploadIcon />
-              <Text style={[Typography.textMdMedium, { color: Colors.text.secondary }]}>
-                {t('profile.settings.companyLogo')}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.formsContainer}>
-          <View style={styles.form}>
-            {menuItems.map(key => (
-              <Input<FormValues>
-                key={key}
-                name={key}
-                label={t(`profile.settings.${key}`)}
-                placeholder={t(`profile.settings.${key}Placeholder`)}
-                formik={formik}
-              />
-            ))}
-            <Button onPress={formik.handleSubmit} size={'md'} variant={'primary'}>
-              {t('profile.settings.save')}
-            </Button>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : HEADER_HEIGHT}
+      >
+        <ScrollView contentContainerStyle={[styles.content, { paddingBottom: bottomPad }]}>
+          <View style={styles.logoContainer}>
+            {formik.values.logo ? (
+              <Image source={{ uri: formik.values.logo }} style={styles.logo} />
+            ) : (
+              <View style={styles.logo} />
+            )}
+            <TouchableOpacity
+              onPress={pickImage}
+              accessibilityRole='button'
+              accessibilityLabel={t('profile.settings.companyLogo')}
+              style={[styles.imageUpload, Shadows.shadow_xs]}
+            >
+              <View style={styles.imageUploadContent}>
+                <UploadIcon />
+                <Text style={[Typography.textMdMedium, { color: Colors.text.secondary }]}>
+                  {t('profile.settings.companyLogo')}
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
-          <View style={styles.passwordForm}>
-            <Text style={Typography.textMdBold}>{t('profile.settings.changePassword')}</Text>
+          <View style={styles.formsContainer}>
             <View style={styles.form}>
-              {passwordItems.map(key => (
-                <Input<PasswordValues>
+              {menuItems.map(key => (
+                <Input<FormValues>
                   key={key}
                   name={key}
                   label={t(`profile.settings.${key}`)}
                   placeholder={t(`profile.settings.${key}Placeholder`)}
-                  formik={passwordFormik}
-                  secureTextEntry
+                  formik={formik}
                 />
               ))}
-              <Button onPress={passwordFormik.handleSubmit} size={'md'} variant={'primary'}>
-                {t('profile.settings.changePassword')}
+              <Button onPress={formik.handleSubmit} size={'md'} variant={'primary'}>
+                {t('profile.settings.save')}
               </Button>
             </View>
+            <View style={styles.passwordForm}>
+              <Text style={Typography.textMdBold}>{t('profile.settings.changePassword')}</Text>
+              <View style={styles.form}>
+                {passwordItems.map(key => (
+                  <Input<PasswordValues>
+                    key={key}
+                    name={key}
+                    label={t(`profile.settings.${key}`)}
+                    placeholder={t(`profile.settings.${key}Placeholder`)}
+                    formik={passwordFormik}
+                    secureTextEntry
+                  />
+                ))}
+                <Button onPress={passwordFormik.handleSubmit} size={'md'} variant={'primary'}>
+                  {t('profile.settings.changePassword')}
+                </Button>
+              </View>
+            </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </ThemedView>
   );
 }
