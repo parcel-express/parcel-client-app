@@ -69,9 +69,8 @@ const passwordItems: (keyof PasswordValues)[] = [
 export type FormKeys = keyof Omit<FormValues, 'logo' | 'field'>;
 export default function SettingsScreen() {
   const { t } = useTranslation();
-  const HEADER_HEIGHT = 80;
   const tabBarHeight = useBottomTabBarHeight();
-  const bottomPad = Platform.OS === 'ios' ? tabBarHeight + 20 : 20;
+  const bottomPad = tabBarHeight + 20;
   const formik = useFormik({
     initialValues: {
       logo: '',
@@ -169,12 +168,16 @@ export default function SettingsScreen() {
   return (
     <ThemedView style={styles.container}>
       <Header title={t('profile.menu.settings')} hasGoBack />
+
       <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : HEADER_HEIGHT}
+        keyboardVerticalOffset={0}
       >
-        <ScrollView contentContainerStyle={[styles.content, { paddingBottom: bottomPad }]}>
+        <ScrollView
+          keyboardShouldPersistTaps='handled'
+          contentContainerStyle={[styles.content, { paddingBottom: bottomPad }]}
+        >
           <View style={styles.logoContainer}>
             {formik.values.logo ? (
               <Image source={{ uri: formik.values.logo }} style={styles.logo} />
