@@ -109,7 +109,7 @@ export const Colors = {
       icon: '#F79009',
       label: '#B54708',
     },
-    error: {
+    danger: {
       border: '#FECDCA',
       background: '#FEF3F2',
       icon: '#F04438',

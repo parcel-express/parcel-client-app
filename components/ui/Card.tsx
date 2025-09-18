@@ -2,6 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+import { Address } from '@/app/(tabs)/(profile)/addresses';
+import { Invoice } from '@/app/(tabs)/(profile)/invoices';
 import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';
@@ -15,8 +17,9 @@ type Props = {
   variant: 'default' | 'invoices' | 'addresses';
   onEditPress?: () => void;
   onDeletePress?: () => void;
-  data: { title: string; address: string; body: { label: string; value: string }[] };
-  tagLabel?: string;
+  data: Address | Invoice;
+  status?: string;
+  statusVariant?: 'success' | 'warning' | 'danger';
 };
 const sizes: Record<
   Props['variant'],
@@ -31,7 +34,8 @@ const Card = ({
   onEditPress,
   onDeletePress,
   data,
-  tagLabel = 'Success',
+  status = 'Success',
+  statusVariant = 'success',
 }: Props) => {
   const { t } = useTranslation();
   return (
@@ -59,10 +63,10 @@ const Card = ({
               </TouchableOpacity>
             </View>
           ) : (
-            <Tag label={tagLabel} />
+            <Tag label={status} variant={statusVariant} />
           )}
         </View>
-        {variant === 'addresses' && (
+        {variant === 'addresses' && 'address' in data && (
           <View style={styles.gapSm}>
             <Text style={[Typography.textXsMedium, { color: Colors.text.tertiary }]}>
               {t('profile.addresses.address')}

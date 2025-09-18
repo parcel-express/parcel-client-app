@@ -159,6 +159,9 @@
       "delete": "წაშლა",
       "deleteConfirm": "დარწმუნებული ხართ, რომ გსურთ ამ მისამართის წაშლა?"
     },
+    "invoices": {
+      "title": "ინვოისები"
+    },
     "contact": {
       "online": "Online"
     }

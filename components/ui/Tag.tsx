@@ -5,7 +5,7 @@ import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
 
 type Props = {
-  variant?: 'success' | 'error' | 'warning';
+  variant?: 'success' | 'danger' | 'warning';
   label: string;
 };
 
