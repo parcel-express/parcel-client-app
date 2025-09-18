@@ -11,15 +11,15 @@ import { Typography } from '@/constants/Typography';
 import PencilIcon from '../icons/PencilIcon';
 import TrashIcon from '../icons/TrashIcon';
 
-import Tag from './Tag';
-
+import Tag, { TagVariant } from './Tag';
+// TO DO: refactor to have different types for different variants
 type Props = {
   variant: 'default' | 'invoices' | 'addresses';
   onEditPress?: () => void;
   onDeletePress?: () => void;
   data: Address | Invoice;
   status?: string;
-  statusVariant?: 'success' | 'warning' | 'danger';
+  statusVariant?: TagVariant;
 };
 const sizes: Record<
   Props['variant'],
@@ -48,7 +48,7 @@ const Card = ({
               <TouchableOpacity
                 onPress={onDeletePress}
                 accessibilityRole='button'
-                accessibilityLabel='Delete address'
+                accessibilityLabel={t('profile.addresses.delete')}
                 hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
               >
                 <TrashIcon />
@@ -56,7 +56,7 @@ const Card = ({
               <TouchableOpacity
                 onPress={onEditPress}
                 accessibilityRole='button'
-                accessibilityLabel='Edit address'
+                accessibilityLabel={t('common.edit')}
                 hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
               >
                 <PencilIcon />

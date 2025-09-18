@@ -156,7 +156,7 @@
       "phonePlaceholder": "Введите телефон",
       "phoneRequired": "Телефон обязателен",
       "phoneInvalid": "Телефон недействителен",
-      "delete": "Удалить",
+      "delete": "Удалить адрес",
       "deleteConfirm": "Вы уверены, что хотите удалить этот адрес?"
     },
     "invoices": {

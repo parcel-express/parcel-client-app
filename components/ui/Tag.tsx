@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
 
-export type TagVariant = 'success' | 'danger' | 'warning';
+export type TagVariant = keyof typeof Colors.tag;
 type Props = {
   variant?: TagVariant;
   label: string;
