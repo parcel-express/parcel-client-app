@@ -210,7 +210,7 @@ export default function SettingsScreen() {
                   label={t(`profile.settings.${key}`)}
                   placeholder={t(`profile.settings.${key}Placeholder`)}
                   formik={formik}
-                  textContentType={key === 'email' ? 'emailAddress' : 'none'}
+                  textContentType={key === 'email' ? 'emailAddress' : undefined}
                 />
               ))}
               <Button onPress={formik.handleSubmit} size={'md'} variant={'primary'}>
@@ -228,6 +228,8 @@ export default function SettingsScreen() {
                     placeholder={t(`profile.settings.${key}Placeholder`)}
                     formik={passwordFormik}
                     secureTextEntry
+                    autoCapitalize='none'
+                    autoComplete={key === 'newPassword' ? 'password-new' : 'password'}
                     textContentType={key === 'newPassword' ? 'newPassword' : 'password'}
                   />
                 ))}
