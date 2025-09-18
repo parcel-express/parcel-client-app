@@ -160,7 +160,13 @@
       "deleteConfirm": "Вы уверены, что хотите удалить этот адрес?"
     },
     "invoices": {
-      "title": "Счета"
+      "title": "Счета",
+      "status": {
+        "paid": "Оплачено",
+        "pending": "В ожидании",
+        "overdue": "Просрочено",
+        "partiallyPaid": "Частично оплачено"
+      }
     },
     "contact": {
       "online": "Онлайн"

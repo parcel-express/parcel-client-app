@@ -6,17 +6,19 @@ import { FlatList, StyleSheet } from 'react-native';
 import Header from '@/components/Header';
 import { ThemedView } from '@/components/ThemedView';
 import Card from '@/components/ui/Card';
+import type { TagVariant } from '@/components/ui/Tag';
 import { Colors } from '@/constants/Colors';
+
 export type Invoice = {
   id: string;
   title: string;
   body: { label: string; value: string }[];
-  status?: string;
-  statusVariant?: 'success' | 'warning' | 'danger';
+  status: string;
+  statusVariant: TagVariant;
 };
 export default function InvoicesScreen() {
   const { t } = useTranslation();
-  const TabHeight = useBottomTabBarHeight();
+  const tabBarHeight = useBottomTabBarHeight();
   const data: Invoice[] = [
     {
       id: '1',
@@ -94,16 +96,16 @@ export default function InvoicesScreen() {
       <Header title={t('profile.invoices.title')} hasGoBack />
       <FlatList
         data={data}
-        keyExtractor={item => item.title}
+        keyExtractor={item => item.id}
         renderItem={({ item }) => (
           <Card
             variant={'invoices'}
             data={item}
-            status={item.status ?? ''}
-            statusVariant={item.statusVariant ?? 'warning'}
+            status={item.status}
+            statusVariant={item.statusVariant}
           />
         )}
-        contentContainerStyle={[styles.content, { paddingBottom: TabHeight + 18 }]}
+        contentContainerStyle={[styles.content, { paddingBottom: tabBarHeight + 18 }]}
       />
     </ThemedView>
   );

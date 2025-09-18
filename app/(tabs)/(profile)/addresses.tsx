@@ -21,6 +21,7 @@ export type Form = {
   phone: string;
 };
 export type Address = {
+  id?: string;
   title: string;
   address: string;
   body: { label: string; value: string }[];

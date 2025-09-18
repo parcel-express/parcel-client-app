@@ -160,7 +160,13 @@
       "deleteConfirm": "დარწმუნებული ხართ, რომ გსურთ ამ მისამართის წაშლა?"
     },
     "invoices": {
-      "title": "ინვოისები"
+      "title": "ინვოისები",
+      "status": {
+        "paid": "გადახდილია",
+        "pending": "მიმდინარე",
+        "overdue": "ვადაგასული",
+        "partiallyPaid": "ნაწილობრივ გადახდილია"
+      }
     },
     "contact": {
       "online": "Online"

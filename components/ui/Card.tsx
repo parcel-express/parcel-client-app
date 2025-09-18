@@ -34,8 +34,8 @@ const Card = ({
   onEditPress,
   onDeletePress,
   data,
-  status = 'Success',
-  statusVariant = 'success',
+  status,
+  statusVariant,
 }: Props) => {
   const { t } = useTranslation();
   return (
@@ -63,7 +63,7 @@ const Card = ({
               </TouchableOpacity>
             </View>
           ) : (
-            <Tag label={status} variant={statusVariant} />
+            status && statusVariant && <Tag label={status} variant={statusVariant} />
           )}
         </View>
         {variant === 'addresses' && 'address' in data && (

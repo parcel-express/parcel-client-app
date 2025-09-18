@@ -4,13 +4,14 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
 
+export type TagVariant = 'success' | 'danger' | 'warning';
 type Props = {
-  variant?: 'success' | 'danger' | 'warning';
+  variant?: TagVariant;
   label: string;
 };
 
 const Tag = ({ variant = 'success', label }: Props) => {
-  const colorScheme = Colors.tag[variant];
+  const colorScheme = Colors.tag[variant] ?? Colors.tag.success;
   return (
     <View
       style={[
