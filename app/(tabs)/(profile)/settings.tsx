@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as yup from 'yup';
 
 import Header from '@/components/Header';
@@ -69,8 +70,9 @@ const passwordItems: (keyof PasswordValues)[] = [
 export type FormKeys = keyof Omit<FormValues, 'logo' | 'field'>;
 export default function SettingsScreen() {
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
   const tabBarHeight = useBottomTabBarHeight();
-  const bottomPad = tabBarHeight + 20;
+  const bottomPad = Math.max(tabBarHeight, insets.bottom) + 20;
   const formik = useFormik({
     initialValues: {
       logo: '',
@@ -175,6 +177,7 @@ export default function SettingsScreen() {
         keyboardVerticalOffset={0}
       >
         <ScrollView
+          keyboardDismissMode='on-drag'
           keyboardShouldPersistTaps='handled'
           contentContainerStyle={[styles.content, { paddingBottom: bottomPad }]}
         >
@@ -207,6 +210,7 @@ export default function SettingsScreen() {
                   label={t(`profile.settings.${key}`)}
                   placeholder={t(`profile.settings.${key}Placeholder`)}
                   formik={formik}
+                  textContentType={key === 'email' ? 'emailAddress' : 'none'}
                 />
               ))}
               <Button onPress={formik.handleSubmit} size={'md'} variant={'primary'}>
@@ -224,6 +228,7 @@ export default function SettingsScreen() {
                     placeholder={t(`profile.settings.${key}Placeholder`)}
                     formik={passwordFormik}
                     secureTextEntry
+                    textContentType={key === 'newPassword' ? 'newPassword' : 'password'}
                   />
                 ))}
                 <Button onPress={passwordFormik.handleSubmit} size={'md'} variant={'primary'}>
