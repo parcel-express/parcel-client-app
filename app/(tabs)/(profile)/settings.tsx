@@ -155,11 +155,6 @@ export default function SettingsScreen() {
     },
   });
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    const perm = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!perm.granted) {
-      return;
-    }
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ['images'],
       allowsEditing: true,
@@ -178,10 +173,9 @@ export default function SettingsScreen() {
         <KeyboardAvoidingView
           style={styles.container}
           behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
-          keyboardVerticalOffset={0}
+          keyboardVerticalOffset={bottomPad}
         >
           <ScrollView
-            keyboardDismissMode='on-drag'
             keyboardShouldPersistTaps='handled'
             contentContainerStyle={[styles.content, { paddingBottom: bottomPad }]}
           >
@@ -195,6 +189,7 @@ export default function SettingsScreen() {
                 onPress={pickImage}
                 accessibilityRole='button'
                 accessibilityLabel={t('profile.settings.companyLogo')}
+                accessibilityHint={t('profile.settings.companyLogoHint')}
                 style={[styles.imageUpload, Shadows.shadow_xs]}
               >
                 <View style={styles.imageUploadContent}>
@@ -214,10 +209,35 @@ export default function SettingsScreen() {
                     label={t(`profile.settings.${key}`)}
                     placeholder={t(`profile.settings.${key}Placeholder`)}
                     formik={formik}
-                    textContentType={key === 'email' ? 'emailAddress' : undefined}
+                    textContentType={
+                      key === 'email' || key === 'contactEmail'
+                        ? 'emailAddress'
+                        : key === 'contactNumber'
+                          ? 'telephoneNumber'
+                          : undefined
+                    }
+                    autoComplete={
+                      key === 'email' || key === 'contactEmail'
+                        ? 'email'
+                        : key === 'contactNumber'
+                          ? 'tel'
+                          : undefined
+                    }
+                    keyboardType={
+                      key === 'email' || key === 'contactEmail'
+                        ? 'email-address'
+                        : key === 'contactNumber'
+                          ? 'phone-pad'
+                          : 'default'
+                    }
                   />
                 ))}
-                <Button onPress={formik.handleSubmit} size={'md'} variant={'primary'}>
+                <Button
+                  disabled={!formik.isValid}
+                  onPress={formik.handleSubmit}
+                  size={'md'}
+                  variant={'primary'}
+                >
                   {t('profile.settings.save')}
                 </Button>
               </View>
@@ -237,7 +257,12 @@ export default function SettingsScreen() {
                       autoCapitalize='none'
                     />
                   ))}
-                  <Button onPress={passwordFormik.handleSubmit} size={'md'} variant={'primary'}>
+                  <Button
+                    disabled={!passwordFormik.isValid}
+                    onPress={passwordFormik.handleSubmit}
+                    size={'md'}
+                    variant={'primary'}
+                  >
                     {t('profile.settings.changePassword')}
                   </Button>
                 </View>
