@@ -159,6 +159,10 @@
       "delete": "მისამართის წაშლა",
       "deleteConfirm": "დარწმუნებული ხართ, რომ გსურთ ამ მისამართის წაშლა?"
     },
+    "tariffs": {
+      "title": "ტარიფები",
+      "orderAcceptanceTitle": "შეკვეთის მიღება"
+    },
     "invoices": {
       "title": "ინვოისები",
       "status": {

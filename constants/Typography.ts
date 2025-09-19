@@ -40,6 +40,11 @@ export const Typography = StyleSheet.create({
     fontWeight: '500',
     lineHeight: 16,
   },
+  textXsSemiBold: {
+    ...textXs,
+    fontWeight: '500',
+    lineHeight: 16,
+  },
   textXsRegular: {
     ...textXs,
     fontWeight: '400',

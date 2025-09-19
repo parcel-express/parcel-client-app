@@ -1,17 +1,18 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
 
 import { ThemedView } from './ThemedView';
 type Props = {
   children: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
 };
 
-const ContentView = ({ children }: Props) => {
+const ContentView = ({ children, style }: Props) => {
   return (
     <ThemedView
-      style={styles.contentsContainer}
+      style={[styles.contentsContainer, style]}
       lightColor={Colors.background.body}
       darkColor={Colors.background.body_dark}
     >

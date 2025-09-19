@@ -164,6 +164,10 @@
       "delete": "Удалить адрес",
       "deleteConfirm": "Вы уверены, что хотите удалить этот адрес?"
     },
+    "tariffs": {
+      "title": "Тарифы",
+      "orderAcceptanceTitle": "Принятие заказа"
+    },
     "invoices": {
       "title": "Счета",
       "status": {
