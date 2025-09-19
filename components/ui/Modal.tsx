@@ -1,3 +1,4 @@
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { FormikProps } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -42,11 +43,11 @@ const inputs: (keyof Form)[] = [
 ];
 const Modal = ({ visible, onClose, transparent = true, form, title, subtitle }: Props) => {
   const { t } = useTranslation();
+  const tabBarHeight = useBottomTabBarHeight();
   const windowHeight = useWindowDimensions().height;
   const panelHeight = windowHeight * 0.85;
-  const overlayHeight = windowHeight - panelHeight;
-
   const insets = useSafeAreaInsets();
+  const overlayHeight = windowHeight - panelHeight - insets.top;
 
   const bottomPad = insets.bottom + 22;
   return (
@@ -56,6 +57,7 @@ const Modal = ({ visible, onClose, transparent = true, form, title, subtitle }: 
       animationType='slide'
       onRequestClose={onClose}
       statusBarTranslucent
+      navigationBarTranslucent
     >
       <TouchableWithoutFeedback onPress={onClose}>
         <View style={[styles.topOverlay, { height: overlayHeight }]} />
@@ -63,8 +65,10 @@ const Modal = ({ visible, onClose, transparent = true, form, title, subtitle }: 
       <View style={styles.overlay} accessibilityViewIsModal accessible>
         <View style={[styles.content, { height: panelHeight }]}>
           <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-            keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 24}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={
+              Platform.OS === 'ios' ? overlayHeight + 20 : overlayHeight + tabBarHeight + 20
+            }
             style={styles.full}
           >
             <ScrollView

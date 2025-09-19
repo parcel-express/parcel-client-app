@@ -20,6 +20,7 @@ type InputProps<T extends Record<string, string | boolean>> = {
   autoComplete?: TextInputProps['autoComplete'];
   textContentType?: TextInputProps['textContentType'];
   autoCapitalize?: TextInputProps['autoCapitalize'];
+  autoCorrect?: TextInputProps['autoCorrect'];
 };
 
 const Input = <T extends Record<string, string | boolean>>({
@@ -35,6 +36,7 @@ const Input = <T extends Record<string, string | boolean>>({
   autoComplete,
   textContentType,
   autoCapitalize,
+  autoCorrect,
 }: InputProps<T>) => {
   const [isFocused, setIsFocused] = React.useState(false);
 
@@ -85,6 +87,7 @@ const Input = <T extends Record<string, string | boolean>>({
           }}
           value={typeof formik.values[name] === 'string' ? formik.values[name] : ''}
           secureTextEntry={secureTextEntry}
+          autoCorrect={autoCorrect ?? false}
         />
 
         {iconName && (
