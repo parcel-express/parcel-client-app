@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import type { Address } from '@/app/(tabs)/(profile)/addresses';
 import type { Invoice } from '@/app/(tabs)/(profile)/invoices';
-import { Tariffs } from '@/app/(tabs)/(profile)/tariffs';
+import type { Tariffs } from '@/app/(tabs)/(profile)/tariffs';
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
 
@@ -12,12 +12,10 @@ import PencilIcon from '../icons/PencilIcon';
 import TrashIcon from '../icons/TrashIcon';
 
 import CardView from './CardView';
-import Tag, { TagVariant } from './Tag';
+import Tag from './Tag';
 type Invoices = {
   variant: 'invoices';
   data: Invoice;
-  status: string;
-  statusVariant: TagVariant;
 };
 type Addresses = {
   variant: 'addresses';
@@ -53,7 +51,7 @@ const Card = (props: Props) => {
         <View style={styles.row}>
           <View>
             {variant === 'tariffs' && (
-              <Text style={[Typography.textSmRegular, styles.teritary]}>{data.description}</Text>
+              <Text style={[Typography.textSmRegular, styles.tertiary]}>{data.description}</Text>
             )}
             <Text style={variant === 'tariffs' ? Typography.textSmBold : Typography.textSmMedium}>
               {data.title}
@@ -79,12 +77,12 @@ const Card = (props: Props) => {
               </TouchableOpacity>
             </View>
           ) : (
-            variant === 'invoices' && <Tag label={props.status} variant={props.statusVariant} />
+            variant === 'invoices' && <Tag label={data.status} variant={data.statusVariant} />
           )}
         </View>
-        {variant === 'addresses' && 'address' in data && (
+        {variant === 'addresses' && (
           <View style={styles.gapSm}>
-            <Text style={[Typography.textXsMedium, styles.teritary]}>
+            <Text style={[Typography.textXsMedium, styles.tertiary]}>
               {t('profile.addresses.address')}
             </Text>
             <Text style={[Typography.textSmBold, { color: Colors.text.primary }]}>
@@ -94,10 +92,10 @@ const Card = (props: Props) => {
         )}
       </View>
       <View style={[styles.gapMd, sizes[variant].body]}>
-        {data?.body?.map((item, idx) => (
+        {data.body.map((item, idx) => (
           <View style={styles.row} key={`${item.label}-${item.value}-${idx}`}>
-            <Text style={[Typography.textXsRegular, styles.teritary]}>{item.label}</Text>
-            <Text style={[Typography.textXsRegular, styles.teritary]}>{item.value}</Text>
+            <Text style={[Typography.textXsRegular, styles.tertiary]}>{item.label}</Text>
+            <Text style={[Typography.textXsRegular, styles.tertiary]}>{item.value}</Text>
           </View>
         ))}
       </View>
@@ -105,7 +103,7 @@ const Card = (props: Props) => {
   );
 };
 
-export default Card;
+export default React.memo(Card);
 const styles = StyleSheet.create({
   header: {
     borderBottomWidth: 1,
@@ -126,7 +124,7 @@ const styles = StyleSheet.create({
   gapSm: {
     gap: 7,
   },
-  teritary: {
+  tertiary: {
     color: Colors.text.tertiary,
   },
 });

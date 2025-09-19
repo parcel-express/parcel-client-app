@@ -15,6 +15,16 @@ export type Tariffs = {
   description: string;
   body: { label: string; value: string }[];
 };
+const TariffListHeader = () => {
+  const { t } = useTranslation();
+  return (
+    <View style={styles.rowGap}>
+      <Text style={Typography.textMdBold}>{t('profile.tariffs.orderAcceptanceTitle')}</Text>
+      <InfoCard />
+      <Text style={Typography.textMdBold}>{t('profile.tariffs.title')}</Text>
+    </View>
+  );
+};
 export default function TariffsScreen() {
   const { t } = useTranslation();
   const paddingBottom = useBottomTabBarHeight();
@@ -56,6 +66,7 @@ export default function TariffsScreen() {
       ],
     },
   ];
+
   return (
     <ThemedView
       style={styles.container}
@@ -66,13 +77,7 @@ export default function TariffsScreen() {
       <ContentView style={styles.contentContainer}>
         <FlatList
           data={data}
-          ListHeaderComponent={
-            <View style={styles.rowGap}>
-              <Text style={Typography.textMdBold}>{t('profile.tariffs.orderAcceptanceTitle')}</Text>
-              <InfoCard />
-              <Text style={Typography.textMdBold}>{t('profile.tariffs.title')}</Text>
-            </View>
-          }
+          ListHeaderComponent={<TariffListHeader />}
           renderItem={({ item }) => <Card variant='tariffs' data={item} />}
           keyExtractor={item => item.title}
           contentContainerStyle={[styles.rowGap, { paddingBottom }]}

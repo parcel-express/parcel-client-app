@@ -106,14 +106,7 @@ export default function InvoicesScreen() {
         <FlatList
           data={data}
           keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-            <Card
-              variant={'invoices'}
-              data={item}
-              status={item.status}
-              statusVariant={item.statusVariant}
-            />
-          )}
+          renderItem={({ item }) => <Card variant={'invoices'} data={item} />}
           contentContainerStyle={[styles.content, { paddingBottom: tabBarHeight + 18 }]}
         />
       </ContentView>
