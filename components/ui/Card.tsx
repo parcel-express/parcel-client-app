@@ -63,7 +63,7 @@ const Card = ({
               </TouchableOpacity>
             </View>
           ) : (
-            status && statusVariant && <Tag label={status} variant={statusVariant} />
+            status && <Tag label={status} variant={statusVariant} />
           )}
         </View>
         {variant === 'addresses' && 'address' in data && (
@@ -79,7 +79,7 @@ const Card = ({
       </View>
       <View style={[styles.gapMd, sizes[variant].body]}>
         {data?.body?.map((item, idx) => (
-          <View style={styles.row} key={`${item.label}-${idx}`}>
+          <View style={styles.row} key={`${item.label}-${item.value}-${idx}`}>
             <Text style={Typography.textXsRegular}>{item.label}</Text>
             <Text style={Typography.textXsRegular}>{item.value}</Text>
           </View>

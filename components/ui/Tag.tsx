@@ -6,7 +6,7 @@ import { Typography } from '@/constants/Typography';
 
 export type TagVariant = keyof typeof Colors.tag;
 type Props = {
-  variant?: TagVariant;
+  variant?: TagVariant | undefined;
   label: string;
 };
 
