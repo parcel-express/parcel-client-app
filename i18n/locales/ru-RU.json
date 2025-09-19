@@ -168,6 +168,10 @@
       "title": "Тарифы",
       "orderAcceptanceTitle": "Принятие заказа"
     },
+    "easyAuth": {
+      "title": "Упрощенная авторизация",
+      "faceId": "Face ID"
+    },
     "invoices": {
       "title": "Счета",
       "status": {

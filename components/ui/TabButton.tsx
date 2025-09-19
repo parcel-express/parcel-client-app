@@ -12,20 +12,24 @@ type Props = {
   tab: {
     iconName: React.ComponentType<IconProps>;
     titleKey: string;
-    action: () => void;
+    action?: () => void;
     showBadge?: boolean;
   };
+  rightAccessory?: React.ReactNode;
 };
 
-const TabButton = ({ tab }: Props) => {
+const TabButton = ({ tab, rightAccessory }: Props) => {
   const { t } = useTranslation();
+  const disabled = !tab.action;
   return (
     <Pressable
-      key={tab.titleKey}
       style={styles.menuItem}
       onPress={tab.action}
+      disabled={disabled}
+      focusable={!disabled}
       accessibilityRole='button'
       accessibilityLabel={t(tab.titleKey)}
+      accessibilityState={{ disabled }}
       hitSlop={8}
     >
       <View style={styles.menuItemContent}>
@@ -38,6 +42,7 @@ const TabButton = ({ tab }: Props) => {
           <ThemedText style={Typography.textXsMedium}>{t('profile.contact.online')}</ThemedText>
         </View>
       )}
+      {rightAccessory}
     </Pressable>
   );
 };

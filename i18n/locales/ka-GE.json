@@ -163,6 +163,10 @@
       "title": "ტარიფები",
       "orderAcceptanceTitle": "შეკვეთის მიღება"
     },
+    "easyAuth": {
+      "title": "მარტივი ავტორიზაცია",
+      "faceId": "Face ID"
+    },
     "invoices": {
       "title": "ინვოისები",
       "status": {

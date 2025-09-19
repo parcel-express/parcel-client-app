@@ -172,6 +172,10 @@
       "title": "Tariffs",
       "orderAcceptanceTitle": "Order Acceptance"
     },
+    "easyAuth": {
+      "title": "Easy Authorization",
+      "faceId": "Face ID"
+    },
     "contact": {
       "online": "Online"
     }
