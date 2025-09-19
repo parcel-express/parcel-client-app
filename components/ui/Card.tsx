@@ -2,6 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+import { Address } from '@/app/(tabs)/(profile)/addresses';
+import { Invoice } from '@/app/(tabs)/(profile)/invoices';
 import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';
@@ -9,14 +11,15 @@ import { Typography } from '@/constants/Typography';
 import PencilIcon from '../icons/PencilIcon';
 import TrashIcon from '../icons/TrashIcon';
 
-import Tag from './Tag';
-
+import Tag, { TagVariant } from './Tag';
+// TO DO: refactor to have different types for different variants
 type Props = {
   variant: 'default' | 'invoices' | 'addresses';
   onEditPress?: () => void;
   onDeletePress?: () => void;
-  data: { title: string; address: string; body: { label: string; value: string }[] };
-  tagLabel?: string;
+  data: Address | Invoice;
+  status?: string;
+  statusVariant?: TagVariant;
 };
 const sizes: Record<
   Props['variant'],
@@ -31,7 +34,8 @@ const Card = ({
   onEditPress,
   onDeletePress,
   data,
-  tagLabel = 'Success',
+  status,
+  statusVariant,
 }: Props) => {
   const { t } = useTranslation();
   return (
@@ -44,7 +48,7 @@ const Card = ({
               <TouchableOpacity
                 onPress={onDeletePress}
                 accessibilityRole='button'
-                accessibilityLabel='Delete address'
+                accessibilityLabel={t('profile.addresses.delete')}
                 hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
               >
                 <TrashIcon />
@@ -52,17 +56,17 @@ const Card = ({
               <TouchableOpacity
                 onPress={onEditPress}
                 accessibilityRole='button'
-                accessibilityLabel='Edit address'
+                accessibilityLabel={t('common.edit')}
                 hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
               >
                 <PencilIcon />
               </TouchableOpacity>
             </View>
           ) : (
-            <Tag label={tagLabel} />
+            status && <Tag label={status} variant={statusVariant} />
           )}
         </View>
-        {variant === 'addresses' && (
+        {variant === 'addresses' && 'address' in data && (
           <View style={styles.gapSm}>
             <Text style={[Typography.textXsMedium, { color: Colors.text.tertiary }]}>
               {t('profile.addresses.address')}
@@ -75,7 +79,7 @@ const Card = ({
       </View>
       <View style={[styles.gapMd, sizes[variant].body]}>
         {data?.body?.map((item, idx) => (
-          <View style={styles.row} key={`${item.label}-${idx}`}>
+          <View style={styles.row} key={`${item.label}-${item.value}-${idx}`}>
             <Text style={Typography.textXsRegular}>{item.label}</Text>
             <Text style={Typography.textXsRegular}>{item.value}</Text>
           </View>

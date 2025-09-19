@@ -156,8 +156,17 @@
       "phonePlaceholder": "ტელეფონი",
       "phoneRequired": "ტელეფონი აუცილებელია",
       "phoneInvalid": "ტელეფონი არასწორია",
-      "delete": "წაშლა",
+      "delete": "მისამართის წაშლა",
       "deleteConfirm": "დარწმუნებული ხართ, რომ გსურთ ამ მისამართის წაშლა?"
+    },
+    "invoices": {
+      "title": "ინვოისები",
+      "status": {
+        "paid": "გადახდილია",
+        "pending": "მიმდინარე",
+        "overdue": "ვადაგასული",
+        "partiallyPaid": "ნაწილობრივ გადახდილია"
+      }
     },
     "contact": {
       "online": "Online"

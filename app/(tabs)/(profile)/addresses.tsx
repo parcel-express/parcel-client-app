@@ -12,7 +12,6 @@ import { ThemedView } from '@/components/ThemedView';
 import Card from '@/components/ui/Card';
 import Modal from '@/components/ui/Modal';
 import { Colors } from '@/constants/Colors';
-type Data = { title: string; address: string; body: { label: string; value: string }[] };
 export type Form = {
   branchName: string;
   customerName: string;
@@ -20,6 +19,12 @@ export type Form = {
   city: string;
   address: string;
   phone: string;
+};
+export type Address = {
+  id?: string;
+  title: string;
+  address: string;
+  body: { label: string; value: string }[];
 };
 export default function AddressesScreen() {
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -41,7 +46,7 @@ export default function AddressesScreen() {
   const insets = useSafeAreaInsets();
   const tabBarHeight = useBottomTabBarHeight();
   const bottomPad = Platform.OS === 'ios' ? tabBarHeight + insets.bottom : insets.bottom;
-  const data: Data[] = [
+  const data: Address[] = [
     {
       title: 'Home',
       address: '123 Main St, Springfield, IL 62701',

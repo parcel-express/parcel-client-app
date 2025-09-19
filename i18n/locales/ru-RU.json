@@ -156,8 +156,17 @@
       "phonePlaceholder": "Введите телефон",
       "phoneRequired": "Телефон обязателен",
       "phoneInvalid": "Телефон недействителен",
-      "delete": "Удалить",
+      "delete": "Удалить адрес",
       "deleteConfirm": "Вы уверены, что хотите удалить этот адрес?"
+    },
+    "invoices": {
+      "title": "Счета",
+      "status": {
+        "paid": "Оплачено",
+        "pending": "В ожидании",
+        "overdue": "Просрочено",
+        "partiallyPaid": "Частично оплачено"
+      }
     },
     "contact": {
       "online": "Онлайн"
