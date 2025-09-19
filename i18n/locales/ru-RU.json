@@ -168,6 +168,9 @@
       "title": "Тарифы",
       "orderAcceptanceTitle": "Принятие заказа"
     },
+    "easyAuth": {
+      "title": "Упрощенная авторизация"
+    },
     "invoices": {
       "title": "Счета",
       "status": {

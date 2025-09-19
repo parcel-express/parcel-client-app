@@ -15,9 +15,10 @@ type Props = {
     action: () => void;
     showBadge?: boolean;
   };
+  children?: React.ReactNode;
 };
 
-const TabButton = ({ tab }: Props) => {
+const TabButton = ({ tab, children }: Props) => {
   const { t } = useTranslation();
   return (
     <Pressable
@@ -38,6 +39,7 @@ const TabButton = ({ tab }: Props) => {
           <ThemedText style={Typography.textXsMedium}>{t('profile.contact.online')}</ThemedText>
         </View>
       )}
+      {children}
     </Pressable>
   );
 };

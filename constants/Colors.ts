@@ -62,6 +62,9 @@ export const Colors = {
     successSecondary: '#17B26A',
     avatar: '#F0F0F0',
     imagePlaceholder: '#D9D9D9',
+    brand: {
+      primary: '#662D91',
+    },
   },
   button: {
     primaryBorder: '#FFFFFF',

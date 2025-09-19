@@ -163,6 +163,9 @@
       "title": "ტარიფები",
       "orderAcceptanceTitle": "შეკვეთის მიღება"
     },
+    "easyAuth": {
+      "title": "მარტივი ავტორიზაცია"
+    },
     "invoices": {
       "title": "ინვოისები",
       "status": {
