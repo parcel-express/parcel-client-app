@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
   paddingBottomSm: {
     paddingBottom: 40,
   },
-
   smallTitle: {
     ...Typography.textSmSemiBold,
     color: Colors.text.white,

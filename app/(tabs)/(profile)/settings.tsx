@@ -146,13 +146,16 @@ export default function SettingsScreen() {
   });
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
+    const perm = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!perm.granted) {
+      return;
+    }
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ['images'],
       allowsEditing: true,
       aspect: [1, 1],
       quality: 1,
     });
-
     if (!result.canceled) {
       formik.setFieldValue('logo', result.assets[0]?.uri);
     }
@@ -209,6 +212,8 @@ export default function SettingsScreen() {
                     placeholder={t(`profile.settings.${key}Placeholder`)}
                     formik={passwordFormik}
                     secureTextEntry
+                    textContentType={key === 'oldPassword' ? 'password' : 'newPassword'}
+                    autoComplete={key === 'oldPassword' ? 'password' : 'new-password'}
                   />
                 ))}
                 <Button onPress={passwordFormik.handleSubmit} size={'md'} variant={'primary'}>
