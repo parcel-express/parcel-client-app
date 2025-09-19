@@ -4,49 +4,65 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import type { Address } from '@/app/(tabs)/(profile)/addresses';
 import type { Invoice } from '@/app/(tabs)/(profile)/invoices';
+import { Tariffs } from '@/app/(tabs)/(profile)/tariffs';
 import { Colors } from '@/constants/Colors';
-import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';
 
 import PencilIcon from '../icons/PencilIcon';
 import TrashIcon from '../icons/TrashIcon';
 
+import CardView from './CardView';
 import Tag, { TagVariant } from './Tag';
-// TO DO: refactor to have different types for different variants
-type Props = {
-  variant: 'default' | 'invoices' | 'addresses';
-  onEditPress?: () => void;
-  onDeletePress?: () => void;
-  data: Address | Invoice;
-  status?: string;
-  statusVariant?: TagVariant;
+type Invoices = {
+  variant: 'invoices';
+  data: Invoice;
+  status: string;
+  statusVariant: TagVariant;
 };
+type Addresses = {
+  variant: 'addresses';
+  data: Address;
+  onEditPress: () => void;
+  onDeletePress: () => void;
+};
+type TariffsType = {
+  variant: 'tariffs';
+  data: Tariffs;
+};
+type Default = {
+  variant: 'default';
+  data: { title: string; body: { label: string; value: string }[] };
+};
+
+type Props = Invoices | Addresses | TariffsType | Default;
 const sizes: Record<
   Props['variant'],
   { header: { paddingBottom: number }; body: { paddingTop: number }; paddingBottom: number }
 > = {
+  tariffs: { header: { paddingBottom: 20 }, body: { paddingTop: 20 }, paddingBottom: 16 },
   default: { header: { paddingBottom: 20 }, body: { paddingTop: 20 }, paddingBottom: 16 },
   invoices: { header: { paddingBottom: 18 }, body: { paddingTop: 20 }, paddingBottom: 22 },
   addresses: { header: { paddingBottom: 24 }, body: { paddingTop: 14 }, paddingBottom: 24 },
 };
-const Card = ({
-  variant = 'default',
-  onEditPress,
-  onDeletePress,
-  data,
-  status,
-  statusVariant,
-}: Props) => {
+const Card = (props: Props) => {
   const { t } = useTranslation();
+  const { variant, data } = props;
   return (
-    <View style={[styles.card, { paddingBottom: sizes[variant].paddingBottom }]}>
+    <CardView style={{ paddingBottom: sizes[variant].paddingBottom }}>
       <View style={[styles.header, sizes[variant].header, variant === 'addresses' && styles.gapMd]}>
         <View style={styles.row}>
-          <Text style={Typography.textSmMedium}>{data.title}</Text>
+          <View>
+            {variant === 'tariffs' && (
+              <Text style={[Typography.textSmRegular, styles.teritary]}>{data.description}</Text>
+            )}
+            <Text style={variant === 'tariffs' ? Typography.textSmBold : Typography.textSmMedium}>
+              {data.title}
+            </Text>
+          </View>
           {variant === 'addresses' ? (
             <View style={styles.actionsContainer}>
               <TouchableOpacity
-                onPress={onDeletePress}
+                onPress={props.onDeletePress}
                 accessibilityRole='button'
                 accessibilityLabel={t('profile.addresses.delete')}
                 hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
@@ -54,7 +70,7 @@ const Card = ({
                 <TrashIcon />
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={onEditPress}
+                onPress={props.onEditPress}
                 accessibilityRole='button'
                 accessibilityLabel={t('common.edit')}
                 hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
@@ -63,12 +79,12 @@ const Card = ({
               </TouchableOpacity>
             </View>
           ) : (
-            status && <Tag label={status} variant={statusVariant} />
+            variant === 'invoices' && <Tag label={props.status} variant={props.statusVariant} />
           )}
         </View>
         {variant === 'addresses' && 'address' in data && (
           <View style={styles.gapSm}>
-            <Text style={[Typography.textXsMedium, { color: Colors.text.tertiary }]}>
+            <Text style={[Typography.textXsMedium, styles.teritary]}>
               {t('profile.addresses.address')}
             </Text>
             <Text style={[Typography.textSmBold, { color: Colors.text.primary }]}>
@@ -80,25 +96,17 @@ const Card = ({
       <View style={[styles.gapMd, sizes[variant].body]}>
         {data?.body?.map((item, idx) => (
           <View style={styles.row} key={`${item.label}-${item.value}-${idx}`}>
-            <Text style={Typography.textXsRegular}>{item.label}</Text>
-            <Text style={Typography.textXsRegular}>{item.value}</Text>
+            <Text style={[Typography.textXsRegular, styles.teritary]}>{item.label}</Text>
+            <Text style={[Typography.textXsRegular, styles.teritary]}>{item.value}</Text>
           </View>
         ))}
       </View>
-    </View>
+    </CardView>
   );
 };
 
 export default Card;
 const styles = StyleSheet.create({
-  card: {
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: Colors.border.secondary,
-    ...Shadows.shadow_xs,
-    backgroundColor: Colors.background.white,
-    padding: 16,
-  },
   header: {
     borderBottomWidth: 1,
     borderColor: Colors.border.card,
@@ -117,5 +125,8 @@ const styles = StyleSheet.create({
   },
   gapSm: {
     gap: 7,
+  },
+  teritary: {
+    color: Colors.text.tertiary,
   },
 });

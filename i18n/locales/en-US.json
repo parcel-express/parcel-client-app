@@ -168,6 +168,10 @@
         "partiallyPaid": "Partially Paid"
       }
     },
+    "tariffs": {
+      "title": "Tariffs",
+      "orderAcceptanceTitle": "Order Acceptance"
+    },
     "contact": {
       "online": "Online"
     }
