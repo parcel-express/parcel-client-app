@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as yup from 'yup';
 
+import ContentView from '@/components/ContentView';
 import Header from '@/components/Header';
 import UploadIcon from '@/components/icons/UploadIcon';
 import { ThemedView } from '@/components/ThemedView';
@@ -160,62 +161,64 @@ export default function SettingsScreen() {
   return (
     <ThemedView style={styles.container}>
       <Header title={t('profile.menu.settings')} hasGoBack />
-      <ScrollView contentContainerStyle={[styles.content, { paddingBottom: bottomPad }]}>
-        <View style={styles.logoContainer}>
-          {formik.values.logo ? (
-            <Image source={{ uri: formik.values.logo }} style={styles.logo} />
-          ) : (
-            <View style={styles.logo} />
-          )}
-          <TouchableOpacity
-            onPress={pickImage}
-            accessibilityRole='button'
-            accessibilityLabel={t('profile.settings.companyLogo')}
-            style={[styles.imageUpload, Shadows.shadow_xs]}
-          >
-            <View style={styles.imageUploadContent}>
-              <UploadIcon />
-              <Text style={[Typography.textMdMedium, { color: Colors.text.secondary }]}>
-                {t('profile.settings.companyLogo')}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.formsContainer}>
-          <View style={styles.form}>
-            {menuItems.map(key => (
-              <Input<FormValues>
-                key={key}
-                name={key}
-                label={t(`profile.settings.${key}`)}
-                placeholder={t(`profile.settings.${key}Placeholder`)}
-                formik={formik}
-              />
-            ))}
-            <Button onPress={formik.handleSubmit} size={'md'} variant={'primary'}>
-              {t('profile.settings.save')}
-            </Button>
+      <ContentView>
+        <ScrollView contentContainerStyle={[styles.content, { paddingBottom: bottomPad }]}>
+          <View style={styles.logoContainer}>
+            {formik.values.logo ? (
+              <Image source={{ uri: formik.values.logo }} style={styles.logo} />
+            ) : (
+              <View style={styles.logo} />
+            )}
+            <TouchableOpacity
+              onPress={pickImage}
+              accessibilityRole='button'
+              accessibilityLabel={t('profile.settings.companyLogo')}
+              style={[styles.imageUpload, Shadows.shadow_xs]}
+            >
+              <View style={styles.imageUploadContent}>
+                <UploadIcon />
+                <Text style={[Typography.textMdMedium, { color: Colors.text.secondary }]}>
+                  {t('profile.settings.companyLogo')}
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
-          <View style={styles.passwordForm}>
-            <Text style={Typography.textMdBold}>{t('profile.settings.changePassword')}</Text>
+          <View style={styles.formsContainer}>
             <View style={styles.form}>
-              {passwordItems.map(key => (
-                <Input<PasswordValues>
+              {menuItems.map(key => (
+                <Input<FormValues>
                   key={key}
                   name={key}
                   label={t(`profile.settings.${key}`)}
                   placeholder={t(`profile.settings.${key}Placeholder`)}
-                  formik={passwordFormik}
-                  secureTextEntry
+                  formik={formik}
                 />
               ))}
-              <Button onPress={passwordFormik.handleSubmit} size={'md'} variant={'primary'}>
-                {t('profile.settings.changePassword')}
+              <Button onPress={formik.handleSubmit} size={'md'} variant={'primary'}>
+                {t('profile.settings.save')}
               </Button>
             </View>
+            <View style={styles.passwordForm}>
+              <Text style={Typography.textMdBold}>{t('profile.settings.changePassword')}</Text>
+              <View style={styles.form}>
+                {passwordItems.map(key => (
+                  <Input<PasswordValues>
+                    key={key}
+                    name={key}
+                    label={t(`profile.settings.${key}`)}
+                    placeholder={t(`profile.settings.${key}Placeholder`)}
+                    formik={passwordFormik}
+                    secureTextEntry
+                  />
+                ))}
+                <Button onPress={passwordFormik.handleSubmit} size={'md'} variant={'primary'}>
+                  {t('profile.settings.changePassword')}
+                </Button>
+              </View>
+            </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </ContentView>
     </ThemedView>
   );
 }

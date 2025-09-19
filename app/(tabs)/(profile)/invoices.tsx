@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, StyleSheet } from 'react-native';
 
+import ContentView from '@/components/ContentView';
 import Header from '@/components/Header';
 import { ThemedView } from '@/components/ThemedView';
 import Card from '@/components/ui/Card';
@@ -94,19 +95,21 @@ export default function InvoicesScreen() {
       darkColor={Colors.dark.background}
     >
       <Header title={t('profile.invoices.title')} hasGoBack />
-      <FlatList
-        data={data}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => (
-          <Card
-            variant={'invoices'}
-            data={item}
-            status={item.status}
-            statusVariant={item.statusVariant}
-          />
-        )}
-        contentContainerStyle={[styles.content, { paddingBottom: tabBarHeight + 18 }]}
-      />
+      <ContentView>
+        <FlatList
+          data={data}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <Card
+              variant={'invoices'}
+              data={item}
+              status={item.status}
+              statusVariant={item.statusVariant}
+            />
+          )}
+          contentContainerStyle={[styles.content, { paddingBottom: tabBarHeight + 18 }]}
+        />
+      </ContentView>
     </ThemedView>
   );
 }

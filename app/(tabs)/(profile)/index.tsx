@@ -4,6 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, Platform, ScrollView, StyleSheet, View } from 'react-native';
 
+import ContentView from '@/components/ContentView';
 import Header from '@/components/Header';
 import BarLineChart from '@/components/icons/BarLineChartIcon';
 import FaceIdIcon from '@/components/icons/FaceIdIcon';
@@ -105,11 +106,7 @@ export default function ProfileScreen() {
   return (
     <ThemedView style={styles.container}>
       <Header title={t('tabs.profiletitle')} />
-      <ThemedView
-        style={styles.contentsContainer}
-        lightColor={Colors.background.body}
-        darkColor={Colors.background.body_dark}
-      >
+      <ContentView>
         <ScrollView contentContainerStyle={[styles.content, { paddingBottom: bottomPad }]}>
           <View style={styles.userSection}>
             <View style={styles.avatar}>
@@ -133,7 +130,7 @@ export default function ProfileScreen() {
             }}
           />
         </ScrollView>
-      </ThemedView>
+      </ContentView>
     </ThemedView>
   );
 }
@@ -141,13 +138,6 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  contentsContainer: {
-    flex: 1,
-    zIndex: 1000,
-    marginTop: -20,
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
   },
   content: {
     padding: 20,
