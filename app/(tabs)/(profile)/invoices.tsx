@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, StyleSheet } from 'react-native';
 
+import ContentView from '@/components/ContentView';
 import Header from '@/components/Header';
 import { ThemedView } from '@/components/ThemedView';
 import Card from '@/components/ui/Card';
@@ -19,6 +20,12 @@ export type Invoice = {
 export default function InvoicesScreen() {
   const { t } = useTranslation();
   const tabBarHeight = useBottomTabBarHeight();
+  const status = {
+    paid: t('profile.invoices.status.paid'),
+    partiallyPaid: t('profile.invoices.status.partiallyPaid'),
+    pending: t('profile.invoices.status.pending'),
+    overdue: t('profile.invoices.status.overdue'),
+  };
   const data: Invoice[] = [
     {
       id: '1',
@@ -28,7 +35,7 @@ export default function InvoicesScreen() {
         { label: 'Amount', value: '$150.00' },
         { label: 'Amount to be Paid', value: '$0.00' },
       ],
-      status: 'Paid',
+      status: status.paid,
       statusVariant: 'success',
     },
     {
@@ -39,7 +46,7 @@ export default function InvoicesScreen() {
         { label: 'Amount', value: '$200.00' },
         { label: 'Amount to be Paid', value: '$50.00' },
       ],
-      status: 'Partially Paid',
+      status: status.partiallyPaid,
       statusVariant: 'warning',
     },
     {
@@ -50,7 +57,7 @@ export default function InvoicesScreen() {
         { label: 'Amount', value: '$300.00' },
         { label: 'Amount to be Paid', value: '$300.00' },
       ],
-      status: 'Unpaid',
+      status: status.pending,
       statusVariant: 'warning',
     },
     {
@@ -61,7 +68,7 @@ export default function InvoicesScreen() {
         { label: 'Amount', value: '$400.00' },
         { label: 'Amount to be Paid', value: '$400.00' },
       ],
-      status: 'Overdue',
+      status: status.overdue,
       statusVariant: 'danger',
     },
     {
@@ -72,7 +79,7 @@ export default function InvoicesScreen() {
         { label: 'Amount', value: '$250.00' },
         { label: 'Amount to be Paid', value: '$250.00' },
       ],
-      status: 'Unpaid',
+      status: status.pending,
       statusVariant: 'warning',
     },
     {
@@ -83,10 +90,11 @@ export default function InvoicesScreen() {
         { label: 'Amount', value: '$350.00' },
         { label: 'Amount to be Paid', value: '$350.00' },
       ],
-      status: 'Unpaid',
+      status: status.pending,
       statusVariant: 'warning',
     },
   ];
+
   return (
     <ThemedView
       style={styles.container}
@@ -94,19 +102,21 @@ export default function InvoicesScreen() {
       darkColor={Colors.dark.background}
     >
       <Header title={t('profile.invoices.title')} hasGoBack />
-      <FlatList
-        data={data}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => (
-          <Card
-            variant={'invoices'}
-            data={item}
-            status={item.status}
-            statusVariant={item.statusVariant}
-          />
-        )}
-        contentContainerStyle={[styles.content, { paddingBottom: tabBarHeight + 18 }]}
-      />
+      <ContentView>
+        <FlatList
+          data={data}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <Card
+              variant={'invoices'}
+              data={item}
+              status={item.status}
+              statusVariant={item.statusVariant}
+            />
+          )}
+          contentContainerStyle={[styles.content, { paddingBottom: tabBarHeight + 18 }]}
+        />
+      </ContentView>
     </ThemedView>
   );
 }

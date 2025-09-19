@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Alert, FlatList, Platform, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import ContentView from '@/components/ContentView';
 import Header from '@/components/Header';
 import NoAddresses from '@/components/NoAddresses';
 import SettingsButton from '@/components/SettingsButton';
@@ -85,26 +86,30 @@ export default function AddressesScreen() {
         form={formik}
       ></Modal>
       <Header title={t('profile.menu.myAddresses')} hasGoBack />
-      {data.length === 0 ? (
-        <NoAddresses onPress={openModal} />
-      ) : (
-        <FlatList
-          data={data}
-          ListHeaderComponent={
-            <SettingsButton onPress={openModal}>{t('profile.addresses.addBranch')}</SettingsButton>
-          }
-          keyExtractor={item => item.title}
-          renderItem={({ item }) => (
-            <Card
-              variant={'addresses'}
-              data={item}
-              onEditPress={openModal}
-              onDeletePress={handleDelete}
-            />
-          )}
-          contentContainerStyle={[styles.cardsContainer, { paddingBottom: bottomPad }]}
-        />
-      )}
+      <ContentView>
+        {data.length === 0 ? (
+          <NoAddresses onPress={openModal} />
+        ) : (
+          <FlatList
+            data={data}
+            ListHeaderComponent={
+              <SettingsButton onPress={openModal}>
+                {t('profile.addresses.addBranch')}
+              </SettingsButton>
+            }
+            keyExtractor={item => item.title}
+            renderItem={({ item }) => (
+              <Card
+                variant={'addresses'}
+                data={item}
+                onEditPress={openModal}
+                onDeletePress={handleDelete}
+              />
+            )}
+            contentContainerStyle={[styles.cardsContainer, { paddingBottom: bottomPad }]}
+          />
+        )}
+      </ContentView>
     </ThemedView>
   );
 }

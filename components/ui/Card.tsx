@@ -2,8 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { Address } from '@/app/(tabs)/(profile)/addresses';
-import { Invoice } from '@/app/(tabs)/(profile)/invoices';
+import type { Address } from '@/app/(tabs)/(profile)/addresses';
+import type { Invoice } from '@/app/(tabs)/(profile)/invoices';
 import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';

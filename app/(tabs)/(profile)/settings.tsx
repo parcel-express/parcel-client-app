@@ -16,6 +16,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as yup from 'yup';
 
+import ContentView from '@/components/ContentView';
 import Header from '@/components/Header';
 import UploadIcon from '@/components/icons/UploadIcon';
 import { ThemedView } from '@/components/ThemedView';
@@ -154,14 +155,12 @@ export default function SettingsScreen() {
     },
   });
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ['images'],
       allowsEditing: true,
       aspect: [1, 1],
       quality: 1,
     });
-
     if (!result.canceled) {
       formik.setFieldValue('logo', result.assets[0]?.uri);
     }
@@ -170,77 +169,108 @@ export default function SettingsScreen() {
   return (
     <ThemedView style={styles.container}>
       <Header title={t('profile.menu.settings')} hasGoBack />
-
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
-        keyboardVerticalOffset={0}
-      >
-        <ScrollView
-          keyboardDismissMode='on-drag'
-          keyboardShouldPersistTaps='handled'
-          contentContainerStyle={[styles.content, { paddingBottom: bottomPad }]}
+      <ContentView>
+        <KeyboardAvoidingView
+          style={styles.container}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+          keyboardVerticalOffset={bottomPad}
         >
-          <View style={styles.logoContainer}>
-            {formik.values.logo ? (
-              <Image source={{ uri: formik.values.logo }} style={styles.logo} />
-            ) : (
-              <View style={styles.logo} />
-            )}
-            <TouchableOpacity
-              onPress={pickImage}
-              accessibilityRole='button'
-              accessibilityLabel={t('profile.settings.companyLogo')}
-              style={[styles.imageUpload, Shadows.shadow_xs]}
-            >
-              <View style={styles.imageUploadContent}>
-                <UploadIcon />
-                <Text style={[Typography.textMdMedium, { color: Colors.text.secondary }]}>
-                  {t('profile.settings.companyLogo')}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.formsContainer}>
-            <View style={styles.form}>
-              {menuItems.map(key => (
-                <Input<FormValues>
-                  key={key}
-                  name={key}
-                  label={t(`profile.settings.${key}`)}
-                  placeholder={t(`profile.settings.${key}Placeholder`)}
-                  formik={formik}
-                  textContentType={key === 'email' ? 'emailAddress' : undefined}
-                />
-              ))}
-              <Button onPress={formik.handleSubmit} size={'md'} variant={'primary'}>
-                {t('profile.settings.save')}
-              </Button>
+          <ScrollView
+            keyboardShouldPersistTaps='handled'
+            contentContainerStyle={[styles.content, { paddingBottom: bottomPad }]}
+          >
+            <View style={styles.logoContainer}>
+              {formik.values.logo ? (
+                <Image source={{ uri: formik.values.logo }} style={styles.logo} />
+              ) : (
+                <View style={styles.logo} />
+              )}
+              <TouchableOpacity
+                onPress={pickImage}
+                accessibilityRole='button'
+                accessibilityLabel={t('profile.settings.companyLogo')}
+                accessibilityHint={t('profile.settings.companyLogoHint')}
+                style={[styles.imageUpload, Shadows.shadow_xs]}
+              >
+                <View style={styles.imageUploadContent}>
+                  <UploadIcon />
+                  <Text style={[Typography.textMdMedium, { color: Colors.text.secondary }]}>
+                    {t('profile.settings.companyLogo')}
+                  </Text>
+                </View>
+              </TouchableOpacity>
             </View>
-            <View style={styles.passwordForm}>
-              <Text style={Typography.textMdBold}>{t('profile.settings.changePassword')}</Text>
+            <View style={styles.formsContainer}>
               <View style={styles.form}>
-                {passwordItems.map(key => (
-                  <Input<PasswordValues>
+                {menuItems.map(key => (
+                  <Input<FormValues>
                     key={key}
                     name={key}
                     label={t(`profile.settings.${key}`)}
                     placeholder={t(`profile.settings.${key}Placeholder`)}
-                    formik={passwordFormik}
-                    secureTextEntry
-                    autoCapitalize='none'
-                    autoComplete={key === 'newPassword' ? 'password-new' : 'password'}
-                    textContentType={key === 'newPassword' ? 'newPassword' : 'password'}
+                    formik={formik}
+                    textContentType={
+                      key === 'email' || key === 'contactEmail'
+                        ? 'emailAddress'
+                        : key === 'contactNumber'
+                          ? 'telephoneNumber'
+                          : undefined
+                    }
+                    autoComplete={
+                      key === 'email' || key === 'contactEmail'
+                        ? 'email'
+                        : key === 'contactNumber'
+                          ? 'tel'
+                          : undefined
+                    }
+                    keyboardType={
+                      key === 'email' || key === 'contactEmail'
+                        ? 'email-address'
+                        : key === 'contactNumber'
+                          ? 'phone-pad'
+                          : 'default'
+                    }
                   />
                 ))}
-                <Button onPress={passwordFormik.handleSubmit} size={'md'} variant={'primary'}>
-                  {t('profile.settings.changePassword')}
+                <Button
+                  disabled={!formik.isValid}
+                  onPress={formik.handleSubmit}
+                  size={'md'}
+                  variant={'primary'}
+                >
+                  {t('profile.settings.save')}
                 </Button>
               </View>
+              <View style={styles.passwordForm}>
+                <Text style={Typography.textMdBold}>{t('profile.settings.changePassword')}</Text>
+                <View style={styles.form}>
+                  {passwordItems.map(key => (
+                    <Input<PasswordValues>
+                      key={key}
+                      name={key}
+                      label={t(`profile.settings.${key}`)}
+                      placeholder={t(`profile.settings.${key}Placeholder`)}
+                      formik={passwordFormik}
+                      secureTextEntry
+                      textContentType={key === 'oldPassword' ? 'password' : 'newPassword'}
+                      autoComplete={key === 'oldPassword' ? 'password' : 'new-password'}
+                      autoCapitalize='none'
+                    />
+                  ))}
+                  <Button
+                    disabled={!passwordFormik.isValid}
+                    onPress={passwordFormik.handleSubmit}
+                    size={'md'}
+                    variant={'primary'}
+                  >
+                    {t('profile.settings.changePassword')}
+                  </Button>
+                </View>
+              </View>
             </View>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </ContentView>
     </ThemedView>
   );
 }
