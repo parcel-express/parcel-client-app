@@ -4,7 +4,16 @@ import * as ImagePicker from 'expo-image-picker';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as yup from 'yup';
 
 import ContentView from '@/components/ContentView';
@@ -62,8 +71,9 @@ const passwordItems: (keyof PasswordValues)[] = [
 export type FormKeys = keyof Omit<FormValues, 'logo' | 'field'>;
 export default function SettingsScreen() {
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
   const tabBarHeight = useBottomTabBarHeight();
-  const bottomPad = Platform.OS === 'ios' ? tabBarHeight + 20 : 20;
+  const bottomPad = Math.max(tabBarHeight, insets.bottom) + 20;
   const formik = useFormik({
     initialValues: {
       logo: '',
@@ -165,7 +175,16 @@ export default function SettingsScreen() {
     <ThemedView style={styles.container}>
       <Header title={t('profile.menu.settings')} hasGoBack />
       <ContentView>
-        <ScrollView contentContainerStyle={[styles.content, { paddingBottom: bottomPad }]}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+        keyboardVerticalOffset={0}
+      >
+        <ScrollView
+          keyboardDismissMode='on-drag'
+          keyboardShouldPersistTaps='handled'
+          contentContainerStyle={[styles.content, { paddingBottom: bottomPad }]}
+        >
           <View style={styles.logoContainer}>
             {formik.values.logo ? (
               <Image source={{ uri: formik.values.logo }} style={styles.logo} />
@@ -195,6 +214,7 @@ export default function SettingsScreen() {
                   label={t(`profile.settings.${key}`)}
                   placeholder={t(`profile.settings.${key}Placeholder`)}
                   formik={formik}
+                  textContentType={key === 'email' ? 'emailAddress' : undefined}
                 />
               ))}
               <Button onPress={formik.handleSubmit} size={'md'} variant={'primary'}>
@@ -214,6 +234,7 @@ export default function SettingsScreen() {
                     secureTextEntry
                     textContentType={key === 'oldPassword' ? 'password' : 'newPassword'}
                     autoComplete={key === 'oldPassword' ? 'password' : 'new-password'}
+                    autoCapitalize='none'
                   />
                 ))}
                 <Button onPress={passwordFormik.handleSubmit} size={'md'} variant={'primary'}>
@@ -223,6 +244,7 @@ export default function SettingsScreen() {
             </View>
           </View>
         </ScrollView>
+      </KeyboardAvoidingView>
       </ContentView>
     </ThemedView>
   );
