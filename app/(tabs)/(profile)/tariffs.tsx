@@ -1,7 +1,7 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text } from 'react-native';
 
 import type { Tariffs } from '@/app/types/cardTypes';
 import ContentView from '@/components/ContentView';
@@ -15,11 +15,11 @@ import { Typography } from '@/constants/Typography';
 const TariffListHeader = () => {
   const { t } = useTranslation();
   return (
-    <View style={styles.rowGap}>
+    <>
       <Text style={Typography.textMdBold}>{t('profile.tariffs.orderAcceptanceTitle')}</Text>
       <InfoCard />
       <Text style={Typography.textMdBold}>{t('profile.tariffs.title')}</Text>
-    </View>
+    </>
   );
 };
 export default function TariffsScreen() {
@@ -70,14 +70,15 @@ export default function TariffsScreen() {
       lightColor={Colors.light.background}
       darkColor={Colors.dark.background}
     >
-      <Header title={t('profile.tariffs.title')} />
-      <ContentView style={styles.contentContainer}>
+      <Header title={t('profile.tariffs.title')} hasGoBack />
+      <ContentView>
         <FlatList
           data={data}
           ListHeaderComponent={<TariffListHeader />}
+          ListHeaderComponentStyle={styles.contentContainer}
           renderItem={({ item }) => <Card variant='tariffs' data={item} />}
           keyExtractor={item => item.title}
-          contentContainerStyle={[styles.rowGap, { paddingBottom }]}
+          contentContainerStyle={[styles.flatListContainer, { paddingBottom }]}
         />
       </ContentView>
     </ThemedView>
@@ -88,10 +89,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
-    padding: 18,
     gap: 24,
   },
-  rowGap: {
+  flatListContainer: {
+    padding: 18,
     gap: 24,
   },
 });
