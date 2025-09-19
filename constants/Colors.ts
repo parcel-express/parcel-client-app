@@ -30,8 +30,7 @@ export const Colors = {
     tabIconSelected: tintColorDark,
   },
   brand: {
-    primary: '#662D91',
-    tertiary: '#7F56D9',
+    primary: '#7F56D9',
   },
   text: {
     error: {

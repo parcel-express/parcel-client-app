@@ -22,9 +22,8 @@ export default function EasyAuthScreen() {
             titleKey: 'profile.easyAuth.faceId',
             iconName: FaceIdIcon,
           }}
-        >
-          <CustomSwitch value={value} onValueChange={setValue} />
-        </TabButton>
+          rightAccessory={<CustomSwitch value={value} onValueChange={setValue} />}
+        />
       </ContentView>
     </ThemedView>
   );
