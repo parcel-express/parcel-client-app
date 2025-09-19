@@ -173,7 +173,8 @@
       "orderAcceptanceTitle": "Order Acceptance"
     },
     "easyAuth": {
-      "title": "Easy Authorization"
+      "title": "Easy Authorization",
+      "faceId": "Face ID"
     },
     "contact": {
       "online": "Online"

@@ -16,8 +16,8 @@ const SWITCH_HEIGHT = 20;
 const THUMB_SIZE = 16;
 const PADDING = 2;
 
-const INACTIVE_COLOR = '#e0e0e0';
-const THUMB_COLOR = '#fff';
+const INACTIVE_COLOR = Colors.background.imagePlaceholder;
+const THUMB_COLOR = Colors.background.white;
 
 const CustomSwitch: React.FC<Props> = ({ value, onValueChange, disabled }) => {
   const anim = useRef(new Animated.Value(value ? 1 : 0)).current;

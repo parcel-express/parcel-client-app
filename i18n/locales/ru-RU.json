@@ -169,7 +169,8 @@
       "orderAcceptanceTitle": "Принятие заказа"
     },
     "easyAuth": {
-      "title": "Упрощенная авторизация"
+      "title": "Упрощенная авторизация",
+      "faceId": "Face ID"
     },
     "invoices": {
       "title": "Счета",

@@ -29,11 +29,11 @@ export const Colors = {
     tabIconDefault: '#9BA1A6',
     tabIconSelected: tintColorDark,
   },
+  brand: {
+    primary: '#662D91',
+    tertiary: '#7F56D9',
+  },
   text: {
-    brand: {
-      primary: '#662D91',
-      tertiary: '#7F56D9',
-    },
     error: {
       primary: '#D92D20',
     },
@@ -62,9 +62,6 @@ export const Colors = {
     successSecondary: '#17B26A',
     avatar: '#F0F0F0',
     imagePlaceholder: '#D9D9D9',
-    brand: {
-      primary: '#662D91',
-    },
   },
   button: {
     primaryBorder: '#FFFFFF',

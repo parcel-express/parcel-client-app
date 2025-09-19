@@ -76,7 +76,7 @@ const Select = ({ label, setValue, value, placeholder, options, disabled }: Prop
               >
                 <Text style={[Typography.textMdMedium, styles.label]}>{item.label}</Text>
                 {value === item.value && (
-                  <MaterialIcons name='check' size={20} color={Colors.text.brand.tertiary} />
+                  <MaterialIcons name='check' size={20} color={Colors.brand.tertiary} />
                 )}
               </TouchableOpacity>
             ))}

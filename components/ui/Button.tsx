@@ -89,7 +89,7 @@ const Button = ({
                 ? [Colors.button.disabledBackground, Colors.button.disabledBackground]
                 : variant === 'secondary'
                   ? [Colors.button.secondaryBackground, Colors.button.secondaryBackground]
-                  : [Colors.button.primaryBackgroundStart, Colors.button.primaryBackgroundEnd]
+                  : [Colors.gradient.primary.start, Colors.gradient.primary.end]
           }
           start={{ x: 0, y: 0.5 }}
           end={{ x: 1, y: 0.5 }}

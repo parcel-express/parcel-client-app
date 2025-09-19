@@ -12,7 +12,7 @@ type Props = {
   tab: {
     iconName: React.ComponentType<IconProps>;
     titleKey: string;
-    action: () => void;
+    action?: () => void;
     showBadge?: boolean;
   };
   children?: React.ReactNode;
@@ -25,8 +25,10 @@ const TabButton = ({ tab, children }: Props) => {
       key={tab.titleKey}
       style={styles.menuItem}
       onPress={tab.action}
+      disabled={!tab.action}
       accessibilityRole='button'
       accessibilityLabel={t(tab.titleKey)}
+      accessibilityState={{ disabled: !tab.action }}
       hitSlop={8}
     >
       <View style={styles.menuItemContent}>

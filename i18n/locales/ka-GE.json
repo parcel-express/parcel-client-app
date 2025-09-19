@@ -164,7 +164,8 @@
       "orderAcceptanceTitle": "შეკვეთის მიღება"
     },
     "easyAuth": {
-      "title": "მარტივი ავტორიზაცია"
+      "title": "მარტივი ავტორიზაცია",
+      "faceId": "Face ID"
     },
     "invoices": {
       "title": "ინვოისები",

@@ -17,7 +17,12 @@ export default function EasyAuthScreen() {
     <ThemedView style={styles.container}>
       <Header title={t('profile.easyAuth.title')} hasGoBack />
       <ContentView style={styles.content}>
-        <TabButton tab={{ titleKey: 'Face ID', iconName: FaceIdIcon, action: () => {} }}>
+        <TabButton
+          tab={{
+            titleKey: 'profile.easyAuth.faceId',
+            iconName: FaceIdIcon,
+          }}
+        >
           <CustomSwitch value={value} onValueChange={setValue} />
         </TabButton>
       </ContentView>

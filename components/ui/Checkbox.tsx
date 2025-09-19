@@ -44,7 +44,7 @@ const Checkbox = ({ label, toggleCheckbox, checked, size, indeterminate, disable
           <>
             {!disabled && (
               <LinearGradient
-                colors={[Colors.button.primaryBackgroundStart, Colors.button.primaryBackgroundEnd]}
+                colors={[Colors.gradient.primary.start, Colors.gradient.primary.end]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 0, y: 1 }}
                 style={StyleSheet.absoluteFillObject}

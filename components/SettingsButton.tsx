@@ -39,11 +39,11 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: Colors.text.brand.primary,
+    backgroundColor: Colors.brand.primary,
     borderRadius: 8,
     opacity: 0.1,
   },
   label: {
-    color: Colors.text.brand.primary,
+    color: Colors.brand.primary,
   },
 });
