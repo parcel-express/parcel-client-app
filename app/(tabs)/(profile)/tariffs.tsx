@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
+import type { Tariffs } from '@/app/types/cardTypes';
 import ContentView from '@/components/ContentView';
 import Header from '@/components/Header';
 import { ThemedView } from '@/components/ThemedView';
@@ -10,11 +11,7 @@ import Card from '@/components/ui/Card';
 import InfoCard from '@/components/ui/InfoCard';
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
-export type Tariffs = {
-  title: string;
-  description: string;
-  body: { label: string; value: string }[];
-};
+
 const TariffListHeader = () => {
   const { t } = useTranslation();
   return (

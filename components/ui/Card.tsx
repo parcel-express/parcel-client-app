@@ -2,9 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import type { Address } from '@/app/(tabs)/(profile)/addresses';
-import type { Invoice } from '@/app/(tabs)/(profile)/invoices';
-import type { Tariffs } from '@/app/(tabs)/(profile)/tariffs';
+import type { AddressesProps, InvoicesProps, TariffsProps } from '@/app/types/cardTypes';
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
 
@@ -13,32 +11,13 @@ import TrashIcon from '../icons/TrashIcon';
 
 import CardView from './CardView';
 import Tag from './Tag';
-type Invoices = {
-  variant: 'invoices';
-  data: Invoice;
-};
-type Addresses = {
-  variant: 'addresses';
-  data: Address;
-  onEditPress: () => void;
-  onDeletePress: () => void;
-};
-type TariffsType = {
-  variant: 'tariffs';
-  data: Tariffs;
-};
-type Default = {
-  variant: 'default';
-  data: { title: string; body: { label: string; value: string }[] };
-};
 
-type Props = Invoices | Addresses | TariffsType | Default;
+type Props = InvoicesProps | AddressesProps | TariffsProps;
 const sizes: Record<
   Props['variant'],
   { header: { paddingBottom: number }; body: { paddingTop: number }; paddingBottom: number }
 > = {
   tariffs: { header: { paddingBottom: 20 }, body: { paddingTop: 20 }, paddingBottom: 16 },
-  default: { header: { paddingBottom: 20 }, body: { paddingTop: 20 }, paddingBottom: 16 },
   invoices: { header: { paddingBottom: 18 }, body: { paddingTop: 20 }, paddingBottom: 22 },
   addresses: { header: { paddingBottom: 24 }, body: { paddingTop: 14 }, paddingBottom: 24 },
 };

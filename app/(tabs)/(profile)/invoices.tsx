@@ -3,20 +3,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, StyleSheet } from 'react-native';
 
+import type { Invoice } from '@/app/types/cardTypes';
 import ContentView from '@/components/ContentView';
 import Header from '@/components/Header';
 import { ThemedView } from '@/components/ThemedView';
 import Card from '@/components/ui/Card';
-import type { TagVariant } from '@/components/ui/Tag';
 import { Colors } from '@/constants/Colors';
 
-export type Invoice = {
-  id: string;
-  title: string;
-  body: { label: string; value: string }[];
-  status: string;
-  statusVariant: TagVariant;
-};
 export default function InvoicesScreen() {
   const { t } = useTranslation();
   const tabBarHeight = useBottomTabBarHeight();

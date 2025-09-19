@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Alert, FlatList, Platform, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { Address } from '@/app/types/cardTypes';
 import ContentView from '@/components/ContentView';
 import Header from '@/components/Header';
 import NoAddresses from '@/components/NoAddresses';
@@ -21,12 +22,7 @@ export type Form = {
   address: string;
   phone: string;
 };
-export type Address = {
-  id?: string;
-  title: string;
-  address: string;
-  body: { label: string; value: string }[];
-};
+
 export default function AddressesScreen() {
   const [modalVisible, setModalVisible] = React.useState(false);
   const formik = useFormik<Form>({
