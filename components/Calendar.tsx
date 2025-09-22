@@ -132,7 +132,8 @@ const Calendar: React.FC<CalendarProps> = ({ onSave, initialSelection, disabled 
   };
   const formatDate = (dateString: string) => {
     if (!dateString) return '';
-    const date = new Date(dateString);
+    const [y, m, d] = dateString.split('-').map(Number);
+    const date = new Date(y || 0, (m || 1) - 1, d || 1);
     return date.toLocaleDateString(i18n.language, {
       month: 'short',
       day: 'numeric',
@@ -167,24 +168,20 @@ const Calendar: React.FC<CalendarProps> = ({ onSave, initialSelection, disabled 
         </View>
       </Button>
 
-      <Modal animationType='fade' transparent={true} visible={isVisible}>
-        <View
-          style={[
-            styles.calendar,
-            {
-              top: triggerLayout.y,
-              left: triggerLayout.x,
-            },
-            getModalPosition(triggerLayout),
-          ]}
-        >
+      <Modal
+        animationType='fade'
+        transparent={true}
+        visible={isVisible}
+        onRequestClose={() => setIsVisible(false)}
+      >
+        <View style={[styles.calendar, getModalPosition(triggerLayout)]}>
           <View style={styles.body}>
             <RNCalendar
               markingType='period'
               // Customize the appearance of the calendar
               renderArrow={direction => ArrowIcon(direction)}
               // Specify the current date
-              current={today.toISOString()}
+              current={today.toISOString().slice(0, 10)}
               // Callback that gets called when the user selects a day
               onDayPress={handleDayPress}
               // Mark specific dates as marked
@@ -206,7 +203,6 @@ const Calendar: React.FC<CalendarProps> = ({ onSave, initialSelection, disabled 
           <View style={styles.footer}>
             <Button
               onPress={() => {
-                // TODO: Add onSave prop and call it with selected range
                 setIsVisible(false);
               }}
               variant='secondary'
@@ -216,9 +212,12 @@ const Calendar: React.FC<CalendarProps> = ({ onSave, initialSelection, disabled 
               {t('common.cancel')}
             </Button>
             <Button
+              disabled={!selected.start}
               onPress={() => {
                 setIsVisible(false);
-                onSave && selected.start && onSave(selected.start, selected.end);
+                if (onSave && selected.start) {
+                  onSave(selected.start, selected.end || selected.start);
+                }
               }}
               variant='primary'
               size={'md'}
@@ -243,10 +242,7 @@ const styles = StyleSheet.create({
     width: 328,
     maxWidth: '90%',
     borderRadius: 12,
-    marginTop: 50,
     backgroundColor: Colors.background.white,
-    ...Shadows.shadow_xl03,
-    ...Shadows.shadow_xl02,
     ...Shadows.shadow_xl01,
   },
   body: {

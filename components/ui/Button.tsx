@@ -44,6 +44,8 @@ const Button = forwardRef<PressableRef, ButtonProps>(
       <Pressable
         ref={ref} // ✅ forward the ref
         disabled={disabled}
+        accessibilityRole='button'
+        accessibilityState={{ disabled: !!disabled }}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         style={[isFocused && styles.buttonOutline, style]}
@@ -90,7 +92,7 @@ const Button = forwardRef<PressableRef, ButtonProps>(
                 styles.label,
               ]}
             >
-              {children || 'Button Text'}
+              {children}
             </Text>
             {rightIconName && (
               <MaterialIcons name={rightIconName} size={20} color={getIconColor(pressed)} />
