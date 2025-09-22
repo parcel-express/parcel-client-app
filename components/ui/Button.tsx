@@ -1,7 +1,7 @@
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
@@ -13,6 +13,7 @@ type Props = {
   children?: React.ReactNode;
   leftIconName?: keyof typeof MaterialIcons.glyphMap;
   rightIconName?: keyof typeof MaterialIcons.glyphMap;
+  style?: StyleProp<ViewStyle>;
 };
 const sizes = {
   sm: { paddingVertical: 8, paddingHorizontal: 12, gap: 4 },
@@ -36,6 +37,7 @@ const Button = ({
   children,
   leftIconName,
   rightIconName,
+  style,
 }: Props) => {
   const [isFocused, setIsFocused] = React.useState(false);
 
@@ -78,7 +80,7 @@ const Button = ({
       disabled={disabled}
       onFocus={() => setIsFocused(true)}
       onBlur={() => setIsFocused(false)}
-      style={[isFocused && styles.buttonOutline]}
+      style={[isFocused && styles.buttonOutline, styles.full, style]}
     >
       {({ pressed }) => (
         <LinearGradient
@@ -135,6 +137,9 @@ const Button = ({
 export default Button;
 
 const styles = StyleSheet.create({
+  full: {
+    flex: 1,
+  },
   button: {
     flexDirection: 'row',
     borderRadius: 8,
