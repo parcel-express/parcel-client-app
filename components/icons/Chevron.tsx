@@ -18,7 +18,7 @@ function Chevron({ width, height, stroke, ...props }: IconProps) {
       <Path
         d='M6.5 11l-5-5 5-5'
         stroke={stroke ?? Colors.icon.secondary}
-        strokeWidth={props.strokeWidth ?? 1.67}
+        strokeWidth={props.strokeWidth ?? 1.66667}
         strokeLinecap='round'
         strokeLinejoin='round'
       />

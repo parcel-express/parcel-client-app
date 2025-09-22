@@ -25,7 +25,13 @@ const Calendar = () => {
   }>({ x: 0, y: 0, width: 0, height: 0 });
   const today = new Date();
   const ArrowIcon = (direction: 'left' | 'right') => (
-    <View style={direction === 'right' && { transform: [{ rotate: '180deg' }] }}>
+    <View
+      style={
+        direction === 'right'
+          ? [{ transform: [{ rotate: '180deg' }] }, styles.moveLeft]
+          : styles.moveRight
+      }
+    >
       <Chevron />
     </View>
   );
@@ -138,12 +144,14 @@ const Calendar = () => {
                 disabledDotColor: Colors.icon.secondary,
                 todayTextColor: Colors.text.secondary,
               }}
+              headerStyle={styles.zeroPadding}
               markedDates={getMarkedDates()}
             />
           </View>
           <View style={styles.footer}>
             <Button
               onPress={() => {
+                // TODO: Add onSave prop and call it with selected range
                 setIsVisible(false);
               }}
               variant='secondary'
@@ -177,8 +185,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.border.disabledBorder,
     width: 328,
+    maxWidth: '90%',
     borderRadius: 12,
-    // TO DO: add shadow_xl to Shadows
     marginTop: 50,
     backgroundColor: Colors.background.white,
   },
@@ -201,4 +209,11 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
   },
+  moveLeft: {
+    marginRight: -10,
+  },
+  moveRight: {
+    marginLeft: -10,
+  },
+  zeroPadding: { paddingHorizontal: 0 },
 });

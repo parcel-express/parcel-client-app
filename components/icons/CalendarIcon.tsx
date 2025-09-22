@@ -5,14 +5,21 @@ import { Colors } from '@/constants/Colors';
 
 import { IconProps } from './types';
 
-function CalendarIcon({ width, height, stroke, ...props }: IconProps) {
+function CalendarIcon({
+  width,
+  height,
+  stroke,
+  'aria-hidden': ariaHidden,
+  ...props
+}: IconProps & { 'aria-hidden'?: boolean }) {
   return (
     <Svg
       width={width || 20}
       height={height || 20}
       viewBox='0 0 20 20'
       fill='none'
-      accessibilityRole='image'
+      accessibilityRole={ariaHidden ? undefined : 'image'}
+      aria-hidden={ariaHidden}
       {...props}
     >
       <Path
