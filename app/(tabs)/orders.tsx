@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import Calendar from '@/components/Calendar';
 import { ThemedText } from '@/components/ThemedText';
@@ -12,7 +12,9 @@ export default function OrdersScreen() {
   return (
     <ThemedView style={styles.container}>
       <ThemedText style={styles.title}>{t('tabs.orders')}</ThemedText>
-      <Calendar />
+      <View style={styles.content}>
+        <Calendar />
+      </View>
     </ThemedView>
   );
 }
@@ -25,5 +27,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
+  },
+  content: {
+    maxWidth: 250,
   },
 });

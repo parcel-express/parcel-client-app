@@ -5,8 +5,8 @@ import { Pressable, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native'
 
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
-
-type Props = {
+import { useButtonColors } from '@/hooks/useButtonColors';
+export type ButtonProps = {
   size: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   variant: 'primary' | 'secondary';
   leftIconName?: keyof typeof MaterialIcons.glyphMap;
@@ -35,34 +35,10 @@ const typography = {
 
 type PressableRef = React.ComponentRef<typeof Pressable>;
 
-const Button = forwardRef<PressableRef, Props>(
+const Button = forwardRef<PressableRef, ButtonProps>(
   ({ size, variant, disabled, children, leftIconName, rightIconName, style, ...rest }, ref) => {
     const [isFocused, setIsFocused] = useState(false);
-
-    const getIconColor = (pressed: boolean) => {
-      if (disabled) return Colors.button.disabledText;
-      if (pressed) {
-        return variant === 'secondary'
-          ? Colors.button.secondaryHoverText
-          : Colors.button.primaryHoverText;
-      }
-      return variant === 'secondary' ? Colors.button.secondaryText : Colors.button.primaryText;
-    };
-
-    const getBorderColor = () => {
-      if (disabled) return Colors.button.disabledBorder;
-      return variant === 'secondary' ? Colors.button.secondaryBorder : Colors.button.primaryBorder;
-    };
-
-    const getTextColor = (pressed: boolean) => {
-      if (disabled) return Colors.button.disabledText;
-      if (pressed) {
-        return variant === 'secondary'
-          ? Colors.button.secondaryHoverText
-          : Colors.button.primaryHoverText;
-      }
-      return variant === 'secondary' ? Colors.button.secondaryText : Colors.button.primaryText;
-    };
+    const { getIconColor, getBorderColor, getTextColor } = useButtonColors(variant, disabled);
 
     return (
       <Pressable
@@ -70,7 +46,7 @@ const Button = forwardRef<PressableRef, Props>(
         disabled={disabled}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        style={[isFocused && styles.buttonOutline, styles.full, style]}
+        style={[isFocused && styles.buttonOutline, style]}
         {...rest}
       >
         {({ pressed }) => (
@@ -130,9 +106,6 @@ Button.displayName = 'Button';
 export default Button;
 
 const styles = StyleSheet.create({
-  full: {
-    flex: 1,
-  },
   button: {
     flexDirection: 'row',
     borderRadius: 8,
