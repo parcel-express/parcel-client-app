@@ -5,6 +5,7 @@ import { Calendar as RNCalendar } from 'react-native-calendars';
 import type { MarkedDates } from 'react-native-calendars/src/types';
 
 import { Colors } from '@/constants/Colors';
+import { Shadows } from '@/constants/Shadows';
 
 import CalendarIcon from './icons/CalendarIcon';
 import Chevron from './icons/Chevron';
@@ -189,6 +190,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginTop: 50,
     backgroundColor: Colors.background.white,
+    ...Shadows.shadow_xl03,
+    ...Shadows.shadow_xl02,
+    ...Shadows.shadow_xl01,
   },
   body: {
     paddingInline: 24,
