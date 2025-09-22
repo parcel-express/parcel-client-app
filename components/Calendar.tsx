@@ -95,24 +95,23 @@ const Calendar = () => {
       : `${formatDate(selected.start)} - `
     : t('common.selectDate');
   return (
-    <View style={styles.full}>
-      <View ref={triggerRef} style={[styles.full, styles.maxWidth]}>
-        <Button
-          onPress={() => {
-            triggerRef.current?.measureInWindow((x, y, width, height) => {
-              setTriggerLayout({ x, y, width, height });
-              setIsVisible(true);
-            });
-          }}
-          variant='secondary'
-          size={'sm'}
-        >
-          <View style={styles.row}>
-            <CalendarIcon />
-            <Text>{triggerLabel}</Text>
-          </View>
-        </Button>
-      </View>
+    <>
+      <Button
+        onPress={() => {
+          triggerRef.current?.measureInWindow((x, y, width, height) => {
+            setTriggerLayout({ x, y, width, height });
+            setIsVisible(true);
+          });
+        }}
+        variant='secondary'
+        size={'sm'}
+        ref={triggerRef}
+      >
+        <View style={styles.row}>
+          <CalendarIcon />
+          <Text>{triggerLabel}</Text>
+        </View>
+      </Button>
 
       <Modal animationType='fade' transparent={true} visible={isVisible}>
         <View
@@ -172,15 +171,12 @@ const Calendar = () => {
           </View>
         </View>
       </Modal>
-    </View>
+    </>
   );
 };
 
 export default Calendar;
 const styles = StyleSheet.create({
-  full: {
-    flex: 1,
-  },
   calendar: {
     position: 'absolute',
     borderWidth: 1,
@@ -205,7 +201,6 @@ const styles = StyleSheet.create({
     gap: 8,
     padding: 16,
   },
-  maxWidth: { maxWidth: 328 },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
