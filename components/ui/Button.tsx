@@ -1,12 +1,12 @@
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { forwardRef, useState } from 'react';
-import { Pressable, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
+import { Pressable, PressableProps, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
 import { useButtonColors } from '@/hooks/useButtonColors';
-export type ButtonProps = {
+export type ButtonProps = Omit<PressableProps, 'style' | 'children' | 'onPress' | 'disabled'> & {
   size: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   variant: 'primary' | 'secondary';
   leftIconName?: keyof typeof MaterialIcons.glyphMap;
@@ -55,13 +55,18 @@ const Button = forwardRef<PressableRef, ButtonProps>(
         {({ pressed }) => (
           <LinearGradient
             colors={
-              pressed && variant === 'secondary'
-                ? [Colors.button.secondaryHoverBackground, Colors.button.secondaryHoverBackground]
-                : disabled
-                  ? [Colors.button.disabledBackground, Colors.button.disabledBackground]
-                  : variant === 'secondary'
-                    ? [Colors.button.secondaryBackground, Colors.button.secondaryBackground]
-                    : [Colors.gradient.primary.start, Colors.gradient.primary.end]
+              disabled
+                ? [Colors.button.disabledBackground, Colors.button.disabledBackground]
+                : variant === 'secondary'
+                  ? [
+                      pressed
+                        ? Colors.button.secondaryHoverBackground
+                        : Colors.button.secondaryBackground,
+                      +pressed
+                        ? Colors.button.secondaryHoverBackground
+                        : Colors.button.secondaryBackground,
+                    ]
+                  : [Colors.gradient.primary.start, Colors.gradient.primary.end]
             }
             start={{ x: 0, y: 0.5 }}
             end={{ x: 1, y: 0.5 }}
@@ -117,9 +122,8 @@ const styles = StyleSheet.create({
   },
   buttonOutline: {
     borderRadius: 8,
-    outlineOffset: 4,
-    outlineWidth: 2,
-    outlineColor: Colors.button.outline,
+    borderWidth: 2,
+    borderColor: Colors.button.outline,
   },
   label: {
     flex: 1,

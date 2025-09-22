@@ -1,7 +1,6 @@
-import type { ButtonProps } from '@/components/ui/Button';
 import { Colors } from '@/constants/Colors';
-
-export const useButtonColors = (variant: ButtonProps['variant'], disabled?: boolean) => {
+type ButtonVariant = 'primary' | 'secondary';
+export const useButtonColors = (variant: ButtonVariant, disabled?: boolean) => {
   const colorFor = (pressed: boolean) => {
     if (disabled) return Colors.button.disabledText;
     if (pressed) {
