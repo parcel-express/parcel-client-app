@@ -25,7 +25,10 @@ const TariffListHeader = () => {
 export default function TariffsScreen() {
   const { t } = useTranslation();
   const tabBarHeight = useBottomTabBarHeight();
-  const paddingBottom = Platform.OS === 'ios' ? tabBarHeight + PADDING : PADDING;
+  const paddingBottom = React.useMemo(
+    () => (Platform.OS === 'ios' ? tabBarHeight + PADDING : PADDING),
+    [tabBarHeight]
+  );
   const data: Tariffs[] = [
     {
       title: 'Tariff 1',
@@ -80,6 +83,7 @@ export default function TariffsScreen() {
           renderItem={({ item }) => <Card variant='tariffs' data={item} />}
           keyExtractor={item => item.title}
           contentContainerStyle={[styles.flatListContainer, { paddingBottom }]}
+          scrollIndicatorInsets={{ bottom: paddingBottom }}
         />
       </ContentView>
     </ThemedView>
