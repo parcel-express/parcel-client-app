@@ -46,6 +46,7 @@ const Button = forwardRef<PressableRef, ButtonProps>(
         disabled={disabled}
         accessibilityRole='button'
         accessibilityState={{ disabled: !!disabled }}
+        focusable={!disabled}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         style={[isFocused && styles.buttonOutline, style]}

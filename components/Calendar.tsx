@@ -42,18 +42,20 @@ const ArrowIcon = (direction: 'left' | 'right') => (
   </View>
 );
 
-const getModalPosition = (triggerLayout: {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}) => {
+const getModalPosition = (
+  triggerLayout: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  },
+  calendarWidth: number
+) => {
   const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
-  const calendarWidth = 328;
   const calendarHeight = 400;
 
   let left = triggerLayout.x;
-  let top = triggerLayout.y;
+  let top = triggerLayout.y + triggerLayout.height + 8;
 
   if (left + calendarWidth > screenWidth) {
     left = screenWidth - calendarWidth - 16;
@@ -81,14 +83,14 @@ const Calendar: React.FC<CalendarProps> = ({ onSave, initialSelection, disabled 
     height: 0,
   });
   const today = new Date();
+  const { width: screenWidth } = Dimensions.get('window');
+  const containerWidth = Math.min(328, screenWidth - 32);
 
   const handleDayPress = (day: { dateString: string }) => {
     if (!selected.start || (selected.start && selected.end)) {
       setSelected({ start: day.dateString, end: '' });
     } else if (selected.start && !selected.end) {
-      const startDate = new Date(selected.start);
-      const endDate = new Date(day.dateString);
-      if (endDate > startDate) {
+      if (day.dateString > selected.start) {
         setSelected({ ...selected, end: day.dateString });
       } else {
         setSelected({ start: day.dateString, end: '' });
@@ -174,7 +176,13 @@ const Calendar: React.FC<CalendarProps> = ({ onSave, initialSelection, disabled 
         visible={isVisible}
         onRequestClose={() => setIsVisible(false)}
       >
-        <View style={[styles.calendar, getModalPosition(triggerLayout)]}>
+        <View
+          style={[
+            styles.calendar,
+            { width: containerWidth },
+            getModalPosition(triggerLayout, containerWidth),
+          ]}
+        >
           <View style={styles.body}>
             <RNCalendar
               markingType='period'
