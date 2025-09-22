@@ -11,6 +11,7 @@ export const useButtonColors = (variant: ButtonProps['variant'], disabled?: bool
     }
     return variant === 'secondary' ? Colors.button.secondaryText : Colors.button.primaryText;
   };
+
   return {
     getIconColor: colorFor,
 

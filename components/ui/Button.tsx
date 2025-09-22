@@ -37,7 +37,7 @@ type PressableRef = React.ComponentRef<typeof Pressable>;
 
 const Button = forwardRef<PressableRef, ButtonProps>(
   ({ size, variant, disabled, children, leftIconName, rightIconName, style, ...rest }, ref) => {
-    const [isFocused, setIsFocused] = useState(false);
+    const [showOutline, setShowOutline] = useState(false);
     const { getIconColor, getBorderColor, getTextColor } = useButtonColors(variant, disabled);
 
     return (
@@ -47,9 +47,9 @@ const Button = forwardRef<PressableRef, ButtonProps>(
         accessibilityRole='button'
         accessibilityState={{ disabled: !!disabled }}
         focusable={!disabled}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        style={[isFocused && styles.buttonOutline, style]}
+        onFocus={() => setShowOutline(true)}
+        onBlur={() => setShowOutline(false)}
+        style={[showOutline && styles.buttonOutline, style]}
         {...rest}
       >
         {({ pressed }) => (
