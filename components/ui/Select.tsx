@@ -13,16 +13,26 @@ type Props = {
   placeholder?: string;
   options: { label: string; value: string }[];
   disabled?: boolean;
+  variant?: 'primary' | 'secondary';
 };
 
-const Select = ({ label, setValue, value, placeholder, options, disabled }: Props) => {
+const Select = ({
+  label,
+  setValue,
+  value,
+  placeholder,
+  options,
+  disabled,
+  variant = 'primary',
+}: Props) => {
   const [isFocused, setIsFocused] = React.useState(false);
 
   const getBorderColor = () => {
     if (disabled) {
       return Colors.border.disabledBorder;
     }
-    return isFocused ? Colors.border.focused : Colors.border.primary;
+
+    return isFocused ? Colors.border.focused : Colors.border[variant];
   };
 
   return (
@@ -46,11 +56,11 @@ const Select = ({ label, setValue, value, placeholder, options, disabled }: Prop
         >
           <Text
             style={[
-              Typography.textMdMedium,
-              { color: value ? Colors.text.primary : Colors.text.placeholder },
+              variant === 'primary' ? Typography.textMdMedium : Typography.textXsMedium,
+              { color: value ? Colors.text[variant] : Colors.text.placeholder },
             ]}
           >
-            {value || placeholder}
+            {options.find(opt => opt.value === value)?.label || placeholder}
           </Text>
           <View style={{ transform: [{ rotate: isFocused ? '90deg' : '-90deg' }] }}>
             <MaterialIcons name={'chevron-left'} size={20} color={Colors.text.placeholder} />
@@ -59,7 +69,7 @@ const Select = ({ label, setValue, value, placeholder, options, disabled }: Prop
       </View>
 
       {isFocused && (
-        <View style={styles.dropdown} accessibilityRole='menu'>
+        <View style={[styles.dropdown, !label && styles.topWithoutLabel]} accessibilityRole='menu'>
           <ScrollView>
             {options.map(item => (
               <TouchableOpacity
@@ -74,7 +84,14 @@ const Select = ({ label, setValue, value, placeholder, options, disabled }: Prop
                   setIsFocused(false);
                 }}
               >
-                <Text style={[Typography.textMdMedium, styles.label]}>{item.label}</Text>
+                <Text
+                  style={[
+                    variant === 'primary' ? Typography.textMdMedium : Typography.textXsMedium,
+                    styles.label,
+                  ]}
+                >
+                  {item.label}
+                </Text>
                 {value === item.value && (
                   <MaterialIcons name='check' size={20} color={Colors.brand.primary} />
                 )}
@@ -113,6 +130,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     backgroundColor: Colors.background.white,
     height: 44,
+    gap: 8,
   },
 
   dropdown: {
@@ -128,6 +146,9 @@ const styles = StyleSheet.create({
     right: 0,
     zIndex: 1000,
     elevation: 8,
+  },
+  topWithoutLabel: {
+    top: 50,
   },
   option: {
     flexDirection: 'row',

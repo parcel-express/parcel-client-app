@@ -9,11 +9,14 @@ import { Typography } from '@/constants/Typography';
 
 type InputProps<T extends Record<string, string | boolean>> = {
   name: Extract<keyof T, string>;
-  label: string;
+  label?: string;
   placeholder?: string;
   hintMessage?: string;
   disabled?: boolean;
-  iconName?: keyof typeof MaterialIcons.glyphMap;
+  leftIconName?: keyof typeof MaterialIcons.glyphMap;
+  rightIconName?: keyof typeof MaterialIcons.glyphMap;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
   formik: FormikProps<T>;
   secureTextEntry?: boolean;
   keyboardType?: TextInputProps['keyboardType'];
@@ -28,7 +31,10 @@ const Input = <T extends Record<string, string | boolean>>({
   placeholder,
   hintMessage,
   disabled,
-  iconName,
+  leftIcon,
+  rightIcon,
+  leftIconName,
+  rightIconName,
   formik,
   secureTextEntry,
   name,
@@ -56,7 +62,9 @@ const Input = <T extends Record<string, string | boolean>>({
 
   return (
     <View style={styles.container}>
-      <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>{label}</Text>
+      {label && (
+        <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>{label}</Text>
+      )}
 
       <View
         style={{
@@ -65,6 +73,15 @@ const Input = <T extends Record<string, string | boolean>>({
           backgroundColor: disabled ? Colors.background.disabled : Colors.background.white,
         }}
       >
+        {leftIconName && (
+          <MaterialIcons
+            style={styles.icon}
+            name={leftIconName}
+            size={20}
+            color={Colors.text.placeholder}
+          />
+        )}
+        {leftIcon && leftIcon}
         <TextInput
           accessibilityLabel={label}
           accessibilityHint={hintMessage}
@@ -90,14 +107,15 @@ const Input = <T extends Record<string, string | boolean>>({
           autoCorrect={autoCorrect ?? false}
         />
 
-        {iconName && (
+        {rightIconName && (
           <MaterialIcons
             style={styles.icon}
-            name={iconName}
+            name={rightIconName}
             size={20}
             color={Colors.text.placeholder}
           />
         )}
+        {rightIcon && rightIcon}
       </View>
       {hintMessage && !fieldError && !disabled && (
         <Text style={{ ...Typography.textSmRegular, color: Colors.text.tertiary }}>
@@ -144,6 +162,7 @@ const styles = StyleSheet.create({
     color: Colors.text.primary,
     ...Typography.textMdRegular,
     lineHeight: 19.7,
+    paddingHorizontal: 8,
     // height: 44,
   },
 });
