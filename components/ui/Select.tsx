@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
   wrapper: {
     width: '100%',
     position: 'relative',
+    zIndex: 1000,
   },
   container: {
     display: 'flex',
@@ -144,7 +145,6 @@ const styles = StyleSheet.create({
     top: 72,
     left: 0,
     right: 0,
-    zIndex: 1000,
     elevation: 8,
   },
   topWithoutLabel: {

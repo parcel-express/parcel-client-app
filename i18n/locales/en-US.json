@@ -180,7 +180,9 @@
       "onGoing": "Ongoing",
       "failed": "Failed",
       "completed": "Completed"
-    }
+    },
+    "sender": "Sender",
+    "receiver": "Receiver"
   },
   "common": {
     "cancel": "Cancel",

@@ -57,6 +57,7 @@ export const Colors = {
     white: '#FFFFFF',
     disabled: '#FAFAFA',
     transparent: 'transparent',
+    black: '#000000',
     body: '#F5F5F5',
     body_dark: '#151718',
     successSecondary: '#17B26A',
