@@ -5,6 +5,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import type {
   AddressesProps,
+  InfoProps,
   InvoicesProps,
   OrderProps,
   TariffsProps,
@@ -18,11 +19,12 @@ import TrashIcon from '../icons/TrashIcon';
 import CardView from './CardView';
 import Tag from './Tag';
 
-type Props = InvoicesProps | AddressesProps | TariffsProps | OrderProps;
+type Props = InvoicesProps | AddressesProps | TariffsProps | OrderProps | InfoProps;
 const sizes: Record<
   Props['variant'],
   { header: { paddingBottom: number }; body: { paddingTop: number }; paddingBottom: number }
 > = {
+  info: { header: { paddingBottom: 0 }, body: { paddingTop: 18 }, paddingBottom: 18 },
   orders: { header: { paddingBottom: 20 }, body: { paddingTop: 20 }, paddingBottom: 16 },
   tariffs: { header: { paddingBottom: 20 }, body: { paddingTop: 20 }, paddingBottom: 16 },
   invoices: { header: { paddingBottom: 18 }, body: { paddingTop: 20 }, paddingBottom: 22 },
@@ -41,15 +43,34 @@ const Card = (props: Props) => {
   );
   return (
     <CardView style={{ paddingBottom: sizes[variant].paddingBottom }}>
-      <View style={[styles.header, sizes[variant].header, variant === 'addresses' && styles.gapMd]}>
+      <View
+        style={[
+          variant !== 'info' && styles.header,
+          sizes[variant].header,
+          variant === 'addresses' && styles.gapMd,
+        ]}
+      >
         <View style={[styles.row, styles.spaceBetween]}>
           <View>
             {variant === 'tariffs' && (
               <Text style={[Typography.textSmRegular, styles.tertiary]}>{data.description}</Text>
             )}
-            <Text style={variant === 'tariffs' ? Typography.textSmBold : Typography.textSmMedium}>
-              {data.title}
-            </Text>
+            {data.title && (
+              <View style={[styles.row, styles.gapSm]}>
+                {variant === 'info' && data.icon && data.icon}
+                <Text
+                  style={
+                    variant === 'tariffs'
+                      ? Typography.textSmBold
+                      : variant === 'info'
+                        ? Typography.textSmSemiBold
+                        : Typography.textSmMedium
+                  }
+                >
+                  {data.title}
+                </Text>
+              </View>
+            )}
           </View>
           {variant === 'addresses' ? (
             <View style={styles.actionsContainer}>
@@ -122,16 +143,36 @@ const Card = (props: Props) => {
           </View>
         )}
       </View>
-      <View style={[styles.gapMd, sizes[variant].body]}>
-        {data.body.map((item, idx) => (
-          <View
-            style={[styles.row, styles.spaceBetween]}
-            key={`${item.label}-${item.value}-${idx}`}
-          >
-            <Text style={[Typography.textXsRegular, styles.tertiary]}>{item.label}</Text>
-            <Text style={[Typography.textXsRegular, styles.tertiary]}>{item.value}</Text>
-          </View>
-        ))}
+      <View style={[styles.gapMd, data.title && sizes[variant].body]}>
+        {Array.isArray(data.body)
+          ? data.body.map((item, idx) => (
+              <View
+                style={[styles.row, styles.spaceBetween]}
+                key={`${item.label}-${item.value}-${idx}`}
+              >
+                <Text
+                  style={[
+                    variant === 'info' ? Typography.textXsMedium : Typography.textXsRegular,
+                    variant === 'info' ? styles.black : styles.tertiary,
+                  ]}
+                >
+                  {item.label}
+                </Text>
+                {typeof item.value === 'string' ? (
+                  <Text
+                    style={[
+                      variant === 'info' ? Typography.textXsMedium : Typography.textXsRegular,
+                      variant === 'info' ? styles.black : styles.tertiary,
+                    ]}
+                  >
+                    {item.value}
+                  </Text>
+                ) : (
+                  item.value
+                )}
+              </View>
+            ))
+          : data.body}
       </View>
     </CardView>
   );
@@ -162,6 +203,9 @@ const styles = StyleSheet.create({
   },
   tertiary: {
     color: Colors.text.tertiary,
+  },
+  black: {
+    color: Colors.text.black,
   },
   orderContainer: {
     marginTop: 20,

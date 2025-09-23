@@ -64,6 +64,7 @@ export const Colors = {
     successSecondary: '#17B26A',
     avatar: '#F0F0F0',
     imagePlaceholder: '#D9D9D9',
+    infoAmanat: 'rgba(102, 45, 145, 0.1)',
   },
   button: {
     primaryBorder: '#FFFFFF',

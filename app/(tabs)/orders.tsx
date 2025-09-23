@@ -2,7 +2,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, Platform, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import Calendar from '@/components/Calendar';
 import ContentView from '@/components/ContentView';
@@ -12,6 +12,7 @@ import SearchIcon from '@/components/icons/SearchIcon';
 import ShortCutIcon from '@/components/icons/ShortCutIcon';
 import { ThemedView } from '@/components/ThemedView';
 import Card from '@/components/ui/Card';
+import InfoModal from '@/components/ui/InfoModal';
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
 import TabSwitcher from '@/components/ui/TabSwitcher';
@@ -26,6 +27,7 @@ export default function OrdersScreen() {
   const [status, setStatus] = React.useState<Status | 'status'>('status');
   const [search, setSearch] = React.useState('');
   const [date, setDate] = React.useState<{ start?: string; end?: string }>({});
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
   const bottomtabHeight = useBottomTabBarHeight();
   const paddingBottom = Platform.OS === 'ios' ? bottomtabHeight + 18 : 18;
   const formik = useFormik({
@@ -135,6 +137,11 @@ export default function OrdersScreen() {
       lightColor={Colors.light.background}
       darkColor={Colors.dark.background}
     >
+      <InfoModal
+        visible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        title='შეკვეთის დეტალები'
+      />
       <Header title={t('orders.title')} />
       <ContentView style={styles.container}>
         <FlatList
@@ -168,7 +175,11 @@ export default function OrdersScreen() {
           ListHeaderComponentStyle={styles.flatListContainer}
           data={filteredOrders}
           keyExtractor={item => item.id}
-          renderItem={({ item }) => <Card variant='orders' data={item} />}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => setIsModalVisible(true)}>
+              <Card variant='orders' data={item} />
+            </TouchableOpacity>
+          )}
           contentContainerStyle={[
             styles.content,
             filteredOrders.length === 0 && styles.container,

@@ -1,3 +1,5 @@
+import { JSX } from 'react';
+
 import { TagVariant } from '@/components/ui/Tag';
 
 export type Invoice = {
@@ -33,6 +35,11 @@ export type Order = {
   receiver: Person;
   body: { label: string; value: string }[];
 };
+export type Info = {
+  icon?: JSX.Element;
+  title?: string;
+  body: { label: string; value: string | JSX.Element }[] | JSX.Element;
+};
 
 export type AddressesProps = {
   variant: 'addresses';
@@ -51,6 +58,10 @@ export type InvoicesProps = {
 export type TariffsProps = {
   variant: 'tariffs';
   data: Tariffs;
+};
+export type InfoProps = {
+  variant: 'info';
+  data: Info;
 };
 
 export default {};
