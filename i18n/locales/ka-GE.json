@@ -168,16 +168,18 @@
       "faceId": "Face ID"
     },
     "invoices": {
-      "title": "ინვოისები",
-      "status": {
-        "paid": "გადახდილია",
-        "pending": "მიმდინარე",
-        "overdue": "ვადაგასული",
-        "partiallyPaid": "ნაწილობრივ გადახდილია"
-      }
+      "title": "ინვოისები"
     },
     "contact": {
       "online": "Online"
+    }
+  },
+  "orders": {
+    "title": "ჩემი შეკვეთები",
+    "tabs": {
+      "onGoing": "მიმდინარე",
+      "failed": "წარუმატებელი",
+      "completed": "დასრულებული"
     }
   },
   "common": {
@@ -188,5 +190,12 @@
     "add": "დამატება",
     "back": "უკან",
     "logo": "კომპანიის ლოგო"
+  },
+  "status": {
+    "status": "სტატუსი",
+    "paid": "გადახდილია",
+    "pending": "მიმდინარე",
+    "overdue": "ვადაგასული",
+    "partiallyPaid": "ნაწილობრივ გადახდილია"
   }
 }

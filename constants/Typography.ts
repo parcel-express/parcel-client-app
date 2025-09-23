@@ -42,7 +42,7 @@ export const Typography = StyleSheet.create({
   },
   textXsSemiBold: {
     ...textXs,
-    fontWeight: '500',
+    fontWeight: '600',
     lineHeight: 16,
   },
   textXsRegular: {
