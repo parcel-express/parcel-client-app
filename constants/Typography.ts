@@ -6,6 +6,7 @@ const textXs = {
   fontFamily: 'Inter',
   fontSize: 12,
   letterSpacing: 0,
+  lineHeight: 16,
 };
 const textSm = {
   fontFamily: 'Inter',

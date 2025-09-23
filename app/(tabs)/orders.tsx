@@ -158,6 +158,7 @@ export default function OrdersScreen() {
                     options={options}
                     value={status}
                     setValue={(value: string) => setStatus(value as Status)}
+                    size='sm'
                   />
                 </View>
               </View>
@@ -168,7 +169,11 @@ export default function OrdersScreen() {
           data={filteredOrders}
           keyExtractor={item => item.id}
           renderItem={({ item }) => <Card variant='orders' data={item} />}
-          contentContainerStyle={[styles.content, styles.container, { paddingBottom }]}
+          contentContainerStyle={[
+            styles.content,
+            filteredOrders.length === 0 && styles.container,
+            { paddingBottom },
+          ]}
           ListFooterComponent={
             <View style={filteredOrders.length === 0 ? styles.show : styles.hide}>
               <EmptyWishlistIcon />

@@ -14,6 +14,7 @@ type Props = {
   options: { label: string; value: string }[];
   disabled?: boolean;
   variant?: 'primary' | 'secondary';
+  size?: 'sm' | 'md';
 };
 
 const Select = ({
@@ -24,6 +25,7 @@ const Select = ({
   options,
   disabled,
   variant = 'primary',
+  size = 'md',
 }: Props) => {
   const [isFocused, setIsFocused] = React.useState(false);
 
@@ -46,6 +48,7 @@ const Select = ({
           onPress={() => !disabled && setIsFocused(prev => !prev)}
           style={{
             ...styles.inputContainer,
+            ...(size === 'sm' ? styles.smallGap : styles.mediumGap),
             borderColor: getBorderColor(),
             backgroundColor: disabled ? Colors.background.disabled : Colors.background.white,
           }}
@@ -56,7 +59,7 @@ const Select = ({
         >
           <Text
             style={[
-              variant === 'primary' ? Typography.textMdMedium : Typography.textXsMedium,
+              size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
               { color: value ? Colors.text[variant] : Colors.text.placeholder },
             ]}
           >
@@ -86,7 +89,7 @@ const Select = ({
               >
                 <Text
                   style={[
-                    variant === 'primary' ? Typography.textMdMedium : Typography.textXsMedium,
+                    size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
                     styles.label,
                   ]}
                 >
@@ -123,17 +126,20 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: Colors.border.primary,
-    paddingHorizontal: 12,
     ...Shadows.shadow_xs,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 8,
+    paddingVertical: 9,
+    paddingHorizontal: 14,
     backgroundColor: Colors.background.white,
-    height: 44,
+  },
+  smallGap: {
+    gap: 4,
+  },
+  mediumGap: {
     gap: 8,
   },
-
   dropdown: {
     backgroundColor: Colors.background.white,
     borderRadius: 8,
