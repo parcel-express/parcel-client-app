@@ -55,7 +55,6 @@ export default function OrdersScreen() {
       <Header title={t('orders.title')} />
       <ContentView style={styles.content}>
         <Input
-          label=''
           name={'search'}
           leftIcon={<SearchIcon />}
           rightIcon={<ShortCutIcon />}

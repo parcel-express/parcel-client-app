@@ -10,3 +10,5 @@ export type StatusOptions = {
   label: string;
   value: Status | 'status';
 }[];
+
+export default {};
