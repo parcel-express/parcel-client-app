@@ -182,7 +182,8 @@
       "completed": "Completed"
     },
     "sender": "Sender",
-    "receiver": "Receiver"
+    "receiver": "Receiver",
+    "noOrdersFound": "No orders found"
   },
   "common": {
     "cancel": "Cancel",

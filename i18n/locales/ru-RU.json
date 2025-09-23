@@ -187,7 +187,8 @@
       "completed": "Завершенные"
     },
     "sender": "Отправитель",
-    "receiver": "Получатель"
+    "receiver": "Получатель",
+    "noOrdersFound": "Заказы не найдены"
   },
   "common": {
     "cancel": "Отмена",

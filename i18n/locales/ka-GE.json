@@ -182,7 +182,8 @@
       "completed": "დასრულებული"
     },
     "sender": "გამგზავნი",
-    "receiver": "მიმღები"
+    "receiver": "მიმღები",
+    "noOrdersFound": "შეკვეთები ვერ მოიძებნა"
   },
   "common": {
     "cancel": "გაუქმება",

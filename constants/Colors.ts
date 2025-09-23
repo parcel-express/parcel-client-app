@@ -42,6 +42,7 @@ export const Colors = {
     primary: '#181D27',
     white: '#FFFFFF',
     disabled: '#717680',
+    black: '#000000',
   },
   border: {
     primary: '#E6E8EB',
@@ -97,6 +98,7 @@ export const Colors = {
     black: '#000000',
     secondary: '#A4A7AE',
     tertiary: '#414651',
+    disabled: '#B1BEC6',
   },
   tag: {
     success: {

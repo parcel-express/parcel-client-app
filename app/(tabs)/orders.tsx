@@ -2,11 +2,12 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, Platform, StyleSheet, View } from 'react-native';
+import { FlatList, Platform, StyleSheet, Text, View } from 'react-native';
 
 import Calendar from '@/components/Calendar';
 import ContentView from '@/components/ContentView';
 import Header from '@/components/Header';
+import EmptyWishlistIcon from '@/components/icons/EmptyWishlistIcon';
 import SearchIcon from '@/components/icons/SearchIcon';
 import ShortCutIcon from '@/components/icons/ShortCutIcon';
 import { ThemedView } from '@/components/ThemedView';
@@ -15,6 +16,7 @@ import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
 import TabSwitcher from '@/components/ui/TabSwitcher';
 import { Colors } from '@/constants/Colors';
+import { Typography } from '@/constants/Typography';
 
 import { Order } from '../types/cardTypes';
 import { Status, StatusOptions, Tab, Tabs } from '../types/orderTypes';
@@ -22,6 +24,8 @@ import { Status, StatusOptions, Tab, Tabs } from '../types/orderTypes';
 export default function OrdersScreen() {
   const [tab, setTab] = React.useState<Tab>('Ongoing');
   const [status, setStatus] = React.useState<Status | 'status'>('status');
+  const [search, setSearch] = React.useState('');
+  const [date, setDate] = React.useState<{ start?: string; end?: string }>({});
   const bottomtabHeight = useBottomTabBarHeight();
   const paddingBottom = Platform.OS === 'ios' ? bottomtabHeight + 18 : 18;
   const formik = useFormik({
@@ -89,6 +93,41 @@ export default function OrdersScreen() {
       ],
     },
   ];
+  // Update search state live
+  React.useEffect(() => {
+    setSearch(formik.values.search);
+  }, [formik.values.search]);
+
+  // Helper to check if a date is within the selected range
+  const isWithinRange = (target: string, start?: string, end?: string) => {
+    if (!start || !end) return true;
+    const targetDate = new Date(target);
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    return targetDate >= startDate && targetDate <= endDate;
+  };
+
+  // Filter function
+  const filteredOrders = orders.filter(order => {
+    const matchesStatus =
+      status === 'status' || order.status.toLowerCase() === status.toLowerCase();
+    const matchesSearch =
+      !search ||
+      order.title.toLowerCase().includes(search.toLowerCase()) ||
+      order.sender.name.toLowerCase().includes(search.toLowerCase()) ||
+      order.receiver.name.toLowerCase().includes(search.toLowerCase());
+    const matchesDate =
+      !date.start || !date.end
+        ? true
+        : order.body.some(
+            field =>
+              (field.label.toLowerCase().includes('date') ||
+                field.label.toLowerCase().includes('pickup') ||
+                field.label.toLowerCase().includes('delivery')) &&
+              isWithinRange(field.value, date.start, date.end)
+          );
+    return matchesStatus && matchesSearch && matchesDate;
+  });
 
   return (
     <ThemedView
@@ -97,7 +136,7 @@ export default function OrdersScreen() {
       darkColor={Colors.dark.background}
     >
       <Header title={t('orders.title')} />
-      <ContentView>
+      <ContentView style={styles.container}>
         <FlatList
           ListHeaderComponent={
             <>
@@ -110,7 +149,7 @@ export default function OrdersScreen() {
               />
               <View style={styles.row}>
                 <View style={styles.container}>
-                  <Calendar />
+                  <Calendar onSave={(start, end) => setDate({ start, end })} />
                 </View>
                 <View>
                   <Select
@@ -126,10 +165,17 @@ export default function OrdersScreen() {
             </>
           }
           ListHeaderComponentStyle={styles.flatListContainer}
-          data={orders}
+          data={filteredOrders}
           keyExtractor={item => item.id}
           renderItem={({ item }) => <Card variant='orders' data={item} />}
-          contentContainerStyle={[styles.content, { paddingBottom }]}
+          contentContainerStyle={[styles.content, styles.container, { paddingBottom }]}
+          ListFooterComponent={
+            <View style={filteredOrders.length === 0 ? styles.show : styles.hide}>
+              <EmptyWishlistIcon />
+              <Text style={[Typography.textMdBold, styles.black]}>{t('orders.noOrdersFound')}</Text>
+            </View>
+          }
+          ListFooterComponentStyle={styles.container}
         />
       </ContentView>
     </ThemedView>
@@ -153,5 +199,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 20,
     justifyContent: 'space-between',
+  },
+  show: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    gap: 32,
+  },
+  hide: {
+    display: 'none',
+  },
+  black: {
+    color: Colors.text.black,
   },
 });
