@@ -46,12 +46,12 @@
     "home": "Home",
     "orders": "Orders",
     "newOrder": "New Order",
-    "support": "Support",
+    "notifications": "Notifications",
     "profile": "Profile",
     "hometitle": "My Dashboard",
     "orderstitle": "My Orders",
     "newOrdertitle": "New Order",
-    "supporttitle": "Support",
+    "notificationstitle": "Notifications",
     "profiletitle": "Profile"
   },
   "home": {
@@ -59,6 +59,19 @@
     "currencyBalance": "Currency Balance",
     "serviceBalance": "Service Balance",
     "totalBalance": "Total Balance"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "sendNotification": "Send Notification",
+    "modal": {
+      "sendTitle": "Send Notification",
+      "sendSubTitle": "Select a topic and write to us",
+      "titlePlaceholder": "Title",
+      "trackingPlaceholder": "Enter tracking code",
+      "trackingLabel": "Tracking",
+      "messagePlaceholder": "Leave us a message",
+      "messageLabel": "Message"
+    }
   },
   "profile": {
     "title": "Profile",
@@ -191,6 +204,7 @@
   "common": {
     "cancel": "Cancel",
     "save": "Save",
+    "send": "Send",
     "delete": "Delete",
     "edit": "Edit",
     "add": "Add",

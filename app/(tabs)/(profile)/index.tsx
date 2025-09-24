@@ -75,7 +75,7 @@ const getProfileMenuItems = () => [
     iconName: MessageChatCircleIcon,
     titleKey: 'profile.menu.contact',
     action: () => {
-      router.push('/(tabs)/support');
+      router.push('/(tabs)/notifications');
     },
     showBadge: true,
   },

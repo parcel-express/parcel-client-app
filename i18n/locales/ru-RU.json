@@ -46,12 +46,12 @@
     "home": "Главная",
     "orders": "Заказы",
     "newOrder": "Новый заказ",
-    "support": "Поддержка",
+    "notifications": "Уведомления",
     "profile": "Профиль",
     "hometitle": "Моя панель",
     "orderstitle": "Мои заказы",
     "newOrdertitle": "Новый заказ",
-    "supporttitle": "Поддержка",
+    "notificationstitle": "Уведомления",
     "profiletitle": "профиль"
   },
   "home": {
@@ -59,6 +59,19 @@
     "currencyBalance": "Финансовый баланс",
     "serviceBalance": "Баланс услуг",
     "totalBalance": "Общий баланс"
+  },
+  "notifications": {
+    "title": "Уведомления",
+    "sendNotification": "Отправить уведомление",
+    "modal": {
+      "sendTitle": "Отправить уведомление",
+      "sendSubTitle": "Выберите тему и напишите нам",
+      "titlePlaceholder": "Заголовок",
+      "trackingPlaceholder": "Введите трекинг-код",
+      "trackingLabel": "Трекинг",
+      "messagePlaceholder": "Оставьте нам сообщение",
+      "messageLabel": "Сообщение"
+    }
   },
   "profile": {
     "title": "Профиль",
@@ -196,6 +209,7 @@
   "common": {
     "cancel": "Отмена",
     "save": "Сохранить",
+    "send": "Отправить",
     "delete": "Удалить",
     "edit": "Редактировать",
     "add": "Добавить",

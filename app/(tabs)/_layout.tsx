@@ -54,9 +54,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name='support'
+        name='notifications'
         options={{
-          title: t('tabs.support'),
+          title: t('tabs.notifications'),
           tabBarIcon: ({ color }) => <IconSymbol size={28} name='bubble.left.fill' color={color} />,
         }}
       />
