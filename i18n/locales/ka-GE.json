@@ -55,7 +55,10 @@
     "profiletitle": "პროფილი"
   },
   "home": {
-    "welcome": "მოგესალმებით Parcel Express-ში! თქვენი სანდო კურიერული სერვისი."
+    "title": "ჩემი დეშბორდი",
+    "currencyBalance": "ფულის ბალანსი",
+    "serviceBalance": "სერვისის ბალანსი",
+    "totalBalance": "სრული ბალანსი"
   },
   "profile": {
     "title": "პროფილი",

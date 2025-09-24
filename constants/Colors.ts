@@ -56,6 +56,7 @@ export const Colors = {
   },
   background: {
     white: '#FFFFFF',
+    secondarySubtle: '#FDFDFD',
     disabled: '#FAFAFA',
     transparent: 'transparent',
     black: '#000000',
