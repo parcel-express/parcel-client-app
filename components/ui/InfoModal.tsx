@@ -1,8 +1,8 @@
 import { Image } from 'expo-image';
 import React from 'react';
 import {
+  FlatList,
   Modal,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -15,6 +15,8 @@ import { Typography } from '@/constants/Typography';
 
 import FileIcon from '../icons/FileIcon';
 import PackageIcon from '../icons/PackageIcon';
+import PrinterIcon from '../icons/PrinterIcon';
+import QuestionCircleIcon from '../icons/QuestionCircleIcon';
 import ReceiverIcon from '../icons/ReceiverIcon';
 import SenderIcon from '../icons/SenderIcon';
 import XIcon from '../icons/XIcon';
@@ -105,16 +107,30 @@ const InfoModal: React.FC<Props> = ({ visible, onClose, title }) => {
   };
   const ActionCard = () => {
     return (
-      <View style={styles.actionContainer}>
-        <Button variant='secondary' size='sm' onPress={() => {}}>
-          დახმარება
-        </Button>
-        <Button variant='secondary' size='sm' onPress={() => {}}>
-          ინვოისი
-        </Button>
-        <Button variant='secondary' size='sm' onPress={() => {}}>
-          ბეჭვდა
-        </Button>
+      <View style={styles.gapMd}>
+        <View style={styles.actionContainer}>
+          <Button
+            variant='secondary'
+            size='sm'
+            onPress={() => {}}
+            leftIcon={<QuestionCircleIcon />}
+          >
+            დახმარება
+          </Button>
+          <Button
+            variant='secondary'
+            size='sm'
+            onPress={() => {}}
+            leftIcon={<FileIcon stroke={Colors.icon.black} />}
+          >
+            <Text>ინვოისი</Text>
+          </Button>
+        </View>
+        <View style={styles.halfWidth}>
+          <Button variant='secondary' size='sm' onPress={() => {}} leftIcon={<PrinterIcon />}>
+            ბეჭვდა
+          </Button>
+        </View>
       </View>
     );
   };
@@ -122,7 +138,7 @@ const InfoModal: React.FC<Props> = ({ visible, onClose, title }) => {
     title: 'შეკვეთა: #223394',
     body: <ActionCard />,
   };
-
+  const flatListData = [actionData, invoiceData, senderData, receiverData, data, billingData];
   return (
     <Modal visible={visible} transparent animationType='slide' onRequestClose={onClose}>
       <View style={styles.overlay}>
@@ -134,14 +150,12 @@ const InfoModal: React.FC<Props> = ({ visible, onClose, title }) => {
               <XIcon width={12} height={12} />
             </TouchableOpacity>
           </View>
-          <ScrollView contentContainerStyle={styles.body}>
-            <Card variant='info' data={actionData} />
-            <Card variant='info' data={data} />
-            <Card variant='info' data={invoiceData} />
-            <Card variant='info' data={senderData} />
-            <Card variant='info' data={receiverData} />
-            <Card variant='info' data={billingData} />
-          </ScrollView>
+          <FlatList
+            data={flatListData}
+            keyExtractor={(_, index) => index.toString()}
+            renderItem={({ item }) => <Card variant='info' data={item} />}
+            contentContainerStyle={styles.body}
+          />
         </View>
       </View>
     </Modal>
@@ -161,7 +175,6 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: Colors.modal.background,
     borderRadius: 12,
-    padding: 18,
   },
   row: {
     width: '100%',
@@ -169,10 +182,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     gap: 8,
+    paddingBottom: 20,
+    paddingHorizontal: 18,
+    paddingTop: 18,
   },
   body: {
     gap: 10,
-    marginTop: 20,
+    paddingHorizontal: 18,
+    paddingBottom: 38,
   },
   black: {
     color: Colors.text.black,
@@ -188,10 +205,14 @@ const styles = StyleSheet.create({
   gap: {
     gap: 8,
   },
+  gapMd: {
+    gap: 10,
+  },
   actionContainer: {
     flexDirection: 'row',
     gap: 10,
     flexWrap: 'wrap',
   },
   image: { width: 75, height: 75 },
+  halfWidth: { width: '50%', marginRight: 10 },
 });

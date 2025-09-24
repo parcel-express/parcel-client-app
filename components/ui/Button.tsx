@@ -11,6 +11,8 @@ export type ButtonProps = Omit<PressableProps, 'style' | 'children' | 'onPress' 
   variant: 'primary' | 'secondary';
   leftIconName?: keyof typeof MaterialIcons.glyphMap;
   rightIconName?: keyof typeof MaterialIcons.glyphMap;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
   children?: React.ReactNode;
   onPress?: () => void;
@@ -36,7 +38,21 @@ const typography = {
 type PressableRef = React.ComponentRef<typeof Pressable>;
 
 const Button = forwardRef<PressableRef, ButtonProps>(
-  ({ size, variant, disabled, children, leftIconName, rightIconName, style, ...rest }, ref) => {
+  (
+    {
+      size,
+      variant,
+      disabled,
+      children,
+      leftIconName,
+      rightIconName,
+      leftIcon,
+      rightIcon,
+      style,
+      ...rest
+    },
+    ref
+  ) => {
     const [showOutline, setShowOutline] = useState(false);
     const { getIconColor, getBorderColor, getTextColor } = useButtonColors(variant, disabled);
 
@@ -90,6 +106,7 @@ const Button = forwardRef<PressableRef, ButtonProps>(
             {leftIconName && (
               <MaterialIcons name={leftIconName} size={20} color={getIconColor(pressed)} />
             )}
+            {leftIcon && leftIcon}
             <Text
               style={[
                 typography[size],
@@ -101,6 +118,7 @@ const Button = forwardRef<PressableRef, ButtonProps>(
             >
               {children}
             </Text>
+            {rightIcon && rightIcon}
             {rightIconName && (
               <MaterialIcons name={rightIconName} size={20} color={getIconColor(pressed)} />
             )}
@@ -120,6 +138,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     overflow: 'hidden',
     borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonOutline: {
     borderRadius: 8,
