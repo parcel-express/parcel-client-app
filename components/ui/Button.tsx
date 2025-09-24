@@ -1,7 +1,7 @@
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { forwardRef, useState } from 'react';
-import { Pressable, PressableProps, StyleSheet, Text } from 'react-native';
+import { Pressable, PressableProps, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
@@ -11,7 +11,9 @@ export type ButtonProps = Omit<PressableProps, 'style' | 'children' | 'onPress' 
   variant: 'primary' | 'secondary';
   leftIconName?: keyof typeof MaterialIcons.glyphMap;
   rightIconName?: keyof typeof MaterialIcons.glyphMap;
-  style?: object;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
   children?: React.ReactNode;
   onPress?: () => void;
   disabled?: boolean;
@@ -36,7 +38,21 @@ const typography = {
 type PressableRef = React.ComponentRef<typeof Pressable>;
 
 const Button = forwardRef<PressableRef, ButtonProps>(
-  ({ size, variant, disabled, children, leftIconName, rightIconName, ...rest }, ref) => {
+  (
+    {
+      size,
+      variant,
+      disabled,
+      children,
+      leftIconName,
+      rightIconName,
+      leftIcon,
+      rightIcon,
+      style,
+      ...rest
+    },
+    ref
+  ) => {
     const [showOutline, setShowOutline] = useState(false);
     const { getIconColor, getBorderColor, getTextColor } = useButtonColors(variant, disabled);
 
@@ -49,7 +65,7 @@ const Button = forwardRef<PressableRef, ButtonProps>(
         focusable={!disabled}
         onFocus={() => setShowOutline(true)}
         onBlur={() => setShowOutline(false)}
-        style={[showOutline && styles.buttonOutline]}
+        style={[showOutline && styles.buttonOutline, styles.full]}
         {...rest}
       >
         {({ pressed }) => (
@@ -71,6 +87,7 @@ const Button = forwardRef<PressableRef, ButtonProps>(
             start={{ x: 0, y: 0.5 }}
             end={{ x: 1, y: 0.5 }}
             style={[
+              style,
               styles.button,
               {
                 ...sizes[size],
@@ -89,6 +106,7 @@ const Button = forwardRef<PressableRef, ButtonProps>(
             {leftIconName && (
               <MaterialIcons name={leftIconName} size={20} color={getIconColor(pressed)} />
             )}
+            {leftIcon && leftIcon}
             <Text
               style={[
                 typography[size],
@@ -100,6 +118,7 @@ const Button = forwardRef<PressableRef, ButtonProps>(
             >
               {children}
             </Text>
+            {rightIcon && rightIcon}
             {rightIconName && (
               <MaterialIcons name={rightIconName} size={20} color={getIconColor(pressed)} />
             )}
@@ -119,6 +138,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     overflow: 'hidden',
     borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonOutline: {
     borderRadius: 8,
@@ -129,4 +150,5 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
   },
+  full: { flex: 1 },
 });

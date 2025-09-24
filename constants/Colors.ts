@@ -42,6 +42,7 @@ export const Colors = {
     primary: '#181D27',
     white: '#FFFFFF',
     disabled: '#717680',
+    black: '#000000',
   },
   border: {
     primary: '#E6E8EB',
@@ -57,11 +58,13 @@ export const Colors = {
     white: '#FFFFFF',
     disabled: '#FAFAFA',
     transparent: 'transparent',
+    black: '#000000',
     body: '#F5F5F5',
     body_dark: '#151718',
     successSecondary: '#17B26A',
     avatar: '#F0F0F0',
     imagePlaceholder: '#D9D9D9',
+    infoAmanat: 'rgba(102, 45, 145, 0.1)',
   },
   button: {
     primaryBorder: '#FFFFFF',
@@ -96,6 +99,7 @@ export const Colors = {
     black: '#000000',
     secondary: '#A4A7AE',
     tertiary: '#414651',
+    disabled: '#B1BEC6',
   },
   tag: {
     success: {

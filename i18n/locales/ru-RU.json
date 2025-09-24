@@ -173,17 +173,22 @@
       "faceId": "Face ID"
     },
     "invoices": {
-      "title": "Счета",
-      "status": {
-        "paid": "Оплачено",
-        "pending": "В ожидании",
-        "overdue": "Просрочено",
-        "partiallyPaid": "Частично оплачено"
-      }
+      "title": "Счета"
     },
     "contact": {
       "online": "Онлайн"
     }
+  },
+  "orders": {
+    "title": "Мои заказы",
+    "tabs": {
+      "onGoing": "Текущие",
+      "failed": "Неудачные",
+      "completed": "Завершенные"
+    },
+    "sender": "Отправитель",
+    "receiver": "Получатель",
+    "noOrdersFound": "Заказы не найдены"
   },
   "common": {
     "cancel": "Отмена",
@@ -194,5 +199,12 @@
     "back": "Назад",
     "logo": "Логотип компании",
     "selectDate": "Выберите дату"
+  },
+  "status": {
+    "status": "Статус",
+    "paid": "Оплачено",
+    "pending": "В ожидании",
+    "overdue": "Просрочено",
+    "partiallyPaid": "Частично оплачено"
   }
 }

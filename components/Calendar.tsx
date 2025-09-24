@@ -163,6 +163,7 @@ const Calendar: React.FC<CalendarProps> = ({ onSave, initialSelection, disabled 
         size={'sm'}
         disabled={disabled}
         ref={triggerRef}
+        style={styles.buttonPadding}
       >
         <View style={styles.row}>
           <CalendarIcon />
@@ -209,14 +210,7 @@ const Calendar: React.FC<CalendarProps> = ({ onSave, initialSelection, disabled 
             />
           </View>
           <View style={styles.footer}>
-            <Button
-              onPress={() => {
-                setIsVisible(false);
-              }}
-              variant='secondary'
-              size={'md'}
-              style={styles.flex}
-            >
+            <Button onPress={() => setIsVisible(false)} variant='secondary' size={'md'}>
               {t('common.cancel')}
             </Button>
             <Button
@@ -229,7 +223,6 @@ const Calendar: React.FC<CalendarProps> = ({ onSave, initialSelection, disabled 
               }}
               variant='primary'
               size={'md'}
-              style={styles.flex}
             >
               {t('common.save')}
             </Button>
@@ -242,7 +235,6 @@ const Calendar: React.FC<CalendarProps> = ({ onSave, initialSelection, disabled 
 
 export default Calendar;
 const styles = StyleSheet.create({
-  flex: { flex: 1 },
   calendar: {
     position: 'absolute',
     borderWidth: 1,
@@ -264,6 +256,7 @@ const styles = StyleSheet.create({
     gap: 8,
     padding: 16,
   },
+  buttonPadding: { paddingVertical: 8.85 },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
