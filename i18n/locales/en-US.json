@@ -55,7 +55,10 @@
     "profiletitle": "Profile"
   },
   "home": {
-    "welcome": "Welcome to Parcel Express! Your reliable courier service."
+    "title": "My Dashboard",
+    "currencyBalance": "Currency Balance",
+    "serviceBalance": "Service Balance",
+    "totalBalance": "Total Balance"
   },
   "profile": {
     "title": "Profile",

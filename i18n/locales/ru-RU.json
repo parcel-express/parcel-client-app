@@ -55,7 +55,10 @@
     "profiletitle": "профиль"
   },
   "home": {
-    "welcome": "Добро пожаловать в Parcel Express! Ваш надежный курьерский сервис."
+    "title": "Моя панель",
+    "currencyBalance": "Финансовый баланс",
+    "serviceBalance": "Баланс услуг",
+    "totalBalance": "Общий баланс"
   },
   "profile": {
     "title": "Профиль",

@@ -42,6 +42,7 @@ export const Colors = {
     primary: '#181D27',
     white: '#FFFFFF',
     disabled: '#717680',
+    black: '#000000',
   },
   border: {
     primary: '#E6E8EB',
@@ -55,6 +56,7 @@ export const Colors = {
   },
   background: {
     white: '#FFFFFF',
+    secondarySubtle: '#FDFDFD',
     disabled: '#FAFAFA',
     transparent: 'transparent',
     body: '#F5F5F5',
