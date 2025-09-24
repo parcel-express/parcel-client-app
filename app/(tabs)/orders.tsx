@@ -4,18 +4,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import Calendar from '@/components/Calendar';
 import ContentView from '@/components/ContentView';
+import Filters from '@/components/Filters';
 import Header from '@/components/Header';
 import EmptyWishlistIcon from '@/components/icons/EmptyWishlistIcon';
-import SearchIcon from '@/components/icons/SearchIcon';
-import ShortCutIcon from '@/components/icons/ShortCutIcon';
 import { ThemedView } from '@/components/ThemedView';
 import Card from '@/components/ui/Card';
 import InfoModal from '@/components/ui/InfoModal';
-import Input from '@/components/ui/Input';
-import Select from '@/components/ui/Select';
-import TabSwitcher from '@/components/ui/TabSwitcher';
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
 
@@ -146,31 +141,17 @@ export default function OrdersScreen() {
       <ContentView style={styles.container}>
         <FlatList
           ListHeaderComponent={
-            <>
-              <Input
-                name={'search'}
-                leftIcon={<SearchIcon />}
-                rightIcon={<ShortCutIcon />}
-                formik={formik}
-                placeholder='Search'
-              />
-              <View style={styles.row}>
-                <View style={styles.container}>
-                  <Calendar onSave={(start, end) => setDate({ start, end })} />
-                </View>
-                <View>
-                  <Select
-                    variant='secondary'
-                    placeholder='status'
-                    options={options}
-                    value={status}
-                    setValue={(value: string) => setStatus(value as Status)}
-                    size='sm'
-                  />
-                </View>
-              </View>
-              <TabSwitcher tabs={tabs} activeTab={tab} onChange={val => setTab(val)} />
-            </>
+            <Filters
+              formik={formik}
+              setDate={setDate}
+              date={date}
+              status={status}
+              setStatus={setStatus}
+              tab={tab}
+              setTab={setTab}
+              options={options}
+              tabs={tabs}
+            />
           }
           ListHeaderComponentStyle={styles.flatListContainer}
           data={filteredOrders}
@@ -209,12 +190,6 @@ const styles = StyleSheet.create({
   flatListContainer: {
     gap: 10,
     zIndex: 10,
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 20,
-    justifyContent: 'space-between',
   },
   show: {
     display: 'flex',

@@ -26,7 +26,7 @@ type Props = {
   message?: string | undefined;
 };
 
-const SupportModal: React.FC<Props> = ({ visible, onClose, message }) => {
+const NotificationsModal: React.FC<Props> = ({ visible, onClose, message }) => {
   const { t } = useTranslation();
   const formik = useFormik({
     initialValues: {
@@ -112,7 +112,7 @@ const SupportModal: React.FC<Props> = ({ visible, onClose, message }) => {
   );
 };
 
-export default SupportModal;
+export default NotificationsModal;
 
 const styles = StyleSheet.create({
   overlay: {
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     gap: 22,
   },
   footer: {
-    paddingTop: 44,
+    marginTop: 44,
   },
   black: {
     color: Colors.text.black,

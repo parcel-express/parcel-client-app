@@ -193,6 +193,22 @@
     },
     "contact": {
       "online": "Онлайн"
+    },
+    "support": {
+      "title": "Поддержка",
+      "filters": {
+        "status": {
+          "all": "Все",
+          "open": "Открытые",
+          "closed": "Закрытые"
+        }
+      },
+      "labels": {
+        "dateCreated": "Дата создания",
+        "seen": "Дата просмотра",
+        "name": "Имя, Фамилия",
+        "ticketNumber": "Номер заказа"
+      }
     }
   },
   "orders": {
@@ -204,7 +220,10 @@
     },
     "sender": "Отправитель",
     "receiver": "Получатель",
-    "noOrdersFound": "Заказы не найдены"
+    "noOrdersFound": "Заказы не найдены",
+    "chooseTopic": "Выберите тему",
+    "anotherSubject": "Другая тема",
+    "download": "Скачать"
   },
   "common": {
     "cancel": "Отмена",
@@ -222,6 +241,8 @@
     "paid": "Оплачено",
     "pending": "В ожидании",
     "overdue": "Просрочено",
-    "partiallyPaid": "Частично оплачено"
+    "partiallyPaid": "Частично оплачено",
+    "open": "Открыто",
+    "closed": "Закрыто"
   }
 }

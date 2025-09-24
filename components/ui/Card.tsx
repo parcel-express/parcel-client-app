@@ -8,6 +8,7 @@ import type {
   InfoProps,
   InvoicesProps,
   OrderProps,
+  SupportProps,
   TariffsProps,
 } from '@/app/types/cardTypes';
 import { Colors } from '@/constants/Colors';
@@ -19,11 +20,12 @@ import TrashIcon from '../icons/TrashIcon';
 import CardView from './CardView';
 import Tag from './Tag';
 
-type Props = InvoicesProps | AddressesProps | TariffsProps | OrderProps | InfoProps;
+type Props = InvoicesProps | AddressesProps | TariffsProps | OrderProps | InfoProps | SupportProps;
 const sizes: Record<
   Props['variant'],
   { header: { paddingBottom: number }; body: { paddingTop: number }; paddingBottom: number }
 > = {
+  support: { header: { paddingBottom: 14 }, body: { paddingTop: 16 }, paddingBottom: 22 },
   info: { header: { paddingBottom: 0 }, body: { paddingTop: 18 }, paddingBottom: 18 },
   orders: { header: { paddingBottom: 20 }, body: { paddingTop: 20 }, paddingBottom: 16 },
   tariffs: { header: { paddingBottom: 20 }, body: { paddingTop: 20 }, paddingBottom: 16 },
@@ -40,6 +42,36 @@ const Card = (props: Props) => {
     >
       <View style={[styles.dot, receiver && styles.bigDot]}></View>
     </LinearGradient>
+  );
+  const Row = ({
+    item,
+    idx,
+  }: {
+    idx: number;
+    item: { label: string; value: string | React.ReactNode };
+  }) => (
+    <View style={[styles.row, styles.spaceBetween]} key={`${item.label}-${item.value}-${idx}`}>
+      <Text
+        style={[
+          variant === 'info' ? Typography.textXsMedium : Typography.textXsRegular,
+          variant === 'info' ? styles.black : styles.tertiary,
+        ]}
+      >
+        {item.label}
+      </Text>
+      {typeof item.value === 'string' ? (
+        <Text
+          style={[
+            variant === 'info' ? Typography.textXsMedium : Typography.textXsRegular,
+            variant === 'info' ? styles.black : styles.tertiary,
+          ]}
+        >
+          {item.value}
+        </Text>
+      ) : (
+        item.value
+      )}
+    </View>
   );
   return (
     <CardView style={{ paddingBottom: sizes[variant].paddingBottom }}>
@@ -92,7 +124,7 @@ const Card = (props: Props) => {
               </TouchableOpacity>
             </View>
           ) : (
-            (variant === 'invoices' || variant === 'orders') && (
+            (variant === 'invoices' || variant === 'orders' || variant === 'support') && (
               <Tag label={data.status} variant={data.statusVariant} />
             )
           )}
@@ -142,36 +174,17 @@ const Card = (props: Props) => {
             </View>
           </View>
         )}
+        {variant === 'support' && (
+          <View style={[styles.gapMd, data.title && sizes[variant].body, styles.datePadding]}>
+            {data.date.map((item, idx) => (
+              <Row item={item} key={idx} idx={idx} />
+            ))}
+          </View>
+        )}
       </View>
       <View style={[styles.gapMd, data.title && sizes[variant].body]}>
         {Array.isArray(data.body)
-          ? data.body.map((item, idx) => (
-              <View
-                style={[styles.row, styles.spaceBetween]}
-                key={`${item.label}-${item.value}-${idx}`}
-              >
-                <Text
-                  style={[
-                    variant === 'info' ? Typography.textXsMedium : Typography.textXsRegular,
-                    variant === 'info' ? styles.black : styles.tertiary,
-                  ]}
-                >
-                  {item.label}
-                </Text>
-                {typeof item.value === 'string' ? (
-                  <Text
-                    style={[
-                      variant === 'info' ? Typography.textXsMedium : Typography.textXsRegular,
-                      variant === 'info' ? styles.black : styles.tertiary,
-                    ]}
-                  >
-                    {item.value}
-                  </Text>
-                ) : (
-                  item.value
-                )}
-              </View>
-            ))
+          ? data.body.map((item, idx) => <Row item={item} key={idx} idx={idx} />)
           : data.body}
       </View>
     </CardView>
@@ -244,5 +257,8 @@ const styles = StyleSheet.create({
     height: 5,
     borderRadius: 5,
     backgroundColor: Colors.text.tertiary,
+  },
+  datePadding: {
+    paddingTop: 23,
   },
 });
