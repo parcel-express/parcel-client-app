@@ -46,12 +46,12 @@
     "home": "Главная",
     "orders": "Заказы",
     "newOrder": "Новый заказ",
-    "support": "Поддержка",
+    "notifications": "Уведомления",
     "profile": "Профиль",
     "hometitle": "Моя панель",
     "orderstitle": "Мои заказы",
     "newOrdertitle": "Новый заказ",
-    "supporttitle": "Поддержка",
+    "notificationstitle": "Уведомления",
     "profiletitle": "профиль"
   },
   "home": {

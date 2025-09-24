@@ -16,7 +16,7 @@ type Notification = {
   message: string;
   fullMessage: string;
 };
-export default function SupportScreen() {
+export default function NotificationScreen() {
   const [isModalVisible, setModalIsVisible] = React.useState(false);
   const [activeNotification, setActiveNotification] = React.useState<Notification | null>(null);
   const { t } = useTranslation();

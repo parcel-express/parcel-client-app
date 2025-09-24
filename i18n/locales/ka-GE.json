@@ -46,12 +46,12 @@
     "home": "მთავარი",
     "orders": "შეკვეთები",
     "newOrder": "ახალი შეკვეთა",
-    "support": "ჩათი",
+    "notifications": "შეტყობინებები",
     "profile": "პროფილი",
     "hometitle": "ჩემი დეშბორდი",
     "orderstitle": "ჩემი შეკვეთები",
     "newOrdertitle": "ახალი შეკვეთა",
-    "supporttitle": "ჩათი",
+    "notificationstitle": "შეტყობინებები",
     "profiletitle": "პროფილი"
   },
   "home": {

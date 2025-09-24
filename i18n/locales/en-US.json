@@ -46,12 +46,12 @@
     "home": "Home",
     "orders": "Orders",
     "newOrder": "New Order",
-    "support": "Support",
+    "notifications": "Notifications",
     "profile": "Profile",
     "hometitle": "My Dashboard",
     "orderstitle": "My Orders",
     "newOrdertitle": "New Order",
-    "supporttitle": "Support",
+    "notificationstitle": "Notifications",
     "profiletitle": "Profile"
   },
   "home": {
