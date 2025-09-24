@@ -60,6 +60,10 @@
     "serviceBalance": "Баланс услуг",
     "totalBalance": "Общий баланс"
   },
+  "notifications": {
+    "title": "Уведомления",
+    "sendNotification": "Отправить уведомление"
+  },
   "profile": {
     "title": "Профиль",
     "menu": {

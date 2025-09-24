@@ -60,6 +60,10 @@
     "serviceBalance": "სერვისის ბალანსი",
     "totalBalance": "სრული ბალანსი"
   },
+  "notifications": {
+    "title": "შეტყობინებები",
+    "sendNotification": "შეტყობინების გაგზავნა"
+  },
   "profile": {
     "title": "პროფილი",
     "menu": {

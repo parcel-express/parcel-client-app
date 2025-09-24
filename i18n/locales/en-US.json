@@ -60,6 +60,10 @@
     "serviceBalance": "Service Balance",
     "totalBalance": "Total Balance"
   },
+  "notifications": {
+    "title": "Notifications",
+    "sendNotification": "Send Notification"
+  },
   "profile": {
     "title": "Profile",
     "menu": {
