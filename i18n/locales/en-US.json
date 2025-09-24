@@ -163,13 +163,7 @@
       "deleteConfirm": "Are you sure you want to delete this address?"
     },
     "invoices": {
-      "title": "Invoices",
-      "status": {
-        "paid": "Paid",
-        "pending": "Pending",
-        "overdue": "Overdue",
-        "partiallyPaid": "Partially Paid"
-      }
+      "title": "Invoices"
     },
     "tariffs": {
       "title": "Tariffs",
@@ -183,6 +177,17 @@
       "online": "Online"
     }
   },
+  "orders": {
+    "title": "My Orders",
+    "tabs": {
+      "onGoing": "Ongoing",
+      "failed": "Failed",
+      "completed": "Completed"
+    },
+    "sender": "Sender",
+    "receiver": "Receiver",
+    "noOrdersFound": "No orders found"
+  },
   "common": {
     "cancel": "Cancel",
     "save": "Save",
@@ -192,5 +197,12 @@
     "back": "Back",
     "logo": "Company Logo",
     "selectDate": "Select Date"
+  },
+  "status": {
+    "status": "Status",
+    "paid": "Paid",
+    "pending": "Pending",
+    "overdue": "Overdue",
+    "partiallyPaid": "Partially Paid"
   }
 }
