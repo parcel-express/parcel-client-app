@@ -62,7 +62,16 @@
   },
   "notifications": {
     "title": "Notifications",
-    "sendNotification": "Send Notification"
+    "sendNotification": "Send Notification",
+    "modal": {
+      "sendTitle": "Send Notification",
+      "sendSubTitle": "Select a topic and write to us",
+      "titlePlaceholder": "Title",
+      "trackingPlaceholder": "Enter tracking code",
+      "trackingLabel": "Tracking",
+      "messagePlaceholder": "Leave us a message",
+      "messageLabel": "Message"
+    }
   },
   "profile": {
     "title": "Profile",
@@ -190,6 +199,7 @@
   "common": {
     "cancel": "Cancel",
     "save": "Save",
+    "send": "Send",
     "delete": "Delete",
     "edit": "Edit",
     "add": "Add",

@@ -62,7 +62,16 @@
   },
   "notifications": {
     "title": "შეტყობინებები",
-    "sendNotification": "შეტყობინების გაგზავნა"
+    "sendNotification": "შეტყობინების გაგზავნა",
+    "modal": {
+      "sendTitle": "შეტყობინების გაგზავნა",
+      "sendSubTitle": "აირჩიეთ საკითხი და მოგვწერეთ",
+      "titlePlaceholder": "სათაური",
+      "trackingPlaceholder": "ჩაწერე თრექინგის კოდი",
+      "trackingLabel": "თრექინგის",
+      "messagePlaceholder": "დაგვიტოვეთ შეტყობინება",
+      "messageLabel": "შეტყობინება"
+    }
   },
   "profile": {
     "title": "პროფილი",
@@ -190,6 +199,7 @@
   "common": {
     "cancel": "გაუქმება",
     "save": "შენახვა",
+    "send": "გაგზავნა",
     "delete": "წაშლა",
     "edit": "რედაქტირება",
     "add": "დამატება",

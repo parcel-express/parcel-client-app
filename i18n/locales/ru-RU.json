@@ -62,7 +62,16 @@
   },
   "notifications": {
     "title": "Уведомления",
-    "sendNotification": "Отправить уведомление"
+    "sendNotification": "Отправить уведомление",
+    "modal": {
+      "sendTitle": "Отправить уведомление",
+      "sendSubTitle": "Выберите тему и напишите нам",
+      "titlePlaceholder": "Заголовок",
+      "trackingPlaceholder": "Введите трекинг-код",
+      "trackingLabel": "Трекинг",
+      "messagePlaceholder": "Оставьте нам сообщение",
+      "messageLabel": "Сообщение"
+    }
   },
   "profile": {
     "title": "Профиль",
@@ -195,6 +204,7 @@
   "common": {
     "cancel": "Отмена",
     "save": "Сохранить",
+    "send": "Отправить",
     "delete": "Удалить",
     "edit": "Редактировать",
     "add": "Добавить",
