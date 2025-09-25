@@ -41,12 +41,22 @@ export type Info = {
   body: { label: string; value: string | JSX.Element }[] | JSX.Element;
 };
 
+export type Support = {
+  id: string;
+  title: string;
+  date: { label: string; value: string }[];
+  body: { label: string; value: string | JSX.Element }[] | JSX.Element;
+  status: string;
+  statusVariant: TagVariant;
+};
+
 export type AddressesProps = {
   variant: 'addresses';
   data: Address;
   onEditPress: () => void;
   onDeletePress: () => void;
 };
+
 export type OrderProps = {
   variant: 'orders';
   data: Order;
@@ -62,6 +72,11 @@ export type TariffsProps = {
 export type InfoProps = {
   variant: 'info';
   data: Info;
+};
+
+export type SupportProps = {
+  variant: 'support';
+  data: Support;
 };
 
 export default {};

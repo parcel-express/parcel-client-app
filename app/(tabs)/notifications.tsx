@@ -9,7 +9,7 @@ import Header from '@/components/Header';
 import SettingsButton from '@/components/SettingsButton';
 import { ThemedView } from '@/components/ThemedView';
 import NotificationCard from '@/components/ui/NotificationCard';
-import SupportModal from '@/components/ui/SupportModal';
+import NotificationsModal from '@/components/ui/NotificationsModal';
 import { Colors } from '@/constants/Colors';
 type Notification = {
   id: number;
@@ -56,7 +56,7 @@ export default function NotificationScreen() {
       darkColor={Colors.dark.background}
     >
       <Header title={t('notifications.title')} />
-      <SupportModal
+      <NotificationsModal
         visible={isModalVisible}
         onClose={closeModal}
         message={activeNotification?.fullMessage ?? undefined}

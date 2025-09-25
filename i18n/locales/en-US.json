@@ -188,6 +188,33 @@
     },
     "contact": {
       "online": "Online"
+    },
+    "support": {
+      "title": "Support",
+      "filters": {
+        "status": {
+          "all": "All",
+          "open": "Open",
+          "closed": "Closed"
+        }
+      },
+      "labels": {
+        "dateCreated": "Date Created",
+        "seen": "Date Seen",
+        "name": "Name",
+        "ticketNumber": "Ticket Number",
+        "chooseTopic": "Choose Topic",
+        "anotherSubject": "Another Subject",
+        "download": "Download"
+      },
+      "form": {
+        "fullNameLabel": "Name, Surname",
+        "fullNamePlaceholder": "Enter Name and Surname",
+        "fullNameRequired": "Name and Surname are required",
+        "city": "City",
+        "cityPlaceholder": "Choose City",
+        "cityRequired": "City is required"
+      }
     }
   },
   "orders": {
@@ -217,6 +244,8 @@
     "paid": "Paid",
     "pending": "Pending",
     "overdue": "Overdue",
-    "partiallyPaid": "Partially Paid"
+    "partiallyPaid": "Partially Paid",
+    "open": "Open",
+    "closed": "Closed"
   }
 }

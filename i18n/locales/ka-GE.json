@@ -188,6 +188,33 @@
     },
     "contact": {
       "online": "Online"
+    },
+    "support": {
+      "title": "მხარდაჭერა",
+      "filters": {
+        "status": {
+          "all": "ყველა",
+          "open": "გახსნილი",
+          "closed": "დახურული"
+        }
+      },
+      "labels": {
+        "dateCreated": "შექმნის თარიღი",
+        "seen": "სავ. დას. თარიღი",
+        "name": "სახელი, გვარი",
+        "ticketNumber": "შეკვეთის ნომერი",
+        "chooseTopic": "აირჩიეთ თემა",
+        "anotherSubject": "სხვა თემა",
+        "download": "გადმოწერა"
+      },
+      "form": {
+        "fullNameLabel": "სახელი, გვარი",
+        "fullNamePlaceholder": "სახელი და გვარი",
+        "fullNameRequired": "სახელი და გვარი აუცილებელია",
+        "city": "ქალაქი",
+        "cityPlaceholder": "აირჩიეთ ქალაქი",
+        "cityRequired": "ქალაქი აუცილებელია"
+      }
     }
   },
   "orders": {
@@ -217,6 +244,8 @@
     "paid": "გადახდილია",
     "pending": "მიმდინარე",
     "overdue": "ვადაგასული",
-    "partiallyPaid": "ნაწილობრივ გადახდილია"
+    "partiallyPaid": "ნაწილობრივ გადახდილია",
+    "open": "გახსნილი",
+    "closed": "დახურული"
   }
 }

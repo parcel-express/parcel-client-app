@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 
+import { Info } from '@/app/types/cardTypes';
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
 
@@ -30,9 +31,10 @@ type Props = {
   onClose: () => void;
   title?: string;
   message?: string;
+  data?: Info[];
 };
 
-const InfoModal: React.FC<Props> = ({ visible, onClose, title }) => {
+const InfoModal: React.FC<Props> = ({ visible, onClose, title, data }) => {
   const windowHeight = useWindowDimensions().height;
   const height = windowHeight * 0.85;
   const billingInfo = [
@@ -100,7 +102,7 @@ const InfoModal: React.FC<Props> = ({ visible, onClose, title }) => {
       </View>
     </View>
   );
-  const data = {
+  const packageData = {
     icon: <PackageIcon />,
     title: 'ინფორმაცია ამანათზე',
     body: <AmanatInfo />,
@@ -138,7 +140,14 @@ const InfoModal: React.FC<Props> = ({ visible, onClose, title }) => {
     title: 'შეკვეთა: #223394',
     body: <ActionCard />,
   };
-  const flatListData = [actionData, invoiceData, senderData, receiverData, data, billingData];
+  const flatListData = [
+    actionData,
+    invoiceData,
+    senderData,
+    receiverData,
+    packageData,
+    billingData,
+  ];
   return (
     <Modal visible={visible} transparent animationType='slide' onRequestClose={onClose}>
       <View style={styles.overlay}>
@@ -151,7 +160,7 @@ const InfoModal: React.FC<Props> = ({ visible, onClose, title }) => {
             </TouchableOpacity>
           </View>
           <FlatList
-            data={flatListData}
+            data={data || flatListData}
             keyExtractor={(_, index) => index.toString()}
             renderItem={({ item }) => <Card variant='info' data={item} />}
             contentContainerStyle={styles.body}

@@ -28,7 +28,7 @@ const sizes = {
 };
 
 const typography = {
-  sm: Typography.textSmSemiBold,
+  sm: Typography.textSmMedium,
   md: Typography.textMdSemiBold,
   lg: Typography.textLgSemiBold,
   xl: Typography.textMdSemiBold,
@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    flex: 1,
   },
   buttonOutline: {
     borderRadius: 8,
