@@ -46,6 +46,11 @@ export const Typography = StyleSheet.create({
     fontWeight: '600',
     lineHeight: 16,
   },
+  textXsBold: {
+    ...textXs,
+    fontWeight: '700',
+    lineHeight: 16,
+  },
   textXsRegular: {
     ...textXs,
     fontWeight: '400',

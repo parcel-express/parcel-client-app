@@ -24,14 +24,22 @@ type Props = {
   visible: boolean;
   onClose: () => void;
   message?: string | undefined;
+  variant?: 'support' | 'notifications';
 };
 
-const NotificationsModal: React.FC<Props> = ({ visible, onClose, message }) => {
+const NotificationsModal: React.FC<Props> = ({
+  visible,
+  onClose,
+  message,
+  variant = 'notifications',
+}) => {
   const { t } = useTranslation();
   const formik = useFormik({
     initialValues: {
       title: '',
       trackingCode: '',
+      fullName: '',
+      city: '',
       message: '',
     },
     onSubmit: (_, { resetForm }) => {
@@ -93,6 +101,22 @@ const NotificationsModal: React.FC<Props> = ({ visible, onClose, message }) => {
                 label={t('notifications.modal.trackingLabel')}
                 formik={formik}
               />
+              {variant === 'support' && (
+                <>
+                  <Input
+                    name={'fullName'}
+                    placeholder={t('profile.support.form.fullNamePlaceholder')}
+                    label={t('profile.support.form.fullNameLabel')}
+                    formik={formik}
+                  />
+                  <Select
+                    placeholder={t('profile.support.form.cityPlaceholder')}
+                    options={options}
+                    setValue={value => formik.setFieldValue('city', value)}
+                    label={t('profile.support.form.cityLabel')}
+                  />
+                </>
+              )}
               <TextArea
                 label={t('notifications.modal.messageLabel')}
                 value={formik.values.message}

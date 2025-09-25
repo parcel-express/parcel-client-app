@@ -206,6 +206,14 @@
         "chooseTopic": "Choose Topic",
         "anotherSubject": "Another Subject",
         "download": "Download"
+      },
+      "form": {
+        "fullNameLabel": "Name, Surname",
+        "fullNamePlaceholder": "Enter Name and Surname",
+        "fullNameRequired": "Name and Surname are required",
+        "city": "City",
+        "cityPlaceholder": "Choose City",
+        "cityRequired": "City is required"
       }
     }
   },

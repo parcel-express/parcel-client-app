@@ -206,6 +206,14 @@
         "chooseTopic": "აირჩიეთ თემა",
         "anotherSubject": "სხვა თემა",
         "download": "გადმოწერა"
+      },
+      "form": {
+        "fullNameLabel": "სახელი, გვარი",
+        "fullNamePlaceholder": "სახელი და გვარი",
+        "fullNameRequired": "სახელი და გვარი აუცილებელია",
+        "city": "ქალაქი",
+        "cityPlaceholder": "აირჩიეთ ქალაქი",
+        "cityRequired": "ქალაქი აუცილებელია"
       }
     }
   },

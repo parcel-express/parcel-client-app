@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { Support } from '@/app/types/cardTypes';
 import { Status, Tab } from '@/app/types/orderTypes';
@@ -13,9 +13,13 @@ import SettingsButton from '@/components/SettingsButton';
 import { ThemedView } from '@/components/ThemedView';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
+import InfoCard from '@/components/ui/InfoCard';
+import InfoModal from '@/components/ui/InfoModal';
 import NotificationsModal from '@/components/ui/NotificationsModal';
 import Select from '@/components/ui/Select';
+import Tag from '@/components/ui/Tag';
 import { Colors } from '@/constants/Colors';
+import { Typography } from '@/constants/Typography';
 
 const SupportPage = () => {
   const formik = useFormik({
@@ -26,6 +30,7 @@ const SupportPage = () => {
       // TO DO: Implement search functionality
     },
   });
+  const [isInfoModalVisible, setInfoModalIsVisible] = React.useState(false);
   const [isModalVisible, setModalIsVisible] = React.useState(false);
   const [tab, setTab] = React.useState<Tab>('Ongoing');
   const [status, setStatus] = React.useState<Status | 'status'>('status');
@@ -94,11 +99,76 @@ const SupportPage = () => {
   ];
   const openModal = () => setModalIsVisible(true);
   const closeModal = () => (setModalIsVisible(false), null);
+  const openInfoModal = () => setInfoModalIsVisible(true);
+  const closeInfoModal = () => (setInfoModalIsVisible(false), null);
+  const Status = () => (
+    <View style={[styles.row, styles.spaceBetween]}>
+      <Text style={[Typography.textSmRegular, { color: Colors.text.primary }]}>
+        შეკვეთა: <Text style={[Typography.textSmBold]}>#223394</Text>
+      </Text>
+      <Tag label={t('status.open')} variant='success' />
+    </View>
+  );
+  const infoData = [
+    {
+      body: <Status />,
+    },
+    {
+      body: (
+        <InfoCard
+          variant='row'
+          data={[
+            { label: 'დაფიქსირების თარიღი:', value: '17/07/2025 12:12' },
+            { label: 'სავარაუდო დასრულების თარიღი:', value: '17/07/2025' },
+            {
+              label: 'დასრულების თარიღი:',
+              value: '17/07/2025 12:27',
+            },
+          ]}
+        />
+      ),
+    },
+    {
+      body: (
+        <InfoCard
+          variant='unstyled'
+          data={[
+            { label: 'თემა', value: 'ჩაბარების თარიღის დაზუსტება' },
+            { label: 'მომხმარებლის კომენტარი', value: 'როდის ჩაბარდება ამანათი?' },
+            {
+              label: 'ონვეის კომენტარი',
+              value: 'ადრესატმა დღეს არ უპასუხა კურიერის ზარს, ხელმეორედ ვიზიტი მოხდება ხვალ.',
+            },
+          ]}
+        />
+      ),
+    },
+    {
+      body: [
+        {
+          label: 'სტატუსი',
+          value: <Tag label={'pending'} variant='warning' />,
+        },
+        {
+          label: 'მომსახურების დონე',
+          value: 'სტანდარტი',
+        },
+        { label: 'შეკვეთის თარიღი', value: '12/12/2023' },
+        { label: 'აღების თარიღი', value: '12/12/2023' },
+        { label: 'სავა. ჩაბარების თარიღი', value: '12/12/2023' },
+        {
+          label: 'დასრულების თარიღი',
+          value: '- -',
+        },
+      ],
+    },
+  ];
 
   return (
     <ThemedView style={styles.container}>
       <Header title={t('profile.support.title')} hasGoBack />
-      <NotificationsModal visible={isModalVisible} onClose={closeModal} />
+      <NotificationsModal visible={isModalVisible} onClose={closeModal} variant='support' />
+      <InfoModal data={infoData} onClose={closeInfoModal} visible={isInfoModalVisible} />
       <ContentView>
         <View style={styles.filtersContainer}>
           <SettingsButton onPress={openModal}>ახალი მიმართვა</SettingsButton>
@@ -141,7 +211,11 @@ const SupportPage = () => {
         </View>
         <FlatList
           data={data}
-          renderItem={({ item }) => <Card data={item} variant='support' />}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={openInfoModal}>
+              <Card data={item} variant='support' />
+            </TouchableOpacity>
+          )}
           contentContainerStyle={styles.body}
         />
       </ContentView>
@@ -172,6 +246,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+  },
+  spaceBetween: {
+    justifyContent: 'space-between',
   },
   buttonContainer: { maxWidth: 130, flex: 1 },
 });

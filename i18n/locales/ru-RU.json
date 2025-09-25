@@ -208,6 +208,14 @@
         "seen": "Дата просмотра",
         "name": "Имя, Фамилия",
         "ticketNumber": "Номер заказа"
+      },
+      "form": {
+        "fullNameLabel": "Имя, Фамилия",
+        "fullNamePlaceholder": "Введите имя и фамилию",
+        "fullNameRequired": "Имя и фамилия обязательны",
+        "city": "Город",
+        "cityPlaceholder": "Выберите город",
+        "cityRequired": "Город обязателен"
       }
     }
   },
