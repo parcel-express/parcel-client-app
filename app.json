@@ -30,7 +30,8 @@
       },
       "edgeToEdgeEnabled": true,
       "package": "ge.parcelexpress.clientapp",
-      "jsEngine": "hermes"
+      "jsEngine": "hermes",
+      "permissions": ["android.permission.RECORD_AUDIO", "android.permission.RECORD_AUDIO"]
     },
     "web": {
       "bundler": "metro",
@@ -45,8 +46,15 @@
           "photosPermission": "Allow $(PRODUCT_NAME) to access your photos"
         }
       ],
-      ["expo-splash-screen", { "imageWidth": 164 }],
-      "expo-localization"
+      [
+        "expo-splash-screen",
+        {
+          "imageWidth": 164
+        }
+      ],
+      "expo-localization",
+      "expo-font",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
@@ -56,6 +64,12 @@
       "eas": {
         "projectId": "19a5a658-cc31-49f3-a430-ed51a3464cff"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/19a5a658-cc31-49f3-a430-ed51a3464cff"
     }
   }
 }
