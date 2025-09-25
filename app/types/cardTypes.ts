@@ -1,3 +1,5 @@
+import { JSX } from 'react';
+
 import { TagVariant } from '@/components/ui/Tag';
 
 export type Invoice = {
@@ -20,6 +22,33 @@ export type Address = {
   address: string;
   body: { label: string; value: string }[];
 };
+type Person = {
+  name: string;
+  address: string;
+};
+export type Order = {
+  id: string;
+  title: string;
+  status: string;
+  statusVariant: TagVariant;
+  sender: Person;
+  receiver: Person;
+  body: { label: string; value: string }[];
+};
+export type Info = {
+  icon?: JSX.Element;
+  title?: string;
+  body: { label: string; value: string | JSX.Element }[] | JSX.Element;
+};
+
+export type Support = {
+  id: string;
+  title: string;
+  date: { label: string; value: string }[];
+  body: { label: string; value: string | JSX.Element }[] | JSX.Element;
+  status: string;
+  statusVariant: TagVariant;
+};
 
 export type AddressesProps = {
   variant: 'addresses';
@@ -28,6 +57,10 @@ export type AddressesProps = {
   onDeletePress: () => void;
 };
 
+export type OrderProps = {
+  variant: 'orders';
+  data: Order;
+};
 export type InvoicesProps = {
   variant: 'invoices';
   data: Invoice;
@@ -35,6 +68,15 @@ export type InvoicesProps = {
 export type TariffsProps = {
   variant: 'tariffs';
   data: Tariffs;
+};
+export type InfoProps = {
+  variant: 'info';
+  data: Info;
+};
+
+export type SupportProps = {
+  variant: 'support';
+  data: Support;
 };
 
 export default {};

@@ -1,7 +1,7 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, StyleSheet, Text } from 'react-native';
+import { FlatList, Platform, StyleSheet, Text } from 'react-native';
 
 import type { Tariffs } from '@/app/types/cardTypes';
 import ContentView from '@/components/ContentView';
@@ -11,7 +11,7 @@ import Card from '@/components/ui/Card';
 import InfoCard from '@/components/ui/InfoCard';
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
-
+const PADDING = 18;
 const TariffListHeader = () => {
   const { t } = useTranslation();
   return (
@@ -24,7 +24,11 @@ const TariffListHeader = () => {
 };
 export default function TariffsScreen() {
   const { t } = useTranslation();
-  const paddingBottom = useBottomTabBarHeight();
+  const tabBarHeight = useBottomTabBarHeight();
+  const paddingBottom = React.useMemo(
+    () => (Platform.OS === 'ios' ? tabBarHeight + PADDING : PADDING),
+    [tabBarHeight]
+  );
   const data: Tariffs[] = [
     {
       title: 'Tariff 1',
@@ -79,6 +83,7 @@ export default function TariffsScreen() {
           renderItem={({ item }) => <Card variant='tariffs' data={item} />}
           keyExtractor={item => item.title}
           contentContainerStyle={[styles.flatListContainer, { paddingBottom }]}
+          scrollIndicatorInsets={{ bottom: paddingBottom }}
         />
       </ContentView>
     </ThemedView>
@@ -92,7 +97,7 @@ const styles = StyleSheet.create({
     gap: 24,
   },
   flatListContainer: {
-    padding: 18,
+    padding: PADDING,
     gap: 24,
   },
 });

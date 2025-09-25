@@ -46,16 +46,32 @@
     "home": "მთავარი",
     "orders": "შეკვეთები",
     "newOrder": "ახალი შეკვეთა",
-    "support": "ჩათი",
+    "notifications": "შეტყობინებები",
     "profile": "პროფილი",
     "hometitle": "ჩემი დეშბორდი",
     "orderstitle": "ჩემი შეკვეთები",
     "newOrdertitle": "ახალი შეკვეთა",
-    "supporttitle": "ჩათი",
+    "notificationstitle": "შეტყობინებები",
     "profiletitle": "პროფილი"
   },
   "home": {
-    "welcome": "მოგესალმებით Parcel Express-ში! თქვენი სანდო კურიერული სერვისი."
+    "title": "ჩემი დეშბორდი",
+    "currencyBalance": "ფულის ბალანსი",
+    "serviceBalance": "სერვისის ბალანსი",
+    "totalBalance": "სრული ბალანსი"
+  },
+  "notifications": {
+    "title": "შეტყობინებები",
+    "sendNotification": "შეტყობინების გაგზავნა",
+    "modal": {
+      "sendTitle": "შეტყობინების გაგზავნა",
+      "sendSubTitle": "აირჩიეთ საკითხი და მოგვწერეთ",
+      "titlePlaceholder": "სათაური",
+      "trackingPlaceholder": "ჩაწერე თრექინგის კოდი",
+      "trackingLabel": "თრექინგის",
+      "messagePlaceholder": "დაგვიტოვეთ შეტყობინება",
+      "messageLabel": "შეტყობინება"
+    }
   },
   "profile": {
     "title": "პროფილი",
@@ -168,25 +184,68 @@
       "faceId": "Face ID"
     },
     "invoices": {
-      "title": "ინვოისები",
-      "status": {
-        "paid": "გადახდილია",
-        "pending": "მიმდინარე",
-        "overdue": "ვადაგასული",
-        "partiallyPaid": "ნაწილობრივ გადახდილია"
-      }
+      "title": "ინვოისები"
     },
     "contact": {
       "online": "Online"
+    },
+    "support": {
+      "title": "მხარდაჭერა",
+      "filters": {
+        "status": {
+          "all": "ყველა",
+          "open": "გახსნილი",
+          "closed": "დახურული"
+        }
+      },
+      "labels": {
+        "dateCreated": "შექმნის თარიღი",
+        "seen": "სავ. დას. თარიღი",
+        "name": "სახელი, გვარი",
+        "ticketNumber": "შეკვეთის ნომერი",
+        "chooseTopic": "აირჩიეთ თემა",
+        "anotherSubject": "სხვა თემა",
+        "download": "გადმოწერა"
+      },
+      "form": {
+        "fullNameLabel": "სახელი, გვარი",
+        "fullNamePlaceholder": "სახელი და გვარი",
+        "fullNameRequired": "სახელი და გვარი აუცილებელია",
+        "city": "ქალაქი",
+        "cityPlaceholder": "აირჩიეთ ქალაქი",
+        "cityRequired": "ქალაქი აუცილებელია"
+      }
     }
+  },
+  "orders": {
+    "title": "ჩემი შეკვეთები",
+    "tabs": {
+      "onGoing": "მიმდინარე",
+      "failed": "წარუმატებელი",
+      "completed": "დასრულებული"
+    },
+    "sender": "გამგზავნი",
+    "receiver": "მიმღები",
+    "noOrdersFound": "შეკვეთები ვერ მოიძებნა"
   },
   "common": {
     "cancel": "გაუქმება",
     "save": "შენახვა",
+    "send": "გაგზავნა",
     "delete": "წაშლა",
     "edit": "რედაქტირება",
     "add": "დამატება",
     "back": "უკან",
-    "logo": "კომპანიის ლოგო"
+    "logo": "კომპანიის ლოგო",
+    "selectDate": "აირჩიეთ თარიღი"
+  },
+  "status": {
+    "status": "სტატუსი",
+    "paid": "გადახდილია",
+    "pending": "მიმდინარე",
+    "overdue": "ვადაგასული",
+    "partiallyPaid": "ნაწილობრივ გადახდილია",
+    "open": "გახსნილი",
+    "closed": "დახურული"
   }
 }

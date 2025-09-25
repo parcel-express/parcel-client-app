@@ -172,7 +172,7 @@ export default function SettingsScreen() {
       <ContentView>
         <KeyboardAvoidingView
           style={styles.container}
-          behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           keyboardVerticalOffset={bottomPad}
         >
           <ScrollView

@@ -46,16 +46,32 @@
     "home": "Home",
     "orders": "Orders",
     "newOrder": "New Order",
-    "support": "Support",
+    "notifications": "Notifications",
     "profile": "Profile",
     "hometitle": "My Dashboard",
     "orderstitle": "My Orders",
     "newOrdertitle": "New Order",
-    "supporttitle": "Support",
+    "notificationstitle": "Notifications",
     "profiletitle": "Profile"
   },
   "home": {
-    "welcome": "Welcome to Parcel Express! Your reliable courier service."
+    "title": "My Dashboard",
+    "currencyBalance": "Currency Balance",
+    "serviceBalance": "Service Balance",
+    "totalBalance": "Total Balance"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "sendNotification": "Send Notification",
+    "modal": {
+      "sendTitle": "Send Notification",
+      "sendSubTitle": "Select a topic and write to us",
+      "titlePlaceholder": "Title",
+      "trackingPlaceholder": "Enter tracking code",
+      "trackingLabel": "Tracking",
+      "messagePlaceholder": "Leave us a message",
+      "messageLabel": "Message"
+    }
   },
   "profile": {
     "title": "Profile",
@@ -160,13 +176,7 @@
       "deleteConfirm": "Are you sure you want to delete this address?"
     },
     "invoices": {
-      "title": "Invoices",
-      "status": {
-        "paid": "Paid",
-        "pending": "Pending",
-        "overdue": "Overdue",
-        "partiallyPaid": "Partially Paid"
-      }
+      "title": "Invoices"
     },
     "tariffs": {
       "title": "Tariffs",
@@ -178,15 +188,64 @@
     },
     "contact": {
       "online": "Online"
+    },
+    "support": {
+      "title": "Support",
+      "filters": {
+        "status": {
+          "all": "All",
+          "open": "Open",
+          "closed": "Closed"
+        }
+      },
+      "labels": {
+        "dateCreated": "Date Created",
+        "seen": "Date Seen",
+        "name": "Name",
+        "ticketNumber": "Ticket Number",
+        "chooseTopic": "Choose Topic",
+        "anotherSubject": "Another Subject",
+        "download": "Download"
+      },
+      "form": {
+        "fullNameLabel": "Name, Surname",
+        "fullNamePlaceholder": "Enter Name and Surname",
+        "fullNameRequired": "Name and Surname are required",
+        "city": "City",
+        "cityPlaceholder": "Choose City",
+        "cityRequired": "City is required"
+      }
     }
+  },
+  "orders": {
+    "title": "My Orders",
+    "tabs": {
+      "onGoing": "Ongoing",
+      "failed": "Failed",
+      "completed": "Completed"
+    },
+    "sender": "Sender",
+    "receiver": "Receiver",
+    "noOrdersFound": "No orders found"
   },
   "common": {
     "cancel": "Cancel",
     "save": "Save",
+    "send": "Send",
     "delete": "Delete",
     "edit": "Edit",
     "add": "Add",
     "back": "Back",
-    "logo": "Company Logo"
+    "logo": "Company Logo",
+    "selectDate": "Select Date"
+  },
+  "status": {
+    "status": "Status",
+    "paid": "Paid",
+    "pending": "Pending",
+    "overdue": "Overdue",
+    "partiallyPaid": "Partially Paid",
+    "open": "Open",
+    "closed": "Closed"
   }
 }

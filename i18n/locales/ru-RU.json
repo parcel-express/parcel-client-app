@@ -46,16 +46,32 @@
     "home": "Главная",
     "orders": "Заказы",
     "newOrder": "Новый заказ",
-    "support": "Поддержка",
+    "notifications": "Уведомления",
     "profile": "Профиль",
     "hometitle": "Моя панель",
     "orderstitle": "Мои заказы",
     "newOrdertitle": "Новый заказ",
-    "supporttitle": "Поддержка",
+    "notificationstitle": "Уведомления",
     "profiletitle": "профиль"
   },
   "home": {
-    "welcome": "Добро пожаловать в Parcel Express! Ваш надежный курьерский сервис."
+    "title": "Моя панель",
+    "currencyBalance": "Финансовый баланс",
+    "serviceBalance": "Баланс услуг",
+    "totalBalance": "Общий баланс"
+  },
+  "notifications": {
+    "title": "Уведомления",
+    "sendNotification": "Отправить уведомление",
+    "modal": {
+      "sendTitle": "Отправить уведомление",
+      "sendSubTitle": "Выберите тему и напишите нам",
+      "titlePlaceholder": "Заголовок",
+      "trackingPlaceholder": "Введите трекинг-код",
+      "trackingLabel": "Трекинг",
+      "messagePlaceholder": "Оставьте нам сообщение",
+      "messageLabel": "Сообщение"
+    }
   },
   "profile": {
     "title": "Профиль",
@@ -173,25 +189,68 @@
       "faceId": "Face ID"
     },
     "invoices": {
-      "title": "Счета",
-      "status": {
-        "paid": "Оплачено",
-        "pending": "В ожидании",
-        "overdue": "Просрочено",
-        "partiallyPaid": "Частично оплачено"
-      }
+      "title": "Счета"
     },
     "contact": {
       "online": "Онлайн"
+    },
+    "support": {
+      "title": "Поддержка",
+      "filters": {
+        "status": {
+          "all": "Все",
+          "open": "Открытые",
+          "closed": "Закрытые"
+        }
+      },
+      "labels": {
+        "dateCreated": "Дата создания",
+        "seen": "Дата просмотра",
+        "name": "Имя, Фамилия",
+        "ticketNumber": "Номер заказа"
+      },
+      "form": {
+        "fullNameLabel": "Имя, Фамилия",
+        "fullNamePlaceholder": "Введите имя и фамилию",
+        "fullNameRequired": "Имя и фамилия обязательны",
+        "city": "Город",
+        "cityPlaceholder": "Выберите город",
+        "cityRequired": "Город обязателен"
+      }
     }
+  },
+  "orders": {
+    "title": "Мои заказы",
+    "tabs": {
+      "onGoing": "Текущие",
+      "failed": "Неудачные",
+      "completed": "Завершенные"
+    },
+    "sender": "Отправитель",
+    "receiver": "Получатель",
+    "noOrdersFound": "Заказы не найдены",
+    "chooseTopic": "Выберите тему",
+    "anotherSubject": "Другая тема",
+    "download": "Скачать"
   },
   "common": {
     "cancel": "Отмена",
     "save": "Сохранить",
+    "send": "Отправить",
     "delete": "Удалить",
     "edit": "Редактировать",
     "add": "Добавить",
     "back": "Назад",
-    "logo": "Логотип компании"
+    "logo": "Логотип компании",
+    "selectDate": "Выберите дату"
+  },
+  "status": {
+    "status": "Статус",
+    "paid": "Оплачено",
+    "pending": "В ожидании",
+    "overdue": "Просрочено",
+    "partiallyPaid": "Частично оплачено",
+    "open": "Открыто",
+    "closed": "Закрыто"
   }
 }

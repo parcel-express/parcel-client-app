@@ -14,10 +14,10 @@ export default function InvoicesScreen() {
   const { t } = useTranslation();
   const tabBarHeight = useBottomTabBarHeight();
   const status = {
-    paid: t('profile.invoices.status.paid'),
-    partiallyPaid: t('profile.invoices.status.partiallyPaid'),
-    pending: t('profile.invoices.status.pending'),
-    overdue: t('profile.invoices.status.overdue'),
+    paid: t('status.paid'),
+    partiallyPaid: t('status.partiallyPaid'),
+    pending: t('status.pending'),
+    overdue: t('status.overdue'),
   };
   const data: Invoice[] = [
     {
