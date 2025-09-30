@@ -15,7 +15,11 @@ export default function StackedBarWithAxes({
   colors: string[];
 }) {
   const font = useFont(require('../assets/fonts/SpaceMono-Regular.ttf'), 12);
-  const maxValue = Math.max(...data.map(data => data.listenCount + data.like + data.dislike)) + 20;
+  const maxValue =
+    Math.max(...data.map(data => data.listenCount + data.like + data.dislike)) + 20 || 100;
+  if (!font) {
+    return null;
+  }
   return (
     <CardView style={[{ minHeight }, styles.container]}>
       <CartesianChart
