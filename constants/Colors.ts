@@ -53,6 +53,7 @@ export const Colors = {
     borderLight: '#00000014',
     secondary: '#D5D7DA',
     card: '#E2E3E5',
+    tertiary: '#F5F5F5',
   },
   background: {
     white: '#FFFFFF',
@@ -125,5 +126,18 @@ export const Colors = {
   modal: {
     background: '#F2F2F2',
     overlay: 'rgba(0,0,0,0.5)',
+  },
+  charts: {
+    primaryScheme: {
+      first: '#F04438',
+      second: '#F79009',
+      end: '#17B26A',
+    },
+    secondaryScheme: {
+      first: '#6941C6',
+      second: '#9E77ED',
+      end: '#E9EAEB',
+    },
+    green: '#17B26A',
   },
 };

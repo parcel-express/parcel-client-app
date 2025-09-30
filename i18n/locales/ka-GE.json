@@ -58,7 +58,11 @@
     "title": "ჩემი დეშბორდი",
     "currencyBalance": "ფულის ბალანსი",
     "serviceBalance": "სერვისის ბალანსი",
-    "totalBalance": "სრული ბალანსი"
+    "totalBalance": "სრული ბალანსი",
+    "statistic": "სტატისტიკა",
+    "submitted": "ჩაბარებული",
+    "undeliverable": "ჩაუბარებელი",
+    "current": "მიმდინარე"
   },
   "notifications": {
     "title": "შეტყობინებები",
@@ -247,5 +251,19 @@
     "partiallyPaid": "ნაწილობრივ გადახდილია",
     "open": "გახსნილი",
     "closed": "დახურული"
+  },
+  "months": {
+    "january": "იან",
+    "february": "თებ",
+    "march": "მარ",
+    "april": "აპრ",
+    "may": "მაი",
+    "june": "ივნ",
+    "july": "ივლ",
+    "august": "აგვ",
+    "september": "სექ",
+    "october": "ოქტ",
+    "november": "ნოე",
+    "december": "დეკ"
   }
 }

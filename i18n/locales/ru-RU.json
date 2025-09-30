@@ -58,7 +58,11 @@
     "title": "Моя панель",
     "currencyBalance": "Финансовый баланс",
     "serviceBalance": "Баланс услуг",
-    "totalBalance": "Общий баланс"
+    "totalBalance": "Общий баланс",
+    "statistic": "Статистика",
+    "submitted": "Отправленные",
+    "undeliverable": "Неотправленные",
+    "current": "Текущие"
   },
   "notifications": {
     "title": "Уведомления",
@@ -252,5 +256,19 @@
     "partiallyPaid": "Частично оплачено",
     "open": "Открыто",
     "closed": "Закрыто"
+  },
+  "months": {
+    "january": "Янв",
+    "february": "Фев",
+    "march": "Мар",
+    "april": "Апр",
+    "may": "Май",
+    "june": "Июн",
+    "july": "Июл",
+    "august": "Авг",
+    "september": "Сен",
+    "october": "Окт",
+    "november": "Ноя",
+    "december": "Дек"
   }
 }
