@@ -58,7 +58,11 @@
     "title": "My Dashboard",
     "currencyBalance": "Currency Balance",
     "serviceBalance": "Service Balance",
-    "totalBalance": "Total Balance"
+    "totalBalance": "Total Balance",
+    "statistic": "Statistic",
+    "submitted": "Submitted",
+    "undeliverable": "Undeliverable",
+    "current": "Current"
   },
   "notifications": {
     "title": "Notifications",
@@ -247,5 +251,19 @@
     "partiallyPaid": "Partially Paid",
     "open": "Open",
     "closed": "Closed"
+  },
+  "months": {
+    "january": "Jan",
+    "february": "Feb",
+    "march": "Mar",
+    "april": "Apr",
+    "may": "May",
+    "june": "Jun",
+    "july": "Jul",
+    "august": "Aug",
+    "september": "Sep",
+    "october": "Oct",
+    "november": "Nov",
+    "december": "Dec"
   }
 }
