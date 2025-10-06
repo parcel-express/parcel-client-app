@@ -84,6 +84,16 @@
       "cityPlaceholder": "Select City",
       "phoneNumber": "Phone Number",
       "phoneNumberPlaceholder": "Enter Phone Number"
+    },
+    "weightForm": {
+      "title": "Choose Package Weight",
+      "weightLabel": "Or choose other weight",
+      "weightPlaceholder": "Enter weight",
+      "quantityLabel": "Choose Quantity",
+      "quantityPlaceholder": "Quantity",
+      "orderNumberLabel": "Order Number",
+      "orderNumberPlaceholder": "#",
+      "commentPlaceholder": "Enter comment"
     }
   },
   "notifications": {

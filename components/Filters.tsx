@@ -35,7 +35,11 @@ const Filters = ({ formik, setDate, status, setStatus, tab, setTab, options, tab
       />
       <View style={styles.row}>
         <View style={styles.container}>
-          <Calendar onSave={(start, end) => setDate({ start, end })} />
+          <Calendar
+            onSave={(start, end) =>
+              setDate({ ...(start ? { start } : {}), ...(end ? { end } : {}) })
+            }
+          />
         </View>
         <View>
           <Select

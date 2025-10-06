@@ -84,6 +84,16 @@
       "cityPlaceholder": "აირჩიე ქალაქი",
       "phoneNumber": "ტელეფონი",
       "phoneNumberPlaceholder": "ტელეფონი"
+    },
+    "weightForm": {
+      "title": "აირჩიე ამანათის წონა",
+      "weightLabel": "ან აირჩიეთ სხვა წონა",
+      "weightPlaceholder": "ჩაწერე წონა",
+      "quantityLabel": "აირჩიე რაოდენობა",
+      "quantityPlaceholder": "რაოდენობა",
+      "orderNumberLabel": "შეკვეთის ნომერი",
+      "orderNumberPlaceholder": "#",
+      "commentPlaceholder": "მიუთითე კომენტარი"
     }
   },
   "notifications": {

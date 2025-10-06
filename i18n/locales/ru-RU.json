@@ -84,6 +84,16 @@
       "cityPlaceholder": "Выберите город",
       "phoneNumber": "Телефон",
       "phoneNumberPlaceholder": "Введите телефон"
+    },
+    "weightForm": {
+      "title": "Выберите вес посылки",
+      "weightLabel": "Или выберите другой вес",
+      "weightPlaceholder": "Введите вес",
+      "quantityLabel": "Выберите количество",
+      "quantityPlaceholder": "Количество",
+      "orderNumberLabel": "Номер заказа",
+      "orderNumberPlaceholder": "#",
+      "commentPlaceholder": "Введите комментарий"
     }
   },
   "notifications": {
