@@ -64,6 +64,25 @@
     "undeliverable": "ჩაუბარებელი",
     "current": "მიმდინარე"
   },
+  "new-order": {
+    "title": "ახალი შეკვეთა",
+    "senderLabel": "აირჩიეთ გამგზავნი",
+    "receiverLabel": "აირჩიეთ მიმღები",
+    "form": {
+      "address": "მისამართი",
+      "addressPlaceholder": "მისამართი",
+      "name": "სახელი",
+      "namePlaceholder": "სახელი",
+      "surname": "გვარი",
+      "surnamePlaceholder": "გვარი",
+      "company": "კომპანია",
+      "companyPlaceholder": "აირჩიე კომპანია",
+      "city": "ქალაქი",
+      "cityPlaceholder": "აირჩიე ქალაქი",
+      "phoneNumber": "ტელეფონი",
+      "phoneNumberPlaceholder": "ტელეფონი"
+    }
+  },
   "notifications": {
     "title": "შეტყობინებები",
     "sendNotification": "შეტყობინების გაგზავნა",
@@ -241,7 +260,8 @@
     "add": "დამატება",
     "back": "უკან",
     "logo": "კომპანიის ლოგო",
-    "selectDate": "აირჩიეთ თარიღი"
+    "selectDate": "აირჩიეთ თარიღი",
+    "continue": "გაგრძელება"
   },
   "status": {
     "status": "სტატუსი",

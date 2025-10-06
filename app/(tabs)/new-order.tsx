@@ -21,16 +21,16 @@ export default function NewOrderScreen() {
       lightColor={Colors.light.background}
       darkColor={Colors.dark.background}
     >
-      <Header title={t('notifications.title')} closeButton />
+      <Header title={t('new-order.title')} closeButton />
       <ContentView style={[styles.content, { paddingBottom: tabBarHeight + 20 }]}>
         <View style={styles.buttonsContainer}>
-          <DropDown />
+          <DropDown label={t('new-order.senderLabel')} type={'sender'} />
           <View style={styles.divider} />
-          <DropDown />
+          <DropDown label={t('new-order.receiverLabel')} type={'receiver'} />
         </View>
 
         <Button size='md' variant={'primary'} style={styles.submitButton}>
-          გაგრძელება
+          {t('common.continue')}
         </Button>
       </ContentView>
     </ThemedView>

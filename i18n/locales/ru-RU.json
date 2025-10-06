@@ -64,6 +64,25 @@
     "undeliverable": "Неотправленные",
     "current": "Текущие"
   },
+  "new-order": {
+    "title": "Новый заказ",
+    "senderLabel": "Выберите отправителя",
+    "receiverLabel": "Выберите получателя",
+    "form": {
+      "address": "Адрес",
+      "addressPlaceholder": "Введите адрес",
+      "name": "Имя",
+      "namePlaceholder": "Введите имя",
+      "surname": "Фамилия",
+      "surnamePlaceholder": "Введите фамилию",
+      "company": "Компания",
+      "companyPlaceholder": "Выберите компанию",
+      "city": "Город",
+      "cityPlaceholder": "Выберите город",
+      "phoneNumber": "Телефон",
+      "phoneNumberPlaceholder": "Введите телефон"
+    }
+  },
   "notifications": {
     "title": "Уведомления",
     "sendNotification": "Отправить уведомление",
@@ -246,7 +265,8 @@
     "add": "Добавить",
     "back": "Назад",
     "logo": "Логотип компании",
-    "selectDate": "Выберите дату"
+    "selectDate": "Выберите дату",
+    "continue": "Продолжение"
   },
   "status": {
     "status": "Статус",

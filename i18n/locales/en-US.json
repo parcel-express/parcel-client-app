@@ -64,6 +64,25 @@
     "undeliverable": "Undeliverable",
     "current": "Current"
   },
+  "new-order": {
+    "title": "New Order",
+    "senderLabel": "Select Sender",
+    "receiverLabel": "Select Receiver",
+    "form": {
+      "address": "Address",
+      "addressPlaceholder": "Enter Address",
+      "name": "Name",
+      "namePlaceholder": "Enter Name",
+      "surname": "Surname",
+      "surnamePlaceholder": "Enter Surname",
+      "company": "Company",
+      "companyPlaceholder": "Select Company",
+      "city": "City",
+      "cityPlaceholder": "Select City",
+      "phoneNumber": "Phone Number",
+      "phoneNumberPlaceholder": "Enter Phone Number"
+    }
+  },
   "notifications": {
     "title": "Notifications",
     "sendNotification": "Send Notification",
@@ -241,7 +260,8 @@
     "add": "Add",
     "back": "Back",
     "logo": "Company Logo",
-    "selectDate": "Select Date"
+    "selectDate": "Select Date",
+    "continue": "Continue"
   },
   "status": {
     "status": "Status",

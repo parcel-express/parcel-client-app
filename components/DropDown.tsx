@@ -1,3 +1,4 @@
+import { useFormik } from 'formik';
 import React from 'react';
 import { Animated, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
@@ -6,36 +7,83 @@ import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';
 
 import MarkerPinIcon from './icons/MarkerPinIcon';
+import ReceiverIcon from './icons/ReceiverIcon';
 import SenderIcon from './icons/SenderIcon';
-
-const DropDown = () => {
+import AddressModal from './ui/AddressModal';
+type DropDownProps = {
+  label: string;
+  type: 'sender' | 'receiver';
+};
+const DropDown = ({ label, type }: DropDownProps) => {
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [isDropDownOpen, setIsDropDownOpen] = React.useState(false);
+  const formik = useFormik({
+    initialValues: {
+      address: '',
+      name: '',
+      surname: '',
+      company: '',
+      city: '',
+      phoneNumber: '',
+    },
+    onSubmit: () => {
+      setIsModalVisible(false);
+    },
+  });
 
   return (
-    <TouchableOpacity onPress={() => setIsDropDownOpen(true)} style={styles.button}>
-      <View style={styles.labelContainer}>
-        <SenderIcon />
-        <Text style={[Typography.textSmMedium, { color: Colors.text.primary }]}>
-          აირჩიეთ გამგზავნი
-        </Text>
-      </View>
-      {isDropDownOpen && (
-        <Animated.View style={styles.dropDown}>
-          {[1, 2, 3].map(item => (
-            <TouchableOpacity
-              onPress={() => setIsDropDownOpen(false)}
-              style={[styles.labelContainer, styles.dropDownItem]}
-              key={item}
+    <>
+      <AddressModal
+        visible={isModalVisible}
+        onClose={function (): void {
+          setIsModalVisible(false);
+        }}
+        form={formik}
+      />
+      <TouchableOpacity onPress={() => setIsDropDownOpen(true)} style={styles.button}>
+        <View style={styles.labelContainer}>
+          {type === 'sender' ? <SenderIcon /> : <ReceiverIcon />}
+          <View>
+            <Text
+              style={[
+                formik.values.address
+                  ? [Typography.textSmBold, styles.lineHeight]
+                  : Typography.textSmMedium,
+                { color: Colors.text.primary },
+              ]}
             >
-              <MarkerPinIcon />
-              <Text style={[Typography.textSmMedium, { color: Colors.text.primary }]}>
-                ახალი მისამართი
+              {formik.values.address ? formik.values.address : label}
+            </Text>
+            {formik.values.name !== '' && (
+              <Text
+                style={[Typography.textSmMedium, { color: Colors.text.primary }, styles.lineHeight]}
+              >
+                {formik.values.name}
               </Text>
-            </TouchableOpacity>
-          ))}
-        </Animated.View>
-      )}
-    </TouchableOpacity>
+            )}
+          </View>
+        </View>
+        {isDropDownOpen && (
+          <Animated.View style={styles.dropDown}>
+            {[1, 2, 3].map(item => (
+              <TouchableOpacity
+                onPress={() => {
+                  setIsDropDownOpen(false);
+                  setIsModalVisible(true);
+                }}
+                style={[styles.labelContainer, styles.dropDownItem]}
+                key={item}
+              >
+                <MarkerPinIcon />
+                <Text style={[Typography.textSmMedium, { color: Colors.text.primary }]}>
+                  {label} {item}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </Animated.View>
+        )}
+      </TouchableOpacity>
+    </>
   );
 };
 
@@ -65,5 +113,8 @@ const styles = StyleSheet.create({
   },
   dropDownItem: {
     padding: 10,
+  },
+  lineHeight: {
+    lineHeight: 14,
   },
 });
