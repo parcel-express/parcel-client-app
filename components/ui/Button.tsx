@@ -65,7 +65,7 @@ const Button = forwardRef<PressableRef, ButtonProps>(
         focusable={!disabled}
         onFocus={() => setShowOutline(true)}
         onBlur={() => setShowOutline(false)}
-        style={[showOutline && styles.buttonOutline, styles.full]}
+        style={[showOutline && styles.buttonOutline]}
         {...rest}
       >
         {({ pressed }) => (
@@ -87,12 +87,12 @@ const Button = forwardRef<PressableRef, ButtonProps>(
             start={{ x: 0, y: 0.5 }}
             end={{ x: 1, y: 0.5 }}
             style={[
-              style,
               styles.button,
               {
                 ...sizes[size],
                 borderColor: getBorderColor(),
               },
+              style,
             ]}
           >
             {pressed && variant === 'primary' && (
@@ -140,7 +140,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
   },
   buttonOutline: {
     borderRadius: 8,
@@ -151,5 +150,4 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
   },
-  full: { flex: 1 },
 });
