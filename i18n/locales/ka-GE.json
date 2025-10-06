@@ -68,6 +68,9 @@
     "title": "ახალი შეკვეთა",
     "senderLabel": "აირჩიეთ გამგზავნი",
     "receiverLabel": "აირჩიეთ მიმღები",
+    "fileLabel": "დოკუმენტის უკან მიწოდება",
+    "price": "30 ლარი",
+    "imageLabel": "დასურათება",
     "form": {
       "address": "მისამართი",
       "addressPlaceholder": "მისამართი",

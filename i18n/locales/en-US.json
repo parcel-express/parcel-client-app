@@ -68,6 +68,9 @@
     "title": "New Order",
     "senderLabel": "Select Sender",
     "receiverLabel": "Select Receiver",
+    "fileLabel": "File Delivery",
+    "price": "3 GEL",
+    "imageLabel": "Image",
     "form": {
       "address": "Address",
       "addressPlaceholder": "Enter Address",

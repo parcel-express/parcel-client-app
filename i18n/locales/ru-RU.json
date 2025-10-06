@@ -68,6 +68,9 @@
     "title": "Новый заказ",
     "senderLabel": "Выберите отправителя",
     "receiverLabel": "Выберите получателя",
+    "fileLabel": "Доставка документа",
+    "price": "30 лари",
+    "imageLabel": "Изображение",
     "form": {
       "address": "Адрес",
       "addressPlaceholder": "Введите адрес",
