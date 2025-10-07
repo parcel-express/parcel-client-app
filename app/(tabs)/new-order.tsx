@@ -70,13 +70,6 @@ export default function NewOrderScreen() {
       setIndex(0);
     },
   });
-  const handlePress = () => {
-    if (index < steps.length - 1) {
-      setIndex(prevIndex => prevIndex + 1);
-    } else {
-      formik.submitForm();
-    }
-  };
 
   const { width: screenWidth } = useWindowDimensions();
   const flatListRef = React.useRef<FlatList | null>(null);
@@ -87,12 +80,37 @@ export default function NewOrderScreen() {
     });
   }, [index, screenWidth]);
 
-  const steps = [
-    <Address formik={formik} key='address' />,
-    <OrderDetails formik={formik} key='orderDetails' />,
-    <Services formik={formik} key='services' />,
-    <Review formik={formik} key='review' />,
-  ];
+  const steps = React.useMemo(
+    () => [
+      <Address formik={formik} key='address' />,
+      <OrderDetails formik={formik} key='orderDetails' />,
+      <Services formik={formik} key='services' />,
+      <Review formik={formik} key='review' />,
+    ],
+    [formik]
+  );
+  const handlePress = React.useCallback(() => {
+    if (index < steps.length - 1) {
+      setIndex(prevIndex => prevIndex + 1);
+    } else {
+      formik.submitForm();
+    }
+  }, [index, steps.length, formik]);
+
+  const renderItem = React.useCallback(
+    ({ item }: { item: React.ReactElement }) => (
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={[styles.content, { width: screenWidth }]}
+      >
+        <View>{item}</View>
+        <Button size='md' variant={'primary'} style={styles.submitButton} onPress={handlePress}>
+          {index === steps.length - 1 ? t('new-order.reviewLabel') : t('common.continue')}
+        </Button>
+      </ScrollView>
+    ),
+    [screenWidth, handlePress, index, steps.length, t]
+  );
   return (
     <ThemedView
       style={styles.container}
@@ -109,22 +127,7 @@ export default function NewOrderScreen() {
           ref={flatListRef}
           data={steps}
           // wrap each step so it takes exactly one screen
-          renderItem={({ item }) => (
-            <ScrollView
-              style={styles.container}
-              contentContainerStyle={[styles.content, { width: screenWidth }]}
-            >
-              <View>{item}</View>
-              <Button
-                size='md'
-                variant={'primary'}
-                style={styles.submitButton}
-                onPress={handlePress}
-              >
-                {index === steps.length - 1 ? t('new-order.reviewLabel') : t('common.continue')}
-              </Button>
-            </ScrollView>
-          )}
+          renderItem={renderItem}
           keyExtractor={(_, i) => String(i)}
           horizontal
           pagingEnabled
