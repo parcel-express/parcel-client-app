@@ -106,7 +106,11 @@ export default function HomeScreen() {
             <>
               <Text style={[Typography.title]}>{t('home.statistic')}</Text>
               <View style={styles.calendarContainer}>
-                <Calendar onSave={(start, end) => setDate({ start, end })} />
+                <Calendar
+                  onSave={(start, end) =>
+                    setDate({ ...(start ? { start } : {}), ...(end ? { end } : {}) })
+                  }
+                />
               </View>
 
               <View style={styles.legendContainer}>

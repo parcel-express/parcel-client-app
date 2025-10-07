@@ -31,4 +31,29 @@ export const Shadows: Record<string, ViewStyle> = {
     shadowRadius: 24, // IOS
     elevation: 20, // Android
   },
+  shadow_lg03: {
+    shadowColor: '#0A0D12',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.12,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+
+  // box-shadow: 0px 4px 6px -2px var(--ColorsEffectsShadowsshadow-lg02);
+  shadow_lg02: {
+    shadowColor: '#0A0D12',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.12,
+    shadowRadius: 6,
+    elevation: 6,
+  },
+
+  // box-shadow: 0px 12px 16px -4px var(--ColorsEffectsShadowsshadow-lg01);
+  shadow_lg01: {
+    shadowColor: '#0A0D12',
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.1,
+    shadowRadius: 16,
+    elevation: 12,
+  },
 } as const;

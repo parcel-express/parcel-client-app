@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dimensions, Modal, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Calendar as RNCalendar } from 'react-native-calendars';
 import type { MarkedDates } from 'react-native-calendars/src/types';
 
@@ -10,18 +10,16 @@ import { Shadows } from '@/constants/Shadows';
 import CalendarIcon from './icons/CalendarIcon';
 import Chevron from './icons/Chevron';
 import Button from './ui/Button';
-interface CalendarProps {
-  onSave?: (start: string, end: string) => void;
-  initialSelection?: {
-    start?: string;
-    end?: string;
-  };
-  disabled?: boolean;
-}
-
 interface DateSelection {
   start: string;
   end: string;
+}
+interface CalendarProps {
+  onSave?: (start: string, end?: string) => void;
+  initialSelection?: DateSelection | string;
+  disabled?: boolean;
+  children?: React.ReactNode;
+  type?: 'single' | 'range';
 }
 
 interface TriggerLayout {
@@ -68,13 +66,28 @@ const getModalPosition = (
   return { left: Math.max(16, left), top: Math.max(16, top) };
 };
 
-const Calendar: React.FC<CalendarProps> = ({ onSave, initialSelection, disabled = false }) => {
+const Calendar: React.FC<CalendarProps> = ({
+  onSave,
+  initialSelection,
+  disabled = false,
+  children,
+  type = 'range',
+}) => {
   const { t, i18n } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
-  const [selected, setSelected] = useState<DateSelection>({
-    start: initialSelection?.start || '',
-    end: initialSelection?.end || '',
+  const [selected, setSelected] = useState<DateSelection | string>(() => {
+    if (typeof initialSelection === 'string') {
+      return {
+        start: initialSelection,
+        end: type === 'single' ? initialSelection : '',
+      };
+    }
+    return {
+      start: initialSelection?.start || '',
+      end: initialSelection?.end || '',
+    };
   });
+
   const triggerRef = React.useRef<View>(null);
   const [triggerLayout, setTriggerLayout] = useState<TriggerLayout>({
     x: 0,
@@ -87,6 +100,10 @@ const Calendar: React.FC<CalendarProps> = ({ onSave, initialSelection, disabled 
   const containerWidth = Math.min(328, screenWidth - 32);
 
   const handleDayPress = (day: { dateString: string }) => {
+    if (type === 'single' || typeof selected === 'string') {
+      setSelected(day.dateString);
+      return;
+    }
     if (!selected.start || (selected.start && selected.end)) {
       setSelected({ start: day.dateString, end: '' });
     } else if (selected.start && !selected.end) {
@@ -99,6 +116,15 @@ const Calendar: React.FC<CalendarProps> = ({ onSave, initialSelection, disabled 
   };
 
   const getMarkedDates = (): MarkedDates => {
+    if (typeof selected === 'string') {
+      return {
+        [selected]: {
+          selected: true,
+          selectedColor: Colors.brand.primary,
+          selectedTextColor: Colors.text.white,
+        },
+      };
+    }
     const markedDates: MarkedDates = {};
     if (selected.start) {
       markedDates[selected.start] = {
@@ -143,34 +169,62 @@ const Calendar: React.FC<CalendarProps> = ({ onSave, initialSelection, disabled 
     });
   };
 
-  const triggerLabel = selected.start
-    ? selected.end
-      ? `${formatDate(selected.start)} - ${formatDate(selected.end)}`
-      : `${formatDate(selected.start)} - `
-    : t('common.selectDate');
+  const triggerLabel =
+    typeof selected === 'string'
+      ? selected
+      : selected.start
+        ? selected.end
+          ? `${formatDate(selected.start)} - ${formatDate(selected.end)}`
+          : `${formatDate(selected.start)} - `
+        : t('common.selectDate');
   return (
     <>
-      <Button
-        onPress={() => {
-          triggerRef.current?.measureInWindow((x, y, width, height) => {
-            if (x !== undefined && y !== undefined && width !== undefined && height !== undefined) {
-              setTriggerLayout({ x, y, width, height });
-              setIsVisible(true);
-            }
-          });
-        }}
-        variant='secondary'
-        size={'sm'}
-        disabled={disabled}
-        ref={triggerRef}
-        style={styles.buttonPadding}
-      >
-        <View style={styles.row}>
-          <CalendarIcon />
-          <Text>{triggerLabel}</Text>
-        </View>
-      </Button>
-
+      {!children ? (
+        <Button
+          onPress={() => {
+            triggerRef.current?.measureInWindow((x, y, width, height) => {
+              if (
+                x !== undefined &&
+                y !== undefined &&
+                width !== undefined &&
+                height !== undefined
+              ) {
+                setTriggerLayout({ x, y, width, height });
+                setIsVisible(true);
+              }
+            });
+          }}
+          variant='secondary'
+          size={'sm'}
+          disabled={disabled}
+          ref={triggerRef}
+          style={styles.buttonPadding}
+        >
+          <View style={styles.row}>
+            <CalendarIcon />
+            <Text>{triggerLabel}</Text>
+          </View>
+        </Button>
+      ) : (
+        <TouchableOpacity
+          onPress={() => {
+            triggerRef.current?.measureInWindow((x, y, width, height) => {
+              if (
+                x !== undefined &&
+                y !== undefined &&
+                width !== undefined &&
+                height !== undefined
+              ) {
+                setTriggerLayout({ x, y, width, height });
+                setIsVisible(true);
+              }
+            });
+          }}
+          ref={triggerRef}
+        >
+          {children}
+        </TouchableOpacity>
+      )}
       <Modal
         animationType='fade'
         transparent={true}
@@ -186,7 +240,7 @@ const Calendar: React.FC<CalendarProps> = ({ onSave, initialSelection, disabled 
         >
           <View style={styles.body}>
             <RNCalendar
-              markingType='period'
+              markingType={type === 'single' ? 'dot' : 'period'}
               // Customize the appearance of the calendar
               renderArrow={direction => ArrowIcon(direction)}
               // Specify the current date
@@ -210,22 +264,30 @@ const Calendar: React.FC<CalendarProps> = ({ onSave, initialSelection, disabled 
             />
           </View>
           <View style={styles.footer}>
-            <Button onPress={() => setIsVisible(false)} variant='secondary' size={'md'}>
-              {t('common.cancel')}
-            </Button>
-            <Button
-              disabled={!selected.start}
-              onPress={() => {
-                setIsVisible(false);
-                if (onSave && selected.start) {
-                  onSave(selected.start, selected.end || selected.start);
-                }
-              }}
-              variant='primary'
-              size={'md'}
-            >
-              {t('common.save')}
-            </Button>
+            <View style={styles.full}>
+              <Button onPress={() => setIsVisible(false)} variant='secondary' size={'md'}>
+                {t('common.cancel')}
+              </Button>
+            </View>
+            <View style={styles.full}>
+              <Button
+                disabled={(typeof selected !== 'string' && !selected.start) || !selected}
+                onPress={() => {
+                  setIsVisible(false);
+                  if (onSave) {
+                    if (typeof selected === 'string') {
+                      onSave(selected);
+                    } else if (selected.start) {
+                      onSave(selected.start, selected.end || selected.start);
+                    }
+                  }
+                }}
+                variant='primary'
+                size={'md'}
+              >
+                {t('common.save')}
+              </Button>
+            </View>
           </View>
         </View>
       </Modal>
@@ -269,4 +331,5 @@ const styles = StyleSheet.create({
     marginLeft: -10,
   },
   zeroPadding: { paddingHorizontal: 0 },
+  full: { flex: 1 },
 });

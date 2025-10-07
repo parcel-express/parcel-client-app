@@ -64,6 +64,50 @@
     "undeliverable": "ჩაუბარებელი",
     "current": "მიმდინარე"
   },
+  "new-order": {
+    "title": "ახალი შეკვეთა",
+    "senderLabel": "აირჩიეთ გამგზავნი",
+    "reviewTitle": "შეკვეთის გადახედვა",
+    "reviewLabel": "შეკვეთის გაფორმება",
+    "receiverLabel": "აირჩიეთ მიმღები",
+    "fileLabel": "დოკუმენტის უკან მიწოდება",
+    "price": "30 ლარი",
+    "imageLabel": "დასურათება",
+    "form": {
+      "address": "მისამართი",
+      "addressPlaceholder": "მისამართი",
+      "name": "სახელი",
+      "namePlaceholder": "სახელი",
+      "surname": "გვარი",
+      "surnamePlaceholder": "გვარი",
+      "company": "კომპანია",
+      "companyPlaceholder": "აირჩიე კომპანია",
+      "city": "ქალაქი",
+      "cityPlaceholder": "აირჩიე ქალაქი",
+      "phoneNumber": "ტელეფონი",
+      "phoneNumberPlaceholder": "ტელეფონი",
+      "paymentMethod": "ანგარიშწორების ტიპი",
+      "paymentMethodPlaceholder": "აირჩიეთ ანგარიშწორების ტიპი",
+      "paymentMethodLabel": "ანგარიშწორების ტიპი",
+      "paymentSide": "გადახდის მხარე",
+      "paymentSidePlaceholder": "აირჩიეთ გადახდის მხარე",
+      "paymentSideLabel": "გადახდის მხარე"
+    },
+    "weightForm": {
+      "title": "აირჩიე ამანათის წონა",
+      "weightLabel": "ან აირჩიეთ სხვა წონა",
+      "weightPlaceholder": "ჩაწერე წონა",
+      "quantityLabel": "აირჩიე რაოდენობა",
+      "quantityPlaceholder": "რაოდენობა",
+      "orderNumberLabel": "შეკვეთის ნომერი",
+      "orderNumberPlaceholder": "#",
+      "commentPlaceholder": "მიუთითე კომენტარი"
+    },
+    "successTitle": "შეკვეთა წარმატებით დაემატა",
+    "successMessage": "შეკვეთების ნახვა შეგიძია ჩემი შეკვეთების გვერდზე",
+    "homePage": "მთავარი გვერდი",
+    "orderPage": "ჩემი შეკვეთები"
+  },
   "notifications": {
     "title": "შეტყობინებები",
     "sendNotification": "შეტყობინების გაგზავნა",
@@ -241,7 +285,8 @@
     "add": "დამატება",
     "back": "უკან",
     "logo": "კომპანიის ლოგო",
-    "selectDate": "აირჩიეთ თარიღი"
+    "selectDate": "აირჩიეთ თარიღი",
+    "continue": "გაგრძელება"
   },
   "status": {
     "status": "სტატუსი",

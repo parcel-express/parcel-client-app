@@ -8,7 +8,7 @@ import { Typography } from '@/constants/Typography';
 import { useButtonColors } from '@/hooks/useButtonColors';
 export type ButtonProps = Omit<PressableProps, 'style' | 'children' | 'onPress' | 'disabled'> & {
   size: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-  variant: 'primary' | 'secondary';
+  variant: 'primary' | 'secondary' | 'dark';
   leftIconName?: keyof typeof MaterialIcons.glyphMap;
   rightIconName?: keyof typeof MaterialIcons.glyphMap;
   leftIcon?: React.ReactNode;
@@ -65,7 +65,7 @@ const Button = forwardRef<PressableRef, ButtonProps>(
         focusable={!disabled}
         onFocus={() => setShowOutline(true)}
         onBlur={() => setShowOutline(false)}
-        style={[showOutline && styles.buttonOutline, styles.full]}
+        style={[showOutline && styles.buttonOutline]}
         {...rest}
       >
         {({ pressed }) => (
@@ -82,17 +82,22 @@ const Button = forwardRef<PressableRef, ButtonProps>(
                         ? Colors.button.secondaryHoverBackground
                         : Colors.button.secondaryBackground,
                     ]
-                  : [Colors.gradient.primary.start, Colors.gradient.primary.end]
+                  : variant === 'dark'
+                    ? [
+                        pressed ? Colors.button.darkHoverBackground : Colors.button.dark,
+                        pressed ? Colors.button.darkHoverBackground : Colors.button.dark,
+                      ]
+                    : [Colors.gradient.primary.start, Colors.gradient.primary.end]
             }
             start={{ x: 0, y: 0.5 }}
             end={{ x: 1, y: 0.5 }}
             style={[
-              style,
               styles.button,
               {
                 ...sizes[size],
                 borderColor: getBorderColor(),
               },
+              style,
             ]}
           >
             {pressed && variant === 'primary' && (
@@ -140,7 +145,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
   },
   buttonOutline: {
     borderRadius: 8,
@@ -151,5 +155,4 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
   },
-  full: { flex: 1 },
 });

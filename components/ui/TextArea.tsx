@@ -6,7 +6,7 @@ import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';
 
 type TextAreaProps = {
-  label: string;
+  label?: string;
   placeholder?: string;
   hintMessage?: string;
   disabled?: boolean;
@@ -43,7 +43,9 @@ const TextArea: React.FC<TextAreaProps> = ({
 
   return (
     <View style={styles.container}>
-      <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>{label}</Text>
+      {label && (
+        <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>{label}</Text>
+      )}
       <View
         style={{
           ...styles.inputContainer,
