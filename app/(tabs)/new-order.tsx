@@ -113,7 +113,6 @@ export default function NewOrderScreen() {
             <ScrollView
               style={styles.container}
               contentContainerStyle={[styles.content, { width: screenWidth }]}
-              scrollEnabled={index === steps.length - 1}
             >
               <View>{item}</View>
               <Button
