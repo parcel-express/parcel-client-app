@@ -2,7 +2,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dimensions, FlatList, ScrollView, StyleSheet, View } from 'react-native';
+import { FlatList, ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
 
 import ContentView from '@/components/ContentView';
 import Header from '@/components/Header';
@@ -71,14 +71,14 @@ export default function NewOrderScreen() {
     },
   });
   const handlePress = () => {
-    if (index < 3) {
+    if (index < steps.length - 1) {
       setIndex(prevIndex => prevIndex + 1);
     } else {
-      setIndex(0);
+      formik.submitForm();
     }
   };
 
-  const screenWidth = Dimensions.get('window').width;
+  const { width: screenWidth } = useWindowDimensions();
   const flatListRef = React.useRef<FlatList | null>(null);
   React.useEffect(() => {
     flatListRef.current?.scrollToOffset({
@@ -99,8 +99,12 @@ export default function NewOrderScreen() {
       lightColor={Colors.light.background}
       darkColor={Colors.dark.background}
     >
-      <Header title={index === 3 ? t('new-order.reviewTitle') : t('new-order.title')} closeButton />
-      <ContentView style={[, { paddingBottom: tabBarHeight }]}>
+      <Header
+        title={index === steps.length - 1 ? t('new-order.reviewTitle') : t('new-order.title')}
+        closeButton
+      />
+
+      <ContentView style={{ paddingBottom: tabBarHeight }}>
         <FlatList
           ref={flatListRef}
           data={steps}
@@ -109,7 +113,7 @@ export default function NewOrderScreen() {
             <ScrollView
               style={styles.container}
               contentContainerStyle={[styles.content, { width: screenWidth }]}
-              scrollEnabled={index === 3}
+              scrollEnabled={index === steps.length - 1}
             >
               <View>{item}</View>
               <Button

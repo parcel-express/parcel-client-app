@@ -33,6 +33,14 @@ const CustomSwitch: React.FC<Props> = ({ value, onValueChange, disabled }) => {
     }).start();
   }, [value, anim]);
 
+  React.useEffect(() => {
+    setInternalValue(value);
+  }, [value]);
+
+  React.useEffect(() => {
+    setInternalDisabled(!!disabled);
+  }, [disabled]);
+
   // Thumb translation
   const translateX = anim.interpolate({
     inputRange: [0, 0.5, 1],
@@ -76,7 +84,7 @@ const CustomSwitch: React.FC<Props> = ({ value, onValueChange, disabled }) => {
         pressed && { opacity: 0.8 },
       ]}
       accessibilityRole='switch'
-      accessibilityState={{ checked: value, disabled }}
+      accessibilityState={{ checked: value, disabled: disabled || internalDisabled }}
     >
       {internalValue ? (
         <LinearGradient

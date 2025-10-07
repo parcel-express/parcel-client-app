@@ -36,7 +36,7 @@ const DropDown = ({ label, type, disabled, formik }: DropDownProps) => {
       />
       <TouchableOpacity
         disabled={disabled}
-        onPress={() => setIsDropDownOpen(true)}
+        onPress={() => setIsDropDownOpen(prev => !prev)}
         style={styles.button}
       >
         <View style={styles.labelContainer}>

@@ -22,7 +22,7 @@ const paymentMethods = [
 ];
 const paymentSides = [
   { label: 'მიმღები', value: 'receiver' },
-  { label: 'გაგზავნეი', value: 'sender' },
+  { label: 'გამგზავნი', value: 'sender' },
 ];
 const Review = ({ formik }: Props) => {
   const { t } = useTranslation();

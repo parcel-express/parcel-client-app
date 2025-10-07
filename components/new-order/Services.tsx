@@ -58,7 +58,7 @@ const Services = ({ formik }: Props) => {
   const AdditionalServices = () => (
     <View style={styles.switchPage}>
       {data.map(item => (
-        <AdditionalService item={item} key={item.label} />
+        <AdditionalService item={item} key={item.name} />
       ))}
     </View>
   );

@@ -122,7 +122,6 @@ const styles = StyleSheet.create({
   verticalDivider: {
     width: 1,
     height: '100%',
-    paddingVertical: -16,
     backgroundColor: Colors.border.primary,
   },
 

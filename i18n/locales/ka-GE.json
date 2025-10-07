@@ -67,8 +67,8 @@
   "new-order": {
     "title": "ახალი შეკვეთა",
     "senderLabel": "აირჩიეთ გამგზავნი",
-    "reviewTitle": "Review Order",
-    "reviewLabel": "Review Order",
+    "reviewTitle": "შეკვეთის გადახედვა",
+    "reviewLabel": "შეკვეთის გაფორმება",
     "receiverLabel": "აირჩიეთ მიმღები",
     "fileLabel": "დოკუმენტის უკან მიწოდება",
     "price": "30 ლარი",
