@@ -41,7 +41,7 @@ export default function NewOrderScreen() {
   const [index, setIndex] = React.useState(0);
   const tabBarHeight = useBottomTabBarHeight();
   const { t } = useTranslation();
-  const formik = useFormik({
+  const formik = useFormik<FormValues>({
     initialValues: {
       senderAddress: '',
       senderName: '',
@@ -121,7 +121,7 @@ export default function NewOrderScreen() {
                 style={styles.submitButton}
                 onPress={handlePress}
               >
-                {index === 3 ? t('new-order.reviewLabel') : t('common.continue')}
+                {index === steps.length - 1 ? t('new-order.reviewLabel') : t('common.continue')}
               </Button>
             </ScrollView>
           )}
