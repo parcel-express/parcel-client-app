@@ -2,6 +2,7 @@ import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Modal, StyleSheet, Text, View } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
@@ -15,6 +16,7 @@ type Props = {
 };
 
 const OrderSuccessModal = ({ visible, onClose }: Props) => {
+  const { t } = useTranslation();
   const onButtonPress = (action: 'home' | 'orders') => {
     if (action === 'home') {
       router.push('/(tabs)');
@@ -40,18 +42,20 @@ const OrderSuccessModal = ({ visible, onClose }: Props) => {
         <View style={styles.content}>
           <Image source={require('../../assets/images/checkCircle.png')} style={styles.image} />
           <View>
-            <Text style={[Typography.textMdSemiBold, styles.text]}>შეკვეთა წარმატებით დაემატა</Text>
+            <Text style={[Typography.textMdSemiBold, styles.text]}>
+              {t('new-order.sucessTitle')}
+            </Text>
             <Text style={[Typography.textXsMedium, styles.text]}>
-              შეკვეთების ნახვა შეგიძია ჩემი შეკვეთების გვერდზე
+              {t('new-order.sucessMessage')}
             </Text>
           </View>
         </View>
         <View style={styles.actions}>
           <Button onPress={() => onButtonPress('home')} size={'md'} variant={'dark'}>
-            მთავარი გვერდი
+            {t('new-order.homePage')}
           </Button>
           <Button onPress={() => onButtonPress('orders')} size={'md'} variant={'secondary'}>
-            ჩემი შეკვეთები
+            {t('new-order.orderPage')}
           </Button>
         </View>
       </LinearGradient>

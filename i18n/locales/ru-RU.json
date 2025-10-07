@@ -102,7 +102,11 @@
       "orderNumberLabel": "Номер заказа",
       "orderNumberPlaceholder": "#",
       "commentPlaceholder": "Введите комментарий"
-    }
+    },
+    "sucessTitle": "Заказ успешно добавлен",
+    "sucessMessage": "Вы можете просмотреть свои заказы на странице Мои заказы",
+    "homePage": "Главная страница",
+    "orderPage": "Мои заказы"
   },
   "notifications": {
     "title": "Уведомления",

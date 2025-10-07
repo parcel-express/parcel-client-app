@@ -102,7 +102,11 @@
       "orderNumberLabel": "Order Number",
       "orderNumberPlaceholder": "#",
       "commentPlaceholder": "Enter comment"
-    }
+    },
+    "sucessTitle": "Order Successfully Added",
+    "sucessMessage": "You can view your orders on the My Orders page",
+    "homePage": "Home Page",
+    "orderPage": "My Orders"
   },
   "notifications": {
     "title": "Notifications",

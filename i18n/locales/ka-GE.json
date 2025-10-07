@@ -102,7 +102,11 @@
       "orderNumberLabel": "შეკვეთის ნომერი",
       "orderNumberPlaceholder": "#",
       "commentPlaceholder": "მიუთითე კომენტარი"
-    }
+    },
+    "sucessTitle": "შეკვეთა წარმატებით დაემატა",
+    "sucessMessage": "შეკვეთების ნახვა შეგიძია ჩემი შეკვეთების გვერდზე",
+    "homePage": "მთავარი გვერდი",
+    "orderPage": "ჩემი შეკვეთები"
   },
   "notifications": {
     "title": "შეტყობინებები",
