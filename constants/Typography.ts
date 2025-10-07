@@ -96,4 +96,8 @@ export const Typography = StyleSheet.create({
     ...textLg,
     fontWeight: '600',
   },
+  textLgBold: {
+    ...textLg,
+    fontWeight: '700',
+  },
 });

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Modal, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { FormValues } from '@/app/(tabs)/new-order';
 import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
 
@@ -15,22 +16,16 @@ import XIcon from '../icons/XIcon';
 import Button from './Button';
 import Input from './Input';
 import Select from './Select';
-type AddressFormValues = {
-  address: string;
-  name: string;
-  surname: string;
-  company: string;
-  city: string;
-  phoneNumber: string;
-};
 type Props = {
   visible: boolean;
   onClose: () => void;
   transparent?: boolean;
-  form: FormikProps<AddressFormValues>;
+  form: FormikProps<FormValues>;
+  onSubmit: () => void;
+  type: 'sender' | 'receiver';
 };
 
-const AddressModal = ({ visible, onClose, transparent = true, form }: Props) => {
+const AddressModal = ({ visible, onClose, transparent = true, form, onSubmit, type }: Props) => {
   const { t } = useTranslation();
   const { top } = useSafeAreaInsets();
   const selectKeys = ['company', 'city'];
@@ -48,6 +43,10 @@ const AddressModal = ({ visible, onClose, transparent = true, form }: Props) => 
       value: 'option3',
     },
   ];
+  const inputKeys = ['address', 'name', 'surname', 'company', 'city', 'phoneNumber'];
+  const getName = (key: string) => {
+    return type + key.slice(0, 1).toUpperCase() + key.slice(1);
+  };
   return (
     <Modal
       visible={visible}
@@ -70,22 +69,22 @@ const AddressModal = ({ visible, onClose, transparent = true, form }: Props) => 
       <View style={styles.container}>
         <View style={styles.content}>
           <View style={styles.form}>
-            {Object.entries(form?.initialValues).map(([key]) => {
+            {inputKeys.map(key => {
               if (selectKeys.includes(key)) {
                 return (
                   <Select
-                    setValue={val => form.setFieldValue(key, val)}
+                    setValue={val => form.setFieldValue(getName(key), val)}
                     options={options}
                     key={key}
                     label={t(`new-order.form.${key}`)}
                     placeholder={t(`new-order.form.${key}Placeholder`)}
-                    value={form.values[key as keyof AddressFormValues] || ''}
+                    value={form.values[getName(key) as keyof FormValues] as string}
                   />
                 );
               }
               return (
                 <Input
-                  name={key as keyof AddressFormValues}
+                  name={getName(key) as keyof FormValues}
                   formik={form}
                   key={key}
                   label={t(`new-order.form.${key}`)}
@@ -96,7 +95,7 @@ const AddressModal = ({ visible, onClose, transparent = true, form }: Props) => 
             })}
           </View>
           <View style={styles.footer}>
-            <Button size='md' variant='primary' onPress={form.submitForm}>
+            <Button size='md' variant='primary' onPress={onSubmit}>
               {t('common.save')}
             </Button>
           </View>

@@ -67,6 +67,8 @@
   "new-order": {
     "title": "ახალი შეკვეთა",
     "senderLabel": "აირჩიეთ გამგზავნი",
+    "reviewTitle": "Review Order",
+    "reviewLabel": "Review Order",
     "receiverLabel": "აირჩიეთ მიმღები",
     "fileLabel": "დოკუმენტის უკან მიწოდება",
     "price": "30 ლარი",
@@ -83,7 +85,13 @@
       "city": "ქალაქი",
       "cityPlaceholder": "აირჩიე ქალაქი",
       "phoneNumber": "ტელეფონი",
-      "phoneNumberPlaceholder": "ტელეფონი"
+      "phoneNumberPlaceholder": "ტელეფონი",
+      "paymentMethod": "ანგარიშწორების ტიპი",
+      "paymentMethodPlaceholder": "აირჩიეთ ანგარიშწორების ტიპი",
+      "paymentMethodLabel": "ანგარიშწორების ტიპი",
+      "paymentSide": "გადახდის მხარე",
+      "paymentSidePlaceholder": "აირჩიეთ გადახდის მხარე",
+      "paymentSideLabel": "გადახდის მხარე"
     },
     "weightForm": {
       "title": "აირჩიე ამანათის წონა",

@@ -67,6 +67,8 @@
   "new-order": {
     "title": "Новый заказ",
     "senderLabel": "Выберите отправителя",
+    "reviewTitle": "Обзор заказа",
+    "reviewLabel": "Подтвердить заказ",
     "receiverLabel": "Выберите получателя",
     "fileLabel": "Доставка документа",
     "price": "30 лари",
@@ -83,7 +85,13 @@
       "city": "Город",
       "cityPlaceholder": "Выберите город",
       "phoneNumber": "Телефон",
-      "phoneNumberPlaceholder": "Введите телефон"
+      "phoneNumberPlaceholder": "Введите телефон",
+      "paymentMethod": "Способ оплаты",
+      "paymentMethodPlaceholder": "Выберите способ оплаты",
+      "paymentMethodLabel": "Способ оплаты",
+      "paymentSide": "Сторона оплаты",
+      "paymentSidePlaceholder": "Выберите сторону оплаты",
+      "paymentSideLabel": "Сторона оплаты"
     },
     "weightForm": {
       "title": "Выберите вес посылки",

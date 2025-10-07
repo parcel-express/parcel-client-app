@@ -66,6 +66,8 @@
   },
   "new-order": {
     "title": "New Order",
+    "reviewTitle": "Review Order",
+    "reviewLabel": "Confirm Order",
     "senderLabel": "Select Sender",
     "receiverLabel": "Select Receiver",
     "fileLabel": "File Delivery",
@@ -83,7 +85,13 @@
       "city": "City",
       "cityPlaceholder": "Select City",
       "phoneNumber": "Phone Number",
-      "phoneNumberPlaceholder": "Enter Phone Number"
+      "phoneNumberPlaceholder": "Enter Phone Number",
+      "paymentMethod": "Payment Method",
+      "paymentMethodPlaceholder": "Select Payment Method",
+      "paymentMethodLabel": "Payment Method",
+      "paymentSide": "Payment Side",
+      "paymentSidePlaceholder": "Select Payment Side",
+      "paymentSideLabel": "Payment Side"
     },
     "weightForm": {
       "title": "Choose Package Weight",

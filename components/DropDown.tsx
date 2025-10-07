@@ -1,7 +1,8 @@
-import { useFormik } from 'formik';
+import { FormikProps } from 'formik';
 import React from 'react';
 import { Animated, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+import { FormValues } from '@/app/(tabs)/new-order';
 import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';
@@ -13,24 +14,15 @@ import AddressModal from './ui/AddressModal';
 type DropDownProps = {
   label: string;
   type: 'sender' | 'receiver';
+  disabled?: boolean;
+  formik: FormikProps<FormValues>;
 };
-const DropDown = ({ label, type }: DropDownProps) => {
+const DropDown = ({ label, type, disabled, formik }: DropDownProps) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [isDropDownOpen, setIsDropDownOpen] = React.useState(false);
-  const formik = useFormik({
-    initialValues: {
-      address: '',
-      name: '',
-      surname: '',
-      company: '',
-      city: '',
-      phoneNumber: '',
-    },
-    onSubmit: () => {
-      setIsModalVisible(false);
-    },
-  });
-
+  const onSubmit = () => {
+    setIsModalVisible(false);
+  };
   return (
     <>
       <AddressModal
@@ -39,26 +31,32 @@ const DropDown = ({ label, type }: DropDownProps) => {
           setIsModalVisible(false);
         }}
         form={formik}
+        onSubmit={onSubmit}
+        type={type}
       />
-      <TouchableOpacity onPress={() => setIsDropDownOpen(true)} style={styles.button}>
+      <TouchableOpacity
+        disabled={disabled}
+        onPress={() => setIsDropDownOpen(true)}
+        style={styles.button}
+      >
         <View style={styles.labelContainer}>
           {type === 'sender' ? <SenderIcon /> : <ReceiverIcon />}
           <View>
             <Text
               style={[
-                formik.values.address
+                formik.values[`${type}Address`]
                   ? [Typography.textSmBold, styles.lineHeight]
                   : Typography.textSmMedium,
                 { color: Colors.text.primary },
               ]}
             >
-              {formik.values.address ? formik.values.address : label}
+              {formik.values[`${type}Address`] ? formik.values[`${type}Address`] : label}
             </Text>
-            {formik.values.name !== '' && (
+            {formik.values[`${type}Name`] !== '' && (
               <Text
                 style={[Typography.textSmMedium, { color: Colors.text.primary }, styles.lineHeight]}
               >
-                {formik.values.name}
+                {formik.values[`${type}Name`]}
               </Text>
             )}
           </View>
