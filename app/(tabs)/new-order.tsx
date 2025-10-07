@@ -12,6 +12,7 @@ import Review from '@/components/new-order/Review';
 import Services from '@/components/new-order/Services';
 import { ThemedView } from '@/components/ThemedView';
 import Button from '@/components/ui/Button';
+import OrderSuccessModal from '@/components/ui/OrderSuccessModal';
 import { Colors } from '@/constants/Colors';
 export type FormValues = {
   senderAddress: string;
@@ -39,6 +40,7 @@ export type FormValues = {
 };
 export default function NewOrderScreen() {
   const [index, setIndex] = React.useState(0);
+  const [modalVisible, setModalVisible] = React.useState(false);
   const tabBarHeight = useBottomTabBarHeight();
   const { t } = useTranslation();
   const formik = useFormik<FormValues>({
@@ -67,6 +69,7 @@ export default function NewOrderScreen() {
       paymentSide: '',
     },
     onSubmit: () => {
+      setModalVisible(true);
       setIndex(0);
     },
   });
@@ -121,6 +124,7 @@ export default function NewOrderScreen() {
         title={index === steps.length - 1 ? t('new-order.reviewTitle') : t('new-order.title')}
         closeButton
       />
+      <OrderSuccessModal visible={modalVisible} onClose={() => setModalVisible(false)} />
 
       <ContentView style={{ paddingBottom: tabBarHeight }}>
         <FlatList

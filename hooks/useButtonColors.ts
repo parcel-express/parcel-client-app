@@ -1,5 +1,5 @@
 import { Colors } from '@/constants/Colors';
-type ButtonVariant = 'primary' | 'secondary';
+type ButtonVariant = 'primary' | 'secondary' | 'dark';
 export const useButtonColors = (variant: ButtonVariant, disabled?: boolean) => {
   const colorFor = (pressed: boolean) => {
     if (disabled) return Colors.button.disabledText;
@@ -16,7 +16,11 @@ export const useButtonColors = (variant: ButtonVariant, disabled?: boolean) => {
 
     getBorderColor: () => {
       if (disabled) return Colors.button.disabledBorder;
-      return variant === 'secondary' ? Colors.button.secondaryBorder : Colors.button.primaryBorder;
+      return variant === 'secondary'
+        ? Colors.button.secondaryBorder
+        : variant === 'dark'
+          ? Colors.button.dark
+          : Colors.button.primaryBorder;
     },
     getTextColor: colorFor,
   };

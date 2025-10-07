@@ -64,6 +64,10 @@ export const Typography = StyleSheet.create({
     ...textMd,
     fontWeight: '500',
   },
+  textMdSemiBold: {
+    ...textMd,
+    fontWeight: '600',
+  },
   textMdBold: {
     ...textMd,
     fontWeight: '700',
@@ -87,10 +91,6 @@ export const Typography = StyleSheet.create({
   textSmBold: {
     ...textSm,
     fontWeight: '700',
-  },
-  textMdSemiBold: {
-    ...textMd,
-    fontWeight: '600',
   },
   textLgSemiBold: {
     ...textLg,

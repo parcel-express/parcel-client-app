@@ -84,6 +84,8 @@ export const Colors = {
     disabledBorder: '#E9EAEB',
     disabledText: '#A4A7AE',
     outline: '#9E77ED',
+    dark: '#000000',
+    darkHoverBackground: '#1C1C1C',
   },
   checkbox: {
     border: '#6670804D',
