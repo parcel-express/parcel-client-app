@@ -103,8 +103,8 @@
       "orderNumberPlaceholder": "#",
       "commentPlaceholder": "მიუთითე კომენტარი"
     },
-    "sucessTitle": "შეკვეთა წარმატებით დაემატა",
-    "sucessMessage": "შეკვეთების ნახვა შეგიძია ჩემი შეკვეთების გვერდზე",
+    "successTitle": "შეკვეთა წარმატებით დაემატა",
+    "successMessage": "შეკვეთების ნახვა შეგიძია ჩემი შეკვეთების გვერდზე",
     "homePage": "მთავარი გვერდი",
     "orderPage": "ჩემი შეკვეთები"
   },

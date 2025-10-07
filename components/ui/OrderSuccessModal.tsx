@@ -43,10 +43,10 @@ const OrderSuccessModal = ({ visible, onClose }: Props) => {
           <Image source={require('../../assets/images/checkCircle.png')} style={styles.image} />
           <View>
             <Text style={[Typography.textMdSemiBold, styles.text]}>
-              {t('new-order.sucessTitle')}
+              {t('new-order.successTitle')}
             </Text>
             <Text style={[Typography.textXsMedium, styles.text]}>
-              {t('new-order.sucessMessage')}
+              {t('new-order.successMessage')}
             </Text>
           </View>
         </View>

@@ -103,8 +103,8 @@
       "orderNumberPlaceholder": "#",
       "commentPlaceholder": "Enter comment"
     },
-    "sucessTitle": "Order Successfully Added",
-    "sucessMessage": "You can view your orders on the My Orders page",
+    "successTitle": "Order Successfully Added",
+    "successMessage": "You can view your orders on the My Orders page",
     "homePage": "Home Page",
     "orderPage": "My Orders"
   },
