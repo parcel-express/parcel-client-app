@@ -236,6 +236,10 @@
       "title": "Упрощенная авторизация",
       "faceId": "Face ID"
     },
+    "analytics": {
+      "cityTitle": "По городам",
+      "dailyTitle": "Ежедневная доставка посылок"
+    },
     "invoices": {
       "title": "Счета"
     },
