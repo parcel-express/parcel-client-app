@@ -231,6 +231,10 @@
       "title": "მარტივი ავტორიზაცია",
       "faceId": "Face ID"
     },
+    "analytics": {
+      "cityTitle": "ქალაქების მიხედვით",
+      "dailyTitle": "ამანათების დღიური ჩაბარება"
+    },
     "invoices": {
       "title": "ინვოისები"
     },
