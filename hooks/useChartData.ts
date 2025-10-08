@@ -10,13 +10,19 @@ const useChartData = (date: Props) => {
   >([]);
   useEffect(() => {
     const getMonthName = () => {
-      const startingMonth = date.start ? new Date(date.start).getMonth() : null;
-      const endingMonth = date.end ? new Date(date.end).getMonth() : null;
+      const startDate = date.start ? new Date(date.start) : null;
+      const endDate = date.end ? new Date(date.end) : null;
+      const startingMonth = startDate && !isNaN(startDate.getTime()) ? startDate.getMonth() : null;
+      const endingMonth = endDate && !isNaN(endDate.getTime()) ? endDate.getMonth() : null;
       return [startingMonth, endingMonth];
     };
     const getYearName = () => {
-      const startingYear = date.start ? new Date(date.start).getFullYear() : null;
-      const endingYear = date.end ? new Date(date.end).getFullYear() : null;
+      const startDate = date.start ? new Date(date.start) : null;
+      const endDate = date.end ? new Date(date.end) : null;
+      const startingYear =
+        startDate && !isNaN(startDate.getTime()) ? startDate.getFullYear() : null;
+      const endingYear = endDate && !isNaN(endDate.getTime()) ? endDate.getFullYear() : null;
+
       return [startingYear, endingYear];
     };
     const data = [
@@ -36,7 +42,9 @@ const useChartData = (date: Props) => {
     const [startMonth, endMonth] = getMonthName();
     const [startYear, endingYear] = getYearName();
     const filtered = data.filter((_, index) => {
-      if (startYear && startYear < 2025 && !endingYear) return true;
+      if (startYear && startYear < 2025 && !endingYear) {
+        return startMonth !== null && startMonth !== undefined ? index >= startMonth : true;
+      }
       if (startMonth === null || endMonth === null) return true;
       if (startMonth === undefined || endMonth === undefined) return true;
       if (startMonth === endMonth) {
