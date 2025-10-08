@@ -234,6 +234,10 @@
       "title": "Tariffs",
       "orderAcceptanceTitle": "Order Acceptance"
     },
+    "analytics": {
+      "cityTitle": "By cities",
+      "dailyTitle": "Daily parcel delivery"
+    },
     "easyAuth": {
       "title": "Easy Authorization",
       "faceId": "Face ID"
