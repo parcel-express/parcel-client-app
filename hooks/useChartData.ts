@@ -14,6 +14,11 @@ const useChartData = (date: Props) => {
       const endingMonth = date.end ? new Date(date.end).getMonth() : null;
       return [startingMonth, endingMonth];
     };
+    const getYearName = () => {
+      const startingYear = date.start ? new Date(date.start).getFullYear() : null;
+      const endingYear = date.end ? new Date(date.end).getFullYear() : null;
+      return [startingYear, endingYear];
+    };
     const data = [
       { month: t('months.january'), listenCount: 30, like: 50, dislike: 70 },
       { month: t('months.february'), listenCount: 35, like: 0, dislike: 90 },
@@ -28,15 +33,19 @@ const useChartData = (date: Props) => {
       { month: t('months.november'), listenCount: 75, like: 80, dislike: 30 },
       { month: t('months.december'), listenCount: 50, like: 30, dislike: 40 },
     ];
+    const [startMonth, endMonth] = getMonthName();
+    const [startYear, endingYear] = getYearName();
     const filtered = data.filter((_, index) => {
-      const [startMonth, endMonth] = getMonthName();
-
+      if (startYear && startYear < 2025 && !endingYear) return true;
       if (startMonth === null || endMonth === null) return true;
       if (startMonth === undefined || endMonth === undefined) return true;
       if (startMonth === endMonth) {
         return index === startMonth;
       }
-      return index >= startMonth && index <= endMonth;
+      if (startMonth < endMonth) {
+        return index >= startMonth && index <= endMonth;
+      }
+      return index >= startMonth || index <= endMonth;
     });
 
     setChartData(filtered);

@@ -278,10 +278,11 @@ const Calendar: React.FC<CalendarProps> = ({
                     if (typeof selected === 'string') {
                       onSave(selected);
                     } else if (selected.start) {
-                      onSave(
-                        selected.start,
-                        selected.end || new Date().toISOString().split('T')[0]
-                      );
+                      const now = new Date();
+                      const localToday = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+                        .toISOString()
+                        .split('T')[0];
+                      onSave(selected.start, selected.end || localToday);
                     }
                   }
                 }}

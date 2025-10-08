@@ -34,7 +34,7 @@ export default function AnalyticsScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <Header title={t('profile.easyAuth.title')} hasGoBack />
+      <Header title={t('profile.menu.analytics')} hasGoBack />
       <ContentView>
         <ScrollView contentContainerStyle={[styles.content, { paddingBottom }]}>
           <View style={styles.chartContainer}>
