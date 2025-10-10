@@ -2,7 +2,14 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
+import {
+  FlatList,
+  KeyboardAvoidingView,
+  ScrollView,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 
 import ContentView from '@/components/ContentView';
 import Header from '@/components/Header';
@@ -125,28 +132,29 @@ export default function NewOrderScreen() {
         closeButton
       />
       <OrderSuccessModal visible={modalVisible} onClose={() => setModalVisible(false)} />
-
-      <ContentView style={{ paddingBottom: tabBarHeight }}>
-        <FlatList
-          ref={flatListRef}
-          data={steps}
-          // wrap each step so it takes exactly one screen
-          renderItem={renderItem}
-          keyExtractor={(_, i) => String(i)}
-          horizontal
-          pagingEnabled
-          scrollEnabled={false}
-          showsHorizontalScrollIndicator={false}
-          style={styles.container}
-          getItemLayout={(_, i) => ({
-            length: screenWidth,
-            offset: screenWidth * i,
-            index: i,
-          })}
-          initialScrollIndex={index}
-          extraData={index}
-        />
-      </ContentView>
+      <KeyboardAvoidingView behavior='padding' style={[styles.container]}>
+        <ContentView style={{ paddingBottom: tabBarHeight }}>
+          <FlatList
+            ref={flatListRef}
+            data={steps}
+            // wrap each step so it takes exactly one screen
+            renderItem={renderItem}
+            keyExtractor={(_, i) => String(i)}
+            horizontal
+            pagingEnabled
+            scrollEnabled={false}
+            showsHorizontalScrollIndicator={false}
+            style={styles.container}
+            getItemLayout={(_, i) => ({
+              length: screenWidth,
+              offset: screenWidth * i,
+              index: i,
+            })}
+            initialScrollIndex={index}
+            extraData={index}
+          />
+        </ContentView>
+      </KeyboardAvoidingView>
     </ThemedView>
   );
 }
