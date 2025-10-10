@@ -12,10 +12,10 @@ import Legend from '@/components/ui/Legend';
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
 import useChartData from '@/hooks/useChartData';
-
+const PADDING = 18;
 export default function AnalyticsScreen() {
   const { t } = useTranslation();
-  const paddingBottom = useBottomTabBarHeight();
+  const paddingBottom = useBottomTabBarHeight() + PADDING;
   const [date, setDate] = React.useState<{ start?: string | undefined; end?: string | undefined }>(
     {}
   );
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    padding: 18,
+    padding: PADDING,
     gap: 22,
   },
   legend: {
