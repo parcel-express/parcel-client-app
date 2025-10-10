@@ -18,20 +18,15 @@ import * as yup from 'yup';
 import { ThemedView } from '@/components/ThemedView';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
-import Select from '@/components/ui/Select';
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
 type Form = {
   email: string;
   password: string;
 };
-const languageOptions = [
-  { label: 'En', value: 'en-US' },
-  { label: 'ქარ', value: 'ka-GE' },
-  { label: 'Рус', value: 'ru-RU' },
-];
+
 export default function LoginScreen() {
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
 
   const formik = useFormik({
@@ -71,14 +66,6 @@ export default function LoginScreen() {
         contentContainerStyle={styles.contentContainer}
       >
         <ThemedView style={styles.container}>
-          <View style={[styles.languageContainer, { top: insets.top + 10 }]}>
-            <Select
-              value={i18n.resolvedLanguage ?? i18n.language}
-              options={languageOptions}
-              setValue={val => i18n.changeLanguage(val)}
-            />
-          </View>
-
           <View style={styles.formContainer}>
             <View style={styles.logoContainer}>
               <Image
@@ -189,13 +176,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  languageContainer: {
-    position: 'absolute',
-    right: 20,
-    alignSelf: 'flex-end',
-    zIndex: 10,
-    elevation: 10,
   },
   actionContainer: {
     flexDirection: 'column',

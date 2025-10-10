@@ -45,8 +45,15 @@
           "photosPermission": "Allow $(PRODUCT_NAME) to access your photos"
         }
       ],
-      ["expo-splash-screen", { "imageWidth": 164 }],
-      "expo-localization"
+      [
+        "expo-splash-screen",
+        {
+          "imageWidth": 164
+        }
+      ],
+      "expo-localization",
+      "expo-font",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
