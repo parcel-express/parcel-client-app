@@ -1,13 +1,17 @@
 // ...existing code...
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import {
+  Dimensions,
+  Modal,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 
@@ -42,6 +46,10 @@ const Select = ({
   inputType = 'default',
 }: Props) => {
   const [isFocused, setIsFocused] = React.useState(false);
+  const triggerRef = React.useRef<View | null>(null);
+  const [layout, setLayout] = React.useState({ x: 0, y: 0, width: 0, height: 0 });
+  const tabBarHeight = useBottomTabBarHeight();
+  const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
   // input state used when allowInput=true
   const [inputValue, setInputValue] = React.useState<string>(
@@ -65,10 +73,30 @@ const Select = ({
     return isFocused ? Colors.border.focused : Colors.border[variant];
   };
 
+  const openDropdown = () => {
+    if (disabled) return;
+    // measure trigger position in window and open modal dropdown
+    triggerRef.current?.measureInWindow((x, y, width, height) => {
+      setLayout({ x, y, width, height });
+      setIsFocused(true);
+      // focus input if allowed
+      if (allowInput) {
+        setTimeout(() => inputRef.current?.focus(), 50);
+      }
+    });
+  };
+
+  const closeDropdown = () => {
+    setIsFocused(false);
+  };
+
   const onPressContainer = () => {
     if (disabled) return;
-
-    setIsFocused(prev => !prev);
+    if (isFocused) {
+      closeDropdown();
+    } else {
+      openDropdown();
+    }
   };
 
   const handleSelectOption = (item: { label: string; value: string }) => {
@@ -94,100 +122,131 @@ const Select = ({
         {!!label && (
           <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>{label}</Text>
         )}
-        <Pressable
-          disabled={!!disabled}
-          onPress={onPressContainer}
-          style={{
-            ...styles.inputContainer,
-            ...(size === 'sm' ? styles.smallGap : styles.mediumGap),
-            borderColor: getBorderColor(),
-            backgroundColor: disabled ? Colors.background.disabled : Colors.background.white,
-          }}
-          accessibilityRole='button'
-          accessibilityLabel={label || placeholder}
-          accessibilityHint={isFocused ? 'Collapse options' : 'Expand options'}
-          accessibilityState={{ expanded: isFocused, disabled: !!disabled }}
-        >
-          {allowInput ? (
-            <TextInput
-              ref={inputRef}
-              value={inputValue}
-              onChangeText={handleInputChange}
-              placeholder={placeholder}
-              placeholderTextColor={Colors.text.placeholder}
-              style={[
-                size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
-                {
-                  color: inputValue ? Colors.text[variant] : Colors.text.placeholder,
-                },
-                styles.textInput,
-              ]}
-              editable={!disabled}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
-              numberOfLines={1}
-              underlineColorAndroid='transparent'
-              keyboardType={inputType}
-            />
-          ) : (
-            <Text
-              style={[
-                size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
-                { color: value ? Colors.text[variant] : Colors.text.placeholder },
-              ]}
-            >
-              {options.find(opt => opt.value === value)?.label || placeholder}
-            </Text>
-          )}
+        <View ref={triggerRef} collapsable={false}>
+          <Pressable
+            disabled={!!disabled}
+            onPress={onPressContainer}
+            style={{
+              ...styles.inputContainer,
+              ...(size === 'sm' ? styles.smallGap : styles.mediumGap),
+              borderColor: getBorderColor(),
+              backgroundColor: disabled ? Colors.background.disabled : Colors.background.white,
+            }}
+            accessibilityRole='button'
+            accessibilityLabel={label || placeholder}
+            accessibilityHint={isFocused ? 'Collapse options' : 'Expand options'}
+            accessibilityState={{ expanded: isFocused, disabled: !!disabled }}
+          >
+            {allowInput ? (
+              <TextInput
+                ref={inputRef}
+                value={inputValue}
+                onChangeText={handleInputChange}
+                placeholder={placeholder}
+                placeholderTextColor={Colors.text.placeholder}
+                style={[
+                  size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
+                  {
+                    color: inputValue ? Colors.text[variant] : Colors.text.placeholder,
+                  },
+                  styles.textInput,
+                ]}
+                editable={!disabled}
+                onFocus={() => openDropdown()}
+                onBlur={() => {
+                  if (!isFocused) setIsFocused(false);
+                }}
+                numberOfLines={1}
+                underlineColorAndroid='transparent'
+                keyboardType={inputType}
+              />
+            ) : (
+              <Text
+                style={[
+                  size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
+                  { color: value ? Colors.text[variant] : Colors.text.placeholder },
+                ]}
+              >
+                {options.find(opt => opt.value === value)?.label || placeholder}
+              </Text>
+            )}
 
-          <View style={{ transform: [{ rotate: isFocused ? '90deg' : '-90deg' }] }}>
-            <MaterialIcons name={'chevron-left'} size={20} color={Colors.text.placeholder} />
-          </View>
-        </Pressable>
+            <View style={{ transform: [{ rotate: isFocused ? '90deg' : '-90deg' }] }}>
+              <MaterialIcons name={'chevron-left'} size={20} color={Colors.text.placeholder} />
+            </View>
+          </Pressable>
+        </View>
       </View>
 
-      {isFocused && (
-        <View style={[styles.dropdown, !label && styles.topWithoutLabel]} accessibilityRole='menu'>
-          <ScrollView keyboardShouldPersistTaps='handled'>
-            {filteredOptions.length === 0 ? (
-              <View style={styles.option}>
-                <Text
-                  style={[
-                    size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
-                    styles.label,
-                  ]}
-                >
-                  {allowInput ? 'No results' : 'No options'}
-                </Text>
-              </View>
-            ) : (
-              filteredOptions.map(item => (
-                <TouchableOpacity
-                  accessibilityRole='menuitem'
-                  key={item.value}
-                  style={[
-                    styles.option,
-                    value === item.value && { backgroundColor: Colors.background.disabled },
-                  ]}
-                  onPress={() => handleSelectOption(item)}
-                >
-                  <Text
-                    style={[
-                      size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
-                      styles.label,
-                    ]}
-                  >
-                    {item.label}
-                  </Text>
-                  {value === item.value && (
-                    <MaterialIcons name='check' size={20} color={Colors.brand.primary} />
+      <Modal visible={isFocused} transparent animationType='fade' onRequestClose={closeDropdown}>
+        <TouchableWithoutFeedback onPress={closeDropdown}>
+          <View style={styles.modalWrapper}>
+            <TouchableWithoutFeedback>
+              <View
+                style={[
+                  styles.dropdown,
+                  !label && styles.topWithoutLabel,
+                  {
+                    top: Math.min(
+                      Math.max(8, layout.y + layout.height + 8),
+                      screenHeight - 8 - Math.max(120, tabBarHeight + 48)
+                    ),
+                    left: Math.max(8, Math.min(layout.x, screenWidth - 16)),
+                    width: Math.min(layout.width || screenWidth - 32, screenWidth - 32),
+                    maxHeight:
+                      screenHeight -
+                      Math.min(
+                        Math.max(8, layout.y + layout.height + 8),
+                        screenHeight - 8 - Math.max(120, tabBarHeight + 48)
+                      ) -
+                      (tabBarHeight + 16),
+                  },
+                ]}
+                accessibilityRole='menu'
+              >
+                <ScrollView keyboardShouldPersistTaps='handled'>
+                  {filteredOptions.length === 0 ? (
+                    <View style={styles.option}>
+                      <Text
+                        style={[
+                          size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
+                          styles.label,
+                        ]}
+                      >
+                        {allowInput ? 'No results' : 'No options'}
+                      </Text>
+                    </View>
+                  ) : (
+                    filteredOptions.map(item => (
+                      <TouchableOpacity
+                        accessibilityRole='menuitem'
+                        key={item.value}
+                        style={[
+                          styles.option,
+                          value === item.value && { backgroundColor: Colors.background.disabled },
+                        ]}
+                        onPress={() => handleSelectOption(item)}
+                      >
+                        <Text
+                          style={[
+                            size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
+                            styles.label,
+                          ]}
+                        >
+                          {item.label}
+                        </Text>
+                        {value === item.value && (
+                          <MaterialIcons name='check' size={20} color={Colors.brand.primary} />
+                        )}
+                      </TouchableOpacity>
+                    ))
                   )}
-                </TouchableOpacity>
-              ))
-            )}
-          </ScrollView>
-        </View>
-      )}
+                </ScrollView>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
     </View>
   );
 };
@@ -195,6 +254,7 @@ const Select = ({
 export default Select;
 
 const styles = StyleSheet.create({
+  modalWrapper: { flex: 1, backgroundColor: Colors.background.transparent },
   wrapper: {
     width: '100%',
     position: 'relative',
