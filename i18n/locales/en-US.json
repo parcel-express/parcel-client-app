@@ -267,7 +267,7 @@
         "fullNameLabel": "Name, Surname",
         "fullNamePlaceholder": "Enter Name and Surname",
         "fullNameRequired": "Name and Surname are required",
-        "city": "City",
+        "cityLabel": "City",
         "cityPlaceholder": "Choose City",
         "cityRequired": "City is required"
       }

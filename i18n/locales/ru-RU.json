@@ -269,7 +269,7 @@
         "fullNameLabel": "Имя, Фамилия",
         "fullNamePlaceholder": "Введите имя и фамилию",
         "fullNameRequired": "Имя и фамилия обязательны",
-        "city": "Город",
+        "cityLabel": "Город",
         "cityPlaceholder": "Выберите город",
         "cityRequired": "Город обязателен"
       }

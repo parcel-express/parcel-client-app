@@ -267,7 +267,7 @@
         "fullNameLabel": "სახელი, გვარი",
         "fullNamePlaceholder": "სახელი და გვარი",
         "fullNameRequired": "სახელი და გვარი აუცილებელია",
-        "city": "ქალაქი",
+        "cityLabel": "ქალაქი",
         "cityPlaceholder": "აირჩიეთ ქალაქი",
         "cityRequired": "ქალაქი აუცილებელია"
       }
