@@ -49,6 +49,7 @@ const Filters = ({ formik, setDate, status, setStatus, tab, setTab, options, tab
             value={status}
             setValue={(value: string) => setStatus(value as Status)}
             size='sm'
+            maxW={111}
           />
         </View>
       </View>

@@ -163,16 +163,17 @@ export default function OrdersScreen() {
           )}
           contentContainerStyle={[
             styles.content,
-            filteredOrders.length === 0 && styles.container,
-            { paddingBottom },
+            filteredOrders.length === 0 && styles.centered,
+            {
+              paddingBottom,
+            },
           ]}
-          ListFooterComponent={
+          ListEmptyComponent={
             <View style={filteredOrders.length === 0 ? styles.show : styles.hide}>
               <EmptyWishlistIcon />
               <Text style={[Typography.textMdBold, styles.black]}>{t('orders.noOrdersFound')}</Text>
             </View>
           }
-          ListFooterComponentStyle={styles.container}
         />
       </ContentView>
     </ThemedView>
@@ -186,6 +187,10 @@ const styles = StyleSheet.create({
   content: {
     padding: 18,
     gap: 10,
+    flexGrow: 1,
+  },
+  centered: {
+    justifyContent: 'center',
   },
   flatListContainer: {
     gap: 10,

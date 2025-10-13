@@ -1,7 +1,6 @@
-// ...existing code...
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Dimensions,
   Modal,
@@ -18,7 +17,6 @@ import {
 import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';
-// ...existing code...
 
 type Props = {
   label?: string;
@@ -29,8 +27,9 @@ type Props = {
   disabled?: boolean;
   variant?: 'primary' | 'secondary';
   size?: 'sm' | 'md';
-  allowInput?: boolean; // <-- new: allow typing
+  allowInput?: boolean;
   inputType?: 'default' | 'numeric' | 'email-address' | 'phone-pad' | 'number-pad' | 'decimal-pad';
+  maxW?: number;
 };
 
 const Select = ({
@@ -44,12 +43,13 @@ const Select = ({
   size = 'md',
   allowInput = false,
   inputType = 'default',
+  maxW,
 }: Props) => {
   const [isFocused, setIsFocused] = React.useState(false);
   const triggerRef = React.useRef<View | null>(null);
   const [layout, setLayout] = React.useState({ x: 0, y: 0, width: 0, height: 0 });
-  const tabBarHeight = useBottomTabBarHeight();
   const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+  const { i18n } = useTranslation();
 
   // input state used when allowInput=true
   const [inputValue, setInputValue] = React.useState<string>(
@@ -115,9 +115,31 @@ const Select = ({
     allowInput && inputValue
       ? options.filter(o => o.label.toLowerCase().includes(inputValue.toLowerCase()))
       : options;
+  const factor = i18n.language === 'en-US' ? 6.6 : i18n.language === 'en-GE' ? 7.16 : 6.5;
+  const width = Math.max(...filteredOptions.map(opt => opt.label.length)) * factor;
+  const maxWidth = maxW || '100%';
 
+  const getModalPosition = () => {
+    return {
+      top: Math.min(Math.max(8, layout.y + layout.height + 8), screenHeight - 140),
+      width:
+        variant === 'secondary'
+          ? width + 54 < layout.width
+            ? layout.width
+            : width + 54
+          : layout.width,
+      left:
+        layout.x + width + 54 > screenWidth && width + 54 > layout.width
+          ? layout.x - (width + 54 - layout.width)
+          : layout.x - 4,
+      maxHeight: Math.min(
+        filteredOptions.length * 44 + 16,
+        screenHeight - Math.min(Math.max(8, layout.y + layout.height + 8), screenHeight - 140) - 100
+      ),
+    };
+  };
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, variant === 'secondary' && { maxWidth }]}>
       <View style={styles.container}>
         {!!label && (
           <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>{label}</Text>
@@ -164,8 +186,14 @@ const Select = ({
               <Text
                 style={[
                   size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
-                  { color: value ? Colors.text[variant] : Colors.text.placeholder },
+                  {
+                    color: value ? Colors.text[variant] : Colors.text.placeholder,
+
+                    width: layout.width - 50,
+                  },
                 ]}
+                numberOfLines={1}
+                ellipsizeMode='tail'
               >
                 {options.find(opt => opt.value === value)?.label || placeholder}
               </Text>
@@ -183,25 +211,7 @@ const Select = ({
           <View style={styles.modalWrapper}>
             <TouchableWithoutFeedback>
               <View
-                style={[
-                  styles.dropdown,
-                  !label && styles.topWithoutLabel,
-                  {
-                    top: Math.min(
-                      Math.max(8, layout.y + layout.height + 8),
-                      screenHeight - 8 - Math.max(120, tabBarHeight + 48)
-                    ),
-                    left: Math.max(8, Math.min(layout.x, screenWidth - 16)),
-                    width: Math.min(layout.width || screenWidth - 32, screenWidth - 32),
-                    maxHeight:
-                      screenHeight -
-                      Math.min(
-                        Math.max(8, layout.y + layout.height + 8),
-                        screenHeight - 8 - Math.max(120, tabBarHeight + 48)
-                      ) -
-                      (tabBarHeight + 16),
-                  },
-                ]}
+                style={[styles.dropdown, !label && styles.topWithoutLabel, getModalPosition()]}
                 accessibilityRole='menu'
               >
                 <ScrollView keyboardShouldPersistTaps='handled'>
@@ -297,6 +307,7 @@ const styles = StyleSheet.create({
     right: 0,
     elevation: 8,
     zIndex: 1000,
+    width: '100%',
   },
   topWithoutLabel: {
     top: 50,
@@ -308,6 +319,7 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
     paddingRight: 16,
     paddingLeft: 14,
+    gap: 4,
   },
   label: {
     color: Colors.text.primary,

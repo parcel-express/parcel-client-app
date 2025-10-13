@@ -1,3 +1,4 @@
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -37,6 +38,7 @@ const SupportPage = () => {
   const [subject, setSubject] = React.useState<string>('subject');
   // const [search, setSearch] = React.useState('');
   const [date, setDate] = React.useState<{ start?: string; end?: string }>({});
+  const paddingBottom = useBottomTabBarHeight() + 18;
   const { t } = useTranslation();
   const options = [
     { label: t('profile.support.filters.status.all'), value: 'all' },
@@ -170,53 +172,57 @@ const SupportPage = () => {
       <NotificationsModal visible={isModalVisible} onClose={closeModal} variant='support' />
       <InfoModal data={infoData} onClose={closeInfoModal} visible={isInfoModalVisible} />
       <ContentView>
-        <View style={styles.filtersContainer}>
-          <SettingsButton onPress={openModal}>ახალი მიმართვა</SettingsButton>
-          <Filters
-            formik={formik}
-            setDate={setDate}
-            date={date}
-            status={status}
-            setStatus={setStatus}
-            tab={tab}
-            setTab={setTab}
-            options={options}
-          />
-        </View>
-        <View style={styles.content}>
-          <View style={styles.row}>
-            <View>
-              <Select
-                setValue={value => setSubject(value)}
-                value={subject}
-                options={[
-                  {
-                    label: t('profile.support.labels.chooseTopic'),
-                    value: 'subject',
-                  },
-                  {
-                    label: t('profile.support.labels.anotherSubject'),
-                    value: 'another',
-                  },
-                ]}
-                size='sm'
-              />
-            </View>
-            <View style={styles.buttonContainer}>
-              <Button size={'sm'} variant={'secondary'} leftIcon={<DownloadIcon />}>
-                {t('profile.support.labels.download')}
-              </Button>
-            </View>
-          </View>
-        </View>
         <FlatList
           data={data}
+          ListHeaderComponent={
+            <>
+              <View style={styles.filtersContainer}>
+                <SettingsButton onPress={openModal}>ახალი მიმართვა</SettingsButton>
+                <Filters
+                  formik={formik}
+                  setDate={setDate}
+                  date={date}
+                  status={status}
+                  setStatus={setStatus}
+                  tab={tab}
+                  setTab={setTab}
+                  options={options}
+                />
+              </View>
+              <View style={styles.content}>
+                <View style={styles.row}>
+                  <View>
+                    <Select
+                      setValue={value => setSubject(value)}
+                      value={subject}
+                      options={[
+                        {
+                          label: t('profile.support.labels.chooseTopic'),
+                          value: 'subject',
+                        },
+                        {
+                          label: t('profile.support.labels.anotherSubject'),
+                          value: 'another',
+                        },
+                      ]}
+                      size='sm'
+                    />
+                  </View>
+                  <View style={styles.buttonContainer}>
+                    <Button size={'sm'} variant={'secondary'} leftIcon={<DownloadIcon />}>
+                      {t('profile.support.labels.download')}
+                    </Button>
+                  </View>
+                </View>
+              </View>
+            </>
+          }
           renderItem={({ item }) => (
             <TouchableOpacity onPress={openInfoModal}>
               <Card data={item} variant='support' />
             </TouchableOpacity>
           )}
-          contentContainerStyle={styles.body}
+          contentContainerStyle={[styles.body, { paddingBottom }]}
         />
       </ContentView>
     </ThemedView>
@@ -230,7 +236,7 @@ const styles = StyleSheet.create({
   },
   filtersContainer: {
     gap: 10,
-    padding: 18,
+    paddingVertical: 18,
     borderBottomWidth: 1,
     borderBottomColor: Colors.border.borderLight,
   },
@@ -239,7 +245,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   content: {
-    padding: 18,
+    paddingVertical: 18,
     paddingBottom: 10,
   },
   row: {

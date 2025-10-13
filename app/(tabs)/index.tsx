@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   },
 
   balanceCardHeader: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 14,
     paddingBottom: 8,
     paddingTop: 12,
   },

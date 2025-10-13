@@ -111,22 +111,26 @@ const InfoModal: React.FC<Props> = ({ visible, onClose, title, data }) => {
     return (
       <View style={styles.gapMd}>
         <View style={styles.actionContainer}>
-          <Button
-            variant='secondary'
-            size='sm'
-            onPress={() => {}}
-            leftIcon={<QuestionCircleIcon />}
-          >
-            დახმარება
-          </Button>
-          <Button
-            variant='secondary'
-            size='sm'
-            onPress={() => {}}
-            leftIcon={<FileIcon stroke={Colors.icon.black} />}
-          >
-            <Text>ინვოისი</Text>
-          </Button>
+          <View style={styles.full}>
+            <Button
+              variant='secondary'
+              size='sm'
+              onPress={() => {}}
+              leftIcon={<QuestionCircleIcon />}
+            >
+              დახმარება
+            </Button>
+          </View>
+          <View style={styles.full}>
+            <Button
+              variant='secondary'
+              size='sm'
+              onPress={() => {}}
+              leftIcon={<FileIcon stroke={Colors.icon.black} />}
+            >
+              <Text>ინვოისი</Text>
+            </Button>
+          </View>
         </View>
         <View style={styles.halfWidth}>
           <Button variant='secondary' size='sm' onPress={() => {}} leftIcon={<PrinterIcon />}>
@@ -137,7 +141,11 @@ const InfoModal: React.FC<Props> = ({ visible, onClose, title, data }) => {
     );
   };
   const actionData = {
-    title: 'შეკვეთა: #223394',
+    title: (
+      <Text style={[Typography.textSmSemiBold]}>
+        <Text style={[Typography.textSmMedium]}>შეკვეთა:</Text> #223394
+      </Text>
+    ),
     body: <ActionCard />,
   };
   const flatListData = [
@@ -192,12 +200,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
     paddingBottom: 20,
-    paddingHorizontal: 18,
+    paddingHorizontal: 20,
     paddingTop: 18,
   },
   body: {
     gap: 10,
-    paddingHorizontal: 18,
+    paddingHorizontal: 16,
     paddingBottom: 38,
   },
   black: {
@@ -223,5 +231,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   image: { width: 75, height: 75 },
-  halfWidth: { width: '50%', marginRight: 10 },
+  halfWidth: { width: '50%', paddingRight: 5 },
+  full: {
+    flex: 1,
+  },
 });
