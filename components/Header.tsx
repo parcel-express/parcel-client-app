@@ -20,7 +20,7 @@ const Header = ({ title, closeButton, hasGoBack }: Props) => {
       colors={[Colors.gradient.primary.start, Colors.gradient.primary.end]}
       start={{ x: 0, y: 0.5 }}
       end={{ x: 1, y: 0.5 }}
-      style={[styles.header, closeButton && styles.paddingBottomSm]}
+      style={[styles.header, hasGoBack && styles.extraPadding, closeButton && styles.smallPadding]}
       accessibilityRole='header'
     >
       {hasGoBack && !closeButton && (
@@ -69,7 +69,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  paddingBottomSm: {
+  extraPadding: {
+    paddingBottom: 52,
+  },
+  smallPadding: {
     paddingBottom: 40,
   },
   smallTitle: {
