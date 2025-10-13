@@ -115,22 +115,16 @@ const Select = ({
     allowInput && inputValue
       ? options.filter(o => o.label.toLowerCase().includes(inputValue.toLowerCase()))
       : options;
-  const factor = i18n.language === 'en-US' ? 6.6 : i18n.language === 'en-GE' ? 7.16 : 6.5;
-  const width = Math.max(...filteredOptions.map(opt => opt.label.length)) * factor;
+  const factor = i18n.language === 'en-US' ? 6.6 : i18n.language === 'en-GE' ? 7.5 : 6.5;
+  const width = Math.max(...filteredOptions.map(opt => opt.label.length)) * factor + 54;
   const maxWidth = maxW || '100%';
-
   const getModalPosition = () => {
     return {
       top: Math.min(Math.max(8, layout.y + layout.height + 8), screenHeight - 140),
-      width:
-        variant === 'secondary'
-          ? width + 54 < layout.width
-            ? layout.width
-            : width + 54
-          : layout.width,
+      width: variant === 'secondary' ? (width < layout.width ? layout.width : width) : layout.width,
       left:
-        layout.x + width + 54 > screenWidth && width + 54 > layout.width
-          ? layout.x - (width + 54 - layout.width)
+        layout.x + width > screenWidth && width > layout.width
+          ? layout.x - (width - layout.width)
           : layout.x - 4,
       maxHeight: Math.min(
         filteredOptions.length * 44 + 16,
