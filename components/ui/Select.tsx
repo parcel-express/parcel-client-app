@@ -115,16 +115,28 @@ const Select = ({
     allowInput && inputValue
       ? options.filter(o => o.label.toLowerCase().includes(inputValue.toLowerCase()))
       : options;
-  const factor = i18n.language === 'en-US' ? 6.6 : i18n.language === 'en-GE' ? 7.5 : 6.5;
-  const width = Math.max(...filteredOptions.map(opt => opt.label.length)) * factor + 54;
-  const maxWidth = maxW || '100%';
+  const factor = i18n.language?.startsWith('en')
+    ? 6.6
+    : i18n.language?.startsWith('ka')
+      ? 7.5
+      : 6.5;
+  const maxLabelLen =
+    filteredOptions.length > 0
+      ? Math.max(...filteredOptions.map(opt => opt.label.length))
+      : placeholder?.length || 0;
+  const dropdownWidth = Math.max(layout.width, maxLabelLen * factor + 54);
   const getModalPosition = () => {
     return {
       top: Math.min(Math.max(8, layout.y + layout.height + 8), screenHeight - 140),
-      width: variant === 'secondary' ? (width < layout.width ? layout.width : width) : layout.width,
+      width:
+        variant === 'secondary'
+          ? dropdownWidth < layout.width
+            ? layout.width
+            : dropdownWidth
+          : layout.width,
       left:
-        layout.x + width > screenWidth && width > layout.width
-          ? layout.x - (width - layout.width)
+        layout.x + dropdownWidth > screenWidth && dropdownWidth > layout.width
+          ? layout.x - (dropdownWidth - layout.width)
           : layout.x - 4,
       maxHeight: Math.min(
         filteredOptions.length * 44 + 16,
@@ -133,7 +145,7 @@ const Select = ({
     };
   };
   return (
-    <View style={[styles.wrapper, variant === 'secondary' && { maxWidth }]}>
+    <View style={[styles.wrapper, variant === 'secondary' && maxW != null && { maxWidth: maxW }]}>
       <View style={styles.container}>
         {!!label && (
           <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>{label}</Text>
@@ -183,7 +195,7 @@ const Select = ({
                 size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
                 {
                   color: value ? Colors.text[variant] : Colors.text.placeholder,
-                  width: layout.width - 54,
+                  width: layout.width > 54 ? layout.width - 54 : undefined,
                 },
               ]}
               numberOfLines={1}
