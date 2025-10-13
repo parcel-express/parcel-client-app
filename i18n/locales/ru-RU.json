@@ -323,5 +323,9 @@
     "october": "Окт",
     "november": "Ноя",
     "december": "Дек"
+  },
+  "select": {
+    "noOptions": "Нет вариантов",
+    "noResults": "Нет результатов"
   }
 }

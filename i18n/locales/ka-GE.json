@@ -318,5 +318,9 @@
     "october": "ოქტ",
     "november": "ნოე",
     "december": "დეკ"
+  },
+  "select": {
+    "noOptions": "არ არის არჩევანი",
+    "noResults": "არ არის შედეგები"
   }
 }

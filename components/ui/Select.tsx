@@ -54,7 +54,7 @@ const Select = ({
   const triggerRef = React.useRef<View | null>(null);
   const [layout, setLayout] = React.useState({ x: 0, y: 0, width: 0, height: 0 });
   const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   // input state used when allowInput=true
   const [inputValue, setInputValue] = React.useState<string>(
@@ -131,29 +131,29 @@ const Select = ({
       : placeholder?.length || 0;
   const dropdownWidth = Math.max(layout.width, maxLabelLen * factor + ICON_AND_PADDING_WIDTH);
   const getModalPosition = () => {
+    const w =
+      variant === 'secondary'
+        ? dropdownWidth < layout.width
+          ? layout.width
+          : dropdownWidth
+        : layout.width;
+    const overflowRight = layout.x + w > screenWidth && w > layout.width;
+    const computedLeft = overflowRight ? layout.x - (w - layout.width) : layout.x - 4;
+    const clampedLeft = Math.max(
+      DROPDOWN_SPACING,
+      Math.min(computedLeft, screenWidth - w - DROPDOWN_SPACING)
+    );
+    const top = Math.min(
+      Math.max(DROPDOWN_SPACING, layout.y + layout.height + DROPDOWN_SPACING),
+      screenHeight - BOTTOM_CLEARANCE
+    );
     return {
-      top: Math.min(
-        Math.max(DROPDOWN_SPACING, layout.y + layout.height + DROPDOWN_SPACING),
-        screenHeight - BOTTOM_CLEARANCE
-      ),
-      width:
-        variant === 'secondary'
-          ? dropdownWidth < layout.width
-            ? layout.width
-            : dropdownWidth
-          : layout.width,
-      left:
-        layout.x + dropdownWidth > screenWidth && dropdownWidth > layout.width
-          ? layout.x - (dropdownWidth - layout.width)
-          : layout.x - 4,
+      top,
+      width: w,
+      left: clampedLeft,
       maxHeight: Math.min(
         filteredOptions.length * OPTION_HEIGHT + OPTION_CONTAINER_PADDING,
-        screenHeight -
-          Math.min(
-            Math.max(DROPDOWN_SPACING, layout.y + layout.height + DROPDOWN_SPACING),
-            screenHeight - BOTTOM_CLEARANCE
-          ) -
-          BOTTOM_MARGIN
+        screenHeight - top - BOTTOM_MARGIN
       ),
     };
   };
@@ -195,9 +195,6 @@ const Select = ({
               ]}
               editable={!disabled}
               onFocus={() => openDropdown()}
-              onBlur={() => {
-                if (!isFocused) setIsFocused(false);
-              }}
               numberOfLines={1}
               underlineColorAndroid='transparent'
               keyboardType={inputType}
@@ -231,10 +228,7 @@ const Select = ({
         <TouchableWithoutFeedback onPress={closeDropdown}>
           <View style={styles.modalWrapper}>
             <TouchableWithoutFeedback>
-              <View
-                style={[styles.dropdown, !label && styles.topWithoutLabel, getModalPosition()]}
-                accessibilityRole='menu'
-              >
+              <View style={[styles.dropdown, getModalPosition()]} accessibilityRole='menu'>
                 <ScrollView keyboardShouldPersistTaps='handled'>
                   {filteredOptions.length === 0 ? (
                     <View style={styles.option}>
@@ -244,7 +238,7 @@ const Select = ({
                           styles.label,
                         ]}
                       >
-                        {allowInput ? 'No results' : 'No options'}
+                        {allowInput ? t('select.noResults') : t('select.noOptions')}
                       </Text>
                     </View>
                   ) : (
@@ -325,13 +319,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 72,
     left: 0,
-    right: 0,
     elevation: 8,
     zIndex: 1000,
-    width: '100%',
-  },
-  topWithoutLabel: {
-    top: 50,
   },
   option: {
     flexDirection: 'row',

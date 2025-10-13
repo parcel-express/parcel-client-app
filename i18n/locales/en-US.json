@@ -318,5 +318,9 @@
     "october": "Oct",
     "november": "Nov",
     "december": "Dec"
+  },
+  "select": {
+    "noOptions": "No options",
+    "noResults": "No results"
   }
 }
