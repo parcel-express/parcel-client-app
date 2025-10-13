@@ -142,12 +142,13 @@ const Select = ({
           ref={triggerRef}
           disabled={!!disabled}
           onPress={onPressContainer}
-          style={{
-            ...styles.inputContainer,
-            ...(size === 'sm' ? styles.smallGap : styles.mediumGap),
-            borderColor: getBorderColor(),
-            backgroundColor: disabled ? Colors.background.disabled : Colors.background.white,
-          }}
+          style={[
+            styles.inputContainer,
+            variant === 'secondary' && styles.fullWidth,
+            size === 'sm' ? styles.smallGap : styles.mediumGap,
+            { borderColor: getBorderColor() },
+            { backgroundColor: disabled ? Colors.background.disabled : Colors.background.white },
+          ]}
           accessibilityRole='button'
           accessibilityLabel={label || placeholder}
           accessibilityHint={isFocused ? 'Collapse options' : 'Expand options'}
@@ -279,7 +280,6 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
     paddingHorizontal: 14,
     backgroundColor: Colors.background.white,
-    width: '100%',
   },
   smallGap: {
     gap: 4,
@@ -320,5 +320,8 @@ const styles = StyleSheet.create({
   textInput: {
     flex: 1,
     lineHeight: 19.7,
+  },
+  fullWidth: {
+    width: '100%',
   },
 });
