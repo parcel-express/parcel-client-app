@@ -31,7 +31,12 @@ type Props = {
   inputType?: 'default' | 'numeric' | 'email-address' | 'phone-pad' | 'number-pad' | 'decimal-pad';
   maxW?: number;
 };
-
+const DROPDOWN_SPACING = 8;
+const OPTION_HEIGHT = 44;
+const OPTION_CONTAINER_PADDING = 16;
+const BOTTOM_CLEARANCE = 140;
+const BOTTOM_MARGIN = 100;
+const ICON_AND_PADDING_WIDTH = 54;
 const Select = ({
   label,
   setValue,
@@ -124,10 +129,13 @@ const Select = ({
     filteredOptions.length > 0
       ? Math.max(...filteredOptions.map(opt => opt.label.length))
       : placeholder?.length || 0;
-  const dropdownWidth = Math.max(layout.width, maxLabelLen * factor + 54);
+  const dropdownWidth = Math.max(layout.width, maxLabelLen * factor + ICON_AND_PADDING_WIDTH);
   const getModalPosition = () => {
     return {
-      top: Math.min(Math.max(8, layout.y + layout.height + 8), screenHeight - 140),
+      top: Math.min(
+        Math.max(DROPDOWN_SPACING, layout.y + layout.height + DROPDOWN_SPACING),
+        screenHeight - BOTTOM_CLEARANCE
+      ),
       width:
         variant === 'secondary'
           ? dropdownWidth < layout.width
@@ -139,8 +147,13 @@ const Select = ({
           ? layout.x - (dropdownWidth - layout.width)
           : layout.x - 4,
       maxHeight: Math.min(
-        filteredOptions.length * 44 + 16,
-        screenHeight - Math.min(Math.max(8, layout.y + layout.height + 8), screenHeight - 140) - 100
+        filteredOptions.length * OPTION_HEIGHT + OPTION_CONTAINER_PADDING,
+        screenHeight -
+          Math.min(
+            Math.max(DROPDOWN_SPACING, layout.y + layout.height + DROPDOWN_SPACING),
+            screenHeight - BOTTOM_CLEARANCE
+          ) -
+          BOTTOM_MARGIN
       ),
     };
   };
@@ -195,7 +208,10 @@ const Select = ({
                 size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
                 {
                   color: value ? Colors.text[variant] : Colors.text.placeholder,
-                  width: layout.width > 54 ? layout.width - 54 : undefined,
+                  width:
+                    layout.width > ICON_AND_PADDING_WIDTH
+                      ? layout.width - ICON_AND_PADDING_WIDTH
+                      : undefined,
                 },
               ]}
               numberOfLines={1}
