@@ -90,17 +90,21 @@ const Card = (props: Props) => {
             {data.title && (
               <View style={[styles.row, styles.gapSm]}>
                 {variant === 'info' && data.icon && data.icon}
-                <Text
-                  style={
-                    variant === 'tariffs'
-                      ? Typography.textSmBold
-                      : variant === 'info'
-                        ? Typography.textSmSemiBold
-                        : Typography.textSmMedium
-                  }
-                >
-                  {data.title}
-                </Text>
+                {typeof data.title === 'string' ? (
+                  <Text
+                    style={
+                      variant === 'tariffs'
+                        ? Typography.textSmBold
+                        : variant === 'info'
+                          ? Typography.textSmSemiBold
+                          : Typography.textSmMedium
+                    }
+                  >
+                    {data.title}
+                  </Text>
+                ) : (
+                  data.title
+                )}
               </View>
             )}
           </View>

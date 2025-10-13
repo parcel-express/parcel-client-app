@@ -37,7 +37,7 @@ export type Order = {
 };
 export type Info = {
   icon?: JSX.Element;
-  title?: string;
+  title?: string | JSX.Element;
   body: { label: string; value: string | JSX.Element }[] | JSX.Element;
 };
 

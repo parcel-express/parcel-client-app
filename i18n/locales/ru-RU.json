@@ -269,7 +269,7 @@
         "fullNameLabel": "Имя, Фамилия",
         "fullNamePlaceholder": "Введите имя и фамилию",
         "fullNameRequired": "Имя и фамилия обязательны",
-        "city": "Город",
+        "cityLabel": "Город",
         "cityPlaceholder": "Выберите город",
         "cityRequired": "Город обязателен"
       }
@@ -323,5 +323,9 @@
     "october": "Окт",
     "november": "Ноя",
     "december": "Дек"
+  },
+  "select": {
+    "noOptions": "Нет вариантов",
+    "noResults": "Нет результатов"
   }
 }

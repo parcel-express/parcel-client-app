@@ -1,7 +1,6 @@
-// ...existing code...
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Dimensions,
   Modal,
@@ -18,7 +17,6 @@ import {
 import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';
-// ...existing code...
 
 type Props = {
   label?: string;
@@ -29,10 +27,16 @@ type Props = {
   disabled?: boolean;
   variant?: 'primary' | 'secondary';
   size?: 'sm' | 'md';
-  allowInput?: boolean; // <-- new: allow typing
+  allowInput?: boolean;
   inputType?: 'default' | 'numeric' | 'email-address' | 'phone-pad' | 'number-pad' | 'decimal-pad';
+  maxW?: number;
 };
-
+const DROPDOWN_SPACING = 8;
+const OPTION_HEIGHT = 44;
+const OPTION_CONTAINER_PADDING = 16;
+const BOTTOM_CLEARANCE = 140;
+const BOTTOM_MARGIN = 100;
+const ICON_AND_PADDING_WIDTH = 54;
 const Select = ({
   label,
   setValue,
@@ -44,12 +48,13 @@ const Select = ({
   size = 'md',
   allowInput = false,
   inputType = 'default',
+  maxW,
 }: Props) => {
   const [isFocused, setIsFocused] = React.useState(false);
   const triggerRef = React.useRef<View | null>(null);
   const [layout, setLayout] = React.useState({ x: 0, y: 0, width: 0, height: 0 });
-  const tabBarHeight = useBottomTabBarHeight();
   const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+  const { t, i18n } = useTranslation();
 
   // input state used when allowInput=true
   const [inputValue, setInputValue] = React.useState<string>(
@@ -115,95 +120,115 @@ const Select = ({
     allowInput && inputValue
       ? options.filter(o => o.label.toLowerCase().includes(inputValue.toLowerCase()))
       : options;
-
+  const factor = i18n.language?.startsWith('en')
+    ? 6.6
+    : i18n.language?.startsWith('ka')
+      ? 7.5
+      : 6.5;
+  const maxLabelLen =
+    filteredOptions.length > 0
+      ? Math.max(...filteredOptions.map(opt => opt.label.length))
+      : placeholder?.length || 0;
+  const dropdownWidth = Math.max(layout.width, maxLabelLen * factor + ICON_AND_PADDING_WIDTH);
+  const getModalPosition = () => {
+    const w =
+      variant === 'secondary'
+        ? dropdownWidth < layout.width
+          ? layout.width
+          : dropdownWidth
+        : layout.width;
+    const overflowRight = layout.x + w > screenWidth && w > layout.width;
+    const computedLeft = overflowRight ? layout.x - (w - layout.width) : layout.x - 4;
+    const clampedLeft = Math.max(
+      DROPDOWN_SPACING,
+      Math.min(computedLeft, screenWidth - w - DROPDOWN_SPACING)
+    );
+    const top = Math.min(
+      Math.max(DROPDOWN_SPACING, layout.y + layout.height + DROPDOWN_SPACING),
+      screenHeight - BOTTOM_CLEARANCE
+    );
+    return {
+      top,
+      width: w,
+      left: clampedLeft,
+      maxHeight: Math.min(
+        filteredOptions.length * OPTION_HEIGHT + OPTION_CONTAINER_PADDING,
+        screenHeight - top - BOTTOM_MARGIN
+      ),
+    };
+  };
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, variant === 'secondary' && maxW != null && { maxWidth: maxW }]}>
       <View style={styles.container}>
         {!!label && (
           <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>{label}</Text>
         )}
-        <View ref={triggerRef} collapsable={false}>
-          <Pressable
-            disabled={!!disabled}
-            onPress={onPressContainer}
-            style={{
-              ...styles.inputContainer,
-              ...(size === 'sm' ? styles.smallGap : styles.mediumGap),
-              borderColor: getBorderColor(),
-              backgroundColor: disabled ? Colors.background.disabled : Colors.background.white,
-            }}
-            accessibilityRole='button'
-            accessibilityLabel={label || placeholder}
-            accessibilityHint={isFocused ? 'Collapse options' : 'Expand options'}
-            accessibilityState={{ expanded: isFocused, disabled: !!disabled }}
-          >
-            {allowInput ? (
-              <TextInput
-                ref={inputRef}
-                value={inputValue}
-                onChangeText={handleInputChange}
-                placeholder={placeholder}
-                placeholderTextColor={Colors.text.placeholder}
-                style={[
-                  size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
-                  {
-                    color: inputValue ? Colors.text[variant] : Colors.text.placeholder,
-                  },
-                  styles.textInput,
-                ]}
-                editable={!disabled}
-                onFocus={() => openDropdown()}
-                onBlur={() => {
-                  if (!isFocused) setIsFocused(false);
-                }}
-                numberOfLines={1}
-                underlineColorAndroid='transparent'
-                keyboardType={inputType}
-              />
-            ) : (
-              <Text
-                style={[
-                  size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
-                  { color: value ? Colors.text[variant] : Colors.text.placeholder },
-                ]}
-              >
-                {options.find(opt => opt.value === value)?.label || placeholder}
-              </Text>
-            )}
+        <Pressable
+          ref={triggerRef}
+          disabled={!!disabled}
+          onPress={onPressContainer}
+          style={[
+            styles.inputContainer,
+            variant === 'secondary' && styles.fullWidth,
+            size === 'sm' ? styles.smallGap : styles.mediumGap,
+            { borderColor: getBorderColor() },
+            { backgroundColor: disabled ? Colors.background.disabled : Colors.background.white },
+          ]}
+          accessibilityRole='button'
+          accessibilityLabel={label || placeholder}
+          accessibilityHint={isFocused ? 'Collapse options' : 'Expand options'}
+          accessibilityState={{ expanded: isFocused, disabled: !!disabled }}
+        >
+          {allowInput ? (
+            <TextInput
+              ref={inputRef}
+              value={inputValue}
+              onChangeText={handleInputChange}
+              placeholder={placeholder}
+              placeholderTextColor={Colors.text.placeholder}
+              style={[
+                size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
+                {
+                  color: inputValue ? Colors.text[variant] : Colors.text.placeholder,
+                },
+                styles.textInput,
+              ]}
+              editable={!disabled}
+              onFocus={() => openDropdown()}
+              numberOfLines={1}
+              underlineColorAndroid='transparent'
+              keyboardType={inputType}
+            />
+          ) : (
+            <Text
+              style={[
+                size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
+                {
+                  color: value ? Colors.text[variant] : Colors.text.placeholder,
+                  width:
+                    layout.width > ICON_AND_PADDING_WIDTH
+                      ? layout.width - ICON_AND_PADDING_WIDTH
+                      : undefined,
+                },
+              ]}
+              numberOfLines={1}
+              ellipsizeMode='tail'
+            >
+              {options.find(opt => opt.value === value)?.label || placeholder}
+            </Text>
+          )}
 
-            <View style={{ transform: [{ rotate: isFocused ? '90deg' : '-90deg' }] }}>
-              <MaterialIcons name={'chevron-left'} size={20} color={Colors.text.placeholder} />
-            </View>
-          </Pressable>
-        </View>
+          <View style={{ transform: [{ rotate: isFocused ? '90deg' : '-90deg' }] }}>
+            <MaterialIcons name={'chevron-left'} size={20} color={Colors.text.placeholder} />
+          </View>
+        </Pressable>
       </View>
 
       <Modal visible={isFocused} transparent animationType='fade' onRequestClose={closeDropdown}>
         <TouchableWithoutFeedback onPress={closeDropdown}>
           <View style={styles.modalWrapper}>
             <TouchableWithoutFeedback>
-              <View
-                style={[
-                  styles.dropdown,
-                  !label && styles.topWithoutLabel,
-                  {
-                    top: Math.min(
-                      Math.max(8, layout.y + layout.height + 8),
-                      screenHeight - 8 - Math.max(120, tabBarHeight + 48)
-                    ),
-                    left: Math.max(8, Math.min(layout.x, screenWidth - 16)),
-                    width: Math.min(layout.width || screenWidth - 32, screenWidth - 32),
-                    maxHeight:
-                      screenHeight -
-                      Math.min(
-                        Math.max(8, layout.y + layout.height + 8),
-                        screenHeight - 8 - Math.max(120, tabBarHeight + 48)
-                      ) -
-                      (tabBarHeight + 16),
-                  },
-                ]}
-                accessibilityRole='menu'
-              >
+              <View style={[styles.dropdown, getModalPosition()]} accessibilityRole='menu'>
                 <ScrollView keyboardShouldPersistTaps='handled'>
                   {filteredOptions.length === 0 ? (
                     <View style={styles.option}>
@@ -213,7 +238,7 @@ const Select = ({
                           styles.label,
                         ]}
                       >
-                        {allowInput ? 'No results' : 'No options'}
+                        {allowInput ? t('select.noResults') : t('select.noOptions')}
                       </Text>
                     </View>
                   ) : (
@@ -294,12 +319,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 72,
     left: 0,
-    right: 0,
     elevation: 8,
     zIndex: 1000,
-  },
-  topWithoutLabel: {
-    top: 50,
   },
   option: {
     flexDirection: 'row',
@@ -308,6 +329,7 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
     paddingRight: 16,
     paddingLeft: 14,
+    gap: 4,
   },
   label: {
     color: Colors.text.primary,
@@ -315,5 +337,8 @@ const styles = StyleSheet.create({
   textInput: {
     flex: 1,
     lineHeight: 19.7,
+  },
+  fullWidth: {
+    width: '100%',
   },
 });

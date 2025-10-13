@@ -267,7 +267,7 @@
         "fullNameLabel": "სახელი, გვარი",
         "fullNamePlaceholder": "სახელი და გვარი",
         "fullNameRequired": "სახელი და გვარი აუცილებელია",
-        "city": "ქალაქი",
+        "cityLabel": "ქალაქი",
         "cityPlaceholder": "აირჩიეთ ქალაქი",
         "cityRequired": "ქალაქი აუცილებელია"
       }
@@ -318,5 +318,9 @@
     "october": "ოქტ",
     "november": "ნოე",
     "december": "დეკ"
+  },
+  "select": {
+    "noOptions": "არ არის არჩევანი",
+    "noResults": "არ არის შედეგები"
   }
 }
