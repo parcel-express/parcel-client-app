@@ -138,66 +138,64 @@ const Select = ({
         {!!label && (
           <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>{label}</Text>
         )}
-        <View ref={triggerRef} collapsable={false}>
-          <Pressable
-            disabled={!!disabled}
-            onPress={onPressContainer}
-            style={{
-              ...styles.inputContainer,
-              ...(size === 'sm' ? styles.smallGap : styles.mediumGap),
-              borderColor: getBorderColor(),
-              backgroundColor: disabled ? Colors.background.disabled : Colors.background.white,
-            }}
-            accessibilityRole='button'
-            accessibilityLabel={label || placeholder}
-            accessibilityHint={isFocused ? 'Collapse options' : 'Expand options'}
-            accessibilityState={{ expanded: isFocused, disabled: !!disabled }}
-          >
-            {allowInput ? (
-              <TextInput
-                ref={inputRef}
-                value={inputValue}
-                onChangeText={handleInputChange}
-                placeholder={placeholder}
-                placeholderTextColor={Colors.text.placeholder}
-                style={[
-                  size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
-                  {
-                    color: inputValue ? Colors.text[variant] : Colors.text.placeholder,
-                  },
-                  styles.textInput,
-                ]}
-                editable={!disabled}
-                onFocus={() => openDropdown()}
-                onBlur={() => {
-                  if (!isFocused) setIsFocused(false);
-                }}
-                numberOfLines={1}
-                underlineColorAndroid='transparent'
-                keyboardType={inputType}
-              />
-            ) : (
-              <Text
-                style={[
-                  size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
-                  {
-                    color: value ? Colors.text[variant] : Colors.text.placeholder,
+        <Pressable
+          ref={triggerRef}
+          disabled={!!disabled}
+          onPress={onPressContainer}
+          style={{
+            ...styles.inputContainer,
+            ...(size === 'sm' ? styles.smallGap : styles.mediumGap),
+            borderColor: getBorderColor(),
+            backgroundColor: disabled ? Colors.background.disabled : Colors.background.white,
+          }}
+          accessibilityRole='button'
+          accessibilityLabel={label || placeholder}
+          accessibilityHint={isFocused ? 'Collapse options' : 'Expand options'}
+          accessibilityState={{ expanded: isFocused, disabled: !!disabled }}
+        >
+          {allowInput ? (
+            <TextInput
+              ref={inputRef}
+              value={inputValue}
+              onChangeText={handleInputChange}
+              placeholder={placeholder}
+              placeholderTextColor={Colors.text.placeholder}
+              style={[
+                size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
+                {
+                  color: inputValue ? Colors.text[variant] : Colors.text.placeholder,
+                },
+                styles.textInput,
+              ]}
+              editable={!disabled}
+              onFocus={() => openDropdown()}
+              onBlur={() => {
+                if (!isFocused) setIsFocused(false);
+              }}
+              numberOfLines={1}
+              underlineColorAndroid='transparent'
+              keyboardType={inputType}
+            />
+          ) : (
+            <Text
+              style={[
+                size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
+                {
+                  color: value ? Colors.text[variant] : Colors.text.placeholder,
+                  width: layout.width - 54,
+                },
+              ]}
+              numberOfLines={1}
+              ellipsizeMode='tail'
+            >
+              {options.find(opt => opt.value === value)?.label || placeholder}
+            </Text>
+          )}
 
-                    width: layout.width - 50,
-                  },
-                ]}
-                numberOfLines={1}
-                ellipsizeMode='tail'
-              >
-                {options.find(opt => opt.value === value)?.label || placeholder}
-              </Text>
-            )}
-
-            <View style={{ transform: [{ rotate: isFocused ? '90deg' : '-90deg' }] }}>
-              <MaterialIcons name={'chevron-left'} size={20} color={Colors.text.placeholder} />
-            </View>
-          </Pressable>
-        </View>
+          <View style={{ transform: [{ rotate: isFocused ? '90deg' : '-90deg' }] }}>
+            <MaterialIcons name={'chevron-left'} size={20} color={Colors.text.placeholder} />
+          </View>
+        </Pressable>
       </View>
 
       <Modal visible={isFocused} transparent animationType='fade' onRequestClose={closeDropdown}>
@@ -281,6 +279,7 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
     paddingHorizontal: 14,
     backgroundColor: Colors.background.white,
+    width: '100%',
   },
   smallGap: {
     gap: 4,
