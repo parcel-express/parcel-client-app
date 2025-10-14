@@ -135,9 +135,6 @@ const styles = StyleSheet.create({
     borderColor: Colors.border.primary,
     backgroundColor: Colors.background.white,
     borderRadius: 8,
-    height: 64,
-    paddingHorizontal: 8,
-    alignItems: 'center',
     ...Shadows.shadow_xs,
   },
   flexChild: {
@@ -149,6 +146,8 @@ const styles = StyleSheet.create({
     gap: 8,
     justifyContent: 'center',
     alignItems: 'center',
+    height: 64,
+    paddingHorizontal: 8,
   },
   card: {
     flexDirection: 'column',
