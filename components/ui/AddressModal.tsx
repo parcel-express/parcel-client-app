@@ -2,7 +2,7 @@ import { Image } from 'expo-image';
 import { FormikProps } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Modal, StyleSheet, View } from 'react-native';
+import { KeyboardAvoidingView, Modal, Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { FormValues } from '@/app/(tabs)/new-order';
@@ -27,7 +27,7 @@ type Props = {
 
 const AddressModal = ({ visible, onClose, transparent = true, form, onSubmit, type }: Props) => {
   const { t } = useTranslation();
-  const { top } = useSafeAreaInsets();
+  const { top, bottom } = useSafeAreaInsets();
   const selectKeys = ['company', 'city'];
   const options = [
     {
@@ -67,39 +67,49 @@ const AddressModal = ({ visible, onClose, transparent = true, form, onSubmit, ty
         <XIcon onPress={onClose} />
       </View>
       <View style={styles.container}>
-        <View style={styles.content}>
-          <View style={styles.form}>
-            {inputKeys.map(key => {
-              if (selectKeys.includes(key)) {
+        <KeyboardAvoidingView
+          style={{ maxHeight: 540 + bottom }}
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        >
+          <ScrollView
+            keyboardShouldPersistTaps='always'
+            keyboardDismissMode='none'
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.content}
+          >
+            <View style={styles.form}>
+              {inputKeys.map(key => {
+                if (selectKeys.includes(key)) {
+                  return (
+                    <Select
+                      setValue={val => form.setFieldValue(getName(key), val)}
+                      options={options}
+                      key={key}
+                      label={t(`new-order.form.${key}`)}
+                      placeholder={t(`new-order.form.${key}Placeholder`)}
+                      value={form.values[getName(key) as keyof FormValues] as string}
+                    />
+                  );
+                }
                 return (
-                  <Select
-                    setValue={val => form.setFieldValue(getName(key), val)}
-                    options={options}
+                  <Input
+                    name={getName(key) as keyof FormValues}
+                    formik={form}
                     key={key}
                     label={t(`new-order.form.${key}`)}
                     placeholder={t(`new-order.form.${key}Placeholder`)}
-                    value={form.values[getName(key) as keyof FormValues] as string}
+                    leftIcon={key === 'name' ? <UserIcon width={15} height={15} /> : undefined}
                   />
                 );
-              }
-              return (
-                <Input
-                  name={getName(key) as keyof FormValues}
-                  formik={form}
-                  key={key}
-                  label={t(`new-order.form.${key}`)}
-                  placeholder={t(`new-order.form.${key}Placeholder`)}
-                  leftIcon={key === 'name' ? <UserIcon width={15} height={15} /> : undefined}
-                />
-              );
-            })}
-          </View>
-          <View style={styles.footer}>
-            <Button size='md' variant='primary' onPress={onSubmit}>
-              {t('common.save')}
-            </Button>
-          </View>
-        </View>
+              })}
+            </View>
+            <View style={styles.footer}>
+              <Button size='md' variant='primary' onPress={onSubmit}>
+                {t('common.save')}
+              </Button>
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </View>
     </Modal>
   );
