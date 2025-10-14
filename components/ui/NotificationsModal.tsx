@@ -2,7 +2,10 @@ import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  KeyboardAvoidingView,
   Modal,
+  Platform,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -66,72 +69,81 @@ const NotificationsModal: React.FC<Props> = ({
   };
   return (
     <Modal visible={visible} transparent animationType='slide' onRequestClose={onClose}>
-      <View style={styles.overlay}>
-        <TouchableWithoutFeedback onPress={onClose}>
-          <View style={styles.full} />
-        </TouchableWithoutFeedback>
-        <View style={styles.modal}>
-          <View style={styles.header}>
-            <View style={styles.gapSm}>
-              <Text style={[Typography.textMdSemiBold, styles.black]}>
-                {t(message ? 'notifications.modal.messageLabel' : 'notifications.modal.sendTitle')}
-              </Text>
-              {!message && (
-                <Text style={[Typography.textXsRegular, styles.black]}>
-                  {t('notifications.modal.sendSubTitle')}
+      <KeyboardAvoidingView
+        style={styles.full}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        <View style={styles.overlay}>
+          <TouchableWithoutFeedback onPress={onClose}>
+            <View style={styles.full} />
+          </TouchableWithoutFeedback>
+          <View style={styles.modal}>
+            <View style={[styles.container, styles.header]}>
+              <View style={styles.gapSm}>
+                <Text style={[Typography.textMdSemiBold, styles.black]}>
+                  {t(
+                    message ? 'notifications.modal.messageLabel' : 'notifications.modal.sendTitle'
+                  )}
                 </Text>
-              )}
+                {!message && (
+                  <Text style={[Typography.textXsRegular, styles.black]}>
+                    {t('notifications.modal.sendSubTitle')}
+                  </Text>
+                )}
+              </View>
+              <TouchableOpacity onPress={onClose}>
+                <XIcon width={12} height={12} />
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={onClose}>
-              <XIcon width={12} height={12} />
-            </TouchableOpacity>
-          </View>
-          {message ? (
-            <Text style={[Typography.textMdRegular, styles.black]}>{message}</Text>
-          ) : (
-            <View style={styles.body}>
-              <Select
-                placeholder={t('notifications.modal.titlePlaceholder')}
-                options={options}
-                setValue={setSelectValue}
-              />
-              <Input
-                name={'trackingCode'}
-                placeholder={t('notifications.modal.trackingPlaceholder')}
-                label={t('notifications.modal.trackingLabel')}
-                formik={formik}
-              />
-              {variant === 'support' && (
-                <>
+            <ScrollView contentContainerStyle={[styles.container]}>
+              {message ? (
+                <Text style={[Typography.textMdRegular, styles.black]}>{message}</Text>
+              ) : (
+                <View style={styles.body}>
+                  <Select
+                    placeholder={t('notifications.modal.titlePlaceholder')}
+                    options={options}
+                    setValue={setSelectValue}
+                  />
                   <Input
-                    name={'fullName'}
-                    placeholder={t('profile.support.form.fullNamePlaceholder')}
-                    label={t('profile.support.form.fullNameLabel')}
+                    name={'trackingCode'}
+                    placeholder={t('notifications.modal.trackingPlaceholder')}
+                    label={t('notifications.modal.trackingLabel')}
                     formik={formik}
                   />
-                  <Select
-                    placeholder={t('profile.support.form.cityPlaceholder')}
-                    options={options}
-                    setValue={value => formik.setFieldValue('city', value)}
-                    label={t('profile.support.form.cityLabel')}
+                  {variant === 'support' && (
+                    <>
+                      <Input
+                        name={'fullName'}
+                        placeholder={t('profile.support.form.fullNamePlaceholder')}
+                        label={t('profile.support.form.fullNameLabel')}
+                        formik={formik}
+                      />
+                      <Select
+                        placeholder={t('profile.support.form.cityPlaceholder')}
+                        options={options}
+                        setValue={value => formik.setFieldValue('city', value)}
+                        label={t('profile.support.form.cityLabel')}
+                      />
+                    </>
+                  )}
+                  <TextArea
+                    label={t('notifications.modal.messageLabel')}
+                    value={formik.values.message}
+                    onChangeText={formik.handleChange('message')}
+                    placeholder={t('notifications.modal.messagePlaceholder')}
                   />
-                </>
+                </View>
               )}
-              <TextArea
-                label={t('notifications.modal.messageLabel')}
-                value={formik.values.message}
-                onChangeText={formik.handleChange('message')}
-                placeholder={t('notifications.modal.messagePlaceholder')}
-              />
-            </View>
-          )}
-          <View style={styles.footer}>
-            <Button variant='primary' onPress={formik.handleSubmit} size={'md'}>
-              {t(message ? 'common.back' : 'common.send')}
-            </Button>
+              <View style={styles.footer}>
+                <Button variant='primary' onPress={formik.handleSubmit} size={'md'}>
+                  {t(message ? 'common.back' : 'common.send')}
+                </Button>
+              </View>
+            </ScrollView>
           </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 };
@@ -148,10 +160,8 @@ const styles = StyleSheet.create({
     maxHeight: '80%',
     width: '100%',
     backgroundColor: Colors.modal.background,
-    borderRadius: 12,
-    padding: 24,
-    paddingBottom: 44,
-    paddingHorizontal: 18,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
     elevation: 5,
   },
   header: {
@@ -163,7 +173,7 @@ const styles = StyleSheet.create({
     gap: 22,
   },
   footer: {
-    marginTop: 44,
+    marginVertical: 44,
   },
   black: {
     color: Colors.text.black,
@@ -172,4 +182,8 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   full: { flex: 1 },
+  container: {
+    paddingHorizontal: 18,
+    paddingVertical: 24,
+  },
 });
