@@ -2,7 +2,15 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
+import {
+  FlatList,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 
 import ContentView from '@/components/ContentView';
 import Header from '@/components/Header';
@@ -102,17 +110,25 @@ export default function NewOrderScreen() {
 
   const renderItem = React.useCallback(
     ({ item }: { item: React.ReactElement }) => (
-      <ScrollView
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}
-        contentContainerStyle={[styles.content, { width: screenWidth }]}
+        keyboardVerticalOffset={tabBarHeight + 82}
       >
-        <View>{item}</View>
-        <Button size='md' variant={'primary'} style={styles.submitButton} onPress={handlePress}>
-          {index === steps.length - 1 ? t('new-order.reviewLabel') : t('common.continue')}
-        </Button>
-      </ScrollView>
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={[styles.content, { width: screenWidth }]}
+          keyboardShouldPersistTaps='handled'
+          showsVerticalScrollIndicator={false}
+        >
+          <View>{item}</View>
+          <Button size='md' variant={'primary'} style={styles.submitButton} onPress={handlePress}>
+            {index === steps.length - 1 ? t('new-order.reviewLabel') : t('common.continue')}
+          </Button>
+        </ScrollView>
+      </KeyboardAvoidingView>
     ),
-    [screenWidth, handlePress, index, steps.length, t]
+    [tabBarHeight, screenWidth, handlePress, index, steps.length, t]
   );
   return (
     <ThemedView
