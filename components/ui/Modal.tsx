@@ -1,4 +1,3 @@
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { FormikProps } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -43,11 +42,10 @@ const inputs: (keyof Form)[] = [
 ];
 const Modal = ({ visible, onClose, transparent = true, form, title, subtitle }: Props) => {
   const { t } = useTranslation();
-  const tabBarHeight = useBottomTabBarHeight();
   const windowHeight = useWindowDimensions().height;
   const panelHeight = windowHeight * 0.85;
   const insets = useSafeAreaInsets();
-  const overlayHeight = windowHeight - panelHeight - insets.top;
+  const overlayHeight = windowHeight - panelHeight;
 
   const bottomPad = insets.bottom + 22;
   return (
@@ -63,18 +61,18 @@ const Modal = ({ visible, onClose, transparent = true, form, title, subtitle }: 
         <View style={[styles.topOverlay, { height: overlayHeight }]} />
       </TouchableWithoutFeedback>
       <View style={styles.overlay} accessibilityViewIsModal accessible>
-        <View style={[styles.content, { height: panelHeight }]}>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            keyboardVerticalOffset={
-              Platform.OS === 'ios' ? overlayHeight + 20 : overlayHeight + tabBarHeight + 20
-            }
-            style={styles.full}
-          >
-            <ScrollView
-              keyboardShouldPersistTaps='handled'
-              contentContainerStyle={[styles.contentContainer, { paddingBottom: bottomPad }]}
-            >
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={[
+            styles.full,
+            styles.bottom,
+            {
+              maxHeight: panelHeight,
+            },
+          ]}
+        >
+          <ScrollView keyboardShouldPersistTaps='handled' contentContainerStyle={styles.bottom}>
+            <View style={[styles.content, styles.contentContainer, { paddingBottom: bottomPad }]}>
               <View style={styles.header}>
                 <View style={styles.row}>
                   <Text style={Typography.textMdSemiBold}>{title}</Text>
@@ -112,9 +110,9 @@ const Modal = ({ visible, onClose, transparent = true, form, title, subtitle }: 
               <Button variant='primary' size='md' onPress={form.handleSubmit}>
                 {t('profile.addresses.addAddress')}
               </Button>
-            </ScrollView>
-          </KeyboardAvoidingView>
-        </View>
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </View>
     </RNModal>
   );
@@ -156,6 +154,9 @@ const styles = StyleSheet.create({
     gap: 22,
   },
   full: { flex: 1 },
+  bottom: {
+    marginTop: 'auto',
+  },
 });
 
 export default Modal;
