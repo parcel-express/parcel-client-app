@@ -1,7 +1,7 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import { Platform, ScrollView, StyleSheet, Text } from 'react-native';
 
 import ContentView from '@/components/ContentView';
 import Header from '@/components/Header';
@@ -11,7 +11,7 @@ import { Typography } from '@/constants/Typography';
 
 export default function ConditionsScreen() {
   const { t } = useTranslation();
-  const paddingBottom = useBottomTabBarHeight();
+  const paddingBottom = useBottomTabBarHeight() + 18;
   return (
     <ThemedView
       style={styles.container}
@@ -20,7 +20,9 @@ export default function ConditionsScreen() {
     >
       <Header title={t('profile.conditions.title')} hasGoBack />
       <ContentView>
-        <ScrollView contentContainerStyle={[styles.content, { paddingBottom }]}>
+        <ScrollView
+          contentContainerStyle={[styles.content, Platform.OS === 'ios' && { paddingBottom }]}
+        >
           <Text style={[Typography.textMdRegular, { color: Colors.text.primary }]}>
             {t('profile.conditions.terms')}
           </Text>

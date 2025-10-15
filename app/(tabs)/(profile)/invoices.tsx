@@ -1,7 +1,7 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, Platform, StyleSheet } from 'react-native';
 
 import type { Invoice } from '@/app/types/cardTypes';
 import ContentView from '@/components/ContentView';
@@ -100,7 +100,10 @@ export default function InvoicesScreen() {
           data={data}
           keyExtractor={item => item.id}
           renderItem={({ item }) => <Card variant={'invoices'} data={item} />}
-          contentContainerStyle={[styles.content, { paddingBottom: tabBarHeight + 18 }]}
+          contentContainerStyle={[
+            styles.content,
+            Platform.OS === 'ios' && { paddingBottom: tabBarHeight + 18 },
+          ]}
         />
       </ContentView>
     </ThemedView>

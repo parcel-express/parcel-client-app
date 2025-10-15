@@ -19,15 +19,14 @@ import Select from './Select';
 type Props = {
   visible: boolean;
   onClose: () => void;
-  transparent?: boolean;
   form: FormikProps<FormValues>;
   onSubmit: () => void;
   type: 'sender' | 'receiver';
 };
 
-const AddressModal = ({ visible, onClose, transparent = true, form, onSubmit, type }: Props) => {
+const AddressModal = ({ visible, onClose, form, onSubmit, type }: Props) => {
   const { t } = useTranslation();
-  const { top, bottom } = useSafeAreaInsets();
+  const { top } = useSafeAreaInsets();
   const selectKeys = ['company', 'city'];
   const options = [
     {
@@ -50,11 +49,10 @@ const AddressModal = ({ visible, onClose, transparent = true, form, onSubmit, ty
   return (
     <Modal
       visible={visible}
-      transparent={transparent}
+      transparent
       animationType='slide'
       onRequestClose={onClose}
       statusBarTranslucent
-      navigationBarTranslucent
     >
       <View style={styles.background}>
         <Image source={require('../../assets/images/map.png')} style={styles.image} />
@@ -66,51 +64,52 @@ const AddressModal = ({ visible, onClose, transparent = true, form, onSubmit, ty
       <View style={[styles.closeIcon, { top: top + 18 }]}>
         <XIcon onPress={onClose} />
       </View>
-      <View style={styles.container}>
-        <KeyboardAvoidingView
-          style={{ maxHeight: 540 + bottom }}
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        >
-          <ScrollView
-            keyboardShouldPersistTaps='always'
-            keyboardDismissMode='none'
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.content}
-          >
-            <View style={styles.form}>
-              {inputKeys.map(key => {
-                if (selectKeys.includes(key)) {
+      <KeyboardAvoidingView
+        style={styles.full}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        <View style={styles.overlay}>
+          <View style={[styles.content, { marginTop: top + 65 }]}>
+            <ScrollView
+              keyboardShouldPersistTaps='handled'
+              keyboardDismissMode='none'
+              showsVerticalScrollIndicator={false}
+            >
+              <View style={styles.form}>
+                {inputKeys.map(key => {
+                  if (selectKeys.includes(key)) {
+                    return (
+                      <Select
+                        setValue={val => form.setFieldValue(getName(key), val)}
+                        options={options}
+                        key={key}
+                        label={t(`new-order.form.${key}`)}
+                        placeholder={t(`new-order.form.${key}Placeholder`)}
+                        value={form.values[getName(key) as keyof FormValues] as string}
+                      />
+                    );
+                  }
                   return (
-                    <Select
-                      setValue={val => form.setFieldValue(getName(key), val)}
-                      options={options}
+                    <Input
+                      name={getName(key) as keyof FormValues}
+                      formik={form}
                       key={key}
                       label={t(`new-order.form.${key}`)}
                       placeholder={t(`new-order.form.${key}Placeholder`)}
-                      value={form.values[getName(key) as keyof FormValues] as string}
+                      leftIcon={key === 'name' ? <UserIcon width={15} height={15} /> : undefined}
                     />
                   );
-                }
-                return (
-                  <Input
-                    name={getName(key) as keyof FormValues}
-                    formik={form}
-                    key={key}
-                    label={t(`new-order.form.${key}`)}
-                    placeholder={t(`new-order.form.${key}Placeholder`)}
-                    leftIcon={key === 'name' ? <UserIcon width={15} height={15} /> : undefined}
-                  />
-                );
-              })}
-            </View>
-            <View style={styles.footer}>
-              <Button size='md' variant='primary' onPress={onSubmit}>
-                {t('common.save')}
-              </Button>
-            </View>
-          </ScrollView>
-        </KeyboardAvoidingView>
-      </View>
+                })}
+              </View>
+              <View style={styles.footer}>
+                <Button size='md' variant='primary' onPress={onSubmit}>
+                  {t('common.save')}
+                </Button>
+              </View>
+            </ScrollView>
+          </View>
+        </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 };
@@ -118,6 +117,13 @@ const AddressModal = ({ visible, onClose, transparent = true, form, onSubmit, ty
 export default AddressModal;
 
 const styles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  full: {
+    flex: 1,
+  },
   background: { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 },
   image: { flex: 1 },
   closeIcon: {
@@ -131,21 +137,19 @@ const styles = StyleSheet.create({
     ...Shadows.shadow_xs,
     borderRadius: 10,
   },
-  container: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
   content: {
-    borderRadius: 16,
+    borderTopEndRadius: 16,
+    borderTopStartRadius: 16,
     justifyContent: 'flex-end',
     backgroundColor: Colors.background.white,
     paddingHorizontal: 20,
+    paddingTop: 24,
   },
   form: {
-    paddingVertical: 24,
     gap: 10,
   },
   footer: {
+    paddingTop: 24,
     paddingBottom: 44,
   },
   addressIcon: {

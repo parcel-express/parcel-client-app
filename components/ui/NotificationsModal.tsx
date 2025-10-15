@@ -68,7 +68,13 @@ const NotificationsModal: React.FC<Props> = ({
     formik.setFieldValue('title', value);
   };
   return (
-    <Modal visible={visible} transparent animationType='slide' onRequestClose={onClose}>
+    <Modal
+      visible={visible}
+      transparent
+      animationType='slide'
+      onRequestClose={onClose}
+      statusBarTranslucent
+    >
       <KeyboardAvoidingView
         style={styles.full}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -78,7 +84,7 @@ const NotificationsModal: React.FC<Props> = ({
             <View style={styles.full} />
           </TouchableWithoutFeedback>
           <View style={styles.modal}>
-            <View style={[styles.container, styles.header]}>
+            <View style={styles.header}>
               <View style={styles.gapSm}>
                 <Text style={[Typography.textMdSemiBold, styles.black]}>
                   {t(
@@ -95,7 +101,7 @@ const NotificationsModal: React.FC<Props> = ({
                 <XIcon width={12} height={12} />
               </TouchableOpacity>
             </View>
-            <ScrollView contentContainerStyle={[styles.container]}>
+            <ScrollView showsVerticalScrollIndicator={false}>
               {message ? (
                 <Text style={[Typography.textMdRegular, styles.black]}>{message}</Text>
               ) : (
@@ -163,6 +169,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
     elevation: 5,
+    paddingHorizontal: 18,
+    paddingVertical: 24,
   },
   header: {
     flexDirection: 'row',
@@ -173,7 +181,7 @@ const styles = StyleSheet.create({
     gap: 22,
   },
   footer: {
-    marginVertical: 44,
+    marginTop: 44,
   },
   black: {
     color: Colors.text.black,
@@ -182,8 +190,4 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   full: { flex: 1 },
-  container: {
-    paddingHorizontal: 18,
-    paddingVertical: 24,
-  },
 });

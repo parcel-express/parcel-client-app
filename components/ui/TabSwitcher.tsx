@@ -13,35 +13,28 @@ type Props = {
 };
 
 const TabSwitcher = ({ tabs, activeTab, onChange }: Props) => {
-  const TabButton = ({
-    children,
-    isActive,
-    value,
-  }: {
-    children: string;
-    isActive: boolean;
-    value: string;
-  }) => (
-    <TouchableOpacity
-      onPress={onChange ? () => onChange(value as Tab) : undefined}
-      style={[styles.tabButton, isActive ? styles.activeColor : styles.inactiveColor]}
-    >
-      <Text
-        style={[
-          isActive ? Typography.textXsSemiBold : Typography.textXsMedium,
-          { color: Colors.text.secondary },
-        ]}
-      >
-        {children}
-      </Text>
-    </TouchableOpacity>
-  );
   return (
     <View style={styles.container}>
       {tabs.slice(0, 3).map(tab => (
-        <TabButton key={tab.value} isActive={tab.value === activeTab} value={tab.value}>
-          {tab.label}
-        </TabButton>
+        <TouchableOpacity
+          onPress={onChange ? () => onChange(tab.value) : undefined}
+          style={[
+            styles.tabButton,
+            tab.value === activeTab ? styles.activeColor : styles.inactiveColor,
+          ]}
+          key={tab.value}
+        >
+          <Text
+            style={[
+              tab.value === activeTab ? Typography.textXsSemiBold : Typography.textXsMedium,
+              { color: Colors.text.secondary },
+            ]}
+            numberOfLines={1}
+            ellipsizeMode='tail'
+          >
+            {tab.label}
+          </Text>
+        </TouchableOpacity>
       ))}
     </View>
   );
@@ -59,12 +52,13 @@ const styles = StyleSheet.create({
   },
   tabButton: {
     paddingVertical: 6,
-    paddingHorizontal: 12,
+    paddingHorizontal: 4,
     borderColor: Colors.border.primary,
     borderWidth: 0.74,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    minWidth: 80,
   },
   activeColor: {
     backgroundColor: Colors.background.disabled,

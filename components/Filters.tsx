@@ -17,8 +17,8 @@ type Props = {
   date: { start?: string; end?: string };
   status: Status | 'status';
   setStatus: (status: Status | 'status') => void;
-  tab: Tab;
-  setTab: (tab: Tab) => void;
+  tab?: Tab;
+  setTab?: (tab: Tab) => void;
   options: { label: string; value: string }[];
   tabs?: { label: string; value: Tab }[];
 };
@@ -53,7 +53,9 @@ const Filters = ({ formik, setDate, status, setStatus, tab, setTab, options, tab
           />
         </View>
       </View>
-      {tabs && <TabSwitcher tabs={tabs} activeTab={tab} onChange={val => setTab(val)} />}
+      {tabs && tab && setTab && (
+        <TabSwitcher tabs={tabs} activeTab={tab} onChange={val => setTab(val)} />
+      )}
     </>
   );
 };

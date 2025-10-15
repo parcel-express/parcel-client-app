@@ -3,6 +3,7 @@ import React from 'react';
 import {
   FlatList,
   Modal,
+  Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -159,6 +160,7 @@ const InfoModal: React.FC<Props> = ({ visible, onClose, title, data }) => {
   return (
     <Modal visible={visible} transparent animationType='slide' onRequestClose={onClose}>
       <View style={styles.overlay}>
+        <Pressable style={StyleSheet.absoluteFill} onPress={onClose} />
         <View style={[styles.modal, { height }]}>
           <View style={styles.row}>
             <Text style={[Typography.textMdSemiBold, styles.black]}>{title}</Text>
