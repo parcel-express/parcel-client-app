@@ -12,6 +12,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as yup from 'yup';
 
 import { ThemedView } from '@/components/ThemedView';
@@ -26,6 +27,8 @@ type Form = {
 
 export default function LoginScreen() {
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
+  const keyboardVerticalOffset = Platform.OS === 'ios' ? insets.top : 20;
   const formik = useFormik({
     initialValues: { email: '', password: '' },
     validateOnChange: true,
@@ -51,7 +54,7 @@ export default function LoginScreen() {
   const handleForgotPassword = () => {
     router.push('/(auth)/forgot-password');
   };
-  const keyboardVerticalOffset = Platform.OS === 'ios' ? 5 : 20;
+
   return (
     <KeyboardAvoidingView
       style={styles.flexOne}
