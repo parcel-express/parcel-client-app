@@ -28,7 +28,7 @@ type Form = {
 export default function LoginScreen() {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-
+  const keyboardVerticalOffset = Platform.OS === 'ios' ? insets.top : 20;
   const formik = useFormik({
     initialValues: { email: '', password: '' },
     validateOnChange: true,
@@ -59,7 +59,7 @@ export default function LoginScreen() {
     <KeyboardAvoidingView
       style={styles.flexOne}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? insets.top : 0}
+      keyboardVerticalOffset={keyboardVerticalOffset}
     >
       <ScrollView
         keyboardShouldPersistTaps='handled'

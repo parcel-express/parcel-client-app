@@ -1,4 +1,3 @@
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { FormikProps } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -10,7 +9,6 @@ import {
   StyleSheet,
   Text,
   TouchableWithoutFeedback,
-  useWindowDimensions,
   View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -30,7 +28,6 @@ type Props = {
   subtitle?: string;
   visible: boolean;
   onClose: () => void;
-  transparent?: boolean;
   form: FormikProps<Form>;
 };
 const inputs: (keyof Form)[] = [
@@ -41,40 +38,35 @@ const inputs: (keyof Form)[] = [
   'address',
   'phone',
 ];
-const Modal = ({ visible, onClose, transparent = true, form, title, subtitle }: Props) => {
+const Modal = ({ visible, onClose, form, title, subtitle }: Props) => {
   const { t } = useTranslation();
-  const tabBarHeight = useBottomTabBarHeight();
-  const windowHeight = useWindowDimensions().height;
-  const panelHeight = windowHeight * 0.85;
-  const insets = useSafeAreaInsets();
-  const overlayHeight = windowHeight - panelHeight - insets.top;
+  const { bottom } = useSafeAreaInsets();
 
-  const bottomPad = insets.bottom + 22;
   return (
     <RNModal
       visible={visible}
-      transparent={transparent}
+      transparent
       animationType='slide'
       onRequestClose={onClose}
       statusBarTranslucent
-      navigationBarTranslucent
     >
-      <TouchableWithoutFeedback onPress={onClose}>
-        <View style={[styles.topOverlay, { height: overlayHeight }]} />
-      </TouchableWithoutFeedback>
-      <View style={styles.overlay} accessibilityViewIsModal accessible>
-        <View style={[styles.content, { height: panelHeight }]}>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            keyboardVerticalOffset={
-              Platform.OS === 'ios' ? overlayHeight + 20 : overlayHeight + tabBarHeight + 20
-            }
-            style={styles.full}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        style={[styles.full]}
+      >
+        <View style={styles.overlay} accessibilityViewIsModal accessible>
+          <TouchableWithoutFeedback onPress={onClose}>
+            <View style={styles.full} />
+          </TouchableWithoutFeedback>
+          <View
+            style={[
+              styles.content,
+              {
+                paddingBottom: Platform.OS === 'ios' ? bottom : bottom + 22,
+              },
+            ]}
           >
-            <ScrollView
-              keyboardShouldPersistTaps='handled'
-              contentContainerStyle={[styles.contentContainer, { paddingBottom: bottomPad }]}
-            >
+            <ScrollView keyboardShouldPersistTaps='handled' contentContainerStyle={styles.padding}>
               <View style={styles.header}>
                 <View style={styles.row}>
                   <Text style={Typography.textMdSemiBold}>{title}</Text>
@@ -113,21 +105,14 @@ const Modal = ({ visible, onClose, transparent = true, form, title, subtitle }: 
                 {t('profile.addresses.addAddress')}
               </Button>
             </ScrollView>
-          </KeyboardAvoidingView>
+          </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </RNModal>
   );
 };
 
 const styles = StyleSheet.create({
-  topOverlay: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    left: 0,
-    zIndex: 100,
-  },
   overlay: {
     flex: 1,
     backgroundColor: Colors.modal.overlay,
@@ -137,12 +122,13 @@ const styles = StyleSheet.create({
     minWidth: 280,
     minHeight: 120,
     backgroundColor: Colors.modal.background,
-    borderRadius: 12,
+    borderTopEndRadius: 12,
+    borderTopStartRadius: 12,
 
     elevation: 5,
-    gap: 22,
+    maxHeight: '80%',
   },
-  contentContainer: { paddingTop: 20, paddingHorizontal: 18, paddingBottom: 24, gap: 22 },
+  padding: { paddingTop: 20, paddingHorizontal: 18, gap: 22 },
   header: {
     width: '100%',
     gap: 6,

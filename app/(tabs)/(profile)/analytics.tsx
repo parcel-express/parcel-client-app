@@ -1,7 +1,7 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import Calendar from '@/components/Calendar';
 import StackedBarWithAxes from '@/components/Chart';
@@ -15,7 +15,7 @@ import useChartData from '@/hooks/useChartData';
 
 export default function AnalyticsScreen() {
   const { t } = useTranslation();
-  const paddingBottom = useBottomTabBarHeight();
+  const paddingBottom = useBottomTabBarHeight() + 18;
   const [date, setDate] = React.useState<{ start?: string | undefined; end?: string | undefined }>(
     {}
   );
@@ -36,7 +36,9 @@ export default function AnalyticsScreen() {
     <ThemedView style={styles.container}>
       <Header title={t('profile.menu.analytics')} hasGoBack />
       <ContentView>
-        <ScrollView contentContainerStyle={[styles.content, { paddingBottom }]}>
+        <ScrollView
+          contentContainerStyle={[styles.content, Platform.OS === 'ios' && { paddingBottom }]}
+        >
           <View style={styles.chartContainer}>
             <View style={styles.legend}>
               <Calendar onSave={(start, end) => setDate({ start, end })} />

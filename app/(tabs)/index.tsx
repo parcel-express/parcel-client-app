@@ -16,7 +16,7 @@ import useChartData from '@/hooks/useChartData';
 
 export default function HomeScreen() {
   const tabHeight = useBottomTabBarHeight();
-  const paddingBottom = Platform.OS === 'ios' ? tabHeight : 0;
+  const paddingBottom = Platform.OS === 'ios' ? tabHeight + 18 : 18;
   const { t } = useTranslation();
   const [date, setDate] = React.useState<{ start?: string; end?: string }>({});
   const chartData = useChartData(date);
@@ -56,7 +56,7 @@ export default function HomeScreen() {
       darkColor={Colors.dark.background}
     >
       <Header title={t('home.title')} />
-      <ContentView style={styles.content}>
+      <ContentView>
         <FlatList
           data={data}
           keyExtractor={(_, index) => index.toString()}
@@ -89,12 +89,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  content: {
-    paddingVertical: 18,
-  },
   body: {
     gap: 16,
     paddingHorizontal: 18,
+    paddingVertical: 18,
   },
   balanceCard: {
     borderWidth: 1,

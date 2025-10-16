@@ -34,6 +34,7 @@ const Checkbox = ({ label, toggleCheckbox, checked, size, indeterminate, disable
     >
       <View
         style={[
+          styles.borderRadius,
           { ...sizes[size] },
           styles.checkbox,
           !checked && styles.checkboxBorder,
@@ -47,7 +48,7 @@ const Checkbox = ({ label, toggleCheckbox, checked, size, indeterminate, disable
                 colors={[Colors.gradient.primary.start, Colors.gradient.primary.end]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 0, y: 1 }}
-                style={StyleSheet.absoluteFillObject}
+                style={[StyleSheet.absoluteFillObject, styles.borderRadius]}
               />
             )}
             <MaterialIcons
@@ -74,15 +75,15 @@ const styles = StyleSheet.create({
   checkbox: {
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 6,
-    overflow: 'hidden',
   },
   checkboxBorder: {
     borderWidth: 1,
     borderColor: Colors.checkbox.border,
+    borderRadius: 6,
   },
   disabledCheckbox: {
     backgroundColor: Colors.checkbox.disabledBackground,
     borderColor: Colors.checkbox.disabledBorder,
   },
+  borderRadius: { borderRadius: 6 },
 });

@@ -73,7 +73,7 @@ export default function SettingsScreen() {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const tabBarHeight = useBottomTabBarHeight();
-  const bottomPad = Math.max(tabBarHeight, insets.bottom) + 20;
+  const paddingBottom = Platform.OS === 'ios' ? tabBarHeight + insets.bottom + 18 : 18;
   const formik = useFormik({
     initialValues: {
       logo: '',
@@ -170,14 +170,10 @@ export default function SettingsScreen() {
     <ThemedView style={styles.container}>
       <Header title={t('profile.menu.settings')} hasGoBack />
       <ContentView>
-        <KeyboardAvoidingView
-          style={styles.container}
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          keyboardVerticalOffset={bottomPad}
-        >
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <ScrollView
             keyboardShouldPersistTaps='handled'
-            contentContainerStyle={[styles.content, { paddingBottom: bottomPad }]}
+            contentContainerStyle={[styles.content, { paddingBottom }]}
           >
             <View style={styles.logoContainer}>
               {formik.values.logo ? (

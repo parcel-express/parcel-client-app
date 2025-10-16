@@ -2,10 +2,10 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { Support } from '@/app/types/cardTypes';
-import { Status, Tab } from '@/app/types/orderTypes';
+import { Status } from '@/app/types/orderTypes';
 import ContentView from '@/components/ContentView';
 import Filters from '@/components/Filters';
 import Header from '@/components/Header';
@@ -33,7 +33,6 @@ const SupportPage = () => {
   });
   const [isInfoModalVisible, setInfoModalIsVisible] = React.useState(false);
   const [isModalVisible, setModalIsVisible] = React.useState(false);
-  const [tab, setTab] = React.useState<Tab>('Ongoing');
   const [status, setStatus] = React.useState<Status | 'status'>('status');
   const [subject, setSubject] = React.useState<string>('subject');
   // const [search, setSearch] = React.useState('');
@@ -184,8 +183,6 @@ const SupportPage = () => {
                   date={date}
                   status={status}
                   setStatus={setStatus}
-                  tab={tab}
-                  setTab={setTab}
                   options={options}
                 />
               </View>
@@ -222,7 +219,7 @@ const SupportPage = () => {
               <Card data={item} variant='support' />
             </TouchableOpacity>
           )}
-          contentContainerStyle={[styles.body, { paddingBottom }]}
+          contentContainerStyle={[styles.body, Platform.OS === 'ios' && { paddingBottom }]}
         />
       </ContentView>
     </ThemedView>
@@ -236,12 +233,12 @@ const styles = StyleSheet.create({
   },
   filtersContainer: {
     gap: 10,
-    paddingVertical: 18,
+    paddingBottom: 18,
     borderBottomWidth: 1,
     borderBottomColor: Colors.border.borderLight,
   },
   body: {
-    paddingHorizontal: 18,
+    padding: 18,
     gap: 10,
   },
   content: {

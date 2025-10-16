@@ -2,7 +2,6 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, Platform, StyleSheet } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import ContentView from '@/components/ContentView';
 import Header from '@/components/Header';
@@ -21,8 +20,7 @@ export default function NotificationScreen() {
   const [activeNotification, setActiveNotification] = React.useState<Notification | null>(null);
   const { t } = useTranslation();
   const tabBarHeight = useBottomTabBarHeight();
-  const insets = useSafeAreaInsets();
-  const bottomPad = Platform.OS === 'ios' ? tabBarHeight + insets.bottom : insets.bottom;
+  const paddingBottom = Platform.OS === 'ios' ? tabBarHeight + 18 : 18;
 
   const message =
     'მოგესალმებით, გაცნობებთ, რომ შეიცვლა გუდაურის და ყაზბეგის მიწოდების დრო, ხუთშაბათის ნაცვლად ამანათები ჩაბარდება პარასკევ დღეს. ასევე იცვლება ამ რეგიონებთან დაკავშირებული სოფლების მიწოდების დღეც. გთხოვთ გაითვალისწინოთ და გააფრთხილოთ მომხმარებლები. პატ';
@@ -74,7 +72,7 @@ export default function NotificationScreen() {
           renderItem={({ item }) => (
             <NotificationCard message={item.message} onPress={() => onViewPress(item)} />
           )}
-          contentContainerStyle={[styles.cardsContainer, { paddingBottom: bottomPad }]}
+          contentContainerStyle={[styles.cardsContainer, { paddingBottom }]}
         />
       </ContentView>
     </ThemedView>

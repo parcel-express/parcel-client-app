@@ -100,4 +100,11 @@ export const Typography = StyleSheet.create({
     ...textLg,
     fontWeight: '700',
   },
+  tabLabel: {
+    fontFamily: 'Inter',
+    fontSize: 9,
+    letterSpacing: 0,
+    fontWeight: '700',
+    verticalAlign: 'middle',
+  },
 });

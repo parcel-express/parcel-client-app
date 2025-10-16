@@ -2,7 +2,14 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
+import {
+  FlatList,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  useWindowDimensions,
+} from 'react-native';
 
 import ContentView from '@/components/ContentView';
 import Header from '@/components/Header';
@@ -41,7 +48,7 @@ export type FormValues = {
 export default function NewOrderScreen() {
   const [index, setIndex] = React.useState(0);
   const [modalVisible, setModalVisible] = React.useState(false);
-  const tabBarHeight = useBottomTabBarHeight();
+  const paddingBottom = useBottomTabBarHeight();
   const { t } = useTranslation();
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -70,7 +77,9 @@ export default function NewOrderScreen() {
     },
     onSubmit: () => {
       setModalVisible(true);
-      setIndex(0);
+      setTimeout(() => {
+        setIndex(0);
+      }, 200);
     },
   });
 
@@ -102,17 +111,23 @@ export default function NewOrderScreen() {
 
   const renderItem = React.useCallback(
     ({ item }: { item: React.ReactElement }) => (
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={[styles.content, { width: screenWidth }]}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={paddingBottom + 82}
       >
-        <View>{item}</View>
-        <Button size='md' variant={'primary'} style={styles.submitButton} onPress={handlePress}>
-          {index === steps.length - 1 ? t('new-order.reviewLabel') : t('common.continue')}
-        </Button>
-      </ScrollView>
+        <ScrollView
+          contentContainerStyle={[styles.content, { width: screenWidth }]}
+          keyboardShouldPersistTaps='handled'
+          showsVerticalScrollIndicator={false}
+        >
+          {item}
+          <Button size='md' variant={'primary'} style={styles.submitButton} onPress={handlePress}>
+            {index === steps.length - 1 ? t('new-order.reviewLabel') : t('common.continue')}
+          </Button>
+        </ScrollView>
+      </KeyboardAvoidingView>
     ),
-    [screenWidth, handlePress, index, steps.length, t]
+    [paddingBottom, screenWidth, handlePress, index, steps.length, t]
   );
   return (
     <ThemedView
@@ -126,7 +141,7 @@ export default function NewOrderScreen() {
       />
       <OrderSuccessModal visible={modalVisible} onClose={() => setModalVisible(false)} />
 
-      <ContentView style={{ paddingBottom: tabBarHeight }}>
+      <ContentView style={Platform.OS === 'ios' && { paddingBottom }}>
         <FlatList
           ref={flatListRef}
           data={steps}
@@ -137,7 +152,6 @@ export default function NewOrderScreen() {
           pagingEnabled
           scrollEnabled={false}
           showsHorizontalScrollIndicator={false}
-          style={styles.container}
           getItemLayout={(_, i) => ({
             length: screenWidth,
             offset: screenWidth * i,
