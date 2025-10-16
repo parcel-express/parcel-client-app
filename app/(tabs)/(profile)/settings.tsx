@@ -170,7 +170,7 @@ export default function SettingsScreen() {
     <ThemedView style={styles.container}>
       <Header title={t('profile.menu.settings')} hasGoBack />
       <ContentView>
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <ScrollView
             keyboardShouldPersistTaps='handled'
             contentContainerStyle={[styles.content, { paddingBottom }]}
