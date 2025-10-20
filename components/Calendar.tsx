@@ -268,8 +268,13 @@ const Calendar: React.FC<CalendarProps> = ({
               <Button
                 onPress={() => {
                   setIsVisible(false);
-                  setSelected({ start: '', end: '' });
-                  onSave?.('', '');
+                  if (type === 'single') {
+                    setSelected('');
+                    onSave?.('');
+                  } else {
+                    setSelected({ start: '', end: '' });
+                    onSave?.('', '');
+                  }
                 }}
                 variant='secondary'
                 size={'md'}

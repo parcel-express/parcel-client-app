@@ -137,7 +137,8 @@ const Select = ({
       : placeholder?.length || 0;
   const dropdownWidth = Math.max(layout.width, maxLabelLen * factor + ICON_AND_PADDING_WIDTH);
   const getModalPosition = () => {
-    const OPTIONS_HEIGHT = filteredOptions.length * OPTION_HEIGHT;
+    const MAX_DROPDOWN_HEIGHT = 256;
+    const optionsHeight = Math.min(filteredOptions.length * OPTION_HEIGHT, MAX_DROPDOWN_HEIGHT);
     let top;
     if (Platform.OS === 'android' && isInModal) {
       top = layout.y;
@@ -146,10 +147,11 @@ const Select = ({
     }
     let width: number | string = layout.width;
     let left = layout.x;
-    const isOverflowingBottom = layout.y + OPTIONS_HEIGHT + tabBarHeight > screenHeight;
+    const spaceBelow = screenHeight - (layout.y + layout.height + DROPDOWN_SPACING + tabBarHeight);
+    const isOverflowingBottom = spaceBelow < optionsHeight;
     const isOverflowingRight = layout.x + dropdownWidth > screenWidth;
     if (isOverflowingBottom) {
-      top = layout.y - OPTIONS_HEIGHT - 8;
+      top = layout.y - optionsHeight - 8;
     }
     if (variant === 'secondary') {
       width = dropdownWidth;

@@ -1,6 +1,5 @@
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import React, { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Dimensions,
   Keyboard,
@@ -26,16 +25,12 @@ type Props = {
   placeholder?: string;
   options: { label: string; value: string }[];
   disabled?: boolean;
-  variant?: 'primary' | 'secondary';
   size?: 'sm' | 'md';
-  allowInput?: boolean;
   inputType?: 'default' | 'numeric' | 'email-address' | 'phone-pad' | 'number-pad' | 'decimal-pad';
   maxW?: number;
-  isInModal?: boolean;
 };
 
 const OPTION_HEIGHT = 44;
-const ICON_AND_PADDING_WIDTH = 54;
 
 const TypeableSelect = ({
   label,
@@ -44,14 +39,11 @@ const TypeableSelect = ({
   placeholder,
   options,
   disabled,
-  variant = 'primary',
   size = 'md',
-  allowInput = true,
   inputType = 'default',
 }: Props) => {
   const tabBarHeight = useTabBarHeight();
   const { height: screenHeight } = Dimensions.get('window');
-  const { i18n } = useTranslation();
   const [isFocused, setIsFocused] = React.useState(false);
   const isSelectingRef = React.useRef(false);
   const [filteredOptions, setFilteredOptions] = React.useState(options);
@@ -71,7 +63,7 @@ const TypeableSelect = ({
 
   const getBorderColor = () => {
     if (disabled) return Colors.border.disabledBorder;
-    return isFocused ? Colors.border.focused : Colors.border[variant];
+    return isFocused ? Colors.border.focused : Colors.border.primary;
   };
 
   const openDropdown = () => {
@@ -79,9 +71,8 @@ const TypeableSelect = ({
     triggerRef.current?.measureInWindow((x, y, width, height) => {
       setLayout({ x, y, width, height });
       setIsFocused(true);
-      if (allowInput) {
-        setTimeout(() => inputRef.current?.focus(), 50);
-      }
+
+      setTimeout(() => inputRef.current?.focus(), 50);
     });
   };
 
@@ -129,28 +120,19 @@ const TypeableSelect = ({
     setFilteredOptions([...newOption, ...filtered]);
   }, [inputValue, options]);
 
-  const factor = i18n.language?.startsWith('en')
-    ? 6.6
-    : i18n.language?.startsWith('ka')
-      ? 7.5
-      : 6.5;
-
-  const maxLabelLen =
-    filteredOptions.length > 0
-      ? Math.max(...filteredOptions.map(opt => opt.label.length))
-      : placeholder?.length || 0;
-
-  const dropdownWidth = Math.max(layout.width, maxLabelLen * factor + ICON_AND_PADDING_WIDTH);
-
   const getDropdownPosition = () => {
-    const OPTIONS_HEIGHT = filteredOptions.length * OPTION_HEIGHT;
-    let top = layout.height + 20 + 12;
-    let width: number | string = layout.width;
+    // Visible dropdown height is capped by styles.dropdown.maxHeight
+    const visibleHeight = Math.min(filteredOptions.length * OPTION_HEIGHT, 256);
+    // Default: render below the trigger, relative to wrapper
+    const belowTop = layout.height + 12;
+    const width: number | string = layout.width;
 
-    const isOverflowingBottom = layout.y + OPTIONS_HEIGHT + tabBarHeight > screenHeight;
+    // Overflow check uses window coordinates but only for detection
+    const triggerBottomInWindow = layout.y + layout.height + 12;
+    const isOverflowingBottom = triggerBottomInWindow + visibleHeight + tabBarHeight > screenHeight;
 
-    if (isOverflowingBottom) top = layout.y - OPTIONS_HEIGHT - 8;
-    if (variant === 'secondary') width = dropdownWidth;
+    // If overflowing, flip above relative to wrapper
+    const top = isOverflowingBottom ? -(visibleHeight + 8) : belowTop + 20;
 
     return { top, width };
   };
@@ -168,52 +150,32 @@ const TypeableSelect = ({
           onPress={onPressContainer}
           style={[
             styles.inputContainer,
-            variant === 'secondary' && styles.fullWidth,
             size === 'sm' ? styles.smallGap : styles.mediumGap,
-            (!allowInput || Platform.OS === 'ios') && styles.verticalPadding,
+            Platform.OS === 'ios' && styles.verticalPadding,
             { borderColor: getBorderColor() },
             { backgroundColor: disabled ? Colors.background.disabled : Colors.background.white },
           ]}
         >
-          {allowInput ? (
-            <TextInput
-              ref={inputRef}
-              value={inputValue}
-              onChangeText={handleInputChange}
-              placeholder={placeholder}
-              placeholderTextColor={Colors.text.placeholder}
-              style={[
-                size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
-                { color: inputValue ? Colors.text[variant] : Colors.text.placeholder },
-                styles.textInput,
-              ]}
-              editable={!disabled}
-              onFocus={openDropdown}
-              onBlur={() => {
-                Keyboard.dismiss();
-              }}
-              numberOfLines={1}
-              underlineColorAndroid='transparent'
-              keyboardType={inputType}
-            />
-          ) : (
-            <Text
-              style={[
-                size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
-                {
-                  color: value ? Colors.text[variant] : Colors.text.placeholder,
-                  width:
-                    layout.width > ICON_AND_PADDING_WIDTH
-                      ? layout.width - ICON_AND_PADDING_WIDTH
-                      : undefined,
-                },
-              ]}
-              numberOfLines={1}
-              ellipsizeMode='tail'
-            >
-              {options.find(opt => opt.value === value)?.label || placeholder}
-            </Text>
-          )}
+          <TextInput
+            ref={inputRef}
+            value={inputValue}
+            onChangeText={handleInputChange}
+            placeholder={placeholder}
+            placeholderTextColor={Colors.text.placeholder}
+            style={[
+              size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
+              { color: inputValue ? Colors.text.primary : Colors.text.placeholder },
+              styles.textInput,
+            ]}
+            editable={!disabled}
+            onFocus={openDropdown}
+            onBlur={() => {
+              Keyboard.dismiss();
+            }}
+            numberOfLines={1}
+            underlineColorAndroid='transparent'
+            keyboardType={inputType}
+          />
 
           <View style={{ transform: [{ rotate: isFocused ? '90deg' : '-90deg' }] }}>
             <MaterialIcons name='chevron-left' size={20} color={Colors.text.placeholder} />
@@ -304,5 +266,4 @@ const styles = StyleSheet.create({
   },
   label: { color: Colors.text.primary },
   textInput: { flex: 1, lineHeight: 19.7 },
-  fullWidth: { width: '100%' },
 });
