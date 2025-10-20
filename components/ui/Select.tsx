@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Dimensions,
+  Keyboard,
   Modal,
   Platform,
   Pressable,
@@ -102,7 +103,10 @@ const Select = ({
     if (isFocused) {
       closeDropdown();
     } else {
-      openDropdown();
+      Keyboard?.dismiss();
+      setTimeout(() => {
+        openDropdown();
+      }, 10);
     }
   };
 
