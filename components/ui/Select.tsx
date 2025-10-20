@@ -1,9 +1,11 @@
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Dimensions,
   Modal,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -30,12 +32,10 @@ type Props = {
   allowInput?: boolean;
   inputType?: 'default' | 'numeric' | 'email-address' | 'phone-pad' | 'number-pad' | 'decimal-pad';
   maxW?: number;
+  isInModal?: boolean;
 };
 const DROPDOWN_SPACING = 8;
 const OPTION_HEIGHT = 44;
-const OPTION_CONTAINER_PADDING = 16;
-const BOTTOM_CLEARANCE = 140;
-const BOTTOM_MARGIN = 100;
 const ICON_AND_PADDING_WIDTH = 54;
 const Select = ({
   label,
@@ -49,7 +49,9 @@ const Select = ({
   allowInput = false,
   inputType = 'default',
   maxW,
+  isInModal,
 }: Props) => {
+  const tabBarHeight = useBottomTabBarHeight();
   const [isFocused, setIsFocused] = React.useState(false);
   const triggerRef = React.useRef<View | null>(null);
   const [layout, setLayout] = React.useState({ x: 0, y: 0, width: 0, height: 0 });
@@ -131,31 +133,28 @@ const Select = ({
       : placeholder?.length || 0;
   const dropdownWidth = Math.max(layout.width, maxLabelLen * factor + ICON_AND_PADDING_WIDTH);
   const getModalPosition = () => {
-    const w =
-      variant === 'secondary'
-        ? dropdownWidth < layout.width
-          ? layout.width
-          : dropdownWidth
-        : layout.width;
-    const overflowRight = layout.x + w > screenWidth && w > layout.width;
-    const computedLeft = overflowRight ? layout.x - (w - layout.width) : layout.x - 4;
-    const clampedLeft = Math.max(
-      DROPDOWN_SPACING,
-      Math.min(computedLeft, screenWidth - w - DROPDOWN_SPACING)
-    );
-    const top = Math.min(
-      Math.max(DROPDOWN_SPACING, layout.y + layout.height + DROPDOWN_SPACING),
-      screenHeight - BOTTOM_CLEARANCE
-    );
-    return {
-      top,
-      width: w,
-      left: clampedLeft,
-      maxHeight: Math.min(
-        filteredOptions.length * OPTION_HEIGHT + OPTION_CONTAINER_PADDING,
-        screenHeight - top - BOTTOM_MARGIN
-      ),
-    };
+    const OPTIONS_HEIGHT = filteredOptions.length * OPTION_HEIGHT;
+    let top;
+    if (Platform.OS === 'android' && isInModal) {
+      top = layout.y;
+    } else {
+      top = layout.y + layout.height + DROPDOWN_SPACING;
+    }
+    let width: number | string = layout.width;
+    let left = layout.x;
+    const isOverflowingBottom = layout.y + OPTIONS_HEIGHT + tabBarHeight > screenHeight;
+    const isOverflowingRight = layout.x + dropdownWidth > screenWidth;
+    if (isOverflowingBottom) {
+      top = layout.y - OPTIONS_HEIGHT - 8;
+    }
+    if (variant === 'secondary') {
+      width = dropdownWidth;
+    }
+    if (isOverflowingRight && variant === 'secondary') {
+      left = layout.x - (dropdownWidth - layout.width); // 16 for some right margin
+    }
+
+    return { top, width, left };
   };
   return (
     <View style={[styles.wrapper, variant === 'secondary' && maxW != null && { maxWidth: maxW }]}>
@@ -283,6 +282,7 @@ const styles = StyleSheet.create({
   wrapper: {
     width: '100%',
     position: 'relative',
+    flex: 1,
   },
   container: {
     display: 'flex',
@@ -317,8 +317,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.border.disabledBorder,
     position: 'absolute',
-    top: 72,
-    left: 0,
     elevation: 8,
     zIndex: 1000,
   },

@@ -88,6 +88,7 @@ const Modal = ({ visible, onClose, form, title, subtitle }: Props) => {
                       value={form.values.city}
                       label={t(`profile.addresses.${input}`)}
                       placeholder={t(`profile.addresses.${input}Placeholder`)}
+                      isInModal
                     />
                   ) : (
                     <Input<Form>

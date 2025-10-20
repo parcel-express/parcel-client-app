@@ -110,6 +110,7 @@ const NotificationsModal: React.FC<Props> = ({
                     placeholder={t('notifications.modal.titlePlaceholder')}
                     options={options}
                     setValue={setSelectValue}
+                    isInModal
                   />
                   <Input
                     name={'trackingCode'}
@@ -130,6 +131,7 @@ const NotificationsModal: React.FC<Props> = ({
                         options={options}
                         setValue={value => formik.setFieldValue('city', value)}
                         label={t('profile.support.form.cityLabel')}
+                        isInModal
                       />
                     </>
                   )}

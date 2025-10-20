@@ -86,6 +86,7 @@ const AddressModal = ({ visible, onClose, form, onSubmit, type }: Props) => {
                         label={t(`new-order.form.${key}`)}
                         placeholder={t(`new-order.form.${key}Placeholder`)}
                         value={form.values[getName(key) as keyof FormValues] as string}
+                        isInModal
                       />
                     );
                   }

@@ -265,7 +265,15 @@ const Calendar: React.FC<CalendarProps> = ({
           </View>
           <View style={styles.footer}>
             <View style={styles.full}>
-              <Button onPress={() => setIsVisible(false)} variant='secondary' size={'md'}>
+              <Button
+                onPress={() => {
+                  setIsVisible(false);
+                  setSelected({ start: '', end: '' });
+                  onSave?.('', '');
+                }}
+                variant='secondary'
+                size={'md'}
+              >
                 {t('common.cancel')}
               </Button>
             </View>
