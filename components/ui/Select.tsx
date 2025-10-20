@@ -1,5 +1,4 @@
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -19,6 +18,7 @@ import {
 import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';
+import { useTabBarHeight } from '@/hooks/useTabBarHeight';
 
 type Props = {
   label?: string;
@@ -51,7 +51,7 @@ const Select = ({
   maxW,
   isInModal,
 }: Props) => {
-  const tabBarHeight = useBottomTabBarHeight();
+  const tabBarHeight = useTabBarHeight();
   const [isFocused, setIsFocused] = React.useState(false);
   const triggerRef = React.useRef<View | null>(null);
   const [layout, setLayout] = React.useState({ x: 0, y: 0, width: 0, height: 0 });
