@@ -14,6 +14,7 @@ import CardView from '../ui/CardView';
 import Input from '../ui/Input';
 import Select from '../ui/Select';
 import TextArea from '../ui/TextArea';
+import TypeableSelect from '../ui/TypeableSelect';
 type Props = {
   formik: FormikProps<FormValues>;
 };
@@ -29,6 +30,26 @@ const weightOptions = [
   {
     label: '3 კგ - 5 კგ',
     value: '3 კგ - 5 კგ',
+  },
+  {
+    label: '5 კგ - 10 კგ',
+    value: '5 კგ - 10 კგ',
+  },
+  {
+    label: '10 კგ - 20 კგ',
+    value: '10 კგ - 20 კგ',
+  },
+  {
+    label: '20 კგ - 30 კგ',
+    value: '20 კგ - 30 კგ',
+  },
+  {
+    label: '30 კგ - 50 კგ',
+    value: '30 კგ - 50 კგ',
+  },
+  {
+    label: '50 კგ - 70 კგ',
+    value: '50 კგ - 70 კგ',
   },
 ];
 const quantityOptions = [
@@ -77,14 +98,13 @@ const OrderDetails = ({ formik }: Props) => {
         <Text style={[Typography.textMdBold, { color: Colors.text.black }]}>
           {t('new-order.weightForm.title')}
         </Text>
-        <Select
+        <TypeableSelect
           setValue={formik.setFieldValue.bind(null, 'weight')}
           options={weightOptions}
           value={formik.values.weight}
           placeholder={t('new-order.weightForm.weightPlaceholder')}
           label={t('new-order.weightForm.weightLabel')}
-          allowInput
-          inputType='numeric'
+          inputType='decimal-pad'
         />
         <View style={styles.divider} />
         <Select

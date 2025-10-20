@@ -23,6 +23,9 @@ const paymentMethods = [
 const paymentSides = [
   { label: 'მიმღები', value: 'receiver' },
   { label: 'გამგზავნი', value: 'sender' },
+  { label: 'ორივე', value: 'both' },
+  { label: 'კურიერი', value: 'courier' },
+  { label: 'კომპანია', value: 'company' },
 ];
 const Review = ({ formik }: Props) => {
   const { t } = useTranslation();
