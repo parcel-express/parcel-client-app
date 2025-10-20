@@ -1,9 +1,9 @@
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Dimensions,
-  Modal,
+  Keyboard,
   Platform,
   Pressable,
   ScrollView,
@@ -11,7 +11,6 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 
@@ -34,10 +33,11 @@ type Props = {
   maxW?: number;
   isInModal?: boolean;
 };
-const DROPDOWN_SPACING = 8;
+
 const OPTION_HEIGHT = 44;
 const ICON_AND_PADDING_WIDTH = 54;
-const Select = ({
+
+const TypeableSelect = ({
   label,
   setValue,
   value,
@@ -46,26 +46,23 @@ const Select = ({
   disabled,
   variant = 'primary',
   size = 'md',
-  allowInput = false,
+  allowInput = true,
   inputType = 'default',
-  maxW,
-  isInModal,
 }: Props) => {
   const tabBarHeight = useTabBarHeight();
+  const { height: screenHeight } = Dimensions.get('window');
+  const { i18n } = useTranslation();
   const [isFocused, setIsFocused] = React.useState(false);
+  const isSelectingRef = React.useRef(false);
+  const [filteredOptions, setFilteredOptions] = React.useState(options);
   const triggerRef = React.useRef<View | null>(null);
+  const inputRef = React.useRef<TextInput | null>(null);
   const [layout, setLayout] = React.useState({ x: 0, y: 0, width: 0, height: 0 });
-  const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
-  const { t, i18n } = useTranslation();
-
-  // input state used when allowInput=true
   const [inputValue, setInputValue] = React.useState<string>(
     () => options.find(opt => opt.value === value)?.label ?? ''
   );
-  const inputRef = React.useRef<TextInput | null>(null);
 
   React.useEffect(() => {
-    // when external value changes, sync label into inputValue
     const labelForValue = options.find(opt => opt.value === value)?.label;
     if (labelForValue !== undefined) {
       setInputValue(labelForValue);
@@ -73,20 +70,15 @@ const Select = ({
   }, [value, options]);
 
   const getBorderColor = () => {
-    if (disabled) {
-      return Colors.border.disabledBorder;
-    }
-
+    if (disabled) return Colors.border.disabledBorder;
     return isFocused ? Colors.border.focused : Colors.border[variant];
   };
 
   const openDropdown = () => {
     if (disabled) return;
-    // measure trigger position in window and open modal dropdown
     triggerRef.current?.measureInWindow((x, y, width, height) => {
       setLayout({ x, y, width, height });
       setIsFocused(true);
-      // focus input if allowed
       if (allowInput) {
         setTimeout(() => inputRef.current?.focus(), 50);
       }
@@ -107,61 +99,69 @@ const Select = ({
   };
 
   const handleSelectOption = (item: { label: string; value: string }) => {
+    isSelectingRef.current = true;
     setValue(item.value);
     setInputValue(item.label);
-    setIsFocused(false);
+    closeDropdown();
+    setTimeout(() => (isSelectingRef.current = false), 100);
   };
 
   const handleInputChange = (text: string) => {
     setInputValue(text);
-    // pass typed text upstream as value as well
     setValue(text);
   };
 
-  const filteredOptions =
-    allowInput && inputValue
-      ? options.filter(o => o.label.toLowerCase().includes(inputValue.toLowerCase()))
-      : options;
+  useEffect(() => {
+    if (!inputValue) {
+      setFilteredOptions(options);
+      return;
+    }
+
+    // Filter options that include the input
+    const filtered = options.filter(o => o.label.toLowerCase().includes(inputValue.toLowerCase()));
+
+    // Add inputValue as new option if not already in filtered options
+    const isNewOption = !filtered.some(o => o.label.toLowerCase() === inputValue.toLowerCase());
+
+    const newOption = isNewOption ? [{ label: inputValue, value: inputValue }] : [];
+
+    // Combine new option on top + filtered options
+    setFilteredOptions([...newOption, ...filtered]);
+  }, [inputValue, options]);
+
   const factor = i18n.language?.startsWith('en')
     ? 6.6
     : i18n.language?.startsWith('ka')
       ? 7.5
       : 6.5;
+
   const maxLabelLen =
     filteredOptions.length > 0
       ? Math.max(...filteredOptions.map(opt => opt.label.length))
       : placeholder?.length || 0;
-  const dropdownWidth = Math.max(layout.width, maxLabelLen * factor + ICON_AND_PADDING_WIDTH);
-  const getModalPosition = () => {
-    const OPTIONS_HEIGHT = filteredOptions.length * OPTION_HEIGHT;
-    let top;
-    if (Platform.OS === 'android' && isInModal) {
-      top = layout.y;
-    } else {
-      top = layout.y + layout.height + DROPDOWN_SPACING;
-    }
-    let width: number | string = layout.width;
-    let left = layout.x;
-    const isOverflowingBottom = layout.y + OPTIONS_HEIGHT + tabBarHeight > screenHeight;
-    const isOverflowingRight = layout.x + dropdownWidth > screenWidth;
-    if (isOverflowingBottom) {
-      top = layout.y - OPTIONS_HEIGHT - 8;
-    }
-    if (variant === 'secondary') {
-      width = dropdownWidth;
-    }
-    if (isOverflowingRight && variant === 'secondary') {
-      left = layout.x - (dropdownWidth - layout.width); // 16 for some right margin
-    }
 
-    return { top, width, left };
+  const dropdownWidth = Math.max(layout.width, maxLabelLen * factor + ICON_AND_PADDING_WIDTH);
+
+  const getDropdownPosition = () => {
+    const OPTIONS_HEIGHT = filteredOptions.length * OPTION_HEIGHT;
+    let top = layout.height + 20 + 12;
+    let width: number | string = layout.width;
+
+    const isOverflowingBottom = layout.y + OPTIONS_HEIGHT + tabBarHeight > screenHeight;
+
+    if (isOverflowingBottom) top = layout.y - OPTIONS_HEIGHT - 8;
+    if (variant === 'secondary') width = dropdownWidth;
+
+    return { top, width };
   };
+
   return (
-    <View style={[styles.wrapper, variant === 'secondary' && maxW != null && { maxWidth: maxW }]}>
+    <View style={[styles.wrapper]}>
       <View style={styles.container}>
         {!!label && (
           <Text style={{ ...Typography.textXsMedium, color: Colors.text.secondary }}>{label}</Text>
         )}
+
         <Pressable
           ref={triggerRef}
           disabled={!!disabled}
@@ -170,14 +170,10 @@ const Select = ({
             styles.inputContainer,
             variant === 'secondary' && styles.fullWidth,
             size === 'sm' ? styles.smallGap : styles.mediumGap,
-            !allowInput && styles.verticalPadding,
+            (!allowInput || Platform.OS === 'ios') && styles.verticalPadding,
             { borderColor: getBorderColor() },
             { backgroundColor: disabled ? Colors.background.disabled : Colors.background.white },
           ]}
-          accessibilityRole='button'
-          accessibilityLabel={label || placeholder}
-          accessibilityHint={isFocused ? 'Collapse options' : 'Expand options'}
-          accessibilityState={{ expanded: isFocused, disabled: !!disabled }}
         >
           {allowInput ? (
             <TextInput
@@ -188,17 +184,17 @@ const Select = ({
               placeholderTextColor={Colors.text.placeholder}
               style={[
                 size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
-                {
-                  color: inputValue ? Colors.text[variant] : Colors.text.placeholder,
-                },
+                { color: inputValue ? Colors.text[variant] : Colors.text.placeholder },
                 styles.textInput,
               ]}
               editable={!disabled}
-              onFocus={() => openDropdown()}
+              onFocus={openDropdown}
+              onBlur={() => {
+                Keyboard.dismiss();
+              }}
               numberOfLines={1}
               underlineColorAndroid='transparent'
               keyboardType={inputType}
-              autoFocus
             />
           ) : (
             <Text
@@ -220,79 +216,58 @@ const Select = ({
           )}
 
           <View style={{ transform: [{ rotate: isFocused ? '90deg' : '-90deg' }] }}>
-            <MaterialIcons name={'chevron-left'} size={20} color={Colors.text.placeholder} />
+            <MaterialIcons name='chevron-left' size={20} color={Colors.text.placeholder} />
           </View>
         </Pressable>
       </View>
-
-      <Modal visible={isFocused} transparent animationType='fade' onRequestClose={closeDropdown}>
-        <TouchableWithoutFeedback onPress={closeDropdown}>
-          <View style={styles.modalWrapper}>
-            <TouchableWithoutFeedback>
-              <View style={[styles.dropdown, getModalPosition()]} accessibilityRole='menu'>
-                <ScrollView keyboardShouldPersistTaps='handled'>
-                  {filteredOptions.length === 0 ? (
-                    <View style={styles.option}>
-                      <Text
-                        style={[
-                          size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
-                          styles.label,
-                        ]}
-                      >
-                        {allowInput ? t('select.noResults') : t('select.noOptions')}
-                      </Text>
-                    </View>
-                  ) : (
-                    filteredOptions.map(item => (
-                      <TouchableOpacity
-                        accessibilityRole='menuitem'
-                        key={item.value}
-                        style={[
-                          styles.option,
-                          value === item.value && { backgroundColor: Colors.background.disabled },
-                        ]}
-                        onPress={() => handleSelectOption(item)}
-                      >
-                        <Text
-                          style={[
-                            size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
-                            styles.label,
-                          ]}
-                        >
-                          {item.label}
-                        </Text>
-                        {value === item.value && (
-                          <MaterialIcons name='check' size={20} color={Colors.brand.primary} />
-                        )}
-                      </TouchableOpacity>
-                    ))
+      {isFocused && (
+        <>
+          <View style={[styles.dropdown, getDropdownPosition()]} accessibilityRole='menu'>
+            <ScrollView keyboardShouldPersistTaps='always'>
+              {filteredOptions.map(item => (
+                <TouchableOpacity
+                  accessibilityRole='menuitem'
+                  key={item.value}
+                  style={[
+                    styles.option,
+                    value === item.value && { backgroundColor: Colors.background.disabled },
+                  ]}
+                  onPress={() => handleSelectOption(item)}
+                >
+                  <Text
+                    style={[
+                      size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
+                      styles.label,
+                    ]}
+                  >
+                    {item.label}
+                  </Text>
+                  {value === item.value && (
+                    <MaterialIcons name='check' size={20} color={Colors.brand.primary} />
                   )}
-                </ScrollView>
-              </View>
-            </TouchableWithoutFeedback>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
           </View>
-        </TouchableWithoutFeedback>
-      </Modal>
+        </>
+      )}
     </View>
   );
 };
 
-export default Select;
+export default TypeableSelect;
 
 const styles = StyleSheet.create({
-  modalWrapper: { flex: 1, backgroundColor: Colors.background.transparent },
   wrapper: {
     width: '100%',
     position: 'relative',
     flex: 1,
   },
   container: {
-    display: 'flex',
     flexDirection: 'column',
     gap: 6,
     width: '100%',
   },
-
   inputContainer: {
     borderRadius: 8,
     borderWidth: 1,
@@ -304,15 +279,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     backgroundColor: Colors.background.white,
   },
-  verticalPadding: {
-    paddingVertical: 9,
-  },
-  smallGap: {
-    gap: 4,
-  },
-  mediumGap: {
-    gap: 8,
-  },
+  verticalPadding: { paddingVertical: 9 },
+  smallGap: { gap: 4 },
+  mediumGap: { gap: 8 },
   dropdown: {
     backgroundColor: Colors.background.white,
     borderRadius: 8,
@@ -333,14 +302,7 @@ const styles = StyleSheet.create({
     paddingLeft: 14,
     gap: 4,
   },
-  label: {
-    color: Colors.text.primary,
-  },
-  textInput: {
-    flex: 1,
-    lineHeight: 19.7,
-  },
-  fullWidth: {
-    width: '100%',
-  },
+  label: { color: Colors.text.primary },
+  textInput: { flex: 1, lineHeight: 19.7 },
+  fullWidth: { width: '100%' },
 });

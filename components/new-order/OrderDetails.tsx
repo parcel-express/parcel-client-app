@@ -14,6 +14,7 @@ import CardView from '../ui/CardView';
 import Input from '../ui/Input';
 import Select from '../ui/Select';
 import TextArea from '../ui/TextArea';
+import TypeableSelect from '../ui/TypeableSelect';
 type Props = {
   formik: FormikProps<FormValues>;
 };
@@ -77,7 +78,7 @@ const OrderDetails = ({ formik }: Props) => {
         <Text style={[Typography.textMdBold, { color: Colors.text.black }]}>
           {t('new-order.weightForm.title')}
         </Text>
-        <Select
+        <TypeableSelect
           setValue={formik.setFieldValue.bind(null, 'weight')}
           options={weightOptions}
           value={formik.values.weight}
