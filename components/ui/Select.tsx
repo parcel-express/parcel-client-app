@@ -98,11 +98,14 @@ const Select = ({
     : i18n.language?.startsWith('ka')
       ? 7.5
       : 6.5;
-  const maxLabelLen =
-    options.length > 0
-      ? Math.max(...options.map(opt => opt.label.length))
-      : placeholder?.length || 0;
-  const dropdownWidth = Math.max(layout.width, maxLabelLen * factor + ICON_AND_PADDING_WIDTH);
+  const maxLabelLen = React.useMemo(() => {
+    if (!options.length) return placeholder?.length || 0;
+    return Math.max(...options.map(opt => opt.label.length));
+  }, [options, placeholder]);
+  const dropdownWidth = React.useMemo(
+    () => Math.max(layout.width, maxLabelLen * factor + ICON_AND_PADDING_WIDTH),
+    [layout.width, maxLabelLen, factor]
+  );
   const getModalPosition = () => {
     const MAX_DROPDOWN_HEIGHT = 256;
     const optionsHeight = Math.min(options.length * OPTION_HEIGHT, MAX_DROPDOWN_HEIGHT);
@@ -204,6 +207,7 @@ const Select = ({
                     options.map(item => (
                       <TouchableOpacity
                         accessibilityRole='menuitem'
+                        accessibilityState={{ selected: value === item.value }}
                         key={item.value}
                         style={[
                           styles.option,
