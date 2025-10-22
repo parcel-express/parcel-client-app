@@ -46,7 +46,7 @@
     "continueAsGuest": "გაგრძელება როგორც სტუმარი",
     "fullName": "სრული სახელი",
     "fullNamePlaceholder": "შეიყვანეთ სრული სახელი",
-    "fullNameRequired": "Full Name is required"
+    "fullNameRequired": "სრული სახელის შეყვანა აუცილებელია"
   },
   "tabs": {
     "home": "მთავარი",

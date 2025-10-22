@@ -11,13 +11,14 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
-
+const getGuestOrderSchema = (t: (key: string) => string) =>
+  yup.object({
+    fullName: yup.string().required(t('auth.fullNameRequired')),
+    email: yup.string().email(t('auth.emailInvalid')),
+  });
 export default function GuestOrderScreen() {
   const { t } = useTranslation();
-  const guestOrderSchema = yup.object({
-    fullName: yup.string().required(t('auth.fullNameRequired')),
-    email: yup.string().email(t('auth.emailInvalid')).optional(),
-  });
+  const guestOrderSchema = React.useMemo(() => getGuestOrderSchema(t), [t]);
   const formik = useFormik({
     initialValues: {
       fullName: '',
