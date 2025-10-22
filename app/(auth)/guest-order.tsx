@@ -1,14 +1,27 @@
 import { Link, router } from 'expo-router';
+import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, TextInput, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import Button from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
+import { Colors } from '@/constants/Colors';
+import { Typography } from '@/constants/Typography';
 
 export default function GuestOrderScreen() {
   const { t } = useTranslation();
-
+  const formik = useFormik({
+    initialValues: {
+      fullName: '',
+      email: '',
+    },
+    onSubmit: () => {
+      handleGuestOrder();
+    },
+  });
   const handleGuestOrder = () => {
     // TODO: Implement guest order logic
     // For now, navigate to main app
@@ -16,77 +29,80 @@ export default function GuestOrderScreen() {
   };
 
   return (
-    <ThemedView style={styles.container}>
-      <View style={styles.formContainer}>
-        <ThemedText style={styles.title}>{t('auth.guestOrder')}</ThemedText>
+    <KeyboardAvoidingView
+      style={styles.full}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
+    >
+      <ThemedView style={styles.container}>
+        <View style={styles.form}>
+          <View style={styles.titleContainer}>
+            <ThemedText style={[Typography.title, { color: Colors.text.primary }]}>
+              {t('auth.guestOrder')}
+            </ThemedText>
 
-        <ThemedText style={styles.description}>
-          Place an order as a guest. You won&apos;t be able to track your order history.
-        </ThemedText>
+            <ThemedText
+              style={[
+                Typography.textMdRegular,
+                styles.description,
+                { color: Colors.text.secondary },
+              ]}
+            >
+              {t('auth.guestOrderDescription')}
+            </ThemedText>
+          </View>
+          <Input
+            placeholder='Full Name'
+            autoCapitalize='words'
+            name={'fullName'}
+            formik={formik}
+            label='Full Name'
+          />
+          <Input
+            placeholder='Email (optional)'
+            keyboardType='email-address'
+            autoCapitalize='none'
+            name={'email'}
+            label='email'
+            formik={formik}
+          />
+        </View>
+        <View style={styles.action}>
+          <Button onPress={formik.handleSubmit} size={'md'} variant={'primary'}>
+            {t('auth.continueAsGuest')}
+          </Button>
 
-        <TextInput style={styles.input} placeholder='Full Name' autoCapitalize='words' />
-
-        <TextInput style={styles.input} placeholder='Phone Number' keyboardType='phone-pad' />
-
-        <TextInput
-          style={styles.input}
-          placeholder='Email (optional)'
-          keyboardType='email-address'
-          autoCapitalize='none'
-        />
-
-        <Pressable style={styles.button} onPress={handleGuestOrder}>
-          <ThemedText style={styles.buttonText}>Continue as Guest</ThemedText>
-        </Pressable>
-
-        <Link href='/(auth)/login' style={styles.link}>
-          <ThemedText style={styles.linkText}>Have an account? {t('auth.login')}</ThemedText>
-        </Link>
-      </View>
-    </ThemedView>
+          <Link href='/(auth)/login' style={styles.link}>
+            <ThemedText style={styles.linkText}>
+              {t('auth.haveAnAccount')} {t('auth.login')}
+            </ThemedText>
+          </Link>
+        </View>
+      </ThemedView>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
+  full: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     padding: 20,
-  },
-  formContainer: {
-    flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 20,
+  titleContainer: {
+    alignItems: 'center',
+  },
+  form: { flex: 1, justifyContent: 'center', width: '100%', alignItems: 'center', gap: 16 },
+  action: {
+    width: '100%',
+    gap: 8,
   },
   description: {
-    fontSize: 16,
     textAlign: 'center',
-    marginBottom: 30,
-    lineHeight: 24,
-  },
-  input: {
-    width: '100%',
-    height: 50,
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 15,
-    marginBottom: 15,
-  },
-  button: {
-    width: '100%',
-    height: 50,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 15,
-  },
-  buttonText: {
-    fontSize: 16,
-    fontWeight: '600',
   },
   link: {
     marginBottom: 15,

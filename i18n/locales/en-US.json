@@ -40,7 +40,10 @@
     "passwordMin": "Password must be at least 6 characters",
     "passwordMax": "Password must be at most 20 characters",
     "teamMemberLabel": "Team Member",
-    "teamMemberPlaceholder": "Select a team member"
+    "teamMemberPlaceholder": "Select a team member",
+    "guestOrder": "Place Order as Guest",
+    "guestOrderDescription": "Place an order as a guest. You won&apos;t be able to track your order history.",
+    "continueAsGuest": "Continue as Guest"
   },
   "tabs": {
     "home": "Home",
