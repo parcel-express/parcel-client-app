@@ -112,8 +112,8 @@ export default function NewOrderScreen() {
   const renderItem = React.useCallback(
     ({ item }: { item: React.ReactElement }) => (
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={paddingBottom + 82}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? paddingBottom + 56 : 0}
       >
         <ScrollView
           contentContainerStyle={[styles.content, { width: screenWidth }]}
