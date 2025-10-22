@@ -43,7 +43,10 @@
     "teamMemberPlaceholder": "აირჩიეთ გუნდის წევრი",
     "guestOrder": "შეკვეთის განთავსება როგორც სტუმარი",
     "guestOrderDescription": "შეკვეთის განთავსება როგორც სტუმარი. თქვენ ვერ შეძლებთ თქვენი შეკვეთების ისტორიის თვალყურის დევნას.",
-    "continueAsGuest": "გაგრძელება როგორც სტუმარი"
+    "continueAsGuest": "გაგრძელება როგორც სტუმარი",
+    "fullName": "სრული სახელი",
+    "fullNamePlaceholder": "შეიყვანეთ სრული სახელი",
+    "fullNameRequired": "Full Name is required"
   },
   "tabs": {
     "home": "მთავარი",

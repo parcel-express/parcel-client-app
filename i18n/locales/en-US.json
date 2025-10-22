@@ -45,7 +45,8 @@
     "guestOrderDescription": "Place an order as a guest. You won't be able to track your order history.",
     "continueAsGuest": "Continue as Guest",
     "fullName": "Full Name",
-    "fullNamePlaceholder": "Enter Full Name"
+    "fullNamePlaceholder": "Enter Full Name",
+    "fullNameRequired": "Full Name is required"
   },
   "tabs": {
     "home": "Home",

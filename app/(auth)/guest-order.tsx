@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
+import * as yup from 'yup';
 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
@@ -13,11 +14,17 @@ import { Typography } from '@/constants/Typography';
 
 export default function GuestOrderScreen() {
   const { t } = useTranslation();
+  const guestOrderSchema = yup.object({
+    fullName: yup.string().required(t('auth.fullNameRequired')),
+    email: yup.string().email(t('auth.emailInvalid')).optional(),
+  });
   const formik = useFormik({
     initialValues: {
       fullName: '',
       email: '',
     },
+    validationSchema: guestOrderSchema,
+    validateOnChange: true,
     onSubmit: () => {
       handleGuestOrder();
     },

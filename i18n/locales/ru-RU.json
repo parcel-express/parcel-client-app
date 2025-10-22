@@ -43,7 +43,10 @@
     "teamMemberPlaceholder": "Выберите участника команды",
     "guestOrder": "Заказ без регистрации",
     "guestOrderDescription": "Заказ без регистрации. Вы не сможете отслеживать историю своих заказов.",
-    "continueAsGuest": "Продолжить как гость"
+    "continueAsGuest": "Продолжить как гость",
+    "fullName": "Полное имя",
+    "fullNamePlaceholder": "Введите полное имя",
+    "fullNameRequired": "Полное имя обязательно"
   },
   "tabs": {
     "home": "Главная",
