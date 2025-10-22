@@ -52,18 +52,18 @@ export default function GuestOrderScreen() {
             </ThemedText>
           </View>
           <Input
-            placeholder='Full Name'
+            placeholder={t('auth.fullNamePlaceholder')}
             autoCapitalize='words'
             name={'fullName'}
             formik={formik}
-            label='Full Name'
+            label={t('auth.fullName')}
           />
           <Input
-            placeholder='Email (optional)'
+            placeholder={t('auth.emailPlaceholder')}
             keyboardType='email-address'
             autoCapitalize='none'
             name={'email'}
-            label='email'
+            label={t('auth.emailLabel')}
             formik={formik}
           />
         </View>

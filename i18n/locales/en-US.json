@@ -42,8 +42,10 @@
     "teamMemberLabel": "Team Member",
     "teamMemberPlaceholder": "Select a team member",
     "guestOrder": "Place Order as Guest",
-    "guestOrderDescription": "Place an order as a guest. You won&apos;t be able to track your order history.",
-    "continueAsGuest": "Continue as Guest"
+    "guestOrderDescription": "Place an order as a guest. You won't be able to track your order history.",
+    "continueAsGuest": "Continue as Guest",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Enter Full Name"
   },
   "tabs": {
     "home": "Home",
