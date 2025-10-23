@@ -66,7 +66,7 @@ const Modal = ({ visible, onClose, form, title, subtitle }: Props) => {
               },
             ]}
           >
-            <ScrollView keyboardShouldPersistTaps='handled' contentContainerStyle={styles.padding}>
+            <ScrollView contentContainerStyle={styles.padding}>
               <View style={styles.header}>
                 <View style={styles.row}>
                   <Text style={Typography.textMdSemiBold}>{title}</Text>

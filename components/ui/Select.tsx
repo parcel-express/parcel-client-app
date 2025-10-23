@@ -18,7 +18,6 @@ import {
 import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';
-import { useTabBarHeight } from '@/hooks/useTabBarHeight';
 
 type Props = {
   label?: string;
@@ -47,7 +46,6 @@ const Select = ({
   maxW,
   isInModal,
 }: Props) => {
-  const tabBarHeight = useTabBarHeight();
   const [isFocused, setIsFocused] = React.useState(false);
   const triggerRef = React.useRef<View | null>(null);
   const [layout, setLayout] = React.useState({ x: 0, y: 0, width: 0, height: 0 });
@@ -122,13 +120,13 @@ const Select = ({
     }
     let width: number | string = layout.width;
     let left = layout.x;
-    const spaceBelow = screenHeight - (baseTop + tabBarHeight);
+    const spaceBelow = screenHeight - baseTop;
     const isOverflowingBottom = spaceBelow < optionsHeight;
     const isOverflowingRight = layout.x + dropdownWidth > screenWidth;
     if (isOverflowingBottom) {
       top = layout.y - optionsHeight - 8;
     }
-    if (isOverflowingBottom && isInModal) {
+    if (isOverflowingBottom && isInModal && Platform.OS === 'android') {
       top = layout.y - optionsHeight - layout.height - 20;
     }
     if (variant === 'secondary') {
