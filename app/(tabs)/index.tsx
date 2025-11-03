@@ -32,7 +32,7 @@ export default function HomeScreen() {
         <View style={styles.balanceCardHeader}>
           <Text style={[Typography.textSmSemiBold, styles.black]}> {title} </Text>
         </View>
-        <View style={[styles.balanceContainer, styles.balanceCard]}>
+        <View style={[styles.balanceContainer]}>
           <Text style={styles.balance}>0.00</Text>
         </View>
       </View>
@@ -96,10 +96,10 @@ const styles = StyleSheet.create({
   },
   balanceCard: {
     borderWidth: 1,
-    borderColor: Colors.border.secondary,
+    borderColor: Colors.border.disabledBorder,
     borderRadius: 12,
-    ...Shadows.shadow_xs,
     backgroundColor: Colors.background.secondarySubtle,
+    ...Shadows.shadow_xs,
   },
 
   balanceCardHeader: {
@@ -112,8 +112,10 @@ const styles = StyleSheet.create({
     paddingTop: 48,
     padding: 20,
     borderWidth: 1,
-    borderColor: Colors.border.secondary,
-    borderRadius: 8,
+    borderBottomWidth: 0,
+    borderColor: Colors.border.disabledBorder,
+    borderRadius: 12,
+    marginHorizontal: -1,
   },
   balance: {
     fontSize: 28,

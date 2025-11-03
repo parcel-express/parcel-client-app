@@ -43,6 +43,9 @@ export const Colors = {
     white: '#FFFFFF',
     disabled: '#717680',
     black: '#000000',
+    tabLabel: '#717171',
+    success: '#079455',
+    danger: '#FF1616',
   },
   border: {
     primary: '#E6E8EB',

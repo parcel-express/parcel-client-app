@@ -106,5 +106,6 @@ export const Typography = StyleSheet.create({
     letterSpacing: 0,
     fontWeight: '700',
     verticalAlign: 'middle',
+    color: Colors.text.tabLabel,
   },
 });

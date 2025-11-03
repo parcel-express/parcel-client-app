@@ -79,6 +79,9 @@
     "fileLabel": "დოკუმენტის უკან მიწოდება",
     "price": "30 ლარი",
     "imageLabel": "დასურათება",
+    "newAddress": "ახალი მისამართი",
+    "savedAddresses": "დამახსოვრებული მისამართები",
+    "branches": "ფილიალები",
     "form": {
       "address": "მისამართი",
       "addressPlaceholder": "მისამართი",
@@ -101,7 +104,7 @@
     },
     "weightForm": {
       "title": "აირჩიე ამანათის წონა",
-      "weightLabel": "ან აირჩიეთ სხვა წონა",
+      "weightLabel": "ამანათის წონა",
       "weightPlaceholder": "ჩაწერე წონა",
       "quantityLabel": "აირჩიე რაოდენობა",
       "quantityPlaceholder": "რაოდენობა",
@@ -246,7 +249,23 @@
       "dailyTitle": "ამანათების დღიური ჩაბარება"
     },
     "invoices": {
-      "title": "ინვოისები"
+      "title": "ინვოისები",
+      "order": "შეკვეთა",
+      "date": "ინვოისის გენერირების თარიღი",
+      "downloadReport": "რეპორტის გადმოწერა",
+      "print": "ბეჭვდა",
+      "financialDetails": "ფინანსური დეტალები",
+      "orderName": "შეკვეთის დასახელება",
+      "orderCode": "შეკვეთის კოდი",
+      "name": "დასახელება",
+      "taxNumber": "ს/კ",
+      "bankAccount": "საბანკო ანგარიში",
+      "services": "სერვისები",
+      "total": "სულ",
+      "commission": "საკომისიო",
+      "additionalServices": "დამატებითი სერვისები",
+      "paidAmount": "გადახდილი თანხა",
+      "amountDue": "გადასახდელი თანხა"
     },
     "contact": {
       "online": "Online"

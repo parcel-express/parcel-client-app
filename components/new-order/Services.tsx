@@ -9,7 +9,7 @@ import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';
 
 import CameraIcon from '../icons/CameraIcon';
-import FileIcon from '../icons/FileIcon';
+import FileBack from '../icons/FileBack';
 import CustomSwitch from '../ui/Switch';
 type BooleanKeys<T> = { [K in keyof T]: T[K] extends boolean ? K : never }[keyof T];
 
@@ -26,7 +26,7 @@ const Services = ({ formik }: Props) => {
   const { t } = useTranslation();
   const data: Data[] = [
     {
-      icon: FileIcon,
+      icon: FileBack,
       label: t('new-order.fileLabel'),
       price: t('new-order.price'),
       name: 'giveBackDocs',

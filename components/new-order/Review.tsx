@@ -11,6 +11,8 @@ import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';
 
+import Input from '../ui/Input';
+
 import Services from './Services';
 type Props = {
   formik: FormikProps<FormValues>;
@@ -41,13 +43,7 @@ const Review = ({ formik }: Props) => {
         </View>
         <CardView>
           <Text style={[Typography.textSmMedium, { color: Colors.text.black }]}>ამანათის წონა</Text>
-          <Select
-            setValue={formik.setFieldValue.bind(null, 'weight')}
-            options={[]}
-            value={formik.values.weight}
-            placeholder={formik.values.weight}
-            disabled
-          />
+          <Input name={'weight'} formik={formik} disabled />
         </CardView>
         <View style={styles.gapMedium}>
           <Text style={[Typography.textSmBold, { color: Colors.text.black }]}>

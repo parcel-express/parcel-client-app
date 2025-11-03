@@ -79,6 +79,9 @@
     "fileLabel": "Доставка документа",
     "price": "30 лари",
     "imageLabel": "Изображение",
+    "newAddress": "Новый адрес",
+    "savedAddresses": "Сохраненные адреса",
+    "branches": "Филиалы",
     "form": {
       "address": "Адрес",
       "addressPlaceholder": "Введите адрес",
@@ -101,7 +104,7 @@
     },
     "weightForm": {
       "title": "Выберите вес посылки",
-      "weightLabel": "Или выберите другой вес",
+      "weightLabel": "Вес посылки",
       "weightPlaceholder": "Введите вес",
       "quantityLabel": "Выберите количество",
       "quantityPlaceholder": "Количество",
@@ -251,7 +254,23 @@
       "dailyTitle": "Ежедневная доставка посылок"
     },
     "invoices": {
-      "title": "Счета"
+      "title": "Счета",
+      "order": "Заказ",
+      "date": "Дата создания инвойса",
+      "downloadReport": "Скачать отчет",
+      "print": "Печать",
+      "financialDetails": "Финансовые детали",
+      "orderName": "Название заказа",
+      "orderCode": "Код заказа",
+      "name": "Название",
+      "taxNumber": "С/К",
+      "bankAccount": "Сабанко ანგარიში",
+      "services": "Сервисы",
+      "total": "Всего",
+      "commission": "Комиссия",
+      "additionalServices": "Дополнительные услуги",
+      "paidAmount": "Оплаченная сумма",
+      "amountDue": "Сумма к оплате"
     },
     "contact": {
       "online": "Онлайн"
