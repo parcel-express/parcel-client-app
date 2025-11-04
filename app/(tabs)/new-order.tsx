@@ -60,7 +60,42 @@ export default function NewOrderScreen() {
   const [showError, setShowError] = React.useState(false);
   const paddingBottom = useBottomTabBarHeight();
   const { t } = useTranslation();
-
+  const validationSchema = React.useMemo(
+    () =>
+      yup.object().shape({
+        senderAddress: yup.string().required(t('new-order.validation.senderAddress')),
+        senderName: yup.string().required(t('new-order.validation.senderName')),
+        senderSurname: yup.string().required(t('new-order.validation.senderSurname')),
+        senderCompany: yup.string(),
+        senderCity: yup.string().required(t('new-order.validation.senderCity')),
+        senderPhoneNumber: yup.string().required(t('new-order.validation.senderPhoneNumber')),
+        receiverAddress: yup.string().required(t('new-order.validation.receiverAddress')),
+        receiverName: yup.string().required(t('new-order.validation.receiverName')),
+        receiverSurname: yup.string().required(t('new-order.validation.receiverSurname')),
+        receiverCompany: yup.string(),
+        receiverCity: yup.string().required(t('new-order.validation.receiverCity')),
+        receiverPhoneNumber: yup.string().required(t('new-order.validation.receiverPhoneNumber')),
+        giveBackDocs: yup.boolean(),
+        image: yup.boolean(),
+        weight: yup
+          .number()
+          .typeError(t('new-order.validation.weightType'))
+          .positive(t('new-order.validation.weightPositive'))
+          .required(t('new-order.validation.weightRequired')),
+        quantity: yup
+          .number()
+          .typeError(t('new-order.validation.quantityType'))
+          .positive(t('new-order.validation.quantityPositive'))
+          .required(t('new-order.validation.quantityRequired')),
+        orderNumber: yup.string().required(t('new-order.validation.orderNumber')),
+        comment: yup.string(),
+        startDate: yup.string().required(t('new-order.validation.startDate')),
+        endDate: yup.string().required(t('new-order.validation.endDate')),
+        paymentType: yup.string().required(t('new-order.validation.paymentType')),
+        paymentSide: yup.string().required(t('new-order.validation.paymentSide')),
+      }),
+    [t]
+  );
   const formik = useFormik<FormValues>({
     initialValues: {
       senderAddress: '',
@@ -86,38 +121,7 @@ export default function NewOrderScreen() {
       paymentType: '',
       paymentSide: '',
     },
-    validationSchema: yup.object().shape({
-      senderAddress: yup.string().required(t('new-order.validation.senderAddress')),
-      senderName: yup.string().required(t('new-order.validation.senderName')),
-      senderSurname: yup.string().required(t('new-order.validation.senderSurname')),
-      senderCompany: yup.string(),
-      senderCity: yup.string().required(t('new-order.validation.senderCity')),
-      senderPhoneNumber: yup.string().required(t('new-order.validation.senderPhoneNumber')),
-      receiverAddress: yup.string().required(t('new-order.validation.receiverAddress')),
-      receiverName: yup.string().required(t('new-order.validation.receiverName')),
-      receiverSurname: yup.string().required(t('new-order.validation.receiverSurname')),
-      receiverCompany: yup.string(),
-      receiverCity: yup.string().required(t('new-order.validation.receiverCity')),
-      receiverPhoneNumber: yup.string().required(t('new-order.validation.receiverPhoneNumber')),
-      giveBackDocs: yup.boolean(),
-      image: yup.boolean(),
-      weight: yup
-        .number()
-        .typeError(t('new-order.validation.weight'))
-        .positive(t('new-order.validation.weight'))
-        .required(t('new-order.validation.weight')),
-      quantity: yup
-        .number()
-        .typeError(t('new-order.validation.quantity'))
-        .positive(t('new-order.validation.quantity'))
-        .required(t('new-order.validation.quantity')),
-      orderNumber: yup.string().required(t('new-order.validation.orderNumber')),
-      comment: yup.string(),
-      startDate: yup.string().required(t('new-order.validation.startDate')),
-      endDate: yup.string().required(t('new-order.validation.endDate')),
-      paymentType: yup.string().required(t('new-order.validation.paymentType')),
-      paymentSide: yup.string().required(t('new-order.validation.paymentSide')),
-    }),
+    validationSchema,
     onSubmit: () => {
       setModalVisible(true);
       setTimeout(() => {
