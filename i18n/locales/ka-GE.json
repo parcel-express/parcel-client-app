@@ -272,6 +272,7 @@
     },
     "support": {
       "title": "მხარდაჭერა",
+      "modalTitle": "შეტყობინება",
       "filters": {
         "status": {
           "all": "ყველა",

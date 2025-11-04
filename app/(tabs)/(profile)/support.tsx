@@ -170,7 +170,7 @@ const SupportPage = () => {
       <Header title={t('profile.support.title')} hasGoBack />
       <NotificationsModal visible={isModalVisible} onClose={closeModal} variant='support' />
       <InfoModal
-        title='შეტყობინება'
+        title={t('profile.support.modalTitle')}
         data={infoData}
         onClose={closeInfoModal}
         visible={isInfoModalVisible}

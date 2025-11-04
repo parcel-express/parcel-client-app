@@ -272,6 +272,7 @@
     },
     "support": {
       "title": "Support",
+      "modalTitle": "Message",
       "filters": {
         "status": {
           "all": "All",

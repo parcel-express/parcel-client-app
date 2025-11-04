@@ -30,16 +30,19 @@ const DropDown = ({ label, type, disabled, formik }: DropDownProps) => {
   };
   const options = [
     {
+      id: 'new-address',
       icon: <AddIcon />,
       label: t('new-order.newAddress'),
       action: () => setIsModalVisible(true),
     },
     {
+      id: 'saved-addresses',
       icon: <MarkerPinIcon />,
       label: t('new-order.savedAddresses'),
       action: () => router.push('/(tabs)/(profile)/addresses'),
     },
     {
+      id: 'branches',
       icon: <BranchIcon />,
       label: t('new-order.branches'),
       action: () => setIsModalVisible(true),
@@ -92,7 +95,7 @@ const DropDown = ({ label, type, disabled, formik }: DropDownProps) => {
                   item.action();
                 }}
                 style={[styles.labelContainer, styles.dropDownItem]}
-                key={item.label}
+                key={item.id}
               >
                 {item.icon}
                 <Text style={[Typography.textSmMedium, { color: Colors.text.primary }]}>

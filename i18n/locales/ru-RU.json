@@ -264,7 +264,7 @@
       "orderCode": "Код заказа",
       "name": "Название",
       "taxNumber": "С/К",
-      "bankAccount": "Сабанко ანგარიში",
+      "bankAccount": "Банковский счет",
       "services": "Сервисы",
       "total": "Всего",
       "commission": "Комиссия",
@@ -277,6 +277,7 @@
     },
     "support": {
       "title": "Поддержка",
+      "modalTitle": "Сообщение",
       "filters": {
         "status": {
           "all": "Все",
