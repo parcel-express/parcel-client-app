@@ -9,10 +9,11 @@ function NewOrderIcon({ focused }: { focused?: boolean }) {
       {focused && <MainGradient />}
       <Path
         d='M11 7v8m-4-4h8m6 0c0 5.523-4.477 10-10 10S1 16.523 1 11 5.477 1 11 1s10 4.477 10 10z'
-        stroke={focused ? 'url(#mainGradient)' : '#535862'}
+        stroke={focused ? 'url(#mainGradient)' : '#9CA3AF'}
         strokeWidth={2}
         strokeLinecap='round'
         strokeLinejoin='round'
+        strokeOpacity={focused ? 1 : 0.8}
       />
     </Svg>
   );

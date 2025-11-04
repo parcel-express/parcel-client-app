@@ -34,7 +34,7 @@ const sizes: Record<
 };
 const Card = (props: Props) => {
   const { t } = useTranslation();
-  const { variant, data } = props;
+  const { variant, data, noBorder } = props;
   const Icon = ({ receiver }: { receiver?: boolean }) => (
     <LinearGradient
       colors={[Colors.gradient.primary.start, Colors.gradient.primary.end]}
@@ -74,7 +74,7 @@ const Card = (props: Props) => {
     </View>
   );
   return (
-    <CardView style={{ paddingBottom: sizes[variant].paddingBottom }}>
+    <CardView style={{ paddingBottom: sizes[variant].paddingBottom }} noBorder={noBorder || false}>
       <View
         style={[
           variant !== 'info' && styles.header,

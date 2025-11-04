@@ -7,10 +7,11 @@ import { Shadows } from '@/constants/Shadows';
 type Props = {
   children?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
+  noBorder?: boolean;
 };
 
-const CardView = ({ children, style }: Props) => {
-  return <View style={[styles.card, style]}>{children}</View>;
+const CardView = ({ children, style, noBorder }: Props) => {
+  return <View style={[styles.card, style, noBorder && styles.noBorder]}>{children}</View>;
 };
 
 export default CardView;
@@ -22,5 +23,8 @@ const styles = StyleSheet.create({
     ...Shadows.shadow_xs,
     backgroundColor: Colors.background.white,
     padding: 16,
+  },
+  noBorder: {
+    borderWidth: 0,
   },
 });

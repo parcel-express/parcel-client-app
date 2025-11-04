@@ -55,28 +55,34 @@ export type AddressesProps = {
   data: Address;
   onEditPress: () => void;
   onDeletePress: () => void;
+  noBorder?: boolean;
 };
 
 export type OrderProps = {
   variant: 'orders';
   data: Order;
+  noBorder?: boolean;
 };
 export type InvoicesProps = {
   variant: 'invoices';
   data: Invoice;
+  noBorder?: boolean;
 };
 export type TariffsProps = {
   variant: 'tariffs';
   data: Tariffs;
+  noBorder?: boolean;
 };
 export type InfoProps = {
   variant: 'info';
   data: Info;
+  noBorder?: boolean;
 };
 
 export type SupportProps = {
   variant: 'support';
   data: Support;
+  noBorder?: boolean;
 };
 
 export default {};

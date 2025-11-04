@@ -86,7 +86,7 @@ const InvoicesModal = ({ visible, onClose, title }: Props) => {
           </View>
           <ScrollView contentContainerStyle={styles.body}>
             {/* INVOICE HEADER */}
-            <CardView style={styles.gapLg}>
+            <CardView style={styles.gapLg} noBorder>
               <View style={styles.gapSm}>
                 <Text style={[Typography.textSmSemiBold]}>
                   <Text style={[Typography.textSmMedium]}>{t('profile.invoices.order')}:</Text>{' '}
@@ -121,7 +121,7 @@ const InvoicesModal = ({ visible, onClose, title }: Props) => {
             </CardView>
 
             {/* INVOICE BODY */}
-            <CardView style={styles.card}>
+            <CardView style={styles.card} noBorder>
               {invoiceData.map((item, index) => (
                 <View style={styles.cardRow} key={item.label}>
                   <Text
@@ -147,7 +147,7 @@ const InvoicesModal = ({ visible, onClose, title }: Props) => {
             {/* FINANCES */}
             <View style={styles.section}>
               <Text style={[Typography.textSmBold]}>{t('profile.invoices.financialDetails')}</Text>
-              <CardView style={styles.card}>
+              <CardView style={styles.card} noBorder>
                 {financialDetails.map(item => (
                   <View style={styles.cardRow} key={item.label}>
                     <Text style={[Typography.textSmRegular, { color: Colors.text.tertiary }]}>

@@ -9,10 +9,11 @@ function ProfileIcon({ focused }: { focused?: boolean }) {
       {focused && <MainGradient />}
       <Path
         d='M4.316 18.438A4.001 4.001 0 018 16h6a4.001 4.001 0 013.684 2.438M15 8.5a4 4 0 11-8 0 4 4 0 018 0zm6 2.5c0 5.523-4.477 10-10 10S1 16.523 1 11 5.477 1 11 1s10 4.477 10 10z'
-        stroke={focused ? 'url(#mainGradient)' : '#535862'}
+        stroke={focused ? 'url(#mainGradient)' : '#9CA3AF'}
         strokeWidth={2}
         strokeLinecap='round'
         strokeLinejoin='round'
+        strokeOpacity={focused ? 1 : 0.8}
       />
     </Svg>
   );

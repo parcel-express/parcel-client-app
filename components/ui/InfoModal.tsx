@@ -172,7 +172,7 @@ const InfoModal: React.FC<Props> = ({ visible, onClose, title, data }) => {
           <FlatList
             data={data || flatListData}
             keyExtractor={(_, index) => index.toString()}
-            renderItem={({ item }) => <Card variant='info' data={item} />}
+            renderItem={({ item }) => <Card variant='info' data={item} noBorder />}
             contentContainerStyle={styles.body}
           />
         </View>
