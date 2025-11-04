@@ -181,7 +181,9 @@ const SupportPage = () => {
           ListHeaderComponent={
             <>
               <View style={styles.filtersContainer}>
-                <SettingsButton onPress={openModal}>ახალი მიმართვა</SettingsButton>
+                <SettingsButton onPress={openModal}>
+                  {t('profile.support.newRequest')}
+                </SettingsButton>
                 <Filters
                   formik={formik}
                   setDate={setDate}

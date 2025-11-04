@@ -102,6 +102,27 @@
       "paymentSidePlaceholder": "Select Payment Side",
       "paymentSideLabel": "Payment Side"
     },
+    "validation": {
+      "senderAddress": "Sender address selection is required",
+      "senderName": "Sender name is required",
+      "senderSurname": "Sender surname is required",
+      "senderCompany": "Sender company selection is required",
+      "senderCity": "Sender city selection is required",
+      "senderPhoneNumber": "Sender phone number is required",
+      "receiverAddress": "Receiver address selection is required",
+      "receiverName": "Receiver name is required",
+      "receiverSurname": "Receiver surname is required",
+      "receiverCompany": "Receiver company selection is required",
+      "receiverCity": "Receiver city selection is required",
+      "receiverPhoneNumber": "Receiver phone number is required",
+      "weight": "Package weight is required",
+      "quantity": "Package quantity is required",
+      "orderNumber": "Order number is required",
+      "startDate": "Start date selection is required",
+      "endDate": "End date selection is required",
+      "paymentType": "Payment type selection is required",
+      "paymentSide": "Payment side selection is required"
+    },
     "weightForm": {
       "title": "Choose Package Weight",
       "weightLabel": "Package Weight",
@@ -273,6 +294,7 @@
     "support": {
       "title": "Support",
       "modalTitle": "Message",
+      "newRequest": "New Request",
       "filters": {
         "status": {
           "all": "All",

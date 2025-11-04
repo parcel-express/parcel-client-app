@@ -46,35 +46,7 @@ export type FormValues = {
   paymentType: string;
   paymentSide: string;
 };
-const validationSchema = yup.object().shape({
-  senderAddress: yup.string().required('Sender address is required'),
-  senderName: yup.string().required('Sender name is required'),
-  senderSurname: yup.string().required('Sender surname is required'),
-  receiverAddress: yup.string().required('Receiver address is required'),
-  receiverName: yup.string().required('Receiver name is required'),
-  receiverSurname: yup.string().required('Receiver surname is required'),
-  receiverCompany: yup.string().required('Receiver company is required'),
-  receiverCity: yup.string().required('Receiver city is required'),
-  receiverPhoneNumber: yup.string().required('Receiver phone number is required'),
-  giveBackDocs: yup.boolean(),
-  image: yup.boolean(),
-  weight: yup
-    .number()
-    .typeError('Weight must be a number')
-    .positive('Weight must be positive')
-    .required('Weight is required'),
-  quantity: yup
-    .number()
-    .typeError('Quantity must be a number')
-    .positive('Quantity must be positive')
-    .required('Quantity is required'),
-  orderNumber: yup.string().required('Order number is required'),
-  comment: yup.string().required('Comment is required'),
-  startDate: yup.string().required('Start date is required'),
-  endDate: yup.string().required('End date is required'),
-  paymentType: yup.string().required('Payment type is required'),
-  paymentSide: yup.string().required('Payment side is required'),
-});
+
 export default function NewOrderScreen() {
   const [index, setIndex] = React.useState(0);
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -105,7 +77,40 @@ export default function NewOrderScreen() {
       paymentType: '',
       paymentSide: '',
     },
-    validationSchema,
+    validationSchema: yup.object().shape({
+      senderAddress: yup.string().required(t('profile.new-order.validation.senderAddress')),
+      senderName: yup.string().required(t('profile.new-order.validation.senderName')),
+      senderSurname: yup.string().required(t('profile.new-order.validation.senderSurname')),
+      senderCompany: yup.string(),
+      senderCity: yup.string().required(t('profile.new-order.validation.senderCity')),
+      senderPhoneNumber: yup.string().required(t('profile.new-order.validation.senderPhoneNumber')),
+      receiverAddress: yup.string().required(t('profile.new-order.validation.receiverAddress')),
+      receiverName: yup.string().required(t('profile.new-order.validation.receiverName')),
+      receiverSurname: yup.string().required(t('profile.new-order.validation.receiverSurname')),
+      receiverCompany: yup.string(),
+      receiverCity: yup.string().required(t('profile.new-order.validation.receiverCity')),
+      receiverPhoneNumber: yup
+        .string()
+        .required(t('profile.new-order.validation.receiverPhoneNumber')),
+      giveBackDocs: yup.boolean(),
+      image: yup.boolean(),
+      weight: yup
+        .number()
+        .typeError(t('profile.new-order.validation.weight'))
+        .positive(t('profile.new-order.validation.weight'))
+        .required(t('profile.new-order.validation.weight')),
+      quantity: yup
+        .number()
+        .typeError(t('profile.new-order.validation.quantity'))
+        .positive(t('profile.new-order.validation.quantity'))
+        .required(t('profile.new-order.validation.quantity')),
+      orderNumber: yup.string().required(t('profile.new-order.validation.orderNumber')),
+      comment: yup.string(),
+      startDate: yup.string().required(t('profile.new-order.validation.startDate')),
+      endDate: yup.string().required(t('profile.new-order.validation.endDate')),
+      paymentType: yup.string().required(t('profile.new-order.validation.paymentType')),
+      paymentSide: yup.string().required(t('profile.new-order.validation.paymentSide')),
+    }),
     onSubmit: () => {
       setModalVisible(true);
       setTimeout(() => {
