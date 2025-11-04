@@ -8,7 +8,9 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
+  Text,
   useWindowDimensions,
+  View,
 } from 'react-native';
 import * as yup from 'yup';
 
@@ -22,6 +24,8 @@ import { ThemedView } from '@/components/ThemedView';
 import Button from '@/components/ui/Button';
 import OrderSuccessModal from '@/components/ui/OrderSuccessModal';
 import { Colors } from '@/constants/Colors';
+import { Typography } from '@/constants/Typography';
+
 export type FormValues = {
   senderAddress: string;
   senderName: string;
@@ -47,11 +51,16 @@ export type FormValues = {
   paymentSide: string;
 };
 
+// Define the type for step fields
+type StepFields = (keyof FormValues)[][];
+
 export default function NewOrderScreen() {
   const [index, setIndex] = React.useState(0);
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [showError, setShowError] = React.useState(false);
   const paddingBottom = useBottomTabBarHeight();
   const { t } = useTranslation();
+
   const formik = useFormik<FormValues>({
     initialValues: {
       senderAddress: '',
@@ -78,49 +87,50 @@ export default function NewOrderScreen() {
       paymentSide: '',
     },
     validationSchema: yup.object().shape({
-      senderAddress: yup.string().required(t('profile.new-order.validation.senderAddress')),
-      senderName: yup.string().required(t('profile.new-order.validation.senderName')),
-      senderSurname: yup.string().required(t('profile.new-order.validation.senderSurname')),
+      senderAddress: yup.string().required(t('new-order.validation.senderAddress')),
+      senderName: yup.string().required(t('new-order.validation.senderName')),
+      senderSurname: yup.string().required(t('new-order.validation.senderSurname')),
       senderCompany: yup.string(),
-      senderCity: yup.string().required(t('profile.new-order.validation.senderCity')),
-      senderPhoneNumber: yup.string().required(t('profile.new-order.validation.senderPhoneNumber')),
-      receiverAddress: yup.string().required(t('profile.new-order.validation.receiverAddress')),
-      receiverName: yup.string().required(t('profile.new-order.validation.receiverName')),
-      receiverSurname: yup.string().required(t('profile.new-order.validation.receiverSurname')),
+      senderCity: yup.string().required(t('new-order.validation.senderCity')),
+      senderPhoneNumber: yup.string().required(t('new-order.validation.senderPhoneNumber')),
+      receiverAddress: yup.string().required(t('new-order.validation.receiverAddress')),
+      receiverName: yup.string().required(t('new-order.validation.receiverName')),
+      receiverSurname: yup.string().required(t('new-order.validation.receiverSurname')),
       receiverCompany: yup.string(),
-      receiverCity: yup.string().required(t('profile.new-order.validation.receiverCity')),
-      receiverPhoneNumber: yup
-        .string()
-        .required(t('profile.new-order.validation.receiverPhoneNumber')),
+      receiverCity: yup.string().required(t('new-order.validation.receiverCity')),
+      receiverPhoneNumber: yup.string().required(t('new-order.validation.receiverPhoneNumber')),
       giveBackDocs: yup.boolean(),
       image: yup.boolean(),
       weight: yup
         .number()
-        .typeError(t('profile.new-order.validation.weight'))
-        .positive(t('profile.new-order.validation.weight'))
-        .required(t('profile.new-order.validation.weight')),
+        .typeError(t('new-order.validation.weight'))
+        .positive(t('new-order.validation.weight'))
+        .required(t('new-order.validation.weight')),
       quantity: yup
         .number()
-        .typeError(t('profile.new-order.validation.quantity'))
-        .positive(t('profile.new-order.validation.quantity'))
-        .required(t('profile.new-order.validation.quantity')),
-      orderNumber: yup.string().required(t('profile.new-order.validation.orderNumber')),
+        .typeError(t('new-order.validation.quantity'))
+        .positive(t('new-order.validation.quantity'))
+        .required(t('new-order.validation.quantity')),
+      orderNumber: yup.string().required(t('new-order.validation.orderNumber')),
       comment: yup.string(),
-      startDate: yup.string().required(t('profile.new-order.validation.startDate')),
-      endDate: yup.string().required(t('profile.new-order.validation.endDate')),
-      paymentType: yup.string().required(t('profile.new-order.validation.paymentType')),
-      paymentSide: yup.string().required(t('profile.new-order.validation.paymentSide')),
+      startDate: yup.string().required(t('new-order.validation.startDate')),
+      endDate: yup.string().required(t('new-order.validation.endDate')),
+      paymentType: yup.string().required(t('new-order.validation.paymentType')),
+      paymentSide: yup.string().required(t('new-order.validation.paymentSide')),
     }),
     onSubmit: () => {
       setModalVisible(true);
       setTimeout(() => {
         setIndex(0);
+        setShowError(false);
+        formik.resetForm();
       }, 200);
     },
   });
 
   const { width: screenWidth } = useWindowDimensions();
   const flatListRef = React.useRef<FlatList | null>(null);
+
   React.useEffect(() => {
     flatListRef.current?.scrollToOffset({
       offset: index * screenWidth,
@@ -137,13 +147,81 @@ export default function NewOrderScreen() {
     ],
     [formik]
   );
-  const handlePress = React.useCallback(() => {
-    if (index < steps.length - 1) {
-      setIndex(prevIndex => prevIndex + 1);
-    } else {
-      formik.submitForm();
+
+  // Define which fields belong to each step with proper typing
+  const stepFields: StepFields = React.useMemo(
+    () => [
+      [
+        'senderAddress',
+        'senderName',
+        'senderSurname',
+        'senderCompany',
+        'senderCity',
+        'senderPhoneNumber',
+        'receiverAddress',
+        'receiverName',
+        'receiverSurname',
+        'receiverCompany',
+        'receiverCity',
+        'receiverPhoneNumber',
+      ],
+      ['weight', 'quantity', 'orderNumber', 'comment', 'startDate', 'endDate'],
+      ['giveBackDocs', 'image'],
+      ['paymentType', 'paymentSide'],
+    ],
+    []
+  );
+
+  const getErrorMessage = React.useCallback(() => {
+    if (!showError) return null;
+
+    const errors = formik.errors;
+    const currentStepFields = stepFields[index];
+
+    // Guard against undefined
+    if (!currentStepFields) return null;
+
+    // Find the first error in the current step
+    for (const field of currentStepFields) {
+      if (errors[field]) {
+        return String(errors[field]);
+      }
     }
-  }, [index, steps.length, formik]);
+    return null;
+  }, [showError, formik.errors, stepFields, index]);
+
+  const handleNextStep = React.useCallback(async () => {
+    const currentStepFields = stepFields[index];
+
+    // Guard against undefined
+    if (!currentStepFields) return;
+
+    // Touch all fields in the current step to show errors
+    const touchedFields = currentStepFields.reduce(
+      (acc, field) => {
+        acc[field] = true;
+        return acc;
+      },
+      {} as Record<keyof FormValues, boolean>
+    );
+
+    formik.setTouched({ ...formik.touched, ...touchedFields });
+
+    // Validate only current step fields
+    const errors = await formik.validateForm();
+    const stepHasErrors = currentStepFields.some(field => errors[field]);
+
+    if (!stepHasErrors) {
+      setShowError(false);
+      if (index < steps.length - 1) {
+        setIndex(prevIndex => prevIndex + 1);
+      } else {
+        formik.handleSubmit();
+      }
+    } else {
+      setShowError(true);
+    }
+  }, [stepFields, index, formik, steps.length]);
 
   const renderItem = React.useCallback(
     ({ item }: { item: React.ReactElement }) => (
@@ -156,15 +234,21 @@ export default function NewOrderScreen() {
           keyboardShouldPersistTaps='handled'
           showsVerticalScrollIndicator={false}
         >
-          {item}
-          <Button size='md' variant={'primary'} style={styles.submitButton} onPress={handlePress}>
+          <View>
+            {item}
+            {getErrorMessage() && (
+              <Text style={[Typography.textSmRegular, styles.errorText]}>{getErrorMessage()}</Text>
+            )}
+          </View>
+          <Button size='md' variant='primary' style={styles.submitButton} onPress={handleNextStep}>
             {index === steps.length - 1 ? t('new-order.reviewLabel') : t('common.continue')}
           </Button>
         </ScrollView>
       </KeyboardAvoidingView>
     ),
-    [paddingBottom, screenWidth, handlePress, index, steps.length, t]
+    [paddingBottom, screenWidth, getErrorMessage, handleNextStep, index, steps.length, t]
   );
+
   return (
     <ThemedView
       style={styles.container}
@@ -181,7 +265,6 @@ export default function NewOrderScreen() {
         <FlatList
           ref={flatListRef}
           data={steps}
-          // wrap each step so it takes exactly one screen
           renderItem={renderItem}
           keyExtractor={(_, i) => String(i)}
           horizontal
@@ -211,8 +294,11 @@ const styles = StyleSheet.create({
     gap: 48,
     flexGrow: 1,
   },
-
   submitButton: {
     borderRadius: 14,
+  },
+  errorText: {
+    color: Colors.text.error.primary,
+    marginTop: 8,
   },
 });

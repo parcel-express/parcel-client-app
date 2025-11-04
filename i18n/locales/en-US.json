@@ -328,6 +328,8 @@
       "failed": "Failed",
       "completed": "Completed"
     },
+    "startDate": "Date of capture",
+    "endDate": "Delivery date",
     "sender": "Sender",
     "receiver": "Receiver",
     "noOrdersFound": "No orders found"

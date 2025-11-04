@@ -42,7 +42,7 @@ const OrderDetails = ({ formik }: Props) => {
             <View style={styles.innerButton}>
               <CalendarIcon stroke={Colors.icon.primary} />
               <Text style={[Typography.textSmRegular, { color: Colors.text.placeholder }]}>
-                {formik.values.startDate || t('common.selectDate')}
+                {formik.values.startDate || t('orders.startDate')}
               </Text>
             </View>
           </Calendar>
@@ -53,7 +53,7 @@ const OrderDetails = ({ formik }: Props) => {
             <View style={styles.innerButton}>
               <CalendarIcon stroke={Colors.icon.primary} />
               <Text style={[Typography.textSmRegular, { color: Colors.text.placeholder }]}>
-                {formik.values.endDate || t('common.selectDate')}
+                {formik.values.endDate || t('orders.endDate')}
               </Text>
             </View>
           </Calendar>
