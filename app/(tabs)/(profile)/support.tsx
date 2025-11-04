@@ -169,7 +169,12 @@ const SupportPage = () => {
     <ThemedView style={styles.container}>
       <Header title={t('profile.support.title')} hasGoBack />
       <NotificationsModal visible={isModalVisible} onClose={closeModal} variant='support' />
-      <InfoModal data={infoData} onClose={closeInfoModal} visible={isInfoModalVisible} />
+      <InfoModal
+        title='შეტყობინება'
+        data={infoData}
+        onClose={closeInfoModal}
+        visible={isInfoModalVisible}
+      />
       <ContentView>
         <FlatList
           data={data}

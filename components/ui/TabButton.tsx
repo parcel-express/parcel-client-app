@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
+import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';
 
 import { IconProps } from '../icons/types';
@@ -16,14 +17,15 @@ type Props = {
     showBadge?: boolean;
   };
   rightAccessory?: React.ReactNode;
+  hasShadow?: boolean;
 };
 
-const TabButton = ({ tab, rightAccessory }: Props) => {
+const TabButton = ({ tab, rightAccessory, hasShadow }: Props) => {
   const { t } = useTranslation();
   const disabled = !tab.action;
   return (
     <Pressable
-      style={styles.menuItem}
+      style={[styles.menuItem, hasShadow && Shadows.shadow_xl03]}
       onPress={tab.action}
       disabled={disabled}
       focusable={!disabled}

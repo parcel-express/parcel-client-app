@@ -298,6 +298,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.border.secondary,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: Colors.background.white,
   },
   imageUploadContent: {
     justifyContent: 'center',
