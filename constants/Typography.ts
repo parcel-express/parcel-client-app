@@ -104,7 +104,12 @@ export const Typography = StyleSheet.create({
     fontFamily: 'Inter',
     fontSize: 9,
     letterSpacing: 0,
-    fontWeight: '700',
+    fontWeight: '400',
     verticalAlign: 'middle',
+    color: Colors.text.tabLabel,
+  },
+  activeTabLabel: {
+    fontWeight: '700',
+    color: Colors.brand.primary,
   },
 });

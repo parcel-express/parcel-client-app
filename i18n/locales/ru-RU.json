@@ -79,6 +79,9 @@
     "fileLabel": "Доставка документа",
     "price": "30 лари",
     "imageLabel": "Изображение",
+    "newAddress": "Новый адрес",
+    "savedAddresses": "Сохраненные адреса",
+    "branches": "Филиалы",
     "form": {
       "address": "Адрес",
       "addressPlaceholder": "Введите адрес",
@@ -99,9 +102,36 @@
       "paymentSidePlaceholder": "Выберите сторону оплаты",
       "paymentSideLabel": "Сторона оплаты"
     },
+    "validation": {
+      "senderAddress": "Выбор адреса отправителя обязателен",
+      "senderName": "Выбор имени отправителя обязателен",
+      "senderSurname": "Выбор фамилии отправителя обязателен",
+      "senderCompany": "Выбор компании отправителя обязателен",
+      "senderCity": "Выбор города отправителя обязателен",
+      "senderPhoneNumber": "Выбор телефона отправителя обязателен",
+      "receiverAddress": "Выбор адреса получателя обязателен",
+      "receiverName": "Выбор имени получателя обязателен",
+      "receiverSurname": "Выбор фамилии получателя обязателен",
+      "receiverCompany": "Выбор компании получателя обязателен",
+      "receiverCity": "Выбор города получателя обязателен",
+      "receiverPhoneNumber": "Выбор телефона получателя обязателен",
+      "weight": "Вес посылки обязателен",
+      "weightType": "Вес посылки должен быть числом",
+      "weightPositive": "Вес посылки должен быть положительным",
+      "weightRequired": "Вес посылки обязателен",
+      "quantity": "Количество посылок обязателено",
+      "quantityType": "Количество посылок должно быть числом",
+      "quantityPositive": "Количество посылок должно быть положительным",
+      "quantityRequired": "Количество посылок обязательно",
+      "orderNumber": "Выбор номера заказа обязателен",
+      "startDate": "Выбор даты начала обязателен",
+      "endDate": "Выбор даты окончания обязателен",
+      "paymentType": "Выбор типа оплаты обязателен",
+      "paymentSide": "Выбор стороны оплаты обязателен"
+    },
     "weightForm": {
       "title": "Выберите вес посылки",
-      "weightLabel": "Или выберите другой вес",
+      "weightLabel": "Вес посылки",
       "weightPlaceholder": "Введите вес",
       "quantityLabel": "Выберите количество",
       "quantityPlaceholder": "Количество",
@@ -251,13 +281,31 @@
       "dailyTitle": "Ежедневная доставка посылок"
     },
     "invoices": {
-      "title": "Счета"
+      "title": "Счета",
+      "order": "Заказ",
+      "date": "Дата создания инвойса",
+      "downloadReport": "Скачать отчет",
+      "print": "Печать",
+      "financialDetails": "Финансовые детали",
+      "orderName": "Название заказа",
+      "orderCode": "Код заказа",
+      "name": "Название",
+      "taxNumber": "С/К",
+      "bankAccount": "Банковский счет",
+      "services": "Сервисы",
+      "total": "Всего",
+      "commission": "Комиссия",
+      "additionalServices": "Дополнительные услуги",
+      "paidAmount": "Оплаченная сумма",
+      "amountDue": "Сумма к оплате"
     },
     "contact": {
       "online": "Онлайн"
     },
     "support": {
       "title": "Поддержка",
+      "modalTitle": "Сообщение",
+      "newRequest": "Новый запрос",
       "filters": {
         "status": {
           "all": "Все",
@@ -288,6 +336,8 @@
       "failed": "Неудачные",
       "completed": "Завершенные"
     },
+    "startDate": "Дата захвата",
+    "endDate": "Дата доставки",
     "sender": "Отправитель",
     "receiver": "Получатель",
     "noOrdersFound": "Заказы не найдены",

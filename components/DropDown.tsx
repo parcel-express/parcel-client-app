@@ -1,5 +1,7 @@
+import { router } from 'expo-router';
 import { FormikProps } from 'formik';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Animated, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { FormValues } from '@/app/(tabs)/new-order';
@@ -7,6 +9,8 @@ import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';
 
+import AddIcon from './icons/AddIcon';
+import BranchIcon from './icons/BranchIcon';
 import MarkerPinIcon from './icons/MarkerPinIcon';
 import ReceiverIcon from './icons/ReceiverIcon';
 import SenderIcon from './icons/SenderIcon';
@@ -18,11 +22,32 @@ type DropDownProps = {
   formik: FormikProps<FormValues>;
 };
 const DropDown = ({ label, type, disabled, formik }: DropDownProps) => {
+  const { t } = useTranslation();
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [isDropDownOpen, setIsDropDownOpen] = React.useState(false);
   const onSubmit = () => {
     setIsModalVisible(false);
   };
+  const options = [
+    {
+      id: 'new-address',
+      icon: <AddIcon />,
+      label: t('new-order.newAddress'),
+      action: () => setIsModalVisible(true),
+    },
+    {
+      id: 'saved-addresses',
+      icon: <MarkerPinIcon />,
+      label: t('new-order.savedAddresses'),
+      action: () => router.push('/(tabs)/(profile)/addresses'),
+    },
+    {
+      id: 'branches',
+      icon: <BranchIcon />,
+      label: t('new-order.branches'),
+      action: () => setIsModalVisible(true),
+    },
+  ];
   return (
     <>
       <AddressModal
@@ -63,18 +88,18 @@ const DropDown = ({ label, type, disabled, formik }: DropDownProps) => {
         </View>
         {isDropDownOpen && (
           <Animated.View style={styles.dropDown}>
-            {[1, 2, 3].map(item => (
+            {options.map(item => (
               <TouchableOpacity
                 onPress={() => {
                   setIsDropDownOpen(false);
-                  setIsModalVisible(true);
+                  item.action();
                 }}
                 style={[styles.labelContainer, styles.dropDownItem]}
-                key={item}
+                key={item.id}
               >
-                <MarkerPinIcon />
+                {item.icon}
                 <Text style={[Typography.textSmMedium, { color: Colors.text.primary }]}>
-                  {label} {item}
+                  {item.label}
                 </Text>
               </TouchableOpacity>
             ))}
@@ -103,7 +128,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: Colors.border.secondary,
+    borderColor: Colors.border.disabledBorder,
     backgroundColor: Colors.background.white,
     ...Shadows.shadow_lg03,
     ...Shadows.shadow_lg02,

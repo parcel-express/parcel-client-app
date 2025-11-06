@@ -19,6 +19,8 @@ import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';
 
+import ChevronIcon from '../icons/ChevronIcon';
+
 type Props = {
   label?: string;
   setValue: (value: string) => void;
@@ -166,11 +168,13 @@ const Select = ({
               size === 'md' ? Typography.textMdMedium : Typography.textXsMedium,
               {
                 color: value ? Colors.text[variant] : Colors.text.placeholder,
+
                 width:
                   layout.width > ICON_AND_PADDING_WIDTH
                     ? layout.width - ICON_AND_PADDING_WIDTH
                     : undefined,
               },
+              styles.lineHeight,
             ]}
             numberOfLines={1}
             ellipsizeMode='tail'
@@ -178,8 +182,8 @@ const Select = ({
             {options.find(opt => opt.value === value)?.label || placeholder}
           </Text>
 
-          <View style={{ transform: [{ rotate: isFocused ? '90deg' : '-90deg' }] }}>
-            <MaterialIcons name={'chevron-left'} size={20} color={Colors.text.placeholder} />
+          <View style={{ transform: [{ rotate: isFocused ? '180deg' : '0deg' }] }}>
+            <ChevronIcon />
           </View>
         </Pressable>
       </View>
@@ -296,7 +300,9 @@ const styles = StyleSheet.create({
   label: {
     color: Colors.text.primary,
   },
-
+  lineHeight: {
+    lineHeight: 20,
+  },
   fullWidth: {
     width: '100%',
   },

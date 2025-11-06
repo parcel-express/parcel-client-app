@@ -1,18 +1,23 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, Platform, StyleSheet } from 'react-native';
+import { FlatList, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
 import type { Invoice } from '@/app/types/cardTypes';
 import ContentView from '@/components/ContentView';
 import Header from '@/components/Header';
 import { ThemedView } from '@/components/ThemedView';
 import Card from '@/components/ui/Card';
+import InvoicesModal from '@/components/ui/InvoicesModal';
 import { Colors } from '@/constants/Colors';
 
 export default function InvoicesScreen() {
   const { t } = useTranslation();
   const tabBarHeight = useBottomTabBarHeight();
+  const [isInfoModalVisible, setInfoModalIsVisible] = React.useState(false);
+  const closeInfoModal = () => {
+    setInfoModalIsVisible(false);
+  };
   const status = {
     paid: t('status.paid'),
     partiallyPaid: t('status.partiallyPaid'),
@@ -95,11 +100,20 @@ export default function InvoicesScreen() {
       darkColor={Colors.dark.background}
     >
       <Header title={t('profile.invoices.title')} hasGoBack />
+      <InvoicesModal
+        visible={isInfoModalVisible}
+        onClose={closeInfoModal}
+        title={t('profile.invoices.title')}
+      />
       <ContentView>
         <FlatList
           data={data}
           keyExtractor={item => item.id}
-          renderItem={({ item }) => <Card variant={'invoices'} data={item} />}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => setInfoModalIsVisible(true)}>
+              <Card variant={'invoices'} data={item} />
+            </TouchableOpacity>
+          )}
           contentContainerStyle={[
             styles.content,
             Platform.OS === 'ios' && { paddingBottom: tabBarHeight + 18 },

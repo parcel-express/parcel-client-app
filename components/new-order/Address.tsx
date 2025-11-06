@@ -28,11 +28,11 @@ const styles = StyleSheet.create({
   divider: {
     width: '100%',
     height: 1,
-    backgroundColor: Colors.border.primary,
+    backgroundColor: Colors.border.secondary,
   },
   buttonsContainer: {
     borderWidth: 1,
-    borderColor: Colors.border.primary,
+    borderColor: Colors.border.secondary,
     borderRadius: 12,
     backgroundColor: Colors.background.white,
     ...Shadows.shadow_xs,

@@ -152,7 +152,6 @@ const styles = StyleSheet.create({
     borderColor: Colors.button.outline,
   },
   label: {
-    flex: 1,
     textAlign: 'center',
   },
 });

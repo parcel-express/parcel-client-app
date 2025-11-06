@@ -76,9 +76,12 @@
     "reviewLabel": "Confirm Order",
     "senderLabel": "Select Sender",
     "receiverLabel": "Select Receiver",
-    "fileLabel": "File Delivery",
+    "fileLabel": "File Return",
     "price": "3 GEL",
     "imageLabel": "Image",
+    "newAddress": "new Address",
+    "savedAddresses": "Saved Addresses",
+    "branches": "Branches",
     "form": {
       "address": "Address",
       "addressPlaceholder": "Enter Address",
@@ -99,9 +102,36 @@
       "paymentSidePlaceholder": "Select Payment Side",
       "paymentSideLabel": "Payment Side"
     },
+    "validation": {
+      "senderAddress": "Sender address selection is required",
+      "senderName": "Sender name is required",
+      "senderSurname": "Sender surname is required",
+      "senderCompany": "Sender company selection is required",
+      "senderCity": "Sender city selection is required",
+      "senderPhoneNumber": "Sender phone number is required",
+      "receiverAddress": "Receiver address selection is required",
+      "receiverName": "Receiver name is required",
+      "receiverSurname": "Receiver surname is required",
+      "receiverCompany": "Receiver company selection is required",
+      "receiverCity": "Receiver city selection is required",
+      "receiverPhoneNumber": "Receiver phone number is required",
+      "weight": "Package weight is required",
+      "weightType": "Package weight must be a number",
+      "weightPositive": "Package weight must be positive",
+      "weightRequired": "Package weight is required",
+      "quantity": "Package quantity is required",
+      "quantityType": "Package quantity must be a number",
+      "quantityPositive": "Package quantity must be positive",
+      "quantityRequired": "Package quantity is required",
+      "orderNumber": "Order number is required",
+      "startDate": "Start date selection is required",
+      "endDate": "End date selection is required",
+      "paymentType": "Payment type selection is required",
+      "paymentSide": "Payment side selection is required"
+    },
     "weightForm": {
       "title": "Choose Package Weight",
-      "weightLabel": "Or choose other weight",
+      "weightLabel": "Package Weight",
       "weightPlaceholder": "Enter weight",
       "quantityLabel": "Choose Quantity",
       "quantityPlaceholder": "Quantity",
@@ -234,7 +264,23 @@
       "terms": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur ex doloremque, officia error eius facilis quasi cumque veritatis inventore debitis amet saepe tenetur excepturi similique nesciunt, praesentium natus obcaecati iusto sit culpa ipsum nulla ut totam reiciendis. Obcaecati vitae officia excepturi facilis perferendis reiciendis explicabo quis, deserunt, animi omnis unde voluptas sint hic voluptatem non atque illo quam nulla quibusdam? Fuga pariatur accusamus, eveniet ipsa suscipit dolore obcaecati voluptate sit qui, totam blanditiis velit error mollitia. Soluta tempore ad pariatur dicta, quisquam dignissimos consequatur aliquam repellat ipsam itaque laborum, quidem, aut reiciendis culpa. Iusto eum, explicabo, veritatis perspiciatis nostrum ad voluptates illum id natus tempore sapiente repellendus beatae eos inventore ab itaque iste voluptate molestiae quis facilis aperiam. Iusto obcaecati asperiores harum possimus fugit esse, enim laboriosam optio molestias ipsum. Praesentium ipsa veniam porro consequatur adipisci, provident nihil rem iure quos corporis saepe illo aliquid odit ex quod, nobis pariatur modi eius qui voluptates nisi. Quibusdam quia sint velit! Maxime eius reprehenderit, laborum beatae voluptate excepturi blanditiis necessitatibus neque sequi consequatur officiис cum, et placeat nisi nobis magnam aliquam voluptatem, consectetur atque! Id rem cupiditate, corrupti, officiis natus, incidunt eveniet accusantium voluptatum optio commodi repudiandae! Nam alias ipsum, maiores natus exercitationem consequatur delectus mollitia quam? Deserunt quasi atque esse a ipsam fuga sit accusamus molestiae officiis laborum? Iste consequatur esse, expedita totam modi animi beatae, delectus sed officiис optio natus nulla incidunt at! Voluptates laborum architecto iure ipsam modi, maiores vel perferendis reprehenderit, cum, doloribus voluptatem eos neque pariatur facilis praesentium repellat libero natus! Unde quia enim natus laboriosam sequi delectus. Deleniti culpa quae natus accusamus minus esse molestias odio obcaecati ratione nemo, odit mollitia laborum alias saepe expedita quo eius voluptates doloribus voluptas autem ab officia nobis error aliquid. Quaerat saepe dicta velit odit aliquid architecto, vitae quisquam deserunt!"
     },
     "invoices": {
-      "title": "Invoices"
+      "title": "Invoices",
+      "order": "Order",
+      "date": "Invoice Date",
+      "downloadReport": "Download Report",
+      "print": "Print",
+      "financialDetails": "Financial Details",
+      "orderName": "Order Name",
+      "orderCode": "Order Code",
+      "name": "Name",
+      "taxNumber": "Tax Number",
+      "bankAccount": "Bank Account",
+      "services": "Services",
+      "total": "Total",
+      "commission": "Commission",
+      "additionalServices": "Additional Services",
+      "paidAmount": "Paid Amount",
+      "amountDue": "Amount Due"
     },
     "tariffs": {
       "title": "Tariffs",
@@ -253,6 +299,8 @@
     },
     "support": {
       "title": "Support",
+      "modalTitle": "Message",
+      "newRequest": "New Request",
       "filters": {
         "status": {
           "all": "All",
@@ -286,6 +334,8 @@
       "failed": "Failed",
       "completed": "Completed"
     },
+    "startDate": "Date of capture",
+    "endDate": "Delivery date",
     "sender": "Sender",
     "receiver": "Receiver",
     "noOrdersFound": "No orders found"

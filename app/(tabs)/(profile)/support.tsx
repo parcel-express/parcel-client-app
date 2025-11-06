@@ -169,14 +169,21 @@ const SupportPage = () => {
     <ThemedView style={styles.container}>
       <Header title={t('profile.support.title')} hasGoBack />
       <NotificationsModal visible={isModalVisible} onClose={closeModal} variant='support' />
-      <InfoModal data={infoData} onClose={closeInfoModal} visible={isInfoModalVisible} />
+      <InfoModal
+        title={t('profile.support.modalTitle')}
+        data={infoData}
+        onClose={closeInfoModal}
+        visible={isInfoModalVisible}
+      />
       <ContentView>
         <FlatList
           data={data}
           ListHeaderComponent={
             <>
               <View style={styles.filtersContainer}>
-                <SettingsButton onPress={openModal}>ახალი მიმართვა</SettingsButton>
+                <SettingsButton onPress={openModal}>
+                  {t('profile.support.newRequest')}
+                </SettingsButton>
                 <Filters
                   formik={formik}
                   setDate={setDate}

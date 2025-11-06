@@ -23,6 +23,7 @@ export default function EasyAuthScreen() {
             iconName: FaceIdIcon,
           }}
           rightAccessory={<CustomSwitch value={value} onValueChange={setValue} />}
+          hasShadow
         />
       </ContentView>
     </ThemedView>

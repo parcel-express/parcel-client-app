@@ -14,44 +14,9 @@ import CardView from '../ui/CardView';
 import Input from '../ui/Input';
 import Select from '../ui/Select';
 import TextArea from '../ui/TextArea';
-import TypeableSelect from '../ui/TypeableSelect';
 type Props = {
   formik: FormikProps<FormValues>;
 };
-const weightOptions = [
-  {
-    label: '0.5 კგ - 1 კგ',
-    value: '0.5 კგ - 1 კგ',
-  },
-  {
-    label: '1 კგ - 3 კგ',
-    value: '1 კგ - 3 კგ',
-  },
-  {
-    label: '3 კგ - 5 კგ',
-    value: '3 კგ - 5 კგ',
-  },
-  {
-    label: '5 კგ - 10 კგ',
-    value: '5 კგ - 10 კგ',
-  },
-  {
-    label: '10 კგ - 20 კგ',
-    value: '10 კგ - 20 კგ',
-  },
-  {
-    label: '20 კგ - 30 კგ',
-    value: '20 კგ - 30 კგ',
-  },
-  {
-    label: '30 კგ - 50 კგ',
-    value: '30 კგ - 50 კგ',
-  },
-  {
-    label: '50 კგ - 70 კგ',
-    value: '50 კგ - 70 კგ',
-  },
-];
 const quantityOptions = [
   {
     label: '1',
@@ -77,7 +42,7 @@ const OrderDetails = ({ formik }: Props) => {
             <View style={styles.innerButton}>
               <CalendarIcon stroke={Colors.icon.primary} />
               <Text style={[Typography.textSmRegular, { color: Colors.text.placeholder }]}>
-                {formik.values.startDate || t('common.selectDate')}
+                {formik.values.startDate || t('orders.startDate')}
               </Text>
             </View>
           </Calendar>
@@ -88,7 +53,7 @@ const OrderDetails = ({ formik }: Props) => {
             <View style={styles.innerButton}>
               <CalendarIcon stroke={Colors.icon.primary} />
               <Text style={[Typography.textSmRegular, { color: Colors.text.placeholder }]}>
-                {formik.values.endDate || t('common.selectDate')}
+                {formik.values.endDate || t('orders.endDate')}
               </Text>
             </View>
           </Calendar>
@@ -98,14 +63,14 @@ const OrderDetails = ({ formik }: Props) => {
         <Text style={[Typography.textMdBold, { color: Colors.text.black }]}>
           {t('new-order.weightForm.title')}
         </Text>
-        <TypeableSelect
-          setValue={formik.setFieldValue.bind(null, 'weight')}
-          options={weightOptions}
-          value={formik.values.weight}
+        <Input
+          name={'weight'}
+          formik={formik}
           placeholder={t('new-order.weightForm.weightPlaceholder')}
           label={t('new-order.weightForm.weightLabel')}
-          inputType='decimal-pad'
+          keyboardType='decimal-pad'
         />
+
         <View style={styles.divider} />
         <Select
           setValue={formik.setFieldValue.bind(null, 'quantity')}
