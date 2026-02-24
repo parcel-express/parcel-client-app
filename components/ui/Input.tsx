@@ -48,7 +48,9 @@ const Input = <T extends Record<string, string | boolean>>({
 
   // Check if this field has an error
   const fieldError =
-    formik.submitCount > 0 && formik.errors[name] ? String(formik.errors[name]) : null;
+    (formik.submitCount > 0 || formik.touched[name]) && formik.errors[name]
+      ? String(formik.errors[name])
+      : null;
 
   const getBorderColor = () => {
     if (disabled) {
