@@ -12,9 +12,9 @@ import { ThemedView } from '@/components/ThemedView';
 import Card from '@/components/ui/Card';
 import InfoModal from '@/components/ui/InfoModal';
 import { Colors } from '@/constants/Colors';
+import { mockOrders } from '@/constants/mockData';
 import { Typography } from '@/constants/Typography';
 
-import { Order } from '../types/cardTypes';
 import { Status, StatusOptions, Tab, Tabs } from '../types/orderTypes';
 
 export default function OrdersScreen() {
@@ -47,49 +47,21 @@ export default function OrdersScreen() {
     { label: t('status.overdue'), value: 'overdue' },
     { label: t('status.partiallyPaid'), value: 'partiallyPaid' },
   ];
+  const orderCounts = React.useMemo(
+    () => ({
+      ongoing: mockOrders.filter(o => o.tabStatus === 'Ongoing').length,
+      failed: mockOrders.filter(o => o.tabStatus === 'Failed').length,
+      completed: mockOrders.filter(o => o.tabStatus === 'Completed').length,
+    }),
+    []
+  );
+
   const tabs: Tabs = [
-    { label: `${t('orders.tabs.onGoing')} (25)`, value: 'Ongoing' },
-    { label: `${t('orders.tabs.failed')} (3)`, value: 'Failed' },
-    { label: `${t('orders.tabs.completed')} (234)`, value: 'Completed' },
+    { label: `${t('orders.tabs.onGoing')} (${orderCounts.ongoing})`, value: 'Ongoing' },
+    { label: `${t('orders.tabs.failed')} (${orderCounts.failed})`, value: 'Failed' },
+    { label: `${t('orders.tabs.completed')} (${orderCounts.completed})`, value: 'Completed' },
   ];
-  const orders: Order[] = [
-    {
-      id: '1',
-      title: 'Order #12345',
-      status: 'In Transit',
-      statusVariant: 'warning',
-      sender: { name: 'John Doe', address: '123 Main St, City, Country' },
-      receiver: { name: 'Jane Smith', address: '456 Elm St, City, Country' },
-      body: [
-        { label: 'Pickup Date', value: '2023-10-01' },
-        { label: 'Delivery Date', value: '2023-10-05' },
-      ],
-    },
-    {
-      id: '2',
-      title: 'Order #12346',
-      status: 'Delivered',
-      statusVariant: 'success',
-      sender: { name: 'Alice Johnson', address: '789 Oak St, City, Country' },
-      receiver: { name: 'Bob Brown', address: '321 Pine St, City, Country' },
-      body: [
-        { label: 'Pickup Date', value: '2023-09-20' },
-        { label: 'Delivery Date', value: '2023-09-25' },
-      ],
-    },
-    {
-      id: '3',
-      title: 'Order #12347',
-      status: 'Pending',
-      statusVariant: 'warning',
-      sender: { name: 'Charlie Davis', address: '654 Maple St, City, Country' },
-      receiver: { name: 'Diana Evans', address: '987 Cedar St, City, Country' },
-      body: [
-        { label: 'Pickup Date', value: '2023-10-10' },
-        { label: 'Delivery Date', value: '2023-10-15' },
-      ],
-    },
-  ];
+
   // Update search state live
   React.useEffect(() => {
     setSearch(formik.values.search);
@@ -105,26 +77,28 @@ export default function OrdersScreen() {
   };
 
   // Filter function
-  const filteredOrders = orders.filter(order => {
-    const matchesStatus =
-      status === 'status' || order.status.toLowerCase() === status.toLowerCase();
-    const matchesSearch =
-      !search ||
-      order.title.toLowerCase().includes(search.toLowerCase()) ||
-      order.sender.name.toLowerCase().includes(search.toLowerCase()) ||
-      order.receiver.name.toLowerCase().includes(search.toLowerCase());
-    const matchesDate =
-      !date.start || !date.end
-        ? true
-        : order.body.some(
-            field =>
-              (field.label.toLowerCase().includes('date') ||
-                field.label.toLowerCase().includes('pickup') ||
-                field.label.toLowerCase().includes('delivery')) &&
-              isWithinRange(field.value, date.start, date.end)
-          );
-    return matchesStatus && matchesSearch && matchesDate;
-  });
+  const filteredOrders = mockOrders
+    .filter(order => order.tabStatus === tab)
+    .filter(order => {
+      const matchesStatus =
+        status === 'status' || order.status.toLowerCase() === status.toLowerCase();
+      const matchesSearch =
+        !search ||
+        order.title.toLowerCase().includes(search.toLowerCase()) ||
+        order.sender.name.toLowerCase().includes(search.toLowerCase()) ||
+        order.receiver.name.toLowerCase().includes(search.toLowerCase());
+      const matchesDate =
+        !date.start || !date.end
+          ? true
+          : order.body.some(
+              field =>
+                (field.label.toLowerCase().includes('date') ||
+                  field.label.toLowerCase().includes('pickup') ||
+                  field.label.toLowerCase().includes('delivery')) &&
+                isWithinRange(field.value, date.start, date.end)
+            );
+      return matchesStatus && matchesSearch && matchesDate;
+    });
 
   return (
     <ThemedView
