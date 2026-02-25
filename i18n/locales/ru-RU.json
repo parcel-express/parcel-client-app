@@ -297,7 +297,9 @@
       "commission": "Комиссия",
       "additionalServices": "Дополнительные услуги",
       "paidAmount": "Оплаченная сумма",
-      "amountDue": "Сумма к оплате"
+      "amountDue": "Сумма к оплате",
+      "share": "Поделиться",
+      "shareError": "Не удалось поделиться инвойсом"
     },
     "contact": {
       "online": "Онлайн"

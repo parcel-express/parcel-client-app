@@ -292,7 +292,9 @@
       "commission": "საკომისიო",
       "additionalServices": "დამატებითი სერვისები",
       "paidAmount": "გადახდილი თანხა",
-      "amountDue": "გადასახდელი თანხა"
+      "amountDue": "გადასახდელი თანხა",
+      "share": "გაზიარება",
+      "shareError": "ინვოისის გაზიარება ვერ მოხერხდა"
     },
     "contact": {
       "online": "Online"

@@ -280,7 +280,9 @@
       "commission": "Commission",
       "additionalServices": "Additional Services",
       "paidAmount": "Paid Amount",
-      "amountDue": "Amount Due"
+      "amountDue": "Amount Due",
+      "share": "Share",
+      "shareError": "Failed to share invoice"
     },
     "tariffs": {
       "title": "Tariffs",
