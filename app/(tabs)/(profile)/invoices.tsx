@@ -14,6 +14,7 @@ import { Colors } from '@/constants/Colors';
 export default function InvoicesScreen() {
   const { t } = useTranslation();
   const tabBarHeight = useBottomTabBarHeight();
+  const [selectedInvoice, setSelectedInvoice] = React.useState<Invoice | null>(null);
   const [isInfoModalVisible, setInfoModalIsVisible] = React.useState(false);
   const closeInfoModal = () => {
     setInfoModalIsVisible(false);
@@ -104,13 +105,19 @@ export default function InvoicesScreen() {
         visible={isInfoModalVisible}
         onClose={closeInfoModal}
         title={t('profile.invoices.title')}
+        invoice={selectedInvoice}
       />
       <ContentView>
         <FlatList
           data={data}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => setInfoModalIsVisible(true)}>
+            <TouchableOpacity
+              onPress={() => {
+                setSelectedInvoice(item);
+                setInfoModalIsVisible(true);
+              }}
+            >
               <Card variant={'invoices'} data={item} />
             </TouchableOpacity>
           )}

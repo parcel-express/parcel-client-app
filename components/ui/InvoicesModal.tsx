@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  Alert,
   Modal,
   Pressable,
   ScrollView,
@@ -10,8 +11,10 @@ import {
   View,
 } from 'react-native';
 
+import type { Invoice } from '@/app/types/cardTypes';
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
+import { shareInvoice } from '@/utils/invoicePdf';
 
 import FileDown from '../icons/FileDown';
 import PrinterIcon from '../icons/PrinterIcon';
@@ -24,9 +27,10 @@ type Props = {
   visible: boolean;
   onClose: () => void;
   title: string;
+  invoice: Invoice | null;
 };
 
-const InvoicesModal = ({ visible, onClose, title }: Props) => {
+const InvoicesModal = ({ visible, onClose, title, invoice }: Props) => {
   const { t } = useTranslation();
   const invoiceData = [
     {
@@ -71,6 +75,25 @@ const InvoicesModal = ({ visible, onClose, title }: Props) => {
       color: Colors.text.danger,
     },
   ];
+
+  const handleShareInvoice = async () => {
+    if (!invoice) return;
+
+    try {
+      const date = invoice.body[0]?.value ?? '';
+      const total = invoice.body[1]?.value ?? '';
+
+      await shareInvoice({
+        invoiceNumber: invoice.title,
+        date,
+        items: invoice.body,
+        total,
+      });
+    } catch (error) {
+      console.error(error);
+      Alert.alert(t('common.error'), t('profile.invoices.shareError'));
+    }
+  };
 
   return (
     <Modal visible={visible} transparent animationType='slide' onRequestClose={onClose}>
@@ -165,6 +188,9 @@ const InvoicesModal = ({ visible, onClose, title }: Props) => {
                 ))}
               </CardView>
             </View>
+            <Button variant='primary' size='lg' onPress={handleShareInvoice}>
+              {t('profile.invoices.share')}
+            </Button>
           </ScrollView>
         </View>
       </View>
