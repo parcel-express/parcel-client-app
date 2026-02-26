@@ -141,8 +141,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     gap: 6,
     width: '100%',
-
-    elevation: 10,
   },
   inputContainer: {
     borderRadius: 8,

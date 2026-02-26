@@ -142,15 +142,12 @@ export default function NewOrderScreen() {
     });
   }, [index, screenWidth]);
 
-  const steps = React.useMemo(
-    () => [
-      <Address formik={formik} key='address' />,
-      <OrderDetails formik={formik} key='orderDetails' />,
-      <Services formik={formik} key='services' />,
-      <Review formik={formik} key='review' />,
-    ],
-    [formik]
-  );
+  const steps = [
+    <Address formik={formik} key='address' />,
+    <OrderDetails formik={formik} key='orderDetails' />,
+    <Services formik={formik} key='services' />,
+    <Review formik={formik} key='review' />,
+  ];
 
   // Define which fields belong to each step with proper typing
   const stepFields: StepFields = React.useMemo(

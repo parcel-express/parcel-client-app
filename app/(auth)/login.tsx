@@ -100,7 +100,11 @@ export default function LoginScreen() {
                   secureTextEntry
                 />
               </View>
-              <Pressable style={styles.forgotPasswordContainer} onTouchEnd={handleForgotPassword}>
+              <Pressable
+                style={styles.forgotPasswordContainer}
+                onPress={handleForgotPassword}
+                accessibilityRole='link'
+              >
                 <Text style={[Typography.textSmMedium, { color: Colors.login.forgotPassword }]}>
                   {t('auth.forgotPassword')}
                 </Text>
