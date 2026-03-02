@@ -2,7 +2,8 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, FlatList, Platform, StyleSheet } from 'react-native';
+import { Alert, FlatList, Platform, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Swipeable } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Address } from '@/app/types/cardTypes';
@@ -56,18 +57,25 @@ export default function AddressesScreen() {
   ];
   const openModal = () => setModalVisible(true);
 
-  const handleDelete = () => {
-    Alert.alert(t('common.delete'), t('profile.addresses.deleteConfirm'), [
-      {
-        text: t('common.cancel'),
-        style: 'cancel',
-      },
+  const handleDelete = (_title: string) => {
+    Alert.alert(t('profile.addresses.deleteTitle'), t('profile.addresses.deleteConfirm'), [
+      { text: t('common.cancel'), style: 'cancel' },
       {
         text: t('common.delete'),
         style: 'destructive',
+        onPress: () => {
+          // TODO: actually remove from state
+        },
       },
     ]);
   };
+
+  const renderRightActions = (title: string) => (
+    <TouchableOpacity style={styles.deleteAction} onPress={() => handleDelete(title)}>
+      <Text style={styles.deleteText}>{t('common.delete')}</Text>
+    </TouchableOpacity>
+  );
+
   return (
     <ThemedView
       style={styles.container}
@@ -95,12 +103,14 @@ export default function AddressesScreen() {
             }
             keyExtractor={item => item.title}
             renderItem={({ item }) => (
-              <Card
-                variant={'addresses'}
-                data={item}
-                onEditPress={openModal}
-                onDeletePress={handleDelete}
-              />
+              <Swipeable renderRightActions={() => renderRightActions(item.title)}>
+                <Card
+                  variant={'addresses'}
+                  data={item}
+                  onEditPress={openModal}
+                  onDeletePress={() => handleDelete(item.title)}
+                />
+              </Swipeable>
             )}
             contentContainerStyle={[styles.cardsContainer, { paddingBottom: bottomPad }]}
           />
@@ -119,5 +129,17 @@ const styles = StyleSheet.create({
     gap: 10,
     paddingVertical: 16,
     paddingHorizontal: 16,
+  },
+
+  deleteAction: {
+    backgroundColor: Colors.text.error.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 100,
+    borderRadius: 12,
+  },
+  deleteText: {
+    color: Colors.background.white,
+    fontWeight: '600',
   },
 });

@@ -256,8 +256,15 @@
       "phonePlaceholder": "ტელეფონი",
       "phoneRequired": "ტელეფონი აუცილებელია",
       "phoneInvalid": "ტელეფონი არასწორია",
-      "delete": "მისამართის წაშლა",
-      "deleteConfirm": "დარწმუნებული ხართ, რომ გსურთ ამ მისამართის წაშლა?"
+      "deleteTitle": "მისამართის წაშლა",
+      "deleteConfirm": "ნამდვილად გინდათ ამ მისამართის წაშლა?",
+      "useMyLocation": "ჩემი ლოკაციის გამოყენება",
+      "locationPermissionTitle": "ლოკაციის ნებართვა",
+      "locationPermissionMsg": "მისამართის ავტომატურად შესავსებად საჭიროა ლოკაციის ნებართვა",
+      "locationError": "ლოკაციის მიღება ვერ მოხერხდა",
+      "typeHome": "სახლი",
+      "typeWork": "სამსახური",
+      "typeOther": "სხვა"
     },
     "tariffs": {
       "title": "ტარიფები",

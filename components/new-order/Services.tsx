@@ -48,9 +48,9 @@ const Services = ({ formik }: Props) => {
         </View>
       </View>
       <CustomSwitch
-        value={formik.values[item.name] || false}
+        value={(formik.values[item.name as keyof FormValues] as boolean) || false}
         onValueChange={value => {
-          formik.setFieldValue(item.name, value);
+          formik.setFieldValue(item.name as keyof FormValues, value);
         }}
       />
     </View>
