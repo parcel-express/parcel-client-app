@@ -256,8 +256,15 @@
       "phonePlaceholder": "Enter Phone",
       "phoneRequired": "Phone is required",
       "phoneInvalid": "Phone is invalid",
-      "delete": "Delete address",
-      "deleteConfirm": "Are you sure you want to delete this address?"
+      "deleteTitle": "Delete Address",
+      "deleteConfirm": "Are you sure you want to delete this address?",
+      "useMyLocation": "Use My Location",
+      "locationPermissionTitle": "Location Permission",
+      "locationPermissionMsg": "Location permission is required to auto-fill the address",
+      "locationError": "Failed to get location",
+      "typeHome": "Home",
+      "typeWork": "Work",
+      "typeOther": "Other"
     },
     "conditions": {
       "title": "Terms & Conditions",

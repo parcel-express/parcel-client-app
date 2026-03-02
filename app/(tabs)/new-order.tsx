@@ -49,6 +49,8 @@ export type FormValues = {
   endDate: string;
   paymentType: string;
   paymentSide: string;
+  senderType?: string;
+  receiverType?: string;
 };
 
 // Define the type for step fields

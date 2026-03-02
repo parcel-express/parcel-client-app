@@ -6,6 +6,7 @@ import { Stack, useSegments } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -34,17 +35,19 @@ export default function RootLayout() {
       end={{ x: 1, y: 0.5 }}
       style={styles.container}
     >
-      <SafeAreaView edges={['top']} style={styles.container}>
-        <ThemeProvider value={DefaultTheme}>
-          <Stack>
-            <Stack.Screen name='index' options={{ headerShown: false }} />
-            <Stack.Screen name='(auth)' options={{ headerShown: false }} />
-            <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-            <Stack.Screen name='+not-found' />
-          </Stack>
-        </ThemeProvider>
-        <StatusBar style={hasGradient ? 'light' : 'auto'} />
-      </SafeAreaView>
+      <GestureHandlerRootView>
+        <SafeAreaView edges={['top']} style={styles.container}>
+          <ThemeProvider value={DefaultTheme}>
+            <Stack>
+              <Stack.Screen name='index' options={{ headerShown: false }} />
+              <Stack.Screen name='(auth)' options={{ headerShown: false }} />
+              <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+              <Stack.Screen name='+not-found' />
+            </Stack>
+          </ThemeProvider>
+          <StatusBar style={hasGradient ? 'light' : 'auto'} />
+        </SafeAreaView>
+      </GestureHandlerRootView>
     </LinearGradient>
   );
 }
