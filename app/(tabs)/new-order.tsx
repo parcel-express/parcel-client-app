@@ -3,6 +3,9 @@ import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  Alert,
+  Animated,
+  AppState,
   FlatList,
   KeyboardAvoidingView,
   Platform,
@@ -25,6 +28,7 @@ import Button from '@/components/ui/Button';
 import OrderSuccessModal from '@/components/ui/OrderSuccessModal';
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
+import { useDraftOrder } from '@/hooks/useDraftOrder';
 
 export type FormValues = {
   senderAddress: string;
@@ -60,8 +64,12 @@ export default function NewOrderScreen() {
   const [index, setIndex] = React.useState(0);
   const [modalVisible, setModalVisible] = React.useState(false);
   const [showError, setShowError] = React.useState(false);
+  const { saveDraft, loadDraft, clearDraft } = useDraftOrder();
+  const fadeAnim = React.useRef(new Animated.Value(0)).current;
+  const appState = React.useRef(AppState.currentState);
   const paddingBottom = useBottomTabBarHeight();
   const { t } = useTranslation();
+  const isDraftLoaded = React.useRef(false);
   const validationSchema = React.useMemo(
     () =>
       yup.object().shape({
@@ -124,7 +132,9 @@ export default function NewOrderScreen() {
       paymentSide: '',
     },
     validationSchema,
-    onSubmit: () => {
+    onSubmit: async () => {
+      await clearDraft();
+
       setModalVisible(true);
       setTimeout(() => {
         setIndex(0);
@@ -174,6 +184,81 @@ export default function NewOrderScreen() {
     ],
     []
   );
+
+  React.useEffect(() => {
+    if (isDraftLoaded.current) return;
+
+    const checkDraft = async () => {
+      const draft = await loadDraft();
+
+      if (draft) {
+        Alert.alert(t('new-order.draftFound'), t('new-order.resumeDraftMessage'), [
+          {
+            text: t('common.delete'),
+            style: 'destructive',
+            onPress: async () => {
+              await clearDraft();
+              isDraftLoaded.current = true;
+            },
+          },
+          {
+            text: t('common.continue'),
+            onPress: () => {
+              const { currentStep, ...values } = draft;
+              formik.setValues(values as FormValues);
+              if (typeof currentStep === 'number') setIndex(currentStep);
+              isDraftLoaded.current = true;
+            },
+          },
+        ]);
+      } else {
+        isDraftLoaded.current = true;
+      }
+    };
+
+    checkDraft();
+  }, [clearDraft, formik, loadDraft, t]);
+
+  React.useEffect(() => {
+    if (!isDraftLoaded.current) return;
+    const autoSave = async () => {
+      await saveDraft({ ...formik.values, currentStep: index });
+
+      Animated.sequence([
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+        Animated.delay(1000),
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    };
+
+    autoSave();
+  }, [index, formik.values, saveDraft, fadeAnim]);
+
+  React.useEffect(() => {
+    if (!isDraftLoaded.current) return;
+
+    saveDraft({ ...formik.values, currentStep: index });
+  }, [formik.values, index, saveDraft]);
+
+  React.useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextState => {
+      if (!isDraftLoaded.current) return;
+      if (appState.current.match(/active/) && nextState === 'background') {
+        saveDraft({ ...formik.values, currentStep: index });
+      }
+      appState.current = nextState;
+    });
+
+    return () => subscription.remove();
+  }, [formik.values, index, saveDraft]);
 
   const getErrorMessage = React.useCallback(() => {
     if (!showError) return null;
@@ -262,6 +347,9 @@ export default function NewOrderScreen() {
         title={index === steps.length - 1 ? t('new-order.reviewTitle') : t('new-order.title')}
         closeButton
       />
+      <Animated.View style={[styles.draftSavedContainer, { opacity: fadeAnim }]}>
+        <Text style={styles.draftSavedText}>{t('new-order.draftSaved')} ✓</Text>
+      </Animated.View>
       <OrderSuccessModal visible={modalVisible} onClose={() => setModalVisible(false)} />
 
       <ContentView style={Platform.OS === 'ios' && { paddingBottom }}>
@@ -303,5 +391,19 @@ const styles = StyleSheet.create({
   errorText: {
     color: Colors.text.error.primary,
     marginTop: 8,
+  },
+  draftSavedContainer: {
+    position: 'absolute',
+    top: 70,
+    alignSelf: 'center',
+    backgroundColor: Colors.background.black,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    zIndex: 100,
+  },
+  draftSavedText: {
+    color: Colors.text.white,
+    fontSize: 12,
   },
 });
