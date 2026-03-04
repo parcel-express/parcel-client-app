@@ -35,17 +35,17 @@ export async function registerForPushNotifications(): Promise<string | null> {
 
   if (Platform.OS === 'android') {
     await Notifications.setNotificationChannelAsync('orders', {
-      name: 'Order Assignments',
+      name: 'Delivery Status',
       importance: Notifications.AndroidImportance.HIGH,
     });
 
-    await Notifications.setNotificationChannelAsync('scan', {
-      name: 'Scan Confirmations',
+    await Notifications.setNotificationChannelAsync('promotions', {
+      name: 'Promotions',
       importance: Notifications.AndroidImportance.HIGH,
     });
 
     await Notifications.setNotificationChannelAsync('payments', {
-      name: 'Earnings',
+      name: 'Balance Alerts',
       importance: Notifications.AndroidImportance.HIGH,
     });
   }

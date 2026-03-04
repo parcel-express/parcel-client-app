@@ -6,7 +6,7 @@ import {
   addNotificationReceivedListener,
   addNotificationResponseListener,
   registerForPushNotifications,
-} from '../services/useNotifications';
+} from '../services/notifications';
 
 export function useNotifications() {
   const [expoPushToken, setExpoPushToken] = useState<string | null>(null);
