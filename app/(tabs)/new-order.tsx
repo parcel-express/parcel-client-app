@@ -55,6 +55,10 @@ export type FormValues = {
   paymentSide: string;
   senderType?: string;
   receiverType?: string;
+  length: string;
+  width: string;
+  height: string;
+  contentDescription: string;
 };
 
 // Define the type for step fields
@@ -130,6 +134,10 @@ export default function NewOrderScreen() {
       endDate: '',
       paymentType: '',
       paymentSide: '',
+      length: '',
+      width: '',
+      height: '',
+      contentDescription: '',
     },
     validationSchema,
     onSubmit: async () => {
