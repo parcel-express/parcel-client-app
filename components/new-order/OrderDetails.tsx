@@ -1,5 +1,5 @@
 import { FormikProps } from 'formik';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -7,6 +7,7 @@ import { FormValues } from '@/app/(tabs)/new-order';
 import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
 import { Typography } from '@/constants/Typography';
+import { checkProhibitedItems } from '@/utils/prohibitedItems';
 
 import Calendar from '../Calendar';
 import CalendarIcon from '../icons/CalendarIcon';
@@ -34,6 +35,31 @@ const quantityOptions = [
 
 const OrderDetails = ({ formik }: Props) => {
   const { t } = useTranslation();
+  const DIMENSIONAL_FACTOR = 5000;
+
+  const calculateDimensionalWeight = (l: number, w: number, h: number) => {
+    return Math.ceil((l * w * h) / DIMENSIONAL_FACTOR);
+  };
+
+  const dimWeight = useMemo(() => {
+    const length = Number(formik.values.length);
+    const width = Number(formik.values.width);
+    const height = Number(formik.values.height);
+
+    if (length && width && height) {
+      return calculateDimensionalWeight(length, width, height);
+    }
+
+    return 0;
+  }, [formik.values.length, formik.values.width, formik.values.height]);
+
+  const actualWeight = Number(formik.values.weight) || 0;
+  const chargeableWeight = Math.max(actualWeight, dimWeight);
+
+  const prohibitedMatches = useMemo(
+    () => checkProhibitedItems(formik.values.contentDescription || ''),
+    [formik.values.contentDescription]
+  );
   return (
     <View style={styles.detailsPage}>
       <View style={styles.calendarButtonsContainer}>
@@ -71,6 +97,48 @@ const OrderDetails = ({ formik }: Props) => {
           keyboardType='decimal-pad'
         />
 
+        <View style={styles.dimensionsRow}>
+          <Input
+            name={'length'}
+            formik={formik}
+            placeholder='სმ'
+            label={t('new-order.length')}
+            keyboardType='numeric'
+          />
+
+          <Input
+            name={'width'}
+            formik={formik}
+            placeholder='სმ'
+            label={t('new-order.width')}
+            keyboardType='numeric'
+          />
+
+          <Input
+            name={'height'}
+            formik={formik}
+            placeholder='სმ'
+            label={t('new-order.height')}
+            keyboardType='numeric'
+          />
+        </View>
+
+        {dimWeight > 0 && (
+          <View style={styles.weightResult}>
+            <Text style={Typography.textSmRegular}>
+              {t('new-order.actualWeight')}: {actualWeight} {t('new-order.weightType')}
+            </Text>
+
+            <Text style={Typography.textSmRegular}>
+              {t('new-order.dimensionalWeight')}: {dimWeight} {t('new-order.weightType')}
+            </Text>
+
+            <Text style={Typography.textSmBold}>
+              {t('new-order.sumPrice')}: {chargeableWeight} {t('new-order.weightType')}
+            </Text>
+          </View>
+        )}
+
         <View style={styles.divider} />
         <Select
           setValue={formik.setFieldValue.bind(null, 'quantity')}
@@ -92,6 +160,11 @@ const OrderDetails = ({ formik }: Props) => {
           placeholder={t('new-order.weightForm.commentPlaceholder')}
         />
       </CardView>
+      {prohibitedMatches.length > 0 && (
+        <Text style={{ color: Colors.text.error.primary }}>
+          {t('new-order.prohibitedItemsTitle')}
+        </Text>
+      )}
     </View>
   );
 };
@@ -137,5 +210,14 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: 'column',
     gap: 20,
+  },
+  dimensionsRow: {
+    flexDirection: 'column',
+    gap: 8,
+  },
+
+  weightResult: {
+    marginTop: 10,
+    gap: 4,
   },
 });
