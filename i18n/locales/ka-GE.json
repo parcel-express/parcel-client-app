@@ -398,5 +398,13 @@
   "select": {
     "noOptions": "არ არის არჩევანი",
     "noResults": "არ არის შედეგები"
+  },
+  "schedules": {
+    "title": "მიწოდების გრაფიკი",
+    "searchPlaceholder": "ქალაქის ძებნა...",
+    "locations": "ლოკაცია",
+    "allRegions": "ყველა რეგიონი",
+    "timeWindow": "მიწოდების დრო",
+    "noResults": "მოძებნილი ქალაქი ვერ მოიძებნა"
   }
 }

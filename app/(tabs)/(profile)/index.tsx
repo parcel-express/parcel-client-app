@@ -79,6 +79,13 @@ const getProfileMenuItems = () => [
     },
     showBadge: true,
   },
+  {
+    iconName: MarkerPinIcon,
+    titleKey: 'schedules.title',
+    action: () => {
+      router.push('/(tabs)/(profile)/delivery-schedules');
+    },
+  },
 ];
 
 export default function ProfileScreen() {
