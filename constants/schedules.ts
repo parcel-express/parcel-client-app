@@ -13,7 +13,7 @@ export const MOCK_SCHEDULES: DeliverySchedule[] = [
     cityEn: 'Tbilisi',
     region: 'თბილისი',
     frequency: 'daily',
-    days: ['mon', 'tue', 'wed ', 'thu', 'fri', 'sat'],
+    days: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
     timeWindow: '09:00 - 20:00',
   },
   {
