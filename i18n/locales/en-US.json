@@ -398,5 +398,13 @@
   "select": {
     "noOptions": "No options",
     "noResults": "No results"
+  },
+  "schedules": {
+    "title": "Delivery Schedule",
+    "searchPlaceholder": "Search by city...",
+    "locations": "Locations",
+    "allRegions": "All Regions",
+    "timeWindow": "Delivery Time",
+    "noResults": "No city found"
   }
 }

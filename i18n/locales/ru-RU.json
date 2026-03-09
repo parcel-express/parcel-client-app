@@ -396,5 +396,13 @@
   "select": {
     "noOptions": "Нет вариантов",
     "noResults": "Нет результатов"
+  },
+  "schedules": {
+    "title": "График доставки",
+    "searchPlaceholder": "Поиск по городу...",
+    "locations": "Локации",
+    "allRegions": "Все регионы",
+    "timeWindow": "Время доставки",
+    "noResults": "Город не найден"
   }
 }
