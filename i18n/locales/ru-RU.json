@@ -310,7 +310,14 @@
       "paidAmount": "Оплаченная сумма",
       "amountDue": "Сумма к оплате",
       "share": "Поделиться",
-      "shareError": "Не удалось поделиться инвойсом"
+      "shareError": "Не удалось поделиться инвойсом",
+      "searchPlaceholder": "Поиск...",
+      "filters": {
+        "all": "Все",
+        "paid": "Оплачено",
+        "pending": "В ожидании",
+        "overdue": "Просрочено"
+      }
     },
     "contact": {
       "online": "Онлайн"
@@ -378,6 +385,15 @@
     "partiallyPaid": "Частично оплачено",
     "open": "Открыто",
     "closed": "Закрыто"
+  },
+  "invoices": {
+    "searchPlaceholder": "Поиск...",
+    "filter": {
+      "all": "Все"
+    },
+    "filters": {
+      "all": "Все"
+    }
   },
   "months": {
     "january": "Янв",

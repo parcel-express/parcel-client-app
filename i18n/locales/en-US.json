@@ -300,7 +300,14 @@
       "paidAmount": "Paid Amount",
       "amountDue": "Amount Due",
       "share": "Share",
-      "shareError": "Failed to share invoice"
+      "shareError": "Failed to share invoice",
+      "searchPlaceholder": "Search...",
+      "filters": {
+        "all": "All",
+        "paid": "Paid",
+        "pending": "Pending",
+        "overdue": "Overdue"
+      }
     },
     "tariffs": {
       "title": "Tariffs",
@@ -380,6 +387,15 @@
     "partiallyPaid": "Partially Paid",
     "open": "Open",
     "closed": "Closed"
+  },
+  "invoices": {
+    "searchPlaceholder": "Search...",
+    "filter": {
+      "all": "All"
+    },
+    "filters": {
+      "all": "All"
+    }
   },
   "months": {
     "january": "Jan",
