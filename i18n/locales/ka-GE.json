@@ -312,7 +312,14 @@
       "paidAmount": "გადახდილი თანხა",
       "amountDue": "გადასახდელი თანხა",
       "share": "გაზიარება",
-      "shareError": "ინვოისის გაზიარება ვერ მოხერხდა"
+      "shareError": "ინვოისის გაზიარება ვერ მოხერხდა",
+      "searchPlaceholder": "ინვოისის ძებნა...",
+      "filters": {
+        "all": "ყველა",
+        "paid": "გადახდილი",
+        "pending": "მიმდინარე",
+        "overdue": "ვადაგასული"
+      }
     },
     "contact": {
       "online": "Online"
@@ -379,7 +386,17 @@
     "overdue": "ვადაგასული",
     "partiallyPaid": "ნაწილობრივ გადახდილია",
     "open": "გახსნილი",
-    "closed": "დახურული"
+    "closed": "დახურული",
+    "all": "ყველა"
+  },
+  "invoices": {
+    "searchPlaceholder": "ინვოისის ძებნა...",
+    "filter": {
+      "all": "ყველა"
+    },
+    "filters": {
+      "all": "ყველა"
+    }
   },
   "months": {
     "january": "იან",
