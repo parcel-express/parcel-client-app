@@ -115,8 +115,7 @@ export default function OrdersScreen() {
     try {
       // later this will call API
       await new Promise(resolve => setTimeout(resolve, 1000));
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
+    } finally {
       setRefreshing(false);
     }
   }, []);
