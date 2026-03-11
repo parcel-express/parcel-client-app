@@ -2,7 +2,15 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  FlatList,
+  Platform,
+  RefreshControl,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import ContentView from '@/components/ContentView';
 import Filters from '@/components/Filters';
@@ -22,6 +30,7 @@ export default function OrdersScreen() {
   const [status, setStatus] = React.useState<Status | 'status'>('status');
   const [search, setSearch] = React.useState('');
   const [date, setDate] = React.useState<{ start?: string; end?: string }>({});
+  const [refreshing, setRefreshing] = React.useState(false);
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const bottomtabHeight = useBottomTabBarHeight();
   const paddingBottom = Platform.OS === 'ios' ? bottomtabHeight + 18 : 18;
@@ -100,6 +109,18 @@ export default function OrdersScreen() {
       return matchesStatus && matchesSearch && matchesDate;
     });
 
+  const onRefresh = React.useCallback(async () => {
+    setRefreshing(true);
+
+    try {
+      // later this will call API
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      setRefreshing(false);
+    }
+  }, []);
+
   return (
     <ThemedView
       style={styles.container}
@@ -135,6 +156,14 @@ export default function OrdersScreen() {
               <Card variant='orders' data={item} />
             </TouchableOpacity>
           )}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={[Colors.brand.primary]}
+              tintColor={Colors.brand.primary}
+            />
+          }
           contentContainerStyle={[
             styles.content,
             filteredOrders.length === 0 && styles.centered,
