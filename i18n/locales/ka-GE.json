@@ -423,5 +423,13 @@
     "allRegions": "ყველა რეგიონი",
     "timeWindow": "მიწოდების დრო",
     "noResults": "მოძებნილი ქალაქი ვერ მოიძებნა"
+  },
+  "address": {
+    "tooShort": "მისამართი ძალიან მოკლეა",
+    "mustBeGeorgian": "გთხოვთ შეიყვანოთ ქართულად",
+    "cityRequired": "აირჩიეთ ქალაქი",
+    "unknownCity": "ქალაქი ვერ მოიძებნა",
+    "invalidPostalCode": "არასწორი საფოსტო კოდი",
+    "validAddress": "მისამართი სწორია"
   }
 }

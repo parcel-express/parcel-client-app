@@ -422,5 +422,13 @@
     "allRegions": "All Regions",
     "timeWindow": "Delivery Time",
     "noResults": "No city found"
+  },
+  "address": {
+    "tooShort": "Address is too short",
+    "mustBeGeorgian": "Please enter in Georgian",
+    "cityRequired": "City is required",
+    "unknownCity": "City not found",
+    "invalidPostalCode": "Invalid postal code",
+    "validAddress": "Address is valid"
   }
 }
