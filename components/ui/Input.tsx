@@ -24,6 +24,7 @@ type InputProps<T extends Record<string, string | boolean>> = {
   textContentType?: TextInputProps['textContentType'];
   autoCapitalize?: TextInputProps['autoCapitalize'];
   autoCorrect?: TextInputProps['autoCorrect'];
+  onChangeText?: (text: string) => void;
 };
 
 const Input = <T extends Record<string, string | boolean>>({
@@ -43,6 +44,7 @@ const Input = <T extends Record<string, string | boolean>>({
   textContentType,
   autoCapitalize,
   autoCorrect,
+  onChangeText,
 }: InputProps<T>) => {
   const [isFocused, setIsFocused] = React.useState(false);
 
@@ -51,6 +53,12 @@ const Input = <T extends Record<string, string | boolean>>({
     (formik.submitCount > 0 || formik.touched[name]) && formik.errors[name]
       ? String(formik.errors[name])
       : null;
+
+  const isValid =
+    formik.touched[name] &&
+    !formik.errors[name] &&
+    typeof formik.values[name] === 'string' &&
+    formik.values[name] !== '';
 
   const getBorderColor = () => {
     if (disabled) {
@@ -75,7 +83,7 @@ const Input = <T extends Record<string, string | boolean>>({
           backgroundColor: disabled ? Colors.background.disabled : Colors.background.white,
         }}
       >
-        {leftIconName && (
+        {leftIconName && isValid && (
           <MaterialIcons
             style={styles.icon}
             name={leftIconName}
@@ -102,7 +110,11 @@ const Input = <T extends Record<string, string | boolean>>({
           }}
           editable={!disabled}
           onChangeText={text => {
-            formik.setFieldValue(name, text);
+            if (onChangeText) {
+              onChangeText(text);
+            } else {
+              formik.setFieldValue(name, text);
+            }
           }}
           value={typeof formik.values[name] === 'string' ? formik.values[name] : ''}
           secureTextEntry={secureTextEntry}

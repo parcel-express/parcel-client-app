@@ -420,5 +420,13 @@
     "allRegions": "Все регионы",
     "timeWindow": "Время доставки",
     "noResults": "Город не найден"
+  },
+  "address": {
+    "tooShort": "Адрес слишком короткий",
+    "mustBeGeorgian": "Пожалуйста, введите на грузинском",
+    "cityRequired": "Город обязателен",
+    "unknownCity": "Город не найден",
+    "invalidPostalCode": "Неверный почтовый индекс",
+    "validAddress": "Адрес верный"
   }
 }

@@ -19,6 +19,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FormValues } from '@/app/(tabs)/new-order';
 import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
+import { GEORGIAN_CITIES, validateStreetAddress } from '@/utils/addressValidation';
 
 import PinIcon from '../icons/PinIcon';
 import UserIcon from '../icons/UserIcon';
@@ -39,20 +40,11 @@ const AddressModal = ({ visible, onClose, form, onSubmit, type }: Props) => {
   const { t } = useTranslation();
   const { top } = useSafeAreaInsets();
   const selectKeys = ['company', 'city'];
-  const options = [
-    {
-      label: 'Option 1',
-      value: 'option1',
-    },
-    {
-      label: 'Option 2',
-      value: 'option2',
-    },
-    {
-      label: 'Option 3',
-      value: 'option3',
-    },
-  ];
+  const options = GEORGIAN_CITIES.map(city => ({
+    label: `${city.ka} (${city.en})`,
+    value: city.ka,
+  }));
+
   const inputKeys = ['address', 'name', 'surname', 'company', 'city', 'phoneNumber'];
   const getName = (key: string) => {
     return type + key.slice(0, 1).toUpperCase() + key.slice(1);
@@ -157,6 +149,8 @@ const AddressModal = ({ visible, onClose, form, onSubmit, type }: Props) => {
               </TouchableOpacity>
               <View style={styles.form}>
                 {inputKeys.map(key => {
+                  const fieldName = getName(key) as keyof FormValues;
+
                   if (selectKeys.includes(key)) {
                     return (
                       <Select
@@ -172,12 +166,28 @@ const AddressModal = ({ visible, onClose, form, onSubmit, type }: Props) => {
                   }
                   return (
                     <Input
-                      name={getName(key) as keyof FormValues}
+                      name={fieldName}
                       formik={form}
                       key={key}
                       label={t(`new-order.form.${key}`)}
                       placeholder={t(`new-order.form.${key}Placeholder`)}
                       leftIcon={key === 'name' ? <UserIcon width={15} height={15} /> : undefined}
+                      onChangeText={(text: string) => {
+                        form.setFieldValue(fieldName, text);
+
+                        if (key === 'address') {
+                          const result = validateStreetAddress(text);
+
+                          if (!result.isValid) {
+                            form.setFieldError(
+                              fieldName,
+                              result.error ? t(result.error) : t('address.tooShort')
+                            );
+                          } else {
+                            form.setFieldError(fieldName, undefined);
+                          }
+                        }
+                      }}
                     />
                   );
                 })}
