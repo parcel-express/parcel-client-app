@@ -428,5 +428,23 @@
     "unknownCity": "Город не найден",
     "invalidPostalCode": "Неверный почтовый индекс",
     "validAddress": "Адрес верный"
+  },
+  "notificationSettings": {
+    "title": "Настройки уведомлений",
+    "notificationTypes": "Типы уведомлений",
+    "orderUpdates": "Обновления заказов",
+    "orderUpdatesDesc": "Получайте уведомления о изменениях статуса заказа",
+    "paymentAlerts": "Уведомления о платежах",
+    "systemAlerts": "Системные уведомления",
+    "promotions": "Акции и предложения",
+    "securityAlerts": "Уведомления о безопасности",
+    "deliveryChannels": "Каналы доставки",
+    "pushNotifications": "Push уведомления",
+    "emailNotifications": "Электронная почта",
+    "smsNotifications": "SMS",
+    "quietHours": "Тихие часы",
+    "quietHoursDesc": "Отключить уведомления ночью",
+    "from": "С",
+    "to": "До"
   }
 }
