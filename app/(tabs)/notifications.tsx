@@ -1,10 +1,12 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { router } from 'expo-router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, Platform, StyleSheet } from 'react-native';
+import { FlatList, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
 import ContentView from '@/components/ContentView';
 import Header from '@/components/Header';
+import SettingsIcon from '@/components/icons/SettingsIcon';
 import SettingsButton from '@/components/SettingsButton';
 import { ThemedView } from '@/components/ThemedView';
 import NotificationCard from '@/components/ui/NotificationCard';
@@ -54,6 +56,12 @@ export default function NotificationScreen() {
       darkColor={Colors.dark.background}
     >
       <Header title={t('notifications.title')} />
+      <TouchableOpacity
+        onPress={() => router.push('/(tabs)/(profile)/notification-settings')}
+        style={styles.settingsButton}
+      >
+        <SettingsIcon width={24} height={24} color={Colors.brand.primary} />
+      </TouchableOpacity>
       <NotificationsModal
         visible={isModalVisible}
         onClose={closeModal}
@@ -86,5 +94,11 @@ const styles = StyleSheet.create({
   cardsContainer: {
     padding: 18,
     gap: 14,
+  },
+  settingsButton: {
+    position: 'absolute',
+    top: 12,
+    right: 16,
+    zIndex: 10,
   },
 });
