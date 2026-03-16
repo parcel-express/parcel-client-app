@@ -430,5 +430,23 @@
     "unknownCity": "City not found",
     "invalidPostalCode": "Invalid postal code",
     "validAddress": "Address is valid"
+  },
+  "notificationSettings": {
+    "title": "Notification Settings",
+    "notificationTypes": "Notification Types",
+    "orderUpdates": "Order Updates",
+    "orderUpdatesDesc": "Get notified about order status changes",
+    "paymentAlerts": "Payment Alerts",
+    "systemAlerts": "System Alerts",
+    "promotions": "Promotions & Offers",
+    "securityAlerts": "Security Alerts",
+    "deliveryChannels": "Delivery Channels",
+    "pushNotifications": "Push Notifications",
+    "emailNotifications": "Email",
+    "smsNotifications": "SMS",
+    "quietHours": "Quiet Hours",
+    "quietHoursDesc": "Turn off notifications at night",
+    "from": "From",
+    "to": "To"
   }
 }

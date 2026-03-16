@@ -431,5 +431,23 @@
     "unknownCity": "ქალაქი ვერ მოიძებნა",
     "invalidPostalCode": "არასწორი საფოსტო კოდი",
     "validAddress": "მისამართი სწორია"
+  },
+  "notificationSettings": {
+    "title": "შეტყობინებების პარამეტრები",
+    "notificationTypes": "შეტყობინების ტიპები",
+    "orderUpdates": "შეკვეთის განახლებები",
+    "orderUpdatesDesc": "შეკვეთის სტატუსის ცვლილებები",
+    "paymentAlerts": "გადახდის შეტყობინებები",
+    "systemAlerts": "სისტემური შეტყობინებები",
+    "promotions": "აქციები და შეთავაზებები",
+    "securityAlerts": "უსაფრთხოების შეტყობინებები",
+    "deliveryChannels": "მიწოდების არხები",
+    "pushNotifications": "Push შეტყობინებები",
+    "emailNotifications": "ელ-ფოსტა",
+    "smsNotifications": "SMS",
+    "quietHours": "მშვიდი საათები",
+    "quietHoursDesc": "გამორთეთ შეტყობინებები ღამით",
+    "from": "დან",
+    "to": "მდე"
   }
 }
