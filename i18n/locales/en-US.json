@@ -448,5 +448,18 @@
     "quietHoursDesc": "Turn off notifications at night",
     "from": "From",
     "to": "To"
+  },
+  "addressOnboarding": {
+    "welcomeTitle": "Let's add your first address!",
+    "welcomeDesc": "Having saved addresses makes placing orders faster",
+    "pickType": "What type of address is this?",
+    "home": "Home",
+    "work": "Work",
+    "other": "Other",
+    "tips": "Provide the exact address for the courier to arrive quickly",
+    "setDefault": "Set as default address",
+    "skip": "Skip",
+    "openForm": "Add Address",
+    "done": "Address added!"
   }
 }

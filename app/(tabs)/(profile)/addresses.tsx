@@ -7,9 +7,9 @@ import { Swipeable } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Address } from '@/app/types/cardTypes';
+import { AddressOnboarding } from '@/components/address/AddressOnboarding';
 import ContentView from '@/components/ContentView';
 import Header from '@/components/Header';
-import NoAddresses from '@/components/NoAddresses';
 import SettingsButton from '@/components/SettingsButton';
 import { ThemedView } from '@/components/ThemedView';
 import Card from '@/components/ui/Card';
@@ -69,6 +69,7 @@ export default function AddressesScreen() {
       },
     ]);
   };
+  const [addresses, setAddresses] = React.useState<Address[]>([]);
 
   const renderRightActions = (title: string) => (
     <TouchableOpacity style={styles.deleteAction} onPress={() => handleDelete(title)}>
@@ -91,8 +92,20 @@ export default function AddressesScreen() {
       ></Modal>
       <Header title={t('profile.menu.myAddresses')} hasGoBack />
       <ContentView>
-        {data.length === 0 ? (
-          <NoAddresses onPress={openModal} />
+        {addresses.length === 0 ? (
+          <AddressOnboarding
+            onOpenForm={openModal}
+            onComplete={() => {
+              // simulate fetch after onboarding
+              setAddresses([
+                {
+                  title: 'Home',
+                  address: '123 Main St',
+                  body: [],
+                },
+              ]);
+            }}
+          />
         ) : (
           <FlatList
             data={data}
