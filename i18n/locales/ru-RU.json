@@ -459,5 +459,16 @@
     "skip": "Пропустить",
     "openForm": "Добавить адрес",
     "done": "Адрес добавлен!"
+  },
+  "tracking": {
+    "title": "Отслеживание заказа",
+    "orderPlaced": "Заказ размещен",
+    "confirmed": "Заказ подтвержден",
+    "pickedUp": "Заказ забран",
+    "inTransit": "В пути",
+    "outForDelivery": "На доставке",
+    "delivered": "Доставлено",
+    "estimatedDelivery": "Ожидаемая доставка",
+    "contactCourier": "Связаться с курьером"
   }
 }

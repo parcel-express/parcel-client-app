@@ -33,9 +33,18 @@ type Props = {
   title?: string;
   message?: string;
   data?: Info[];
+  trackOrderLabel?: string;
+  onTrackOrderPress?: () => void;
 };
 
-const InfoModal: React.FC<Props> = ({ visible, onClose, title, data }) => {
+const InfoModal: React.FC<Props> = ({
+  visible,
+  onClose,
+  title,
+  data,
+  trackOrderLabel,
+  onTrackOrderPress,
+}) => {
   const windowHeight = useWindowDimensions().height;
   const height = windowHeight * 0.85;
   const billingInfo = [
@@ -112,6 +121,13 @@ const InfoModal: React.FC<Props> = ({ visible, onClose, title, data }) => {
     return (
       <View style={styles.gapMd}>
         <View style={styles.actionContainer}>
+          {onTrackOrderPress && trackOrderLabel && (
+            <View style={styles.full}>
+              <Button variant='secondary' size='sm' onPress={onTrackOrderPress}>
+                {trackOrderLabel}
+              </Button>
+            </View>
+          )}
           <View style={styles.full}>
             <Button
               variant='secondary'

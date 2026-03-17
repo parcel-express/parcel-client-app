@@ -1,4 +1,5 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { router } from 'expo-router';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -32,6 +33,7 @@ export default function OrdersScreen() {
   const [date, setDate] = React.useState<{ start?: string; end?: string }>({});
   const [refreshing, setRefreshing] = React.useState(false);
   const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [selectedOrderId, setSelectedOrderId] = React.useState<string | null>(null);
   const bottomtabHeight = useBottomTabBarHeight();
   const paddingBottom = Platform.OS === 'ios' ? bottomtabHeight + 18 : 18;
   const formik = useFormik({
@@ -128,8 +130,17 @@ export default function OrdersScreen() {
     >
       <InfoModal
         visible={isModalVisible}
-        onClose={() => setIsModalVisible(false)}
+        onClose={() => {
+          setIsModalVisible(false);
+          setSelectedOrderId(null);
+        }}
         title='შეკვეთის დეტალები'
+        trackOrderLabel={t('tracking.title')}
+        onTrackOrderPress={() => {
+          if (!selectedOrderId) return;
+          setIsModalVisible(false);
+          router.push({ pathname: '/order-tracking', params: { orderId: selectedOrderId } });
+        }}
       />
       <Header title={t('orders.title')} />
       <ContentView style={styles.container}>
@@ -151,7 +162,12 @@ export default function OrdersScreen() {
           data={filteredOrders}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => setIsModalVisible(true)}>
+            <TouchableOpacity
+              onPress={() => {
+                setSelectedOrderId(item.id);
+                setIsModalVisible(true);
+              }}
+            >
               <Card variant='orders' data={item} />
             </TouchableOpacity>
           )}
