@@ -461,5 +461,16 @@
     "skip": "Skip",
     "openForm": "Add Address",
     "done": "Address added!"
+  },
+  "tracking": {
+    "title": "Track Order",
+    "orderPlaced": "Order Placed",
+    "confirmed": "Order Confirmed",
+    "pickedUp": "Picked Up",
+    "inTransit": "In Transit",
+    "outForDelivery": "Out for Delivery",
+    "delivered": "Delivered",
+    "estimatedDelivery": "Estimated Delivery",
+    "contactCourier": "Contact Courier"
   }
 }
