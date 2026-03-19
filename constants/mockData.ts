@@ -66,6 +66,12 @@ export const MOCK_TRACKING: Record<
       status: 'completed',
     },
     {
+      key: 'pickedUp',
+      labelKey: 'tracking.pickedUp',
+      timestamp: '2026-03-16T13:05:00.000Z',
+      status: 'completed',
+    },
+    {
       key: 'inTransit',
       labelKey: 'tracking.inTransit',
       timestamp: '2026-03-17T08:25:00.000Z',
@@ -93,6 +99,12 @@ export const MOCK_TRACKING: Record<
       key: 'confirmed',
       labelKey: 'tracking.confirmed',
       timestamp: '2026-03-14T10:05:00.000Z',
+      status: 'completed',
+    },
+    {
+      key: 'pickedUp',
+      labelKey: 'tracking.pickedUp',
+      timestamp: '2026-03-14T11:35:00.000Z',
       status: 'completed',
     },
     {
@@ -126,6 +138,11 @@ export const MOCK_TRACKING: Record<
       labelKey: 'tracking.confirmed',
       timestamp: '2026-03-15T16:45:00.000Z',
       status: 'current',
+    },
+    {
+      key: 'pickedUp',
+      labelKey: 'tracking.pickedUp',
+      status: 'upcoming',
     },
     {
       key: 'inTransit',
