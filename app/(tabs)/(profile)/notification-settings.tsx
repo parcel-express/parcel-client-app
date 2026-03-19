@@ -12,6 +12,7 @@ import {
   useNotificationPreferences,
 } from '@/hooks/useNotificationPreferences';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const NotificationRow = ({ category, value, onChange, disabled }: any) => {
   const { t } = useTranslation();
 
