@@ -464,6 +464,9 @@
   },
   "tracking": {
     "title": "Track Order",
+    "orderNumber": "Order #{{id}}",
+    "noTrackingInfo": "No tracking info",
+    "retry": "Retry",
     "orderPlaced": "Order Placed",
     "confirmed": "Order Confirmed",
     "pickedUp": "Picked Up",

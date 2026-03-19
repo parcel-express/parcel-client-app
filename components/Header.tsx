@@ -2,7 +2,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleProp, StyleSheet, Text, TextStyle, TouchableOpacity, View } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
@@ -11,9 +11,10 @@ type Props = {
   title: string;
   hasGoBack?: boolean;
   closeButton?: boolean;
+  titleStyle?: StyleProp<TextStyle>;
 };
 
-const Header = ({ title, closeButton, hasGoBack }: Props) => {
+const Header = ({ title, closeButton, hasGoBack, titleStyle }: Props) => {
   const router = useRouter();
   return (
     <LinearGradient
@@ -37,7 +38,11 @@ const Header = ({ title, closeButton, hasGoBack }: Props) => {
         </TouchableOpacity>
       )}
       <Text
-        style={[hasGoBack ? styles.smallTitle : styles.title, hasGoBack && styles.centeredText]}
+        style={[
+          hasGoBack ? styles.smallTitle : styles.title,
+          hasGoBack && styles.centeredText,
+          titleStyle,
+        ]}
       >
         {title}
       </Text>

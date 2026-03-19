@@ -14,7 +14,7 @@ import { Colors } from '@/constants/Colors';
 
 export default function RootLayout() {
   const segments = useSegments();
-  const hasGradient = segments[0] === '(tabs)';
+  const hasGradient = segments[0] === '(tabs)' || segments[0] === 'order-tracking';
 
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
@@ -42,6 +42,7 @@ export default function RootLayout() {
               <Stack.Screen name='index' options={{ headerShown: false }} />
               <Stack.Screen name='(auth)' options={{ headerShown: false }} />
               <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+              <Stack.Screen name='order-tracking' options={{ headerShown: false }} />
               <Stack.Screen name='+not-found' />
               <Stack.Screen
                 name='notification-settings'
