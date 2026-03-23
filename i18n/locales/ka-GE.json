@@ -46,7 +46,10 @@
     "continueAsGuest": "გაგრძელება როგორც სტუმარი",
     "fullName": "სრული სახელი",
     "fullNamePlaceholder": "შეიყვანეთ სრული სახელი",
-    "fullNameRequired": "სრული სახელის შეყვანა აუცილებელია"
+    "fullNameRequired": "სრული სახელის შეყვანა აუცილებელია",
+    "orContinueWith": "ან გააგრძელე",
+    "google": "Google-ით შესვლა",
+    "signInWithGoogle": "Google ანგარიშით შესვლა"
   },
   "tabs": {
     "home": "მთავარი",

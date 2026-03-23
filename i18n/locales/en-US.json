@@ -46,7 +46,10 @@
     "continueAsGuest": "Continue as Guest",
     "fullName": "Full Name",
     "fullNamePlaceholder": "Enter Full Name",
-    "fullNameRequired": "Full Name is required"
+    "fullNameRequired": "Full Name is required",
+    "orContinueWith": "Or continue with",
+    "google": "Sign in with Google",
+    "signInWithGoogle": "Sign in with Google"
   },
   "tabs": {
     "home": "Home",

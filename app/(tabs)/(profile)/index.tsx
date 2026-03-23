@@ -20,6 +20,7 @@ import { ThemedView } from '@/components/ThemedView';
 import TabButton from '@/components/ui/TabButton';
 import { Colors } from '@/constants/Colors';
 import { Shadows } from '@/constants/Shadows';
+import { useAuth } from '@/hooks/useAuth';
 
 const getProfileMenuItems = () => [
   {
@@ -90,6 +91,7 @@ const getProfileMenuItems = () => [
 
 export default function ProfileScreen() {
   const { t } = useTranslation();
+  const { logout } = useAuth();
   const tabBarHeight = useBottomTabBarHeight();
   const bottomPad = Platform.OS === 'ios' ? tabBarHeight : 0;
   const menuItems = React.useMemo(getProfileMenuItems, []);
@@ -104,8 +106,7 @@ export default function ProfileScreen() {
         text: t('profile.menu.logout'),
         style: 'destructive',
         onPress: () => {
-          // TODO: Implement logout logic
-          router.replace('/(auth)/login');
+          void logout();
         },
       },
     ]);

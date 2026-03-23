@@ -46,7 +46,10 @@
     "continueAsGuest": "Продолжить как гость",
     "fullName": "Полное имя",
     "fullNamePlaceholder": "Введите полное имя",
-    "fullNameRequired": "Полное имя обязательно"
+    "fullNameRequired": "Полное имя обязательно",
+    "orContinueWith": "Или продолжить с помощью",
+    "google": "Войти через Google",
+    "signInWithGoogle": "Войти через Google"
   },
   "tabs": {
     "home": "Главная",

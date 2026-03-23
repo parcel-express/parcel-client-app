@@ -10,6 +10,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -20,6 +21,33 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { Colors } from '@/constants/Colors';
 import { Typography } from '@/constants/Typography';
+import { useGoogleAuth } from '@/hooks/useGoogleAuth';
+
+// Evaluated at bundle-time by Expo. Only renders Google sign-in when
+// the platform-appropriate client ID is actually configured.
+const hasGoogleConfig =
+  Platform.OS === 'ios'
+    ? !!process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID
+    : Platform.OS === 'android'
+      ? !!process.env.EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID
+      : !!process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID;
+
+function GoogleSignInButton() {
+  const { t } = useTranslation();
+  const { loading, promptAsync, request } = useGoogleAuth();
+  return (
+    <TouchableOpacity
+      style={styles.googleButton}
+      onPress={() => promptAsync()}
+      disabled={!request || loading}
+      accessibilityRole='button'
+      accessibilityLabel={t('login.signInWithGoogle')}
+    >
+      <Text style={styles.googleText}>{loading ? t('common.loading') : t('login.google')}</Text>
+    </TouchableOpacity>
+  );
+}
+
 type Form = {
   email: string;
   password: string;
@@ -54,7 +82,6 @@ export default function LoginScreen() {
   const handleForgotPassword = () => {
     router.push('/(auth)/forgot-password');
   };
-
   return (
     <KeyboardAvoidingView
       style={styles.flexOne}
@@ -121,6 +148,12 @@ export default function LoginScreen() {
                 {t('auth.withoutAuthorization')}
               </Button>
             </View>
+            {hasGoogleConfig && (
+              <View style={styles.socialContainer}>
+                <Text style={styles.dividerText}>{t('login.orContinueWith')}</Text>
+                <GoogleSignInButton />
+              </View>
+            )}
             <Link href='/(auth)/register'>
               <Text style={styles.linkText}>
                 {t('auth.noAccount')}
@@ -199,5 +232,29 @@ const styles = StyleSheet.create({
   },
   bold: {
     fontWeight: '700',
+  },
+  socialContainer: {
+    alignItems: 'center',
+    gap: 12,
+  },
+
+  dividerText: {
+    ...Typography.textSmMedium,
+    color: Colors.text.secondary,
+  },
+
+  googleButton: {
+    width: '100%',
+    backgroundColor: Colors.background.white,
+    borderWidth: 1,
+    borderColor: Colors.border.primary,
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+
+  googleText: {
+    ...Typography.textMdMedium,
+    color: Colors.text.primary,
   },
 });
