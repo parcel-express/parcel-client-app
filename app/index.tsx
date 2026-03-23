@@ -5,19 +5,24 @@ import { ActivityIndicator, StyleSheet } from 'react-native';
 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function SplashScreen() {
   const { t } = useTranslation();
+  const { getToken } = useAuth();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      // For now, navigate directly to auth flow
-      // In a real app, you'd check authentication status here
-      router.replace('/(auth)/login');
+      const routeBySession = async () => {
+        const token = await getToken();
+        router.replace(token ? '/(tabs)' : '/(auth)/login');
+      };
+
+      void routeBySession();
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [getToken]);
 
   return (
     <ThemedView style={styles.container}>

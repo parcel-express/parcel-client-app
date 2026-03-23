@@ -11,6 +11,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
@@ -26,6 +27,33 @@ import Select from '@/components/ui/Select';
 import { Colors } from '@/constants/Colors';
 import { INPUT_NAMES, META, OPTIONS, RegisterForm } from '@/constants/meta';
 import { Typography } from '@/constants/Typography';
+import { useGoogleAuth } from '@/hooks/useGoogleAuth';
+
+// Evaluated at bundle-time by Expo. Only renders Google sign-in when
+// the platform-appropriate client ID is actually configured.
+const hasGoogleConfig =
+  Platform.OS === 'ios'
+    ? !!process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID
+    : Platform.OS === 'android'
+      ? !!process.env.EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID
+      : !!process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID;
+
+function GoogleSignInButton() {
+  const { t } = useTranslation();
+  const { loading, promptAsync, request } = useGoogleAuth();
+
+  return (
+    <TouchableOpacity
+      style={styles.googleButton}
+      onPress={() => promptAsync()}
+      disabled={!request || loading}
+      accessibilityRole='button'
+      accessibilityLabel={t('login.signInWithGoogle')}
+    >
+      <Text style={styles.googleText}>{loading ? t('common.loading') : t('login.google')}</Text>
+    </TouchableOpacity>
+  );
+}
 
 export default function RegisterScreen() {
   const { t } = useTranslation();
@@ -166,6 +194,12 @@ export default function RegisterScreen() {
                   {t('auth.withoutRegistration')}
                 </Button>
               </View>
+              {hasGoogleConfig && (
+                <View style={styles.socialContainer}>
+                  <Text style={styles.dividerText}>{t('login.orContinueWith')}</Text>
+                  <GoogleSignInButton />
+                </View>
+              )}
               <Link href='/(auth)/login'>
                 <Text style={styles.linkText}>
                   {t('auth.haveAnAccount')}
@@ -227,6 +261,30 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'column',
     gap: 10,
+  },
+  socialContainer: {
+    alignItems: 'center',
+    gap: 12,
+  },
+
+  dividerText: {
+    ...Typography.textSmMedium,
+    color: Colors.text.secondary,
+  },
+
+  googleButton: {
+    width: '100%',
+    backgroundColor: Colors.background.white,
+    borderWidth: 1,
+    borderColor: Colors.border.primary,
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+
+  googleText: {
+    ...Typography.textMdMedium,
+    color: Colors.text.primary,
   },
 
   linkText: {
