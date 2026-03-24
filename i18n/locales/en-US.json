@@ -278,7 +278,14 @@
       "locationError": "Failed to get location",
       "typeHome": "Home",
       "typeWork": "Work",
-      "typeOther": "Other"
+      "typeOther": "Other",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteWarning": "Are you sure you want to delete this address?",
+      "defaultUpdated": "Default Address",
+      "defaultUpdatedMessage": "Default address successfully updated",
+      "copy": "Copy",
+      "copied": "Address copied"
     },
     "conditions": {
       "title": "Terms & Conditions",

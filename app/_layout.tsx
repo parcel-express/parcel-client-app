@@ -35,7 +35,7 @@ export default function RootLayout() {
       end={{ x: 1, y: 0.5 }}
       style={styles.container}
     >
-      <GestureHandlerRootView>
+      <GestureHandlerRootView style={styles.container}>
         <SafeAreaView edges={['top']} style={styles.container}>
           <ThemeProvider value={DefaultTheme}>
             <Stack>
