@@ -285,7 +285,12 @@
       "defaultUpdated": "ნაგულისხმევი მისამართი",
       "defaultUpdatedMessage": "ნაგულისხმევი მისამართი წარმატებით შეიცვალა",
       "copy": "კოპირება",
-      "copied": "მისამართი დაკოპირდა"
+      "copied": "მისამართი დაკოპირდა",
+      "importFromContacts": "კონტაქტებიდან იმპორტი",
+      "contactPermissionDenied": "კონტაქტებზე წვდომა საჭიროა",
+      "selectContact": "აირჩიეთ კონტაქტი",
+      "noContactsWithAddress": "მისამართიანი კონტაქტები არ მოიძებნა",
+      "close": "დახურვა"
     },
     "tariffs": {
       "title": "ტარიფები",
