@@ -282,7 +282,12 @@
       "defaultUpdated": "Адрес по умолчанию",
       "defaultUpdatedMessage": "Адрес по умолчанию успешно обновлен",
       "copy": "Копировать",
-      "copied": "Адрес скопирован"
+      "copied": "Адрес скопирован",
+      "importFromContacts": "Импорт из контактов",
+      "contactPermissionDenied": "Требуется разрешение на доступ к контактам",
+      "selectContact": "Выберите контакт",
+      "noContactsWithAddress": "Контакты с адресом не найдены",
+      "close": "Закрыть"
     },
     "tariffs": {
       "title": "Тарифы",

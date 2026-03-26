@@ -285,7 +285,12 @@
       "defaultUpdated": "Default Address",
       "defaultUpdatedMessage": "Default address successfully updated",
       "copy": "Copy",
-      "copied": "Address copied"
+      "copied": "Address copied",
+      "importFromContacts": "კონტაქტებიდან იმპორტი",
+      "contactPermissionDenied": "Contact permission is required",
+      "selectContact": "Select Contact",
+      "noContactsWithAddress": "No contacts with address found",
+      "close": "Close"
     },
     "conditions": {
       "title": "Terms & Conditions",
